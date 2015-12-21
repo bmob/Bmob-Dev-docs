@@ -1,5 +1,3 @@
-[TOC]
-
 ## 简介
 
 Bmob平台为您的移动应用提供了一个完整的后端解决方案，我们提供轻量级的SDK开发包，让开发者以最小的配置和最简单的方式使用Bmob平台提供的服务，进而完全消除开发者编写服务器代码以及维护服务器的操作。
@@ -1750,12 +1748,7 @@ User表是一个特殊的表，专门存储BmobUser对象。在浏览器端，�
 ![](image/create_table.png)
 
 
-### 退出登录
-使用下面代码进行注销
 
-```
-[BmobUser logout]
-```
 
 ### 修改密码
 从 `v1.6.3` 开始，我们提供使用旧密码来重置新密码的接口，示例如下：
@@ -1893,7 +1886,7 @@ BmobUser *user = [BmobUser getCurrentUser];
 ```
 //当前用户解除关联的微博账号
 BmobUser *user = [BmobUser getCurrentUser];
-[user cancleLinkedInBackgroundWithPlatform:BmobSNSPlatformSinaWeibo
+[user cancelLinkedInBackgroundWithPlatform:BmobSNSPlatformSinaWeibo
                                     block:^(BOOL isSuccessful, NSError *error) {
                                         NSLog(@"error is :%@",[error description]);
                                     }];
@@ -1902,7 +1895,7 @@ BmobUser *user = [BmobUser getCurrentUser];
 ```
 //当前用户解除关联的手机QQ账号
 BmobUser *user = [BmobUser getCurrentUser];
-[user cancleLinkedInBackgroundWithPlatform:BmobSNSPlatformQQ
+[user cancelLinkedInBackgroundWithPlatform:BmobSNSPlatformQQ
                                      block:^(BOOL isSuccessful, NSError *error) {
                                          NSLog(@"error is :%@",[error description]);
                                      }];                                                                          
@@ -1934,7 +1927,7 @@ BmobUser *user = [BmobUser getCurrentUser];
     BmobUser *buser = [[BmobUser alloc] init];
     buser.mobilePhoneNumber = @"15123456789";
     buser.password = @"123";
-    buser.email = @"xxx@gmail.com"
+    buser.email = @"xxx@gmail.com";
     [buser signUpOrLoginInbackgroundWithSMSCode:@"6位验证码" block:^(BOOL isSuccessful, NSError *error) {
         if (error) {
             NSLog(@"%@",error);
@@ -2001,9 +1994,6 @@ Bmob除了提供手机号验证码一键注册登录功能外，还另外提供�
     }];
 ```
 
-
-#### 手机号使用案例
-
 ## 子类化
 
 很多时候BmobObject并不能满足用户的需求，用户可能需要继承BmobOject来定制自己的需求。但是当用户需要保存继承类的属性至后台时，还需要做一些额外的处理。因此，我们推出子类化BmobObject的选项，以让用户的代码具备更好的扩展性。
@@ -2063,7 +2053,7 @@ Test.m
 如果要使用继承BmobUser的子类来进行登录，在构造其子类时，应用类似于以下的形式。
 
 ```
- TestUser *user = [[TestUser alloc] initFromBmobOjbect:[BmobUser getCurrentUser]];
+ TestUser *user = [[TestUser alloc] initFromBmobObject:[BmobUser getCurrentUser]];
     user.email = @"xxxaa@qq.com";
     [user sub_updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
         NSLog(@"error %@",error.description);
@@ -2079,7 +2069,7 @@ Test.m
     BmobQuery *testQuery = [Test query];
     [testQuery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         for (BmobObject *obj in array) {
-            Test *t = [[Test alloc] initFromBmobOjbect:obj];
+            Test *t = [[Test alloc] initFromBmobObject:obj];
             
         }
     }];
@@ -2951,7 +2941,7 @@ BmobGeoPoint *point = [[BmobGeoPoint alloc] initWithLongitude:116.39727786183357
 BmobGeoPoint  *point = [[BmobGeoPoint alloc] initWithLongitude:116.39727786183357 WithLatitude:39.913768382429105];
 BmobQuery *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 [bquery whereKey:@"location" nearGeoPoint:point];
-[bquerysetLimit:10];
+[bquery setLimit:10];
 [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
 	//进行操作
 }];
