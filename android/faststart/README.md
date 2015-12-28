@@ -86,7 +86,7 @@
 在你应用程序启动的Activity的onCreate()方法中初始化Bmob功能。代码如下所示：
 ```java
 package com.bmob.example;
-import cn.bmob.Bmob;
+import cn.bmob.v3.Bmob;
 import android.app.Activity;
 import android.os.Bundle;
 public class MainActivity extends Activity {
