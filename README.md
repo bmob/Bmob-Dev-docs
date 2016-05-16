@@ -1,2 +1,4 @@
 # Bmob-Dev-docs
-Bmob 开发者文档
+Bmob 开发文档
+
+
