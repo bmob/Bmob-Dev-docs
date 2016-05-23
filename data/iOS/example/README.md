@@ -360,6 +360,28 @@ BmobQuery *query = [BmobQuery queryWithClassName:@"Feedback"];
 ### 失物招领案例下载
 [反馈案例下载](https://github.com/bmob/bmob-ios-demo "反馈案例下载")
 
+## 其他案例
 
+快速入门相关源码:[https://github.com/bmob/bmob-ios-demo](https://github.com/bmob/bmob-ios-demo)
+
+数据关联章节Demo下载:[https://github.com/bmob/bmob-ios-demo/tree/master/BmobSDK/BmobRelationDemo](https://github.com/bmob/bmob-ios-demo/tree/master/BmobSDK/BmobRelationDemo)
+
+第三方登录Demo:[https://github.com/bmob/bmob-ios-demo](https://github.com/bmob/bmob-ios-demo)
+
+文件管理Demo:[https://github.com/bmob/bmob-ios-demo/tree/master/BmobSDK/BmobFileDemo](https://github.com/bmob/bmob-ios-demo/tree/master/BmobSDK/BmobFileDemo)
+
+数据实时更新Demo:[https://github.com/bmob/bmob-ios-demo/blob/master/BmobDataDemo_iOS.zip](https://github.com/bmob/bmob-ios-demo/blob/master/BmobDataDemo_iOS.zip)
+
+BmobIMSDK源代码：[https://github.com/bmob/bmob-iOS-im-sdk](https://github.com/bmob/bmob-iOS-im-sdk)
+
+Swift使用BmobSDK案例源码:[https://github.com/bmob/bmob-app-demo-show/blob/master/download/BmobSwift.zip](https://github.com/bmob/bmob-app-demo-show/blob/master/download/BmobSwift.zip)
+
+踢球吧源码[https://github.com/bmob/BmobTiQiuBa](https://github.com/bmob/BmobTiQiuBa)
+
+mexiQQ开发者实现的iOS实践案例[https://github.com/bmob/VReader-iOS](https://github.com/bmob/VReader-iOS)
+
+iOS云端逻辑案例:[https://github.com/bmob/bmob-ios-demo/blob/master/CloudFunction.zip](https://github.com/bmob/bmob-ios-demo/blob/master/CloudFunction.zip)
+
+iOS BmobSDK API使用案例:[https://github.com/bmob/bmob-ios-demo/blob/master/BmobStorageDemo.zip](https://github.com/bmob/bmob-ios-demo/blob/master/BmobStorageDemo.zip)
 
 

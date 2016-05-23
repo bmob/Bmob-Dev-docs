@@ -1,4 +1,4 @@
-#Android 示例与教程
+# Android 示例与教程
 
 ## 失物招领案例教程
 
@@ -10,15 +10,15 @@
 
 本案例将使用到Bmob的如下功能：
 
-1、	添加数据
+1.添加数据
 
 添加失物/招领信息到服务器中。
 
-2、	查找数据
+2.查找数据
 
 在列表中显示所有用户发布的失物/招领信息。
 
-3、	删除数据
+3.删除数据
 
 删除已发布的失物/招领信息。
 
@@ -47,17 +47,18 @@
 
 失物表（Lost）
 
-|字段名 | 类型 | 描述|
-|:-----|:----|:---|
-|describe| String|失物的描述信息|
+|字段名|类型|描述|
+|:---|:---|:---|
+|describe|String|失物的描述信息|
 |phone|String|联系的手机号码|
 |title|String|失物的标题信息|
 
+
 招领表（Found）
 
-|字段名 | 类型 | 描述|
-|:-----|:----|:---|
-|describe| String|招领的描述信息|
+|字段名|类型|描述|
+|:---|:---|:---|
+|describe|String|招领的描述信息|
 |phone|String|联系的手机号码|
 |title|String|招领的标题信息|
 
@@ -204,22 +205,20 @@ Bmob云数据库对每条新增的数据都有一个唯一标识（objectId）�
 
 电影表（Movie表）
 
-|字段名 | 类型 | 描述|
-|:-----|:----|:---|
-|name | String|电影名称|
+|字段名|类型|描述|
+|:---|:---|:---|
+|name|String|电影名称|
 |file|File|电影文件|
 
 
 音乐表（Music表）
 
-|字段名 | 类型 | 描述|
-|:-----|:----|:---|
-|name | String|歌曲名称|
-|artist|String|艺术家|
+|字段名|类型|描述|
+|:---|:---|:---|
+|name|String|歌曲名称|
+|artist|String	|艺术家|
 |mp3|File|mp3文件|
 |lrc|File|歌词文件|
-
-
 
 ### 安装和初始化SDK
 
@@ -237,8 +236,8 @@ protected void onCreate(Bundle savedInstanceState) {
 ### 创建模型类文件
 
 为操作Bmob的云端数据库，SDK首先需要创建数据表对应的模型类（模型类的名称必须和云端数据表的名称一致），该类需要继承自BmobObject，实现刚刚创建的数据表字段的set和get方法（系统默认字段objectId、createAt、updateAt不需要声明）。因为本案例需要操作Movie表和Music表，因此需要创建Movie类和Music类。下面是Movie模型类的实现代码（Music模型类的实现代码略）：
-
 ```java
+
 public class Movie extends BmobObject {
 private String name;//电影名称
 private BmobFile file;//电影文件
@@ -270,7 +269,7 @@ public void setFile(BmobFile file) {
 
 ```
 
-### 上传一条单个文件的数据
+###　上传一条单个文件的数据
 
 往Movie表中添加一条数据非常简单，只需要等到文件上传（BmobFile类的upload方法上传）成功之后，再调用数据服务的insertObject方法将这条数据插入到云数据库中就可以了。实现代码如下：
 
@@ -441,7 +440,7 @@ private void insertObject(final BmobObject obj){
 
 文件上传是移动领域最基础的服务，BmobSDK_v3.2.7提供了批量上传文件的方法，此方法大大简化了开发者对文件的批量操作，也欢迎大家提出更多的意见和建议帮助Bmob更好的发展。谢谢～
 
-**注：如需查看该文的相关代码，可自行去官网下载的BmobSDK_v3.2.7版本下的BmobExample示例工程中BmobFileActivity类查看。也可以去bodismile的github地址（https://github.com/bodismile/bmob-android-upload-file）查看。**
+**注：如需查看该文的相关代码，可自行去官网下载的BmobSDK_v3.2.7版本下的BmobExample示例工程中BmobFileActivity类查看。也可以去bodismile的github地址[https://github.com/bodismile/bmob-android-upload-file](https://github.com/bodismile/bmob-android-upload-file) 查看。**
 
 ## 反馈案例教程
 
@@ -450,10 +449,10 @@ private void insertObject(final BmobObject obj){
 
 本案例将使用到Bmob的如下功能：
 
-1、	推送服务
+1.推送服务
 将用户的反馈信息实时推送到订阅了接收反馈信息的设备中，实现端到端的消息传递。
 
-2、	数据存储服务
+2.数据存储服务
 
 添加和查看反馈信息，使用到了添加、查询和按时间排序的功能。
 
@@ -471,52 +470,26 @@ private void insertObject(final BmobObject obj){
 ### 反馈案例数据结构设计
 在Bmob开发者后台创建一个应用（还不知道怎么创建应用和添加数据表的开发朋友请先移步[快速入门指南](http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "快速入门指南")查看相关教程），添加两个表，分别是Feedback（用户反馈信息表，存储用户提交的反馈信息）和Installation（设备安装表，存储需要接收推送信息的设备信息）。以下是对这两个表的数据结构的详细描述（省略对常用默认字段objectId、createAt、updateAt的描述）
 
-<center>
+
 Feedback表
-</center>
 
-<table>
-    <tr>
-        <td>字段名</td><td>类型</td><td>描述</td>
-    </tr>
-	<tr>
-        <td>Contact</td><td>String</td><td>用户的联系方式</td>
-    </tr>
-	<tr>
-        <td>deviceType</td><td>String</td><td>系统字段，是一个必须的字段, 必须被设置为 "ios" 或者 "android", 而且自这个对象生成以后就不能变化</td>
-    </tr>
-</table>
+|字段名|类型|描述|
+|:---|:---|:---|
+|Contact|String|用户的联系方式|
+|deviceType	|String|系统字段，是一个必须的字段, 必须被设置为 "ios" 或者 "android", 而且自这个对象生成以后就不能变化|
 
-<center>
+
 Installation表
-</center>
 
-<table>
-	<tr>
-        <td>字段名</td><td>类型</td><td>描述</td>
-    </tr>
-	<tr>
-        <td>installationId</td><td>String</td><td>系统字段，是一个Bmob生成的字符串标志, 而且如果 deviceType 是 android 的话是一个必填字段, 如果是 ios 的话则可选. 它只要对象被生成了就不能发生改变, 而且对一个 app 来说是不可重复的</td>
-    </tr>
-	<tr>
-        <td>deviceToken</td><td>String</td><td>系统字段，是一个 Apple 生成的字符串标志, 在 deviceType 为 ios 上的设备是必须的, 而且自对象生成开始就不能改动, 对于一个 app 来说也是不可重复的</td>
-    </tr>
-	<tr>
-        <td>badge</td><td>Number</td><td>系统字段，表示iOS 设备最新已知的应用badge</td>
-    </tr>
-	<tr>
-        <td>timeZone</td><td>String</td><td>系统字段，表示安装的这个设备的系统时区</td>
-    </tr>
-	<tr>
-        <td>channels</td><td>Array</td><td>系统字段，表示这个安装对象的订阅频道列表</td>
-    </tr>
-	<tr>
-        <td>appIdentifiter</td><td>String</td><td>iOS应用的Bundle identifier</td>
-    </tr>
-	<tr>
-        <td>isDeveloper</td><td>Boolean</td><td>是否是开发者（是的话则用于接收推送信息）</td>
-    </tr>
-</table>
+|字段名|类型|描述|
+|:---|:---|:---|
+|installationId|String|系统字段，是一个Bmob生成的字符串标志, 而且如果 deviceType 是 android 的话是一个必填字段, 如果是 ios 的话则可选. 它只要对象被生成了就不能发生改变, 而且对一个 app 来说是不可重复的|
+|deviceToken|String|系统字段，是一个 Apple 生成的字符串标志, 在 deviceType 为 ios 上的设备是必须的, 而且自对象生成开始就不能改动, 对于一个 app 来说也是不可重复的|
+|badge|Number|系统字段，表示iOS 设备最新已知的应用badge|
+|timeZone|String|系统字段，表示安装的这个设备的系统时区|
+|channels|Array|系统字段，表示这个安装对象的订阅频道列表|
+|appIdentifiter|String|iOS应用的Bundle identifier|
+|isDeveloper|Boolean|是否是开发者（是的话则用于接收推送信息）|
 
 
 ### 安装和初始化
@@ -657,5 +630,45 @@ query.findObjects(this, new FindListener<Feedback>() {
 
 ### 反馈案例案例下载
 [反馈案例下载](https://github.com/bmob/bmob-app-demo-show/blob/master/download/android_feedback_demo.zip "反馈案例下载")
+
+
+## 其它案例
+
+
+快速入门相关源码下载[http://www.bmob.cn/static/Bmob_android_quickstart.zip](http://www.bmob.cn/static/Bmob_android_quickstart.zip)
+
+
+即时聊天案例源码[https://github.com/bmob/BmobIMSDK4Android](https://github.com/bmob/BmobIMSDK4Android)
+
+图文社区案例源码：[https://git.oschina.net/v7/Wonderful](https://git.oschina.net/v7/Wonderful)  这个案例是猿圈媛圈开发团队提供的。
+
+校园小菜案例源码：[https://github.com/bmob/Shop](https://github.com/bmob/Shop) 这个案例是湖工大的朋友提供的。
+
+社交分享案例源码：[https://github.com/bmob/bmob-android-social-share](https://github.com/bmob/bmob-android-social-share) 这个是金刚锁开发者提供的
+
+第三方登录案例源码：[https://github.com/bmob/bmob-android-demo-thirdpartylogin](https://github.com/bmob/bmob-android-demo-thirdpartylogin)  包含第三方登录和登录后获取用户信息的源码。
+
+自定义表名情况下增删改查数据的Demo，下载地址是：[https://github.com/bmob/bmob-android-demo-dynamic-tablename](https://github.com/bmob/bmob-android-demo-dynamic-tablename)。
+
+使用分页查询，结合ListView开发下拉刷新查看更多内容[https://github.com/bmob/bmob-android-demo-paging](https://github.com/bmob/bmob-android-demo-paging)。
+
+短信验证的demo：[https://github.com/bmob/bmob_android_demo_sms](https://github.com/bmob/bmob_android_demo_sms) 。
+
+缩略图案例源码：[https://github.com/bmob/bmob-android-demo-thumbnail](https://github.com/bmob/bmob-android-demo-thumbnail)
+
+数据的实时同步服务应用实例（ [https://github.com/bmob/bmob-android-demo-realtime-data](https://github.com/bmob/bmob-android-demo-realtime-data) ）供大家参考。
+
+ACL相关的案例源码：[https://github.com/bmob/bmob-android-demo-acl](https://github.com/bmob/bmob-android-demo-acl)
+
+
+推送案例Demo:[https://github.com/bmob/bmob-android-demo-push](https://github.com/bmob/bmob-android-demo-push)
+
+BmobSDK自动更新实例程序源码：[https://github.com/bmob/bmob-android-demo-autoupdate](https://github.com/bmob/bmob-android-demo-autoupdate)
+
+踢球吧源码[https://github.com/bmob/BmobTiQiuBa](https://github.com/bmob/BmobTiQiuBa)
+
+android云端逻辑案例:[http://www.bmob.cn/static/Bmob_Sample_android_cloud.zip](http://www.bmob.cn/static/Bmob_Sample_android_cloud.zip)
+
+基于Bmob的二维码扫描工具:[https://github.com/bmob/FindLook](https://github.com/bmob/FindLook)
 
 
