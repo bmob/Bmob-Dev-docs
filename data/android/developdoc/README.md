@@ -45,7 +45,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion '22.0.1'
 
-	//**bmob-sdk:3.4.6版本依赖包，用于兼容Android6.0系统**
+	//**兼容Android6.0系统所需，如果这句话报错，可将其导入到libs文件夹下面**
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
@@ -71,19 +71,28 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
 	//以下SDK开发者请根据需要自行选择
+
     //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
+	//3.4.7依赖，其他诸如`org.apache.http.legacy`,如果你需要兼容Android6.0可自行添加
+	compile 'cn.bmob.android:bmob-sdk:3.4.7'
+	compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.okio:okio:1.7.0'
+	//注：3.4.7的SDK将数据的加解密实现转移到了底层so中，请务必导入`libbmob.so`，否则无法使用BmobSDK。
+
+	//3.4.6依赖，每个SDK对应特定版本的okhttp相关包，不可更改
 	compile 'cn.bmob.android:bmob-sdk:3.4.6'
-	compile 'com.squareup.okhttp:okhttp:2.4.0'//自`V3.4.3版本`开始，使用`okhttp`优化SDK的网络框架     
+	compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.okio:okio:1.4.0'
     compile 'com.android.support:support-v4:23.2.1'
-	//注:bmob-sdk:3.4.6需要依赖okhttp（2.4.0）、okio（2.4.0），如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy包，具体可查看下面注释[1]的解释
+	//注:bmob-sdk:3.4.6需要依赖okhttp（2.4.0）、okio（1.4.0），如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy包，具体可查看下面注释[2]的解释
 
     //bmob-push：Bmob的推送包
     compile 'cn.bmob.android:bmob-push:0.8'
 
-	//bmob-im：Bmob的即时通讯包，如果想使用即时通讯服务，则添加以下两个包，注意每个版本的im依赖特定版本的bmob-sdk，而bmob-sdk又需要特定的依赖库，具体可以查看下面注释[2]中的对应关系
-	compile 'cn.bmob.android:bmob-im:1.1.9'
-	compile 'cn.bmob.android:bmob-sdk:3.4.3'
+	//bmob-im：Bmob的即时通讯包，如果想使用即时通讯服务，则添加以下两个包，注意每个版本的im依赖特定版本的bmob-sdk，而bmob-sdk又需要特定的依赖库，具体可以查看下面注释[3]中的对应关系
+	compile 'cn.bmob.android:bmob-im:2.0.4'
+	compile 'cn.bmob.android:bmob-sdk:3.4.6'
+	//注：别忘记导入3.4.6的相关依赖包
 
 	//bmob-sms ：Bmob单独为短信服务提供的包
     compile 'cn.bmob.android:bmob-sms:1.0.1'
@@ -94,25 +103,33 @@ dependencies {
 
 **注：**
 
-**[1]、bmob-sdk:3.4.6依赖以下包：**
+**[1]、bmob-sdk：3.4.7依赖以下包：**
 
-- `okhttp（2.4.0）、okio（1.4.0）`：CDN文件服务使用okhttp相关包进行文件的上传和下载（必填）
+- `okhttp3(3.2.0)、okio(1.7.0)`:CDN文件服务的依赖库升级到`okhttp3`，用于文件的上传和下载（`必填`）
+- `libbmob.so`                :用来替换数据加解密方式的底层so库（`必填`），在官网下载的SDK解压包的libs目录内
+
+注：由于`PermissionManager权限管理类`需要依赖`support-v4:23.2.1`的jar包,导致开发者认为SDK依赖文件较多，故分离出SDK。开发者如果需要兼容Android6.0系统，可以在下载的SDK的官方Demo的`com.example.bmobexample.permission`包下面查看该类源码。
+
+**[2]、bmob-sdk:3.4.6依赖以下包：**
+
+- `okhttp（2.4.0）、okio（1.4.0）`：CDN文件服务使用okhttp相关包进行文件的上传和下载（`必填`）
 - `support-v4（23.2.1）`:用于兼容Android6.0系统，并提供权限管理工具（如果需要兼容Android6.0系统，则需添加此依赖）
 - `org.apache.http.legacy`：用于兼容Android6.0系统（如果需要兼容Android6.0系统，则需添加此依赖）
 
-**[2]、每个版本的im依赖特定版本的bmob-sdk：**
+**[3]、每个版本的im依赖特定版本的bmob-sdk：**
 
 - `bmob-im:1.1.8--->bmob-sdk:3.3.5`
 - `bmob-im:1.1.9--->bmob-sdk:3.4.3`
 - `bmob-im:2.0.1--->bmob-sdk:3.4.6-0304`
 - `bmob-im:2.0.2--->bmob-sdk:3.4.6-0304`
 - `bmob-im:2.0.3--->bmob-sdk:3.4.6`
+- `bmob-im:2.0.4--->bmob-sdk:3.4.6`
 
 	其中`bmob-sdk:3.4.6-0304`是Bmob Android SDK的过渡版本，主要用于NewIM_v2.0.1及v2.0.2。
 
-**[3]、bmob-sms适用于只需要使用Bmob短信功能的开发者，而bmob-sdk内部包含了bmob-sms的短信功能,请不要重复添加。**
+**[4]、bmob-sms适用于只需要使用Bmob短信功能的开发者，而bmob-sdk内部包含了bmob-sms的短信功能,请不要重复添加。**
 
-**[4]、BmobSDK的官方仓库：[bmob-android-sdk](https://github.com/bmob/bmob-android-sdk)，开发者可到此仓库查看最新发布的各版本SDK，我们会尽量与官网发布的SDK保持同步更新。**
+**[5]、BmobSDK的官方仓库：[bmob-android-sdk](https://github.com/bmob/bmob-android-sdk)，开发者可到此仓库查看最新发布的各版本SDK，我们会尽量与官网发布的SDK保持同步更新。**
 
 ### Eclipse导入
 
@@ -124,8 +141,9 @@ dependencies {
 
 右键工程根目录，选择`Properties -> Java Build Path -> Libraries`，然后点击`Add External JARs...` 选择指向该libs文件夹下的jar的路径，点击OK即可。
 
-2、BmobSDK_v3.4.6需要依赖okhttp（2.4.0）、okio（1.4.0），如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy依赖包。
+2、BmobSDK_v3.4.7需要依赖`okhttp3（3.2.0）、okio（1.7.0）`及`libbmob.so`库。
 
+3、BmobSDK_v3.4.6需要依赖`okhttp（2.4.0）、okio（1.4.0）`，如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy依赖包。
 
 ## 兼容Android6.0
 
@@ -149,11 +167,15 @@ Android6.0版本移除了对Appache的HTTP client的支持，因此，需要添�
 		useLibrary 'org.apache.http.legacy'
 	}
 
+**注：如果在build.gradle文件中`useLibrary 'org.apache.http.legacy'`这句话报错，可将该jar直接放到libs目录下即可。**
+
 ### 运行时权限管理
 
 Android6.0中对特定的权限进行了动态授权的方式，需要在运行时用户手动授予，如果用户拒绝后再次申请还可以向用户弹框说明权限的作用，用户点击确认后再去申请。
 
-因此，SDK新增了一个支持Android6.0权限管理的工具类`PermissionManager(cn.bmob.v3.helper)`，具体使用如下：
+因此，我们提供了一个权限管理的工具类`PermissionManager(cn.bmob.v3.helper)`，具体使用如下：
+
+**注：在`v3.4.6`的BmobSDK内部集成`PermissionManager`类，自`v3.4.7`以后的SDK内部将不再提供该类，开发者可以在下载的配套官方Demo的`com.example.bmobexample.permission`包下面查看该类源码。**
 
 1.构建`PermissionManager`对象
 
