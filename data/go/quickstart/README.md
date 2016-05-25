@@ -1,6 +1,3 @@
-Bmob Go SDK开发文档
-
-===============
 
 本文档是Bmob官方提供的Go SDK，方便Go开发人员快速使用Bmob进行后端开发。
 
@@ -85,3 +82,5 @@ func main() {
 问答社区：[http://wenda.bmob.cn](http://wenda.bmob.cn)
 
 技术邮箱：support@bmob.cn
+
+

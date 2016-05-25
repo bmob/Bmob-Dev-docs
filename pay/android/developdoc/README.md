@@ -1,6 +1,3 @@
-# Android支付SDK
-
-
 
 ## 简介
 

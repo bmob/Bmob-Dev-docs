@@ -1,5 +1,3 @@
-Bmob PHP SDK开发文档
-================
 
 本文档是Bmob官方提供的PHP SDK，方便PHP开发人员快速使用Bmob进行后端开发。
 
@@ -119,3 +117,4 @@ Bmob云端代码调用类
 问答社区：[http://wenda.bmob.cn](http://wenda.bmob.cn)
 
 技术邮箱：support@bmob.cn
+

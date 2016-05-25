@@ -1,4 +1,4 @@
-# Bmob Query Language 详细指南
+
 
 Bmob Query Language（简称 BQL） 是 Bmob 为查询 API 定制的一套类似 SQL 查询语法的子集和变种，主要目的是降低大家学习 Bmob 查询的 API 的成本，可以使用传统的 SQL 语法来查询 Bmob 应用内的数据。
 
@@ -602,3 +602,4 @@ select * from GameScore where gps = {'__type':'GeoPoint','latitude':24.52065,'lo
 BQL 最终还是转换成 [Rest API文档](/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful "Rest API文档") 里查询部分提到的各种 where 条件，因为多了一层转换，理论上会比直接使用 where 查询慢一点。并且 BQL 对长度有所限制，要求在 4096 字节以内。
 
 此外，我们推荐查询语句都采用占位符的方式，使用占位符的查询语句将有机会被缓存复用，避免重复解释的开销。
+

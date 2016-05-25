@@ -1,8 +1,8 @@
-# 简介
+## 简介
 
 libGDX是一个开源的游戏框架，其优势是兼容性非常好，可兼容多种平台系统（Windows、Linux、Max OS X、Java Applet、Javascript/WebGL），包括移动系统Android和iOS，并且使用的是最为广泛的java语言来进行开发，因此前景相当不错。最近有不少开发者问到关于如何配合使用BmobSDK和libGDX来开发ios游戏，这其中大部分都是只接触过Android的开发者（引擎使用java开发的原因），对于ios不熟悉，因此在使用的过程中会遇到一些问题。因此，本文将详细地讲解如何搭建开发环境，并介绍如何在libGDX如何使用BmobSDK进行iOS游戏的开发。
 
-# 开发环境搭建
+## 开发环境搭建
 
 搭建开发主要有以下两大部分
 
@@ -10,9 +10,9 @@ libGDX是一个开源的游戏框架，其优势是兼容性非常好，可兼�
 2. libGDX的环境搭建
 
 
-## RoboVM的搭建
+### RoboVM的搭建
 
-### RoboVM简介
+#### RoboVM简介
 以下文字摘自百度百科
 
 ```
@@ -22,7 +22,7 @@ RoboVM 同时包含一个 Java 到 Objective-C 的桥，可像其他 Java 对象
 RoboVM类似于Android的jni，使用它就可以使用Java来调用Object-C对象，用Java进行iOS开发。
 
 
-### RoboVM搭建
+#### RoboVM搭建
 1.安装Java JDK，注意需要1.7以上才支持RoboVM
 
 2.下载eclipse
@@ -43,7 +43,7 @@ RoboVM类似于Android的jni，使用它就可以使用Java来调用Object-C对�
 
 ![](image/libGDX_3.jpg)
 
-## libGDX环境搭建&工程创建
+### libGDX环境搭建&工程创建
 
 1.进入[libGDX官网](http://libgdx.badlogicgames.com/download.html)下载libGDX工程生成工具，该工具是一个jar应用。
 
@@ -77,7 +77,7 @@ RoboVM类似于Android的jni，使用它就可以使用Java来调用Object-C对�
 
 ![](image/libGDX_11.jpg)
 
-## 使用BmobSDK进行iOS开发
+### 使用BmobSDK进行iOS开发
 
 按照教程完成上述的工程创建后就可以进行开发了。下面将讲述如何使用BmobSDK.framework进行开发。
 
@@ -140,5 +140,7 @@ RoboVM类似于Android的jni，使用它就可以使用Java来调用Object-C对�
 
 ![](image/libGDX_17.jpg)
 
-# 总结
+## 总结
 本教程主要讲解如何搭建libGDX开发环境，并结合BmobSDK来进行开发。如果在对文章有任何疑问或者发现错误之处，欢迎提出。
+
+

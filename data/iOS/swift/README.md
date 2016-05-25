@@ -1,4 +1,3 @@
-# Swift项目中使用BmobSDK
 
 本文档的目的是为了方便大家在Swift工程中使用BmobSDK，实现应用的快速开发。下面介绍怎么在 Swift 工程中使用 BmobSDK。
 
