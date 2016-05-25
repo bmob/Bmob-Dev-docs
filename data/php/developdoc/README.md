@@ -19,7 +19,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 目前为止，我们支持的数据类型有String、Integer、Boolean、ArrayList以及BmobObject对象类型。同时Bmob也支持BmobDate、BmobGeoPoint、BmobFile数据类型。
 
-## php sdk相关类的说明
+## phpsdk相关类的说明
 
 lib/BmobObject.class.php:对象操作类
 lib/BmobUser.class.php：用户操作类
@@ -2427,3 +2427,5 @@ array（
 ）
 
 ```
+
+

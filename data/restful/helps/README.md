@@ -39,7 +39,7 @@ curl_setopt($c, CURLOPT_SSL_VERIFYHOST, FALSE);
 
 顺便说一句，PHP中的话，可以直接用`http_build_query`方法构造请求参数。
 
-### Restapi 有 IM 吗？
+### Restapi有IM吗？
 
 restapi可以发送推送信息，也可以通过get的方式获取聊天内容，但没有开放长连接服务，也就是说用restapi可以实现im功能，但方法只能通过定时器+get数据的方式。
 

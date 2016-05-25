@@ -1,5 +1,5 @@
 
-## Android 即时通讯服务
+## Android即时通讯服务
 
 为解决旧版IM的一些问题，比如：`无法自定义消息类型，消息发送受限于BmobPushSDK，API设计不够合理规范且不易扩展，聊天消息出现接收延迟或丢失的问题等`，自`V2.0.0`开始,`BmobNewIM`采用全新架构（不兼容旧版IM），设计更加合理规范，API更加简单易用，扩展性强。**强烈建议开发者使用新版IM**。
 
@@ -16,14 +16,14 @@
 - **API设计更加合理规范**
   全新的架构设计，API更加简单易用，较旧版进一步降低开发者使用成本
 
-### Android 旧版IM 文档
+### Android旧版IM文档
 
 为了和新版IM进行区分，我们将`V2.0.0`之前的版本统称为`旧版IM`，由于我们已不再对其进行维护，故将其开源，想要`浏览旧版IM源码、Demo及开发文档`，可移步我们的GitHub地址：[bmob-android-im-sdk](https://github.com/bmob/bmob-android-im-sdk)。
 
 
 **以下介绍文档均指新版IM**
 
-### Android NewIM 快速入门
+### Android-NewIM快速入门
 
 请按照以下步骤完成NewIM的集成工作：
 
@@ -1929,3 +1929,4 @@ BmobIMLocationMessage *message = [BmobIMLocationMessage messageWithAddress:@"广
     
 }
 ```
+

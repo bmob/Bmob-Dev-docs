@@ -20,7 +20,7 @@
 |10777|上次发起的请求还未处理完成，禁止下次请求，可用BmobPay.ForceFree()解除|
 
 
-## REST API错误码列表
+## RESTAPI错误码列表
 |HttpResponseCode|错误码|含义|
 |------|:---------|:---------|
 |401||unauthorized|

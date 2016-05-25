@@ -151,7 +151,7 @@ function onRequest(request, response, modules) {
 
 oData对象的其他操作方法如下：
 
-###　查询多条数据
+### 查询多条数据
 ```
 find({
   "table":"XXX",          //表名

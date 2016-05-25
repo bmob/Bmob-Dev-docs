@@ -1,4 +1,4 @@
-## Android SDK错误码列表
+## AndroidSDK错误码列表
 |错误码      |    内容 | 含义  |
 |:-------- |:--------| :-- |
 |9001|AppKey is Null, Please initialize BmobSDK. |Application Id为空，请初始化.|
@@ -22,7 +22,7 @@
 |9019|格式不正确：手机号码、邮箱地址、验证码|格式不正确：手机号码、邮箱地址、验证码|
 
 
-## REST API错误码列表
+## RESTAPI错误码列表
 |HttpResponseCode|错误码|含义|
 |------|:---------|:---------|
 |401||unauthorized|

@@ -267,7 +267,7 @@ public void setFile(BmobFile file) {
 
 ```
 
-###　上传一条单个文件的数据
+### 上传一条单个文件的数据
 
 往Movie表中添加一条数据非常简单，只需要等到文件上传（BmobFile类的upload方法上传）成功之后，再调用数据服务的insertObject方法将这条数据插入到云数据库中就可以了。实现代码如下：
 

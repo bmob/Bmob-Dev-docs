@@ -514,7 +514,7 @@ select sum(playScore),count(*) from GameScore group by name having _sumPlayScore
 **2、其他关键字和sum的使用类似，只需要以上的`sum`换为`average`,`max`, `min`，其中`average`返回的平均值列名为：`(_avg+(首字母大写的列名))`。**
 
 
-## 内置函数
+## 内置函数介绍
 
 BQL提供了一些`内置函数`来方便地创建 `pointer`、`geopoint`、`date`、`file`等类型：
 

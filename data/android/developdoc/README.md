@@ -8,7 +8,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 ## SDK导入
 
-### Android Studio配置
+### AndroidStudio配置
 
 鉴于目前Google官方推荐使用 `Android Studio` 进行Android项目开发，自 `V3.4.2` 开始，Bmob Android SDK 可以使用Gradle来进行包依赖管理，如果你使用Android Studio来进行基于BmobSDK的项目开发，建议你按照如下两个步骤进行：
 

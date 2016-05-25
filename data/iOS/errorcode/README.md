@@ -1,5 +1,5 @@
 
-## iOS SDK错误码列表
+## iOSSDK错误码列表
 |错误码|内容|含义|
 |:--|:--|:--|
 |100|It is busy...Try it later!|一般是请求服务器的内容有误，如果是查询的话，请检查一下查询条件是否有误.|
@@ -28,7 +28,7 @@
 |20029|Invalid sms code, the format can't be empty or null|非法验证码|
 |20030|File not exist|获取文件url、删除文件时传入的文件名不存在|
 
-## REST API错误码列表
+## RESTAPI错误码列表
 |HttpResponseCode|错误码|含义|
 |------|:---------|:---------|
 |401||unauthorized|

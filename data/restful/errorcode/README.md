@@ -1,5 +1,5 @@
 
-## REST API错误码列表
+## RESTAPI错误码列表
 |HttpResponseCode|错误码|含义|
 |------|:---------|:---------|
 |401||unauthorized|
