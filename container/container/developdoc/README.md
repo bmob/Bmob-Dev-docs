@@ -7,7 +7,6 @@
 只需要完成下面的两步，你就可以使用bmob的容器服务：
 
 1.购买容器
-
 2.代码部署
 
 ## 购买容器
@@ -43,11 +42,7 @@
 
 接下来还需要用户把自身的代码部署到容器上，才能正常使用容器。
 
-
-
 ## 代码部署
-
-
 
 为了让你的用户能访问你的容器，请你为容器设置一个访问域名，输入域名后点击“保存”按钮，如下图：
 
@@ -65,7 +60,6 @@ git clone git@github.com:newjueqi/containerdemo.git
 这个github项目的内容如下：
 
 ![](image/14.png)
-
 
 注意：
 
@@ -88,7 +82,6 @@ git clone git@github.com:newjueqi/containerdemo.git
 
 ![](image/10.png)
 
-
 确认你要拉取的代码分支，在github项目页面上查看所拉取的代码分支，如下图所示，拉取的分支为"master"
 
 ![](image/7.png)
@@ -98,16 +91,13 @@ git clone git@github.com:newjueqi/containerdemo.git
 
 ![](image/11.png)
 
-
 等待一段时间（这段时间的长久取决于下载github项目代码的时间），看到日志中出现下面的信息就表示代码部署已经成功：
 
 ![](image/12.png)
 
-
 同时查看“代码部署”栏，代码部署成功后出现“生产环境版本号”和“版本日志”，如下图所示：
 
 ![](image/13.png)
-
 
 最后访问域名“http://bmobdemo.bmobapp.com/”，网页输出如下：
 
