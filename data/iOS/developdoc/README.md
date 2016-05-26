@@ -75,9 +75,7 @@ BmobInstallation对象主要用于应用的安装设备管理中，它对应着w
 
 目前为止，我们支持的数据类型有NSString、NSNumber、NSDate、NSArray、NSDictionary以及BmobObject及其子类对象类型。对应后台的类型为String、Number、Date、Array、Object以及Pointer。
 
-
 ### 创建BmobObject对象
-
 
 BmobObject提供以下几种方法对BmobOjbect进行初始化：
 
@@ -401,7 +399,6 @@ date = {
     }];
 ```
 
-
 ### 批量数据操作
 Bmob提供了批量操作的类BmobObjectsBatch,使用该类，可以批量增加，修改，删除数据，但一次请求不能超过50条数据。下面是例子程序：
 
@@ -419,8 +416,6 @@ BmobObjectsBatch    *batch = [[BmobObjectsBatch alloc] init] ;
 ```
 
 ## 查询
-
-
 
 ### 查询单条数据
 
@@ -448,7 +443,6 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
   }
 }];
 ```
-
 
 ### 查询多条数据
 
@@ -485,7 +479,6 @@ BmobQuery   *bquery = [BmobRole query]; //角色表
 
 ### 条件查询
 
-
 #### 比较查询
 当然了，在大多数情况下，开发者还是会通过特定的条件来筛选，过滤某些数据来进行查询。BmobQuery也提供了对应的查询方法。
 
@@ -510,7 +503,6 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 这里有点需要注意的是
 
 **时间搜索的话，等于的情况因为服务器是精确到微秒值，所以比较的值要加1秒。**
-
 
 #### 子查询
 
@@ -542,8 +534,6 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 [bquery whereKey:@"playerName" notContainedIn:[NSArray arrayWithObjects:@"小明",@"小红",@"小白", nil]];
 ```
 
-
-
 #### 列值是否存在
 
 其他的约束条件有
@@ -557,7 +547,6 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 
 例如:
 
-
 ```
 //查询表中score列有值的数据
 [bquery whereKeyExists:@"score"];
@@ -566,7 +555,6 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 //查询表中score列没有值的数据
 [bquery whereKeyDoesNotExist:@"score"];
 ```
-
 
 #### 模糊查询
 
@@ -618,7 +606,6 @@ bquery.skip = 3;//跳过3条数据
 [bquery orderByDescending:@"updatedAt"]
 ```
 
-
 ### 复合查询
 当简单的查询条件，不能满足查询要时，BmobQuery也提供了2种复合查询的方法。
 
@@ -659,7 +646,6 @@ NSArray *array =  @[@{@"score":@5},@{@"name":@"Mike"}];
 |$regex     | 匹配PCRE表达式
 
 
-
 例如:
 
 ```
@@ -685,7 +671,6 @@ NSArray *array =  @[@{@"score":@90},@{@"score":@150}];
 NSArray *array =  @[@{@"name":@"张三"},@{@"name":"李四"}];
 [bquery addTheConstraintByOrOperationWithArray:array];
 ```
-
 
 其中日期类型和pointer类型构造的方法比较特殊。
 例如要查询要个时间段的数据，可以构造时间
@@ -715,7 +700,6 @@ NSArray *condictionArray = @[condiction1,condiction2];
 [query findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
 }];
 ```
-
 
 另外我们还封装了以下方法，方便开发者使用，以下是与查询，注意add之前的查询只能添加一个条件，如果是或查询，将` [main andOperation];`换成` [main orOperation];`
 
@@ -752,7 +736,6 @@ NSArray *condictionArray = @[condiction1,condiction2];
 [bquery selectKeys:@[@"score",@"playerName"]];
 ```
 
-
 ### 查询结果计数
 
 如果你只是想统计满足查询对象的数量，你并不需要获取所有匹配的对象的具体数据信息，可以直接使用count替代find。例如，查询一个特定玩家玩的游戏场数：
@@ -764,7 +747,6 @@ BmobQuery *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 	     NSLog(@"%d",num);
 }];
 ```
-
 
 ### 统计查询
 如果你想对表进行统计查询，可以采用以下方法。
@@ -1116,8 +1098,6 @@ bquery.maxCacheAge = 10000;
 
 缓存策略只对普通查询有效，统计查询只支持从网络进行查询。具体使用可参考iOS开发文档中的[缓存查询](http://docs.bmob.cn/ios/developdoc/index.html?menukey=develop_doc&key=develop_ios#index_%E7%BC%93%E5%AD%98%E6%9F%A5%E8%AF%A2)
 
-
-
 ## 数组
 
 为了存储数组型数据，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供了3种操作来原子性地更改一个数组字段:
@@ -1219,7 +1199,6 @@ BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameScore"
 
 如果要查找包含P1或P2的对象，可以使用复杂查询中的或查
 
-
 ```
     BmobQuery *query = [BmobQuery queryWithClassName:@"Post"];
     NSArray *array =  @[@{@"skill":@{@"$all": @[@"P1"]}},@{@"skill":@{@"$all":@[@"P2"]}}];
@@ -1249,11 +1228,8 @@ BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameScore"
 [gameScore updateInBackground];
 ```
 
-
-
 ## 数据关联
 [数据关联章节Demo下载](https://github.com/bmob/bmob-ios-demo/tree/master/BmobSDK/BmobRelationDemo)
-
 
 ### 关联关系描述
 在程序设计中，不同类型的数据之间可能存在某种关系。分别是以下三种：
@@ -1428,7 +1404,6 @@ Post表
     }];
 ```
 
-
 查询关系的核心在于查询前需要将关联的列名include进来，使用下列方法即可
 
 ```
@@ -1457,8 +1432,6 @@ Post表
 [bquery includeKey:@"post[title|content]"];
 ```
 
-
-
 #### 约束关联对象值查询
 
 我们可以对关联对象的值进行约束，来进行匹配查询。例如，如果我们想找查询出所有关联了user2的文章，可以使用以下代码
@@ -1482,8 +1455,6 @@ Post表
         }
     }];
 ```
-
-
 
 如果想要查询找所有没有关联user1的文章，则将
 
@@ -1615,7 +1586,6 @@ Post表：
     }];
 ```
 
-
 `注意：跟Pointer不同的是，这里本质上查询的是_User表。`
 
 #### Relation约束关联对象值查询
@@ -1683,7 +1653,6 @@ BmobUser *bUser = [[BmobUser alloc] init];
 }];
 ```
 
-
 **需要有两点需要注意的是：**
 
 - 有些时候你可能需要在用户注册时发送一封邮件，以确认用户邮箱的真实性。这时，你只需要登录自己的应用管理后台，在应用设置->邮件设置（下图）中把“邮箱验证”功能打开，Bmob云后端就会在用户注册时自动发动一封验证给用户。
@@ -1691,7 +1660,6 @@ BmobUser *bUser = [[BmobUser alloc] init];
 ![](image/email_verify.png)
 
 - username字段是大小写敏感的字段，如果你希望应用的用户名不区分大小写，请在注册和登录时进行大小写的统一转换。
-
 
 ### 登录
 
@@ -1707,7 +1675,6 @@ BmobUser *bUser = [[BmobUser alloc] init];
 							  password:(NSString *)password
 								 block:(BmobUserResultBlock)block;
 ```								 
-
 
 
 Bmob还提供了用户、email、手机号码均可作为账号进行登录的功能。使用以下方法即可
@@ -1764,7 +1731,6 @@ BmobUser *bUser = [BmobUser getCurrentUser];
 
 **在更新用户信息时，如果用户邮箱有变更并且在管理后台打开了邮箱验证选项的话，Bmob云后端同样会自动发动一封邮件验证信息给用户。**
 
-
 ### 查询用户
 查询用户和查询普通对象一样，只需指定BmobUser类即可，如下：
 
@@ -1783,9 +1749,6 @@ BmobUser *bUser = [BmobUser getCurrentUser];
 User表是一个特殊的表，专门存储BmobUser对象。在浏览器端，你会看到一个User表旁边有一个小人的图标。
 
 ![](image/create_table.png)
-
-
-
 
 ### 修改密码
 从 `v1.6.3` 开始，我们提供使用旧密码来重置新密码的接口，示例如下：
@@ -1814,7 +1777,6 @@ User表是一个特殊的表，专门存储BmobUser对象。在浏览器端，�
 
 [https://github.com/bmob/bmob-cloudcode-demo/blob/master/HOW-TO-FIND-PASSWORD.md](https://github.com/bmob/bmob-cloudcode-demo/blob/master/HOW-TO-FIND-PASSWORD.md)
 
-
 ### 邮箱
 
 #### 邮箱验证
@@ -1831,7 +1793,6 @@ if ([user objectForKey:@"emailVerified"]) {
     }
 }
 ```
-
 
 #### 邮箱修改密码
 
@@ -2102,11 +2063,9 @@ Test.m
     }];
 ```
 
-
 注意：
 1.当用到添加与更新操作时，要使用类似于sub_XXX的方法，而其它方法保持不变，与BmobObject一致。
 2.子类的方法使用对象类型，不要使用基本类型。例如，要使用整型时，可以声明为NSNumber。
-
 
 ### 针对BmobUser的特别说明
 
@@ -2134,7 +2093,6 @@ Test.m
         }
     }];
 ```
-
 
 ## 文件管理
 [文件管理章节Demo](https://github.com/bmob/bmob-ios-demo/tree/master/BmobSDK/BmobFileDemo)
@@ -2260,7 +2218,6 @@ NSString *fileString2 = [NSString stringWithFormat:@"%@/cs.txt" ,[bundle bundleP
                       }];
 ```
 
-
 ### 下载文件
 
 获取文件对象只需通过-(id)objectForKey:(id)key;来得到，例如，
@@ -2304,7 +2261,6 @@ Bmob提供了数据实时功能，当开发者监听某个变化事件，例如�
 ### 监听功能
 SDK提供了两个方法来监听数据变化，其中一个方法是针对表，另一个则针对行。
 
-
 ```
 -(void)listenTableChange:(BmobActionType)actionType tableName:(NSString *)tableName;
 ```
@@ -2334,7 +2290,6 @@ SDK提供了两个方法来监听数据变化，其中一个方法是针对表�
     NSLog(@"didReceiveMessage:%@",message);
 }
 ```
-
 
 相对的，也有监听行更新。行删除的函数：
 
@@ -2373,8 +2328,6 @@ SDK提供了两个方法来监听数据变化，其中一个方法是针对表�
 
 这里有个[实例](https://github.com/bmob/bmob-ios-demo/blob/master/BmobDataDemo_iOS.zip)可以参考下。
 
-
-
 ## ACL和角色
 
 大多数应用程序需要对不同的数据进行灵活的访问和控制，这就可以使用Bmob提供的ACL模式来实现。例如：
@@ -2401,6 +2354,7 @@ BmobACL *acl = [BmobACL ACL];
 注意：可读可写是默认的权限，不需要写额外的代码。
 
 ### 指定用户的访问权限
+
 假如你想实现一个分享日志类的应用时，这可能会需要针对不同的日志设定不同的访问权限。比如，公开的日志，发布者有更改和修改的权限，其他用户只有读的权限，那么可用如下代码实现：
 
 ```
@@ -2600,7 +2554,6 @@ BmobQuery *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 
 3. 地理位置查询最大的距离根据表数据的不同有不同的限制，使用-(void)whereKey:(NSString *)key nearGeoPoint:(BmobGeoPoint *)geopoint;默认`100KM`。当需要指定距离时，最好指定一下最大距离。
  
-
 ## 云端逻辑
 
 我们提供了BmobCloud类来调用云端逻辑的功能，有两种方法
@@ -2623,7 +2576,6 @@ BmobQuery *bquery = [BmobQuery queryWithClassName:@"GameScore"];
         });
     });
 ```
-
 
 ```
 //异步调用云端逻辑，fuction指的用函数名 parameters为函数需要的参数
@@ -2653,7 +2605,6 @@ BmobQuery *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 默认使用 【比目科技】 作为签名，可以在控制台进行修改。
 
 短信服务除了集成成进原来的BmobSDK包外，还另外拆分了一个独立的SDK包，使用前请先导入 `SystemConfiguration.framework` 和 `CoreLocation.framework`，注册方法还是 `[Bmob registerWithAppKey:@""];`。
-
 
 **短信模板需要符以下要求，否则模板审核不予通过。**
 
@@ -2687,7 +2638,6 @@ BmobQuery *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 3.如果sendTime的格式不正确或者是这个时间已经是过去的时间，那么短信会立即发送;
 4.smsID可用于查询短信的发送状态。
 ```
-
 
 ### 获取短信验证码
 如下图所示，在使用获取短信验证码功能前可以先设置好几个模板以用于不同的功能。
@@ -2766,7 +2716,6 @@ BmobQuery *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 4. 计算得到的短信条数在本条短信发送成功后将会从你的账户剩余的短信条数中扣除。
 
 **短信发送限制规则是1/分钟，5/小时，10/天。即对于一个应用来说，一天给同一手机号发送短信不能超过10条，一小时给同一手机号发送短信不能超过5条，一分钟给同一手机号发送短信不能超过1条。**
-
 
 ## 其它功能
 
@@ -3080,10 +3029,4 @@ BmobSDK默认是20s后得不到回复就提示超时，如果没有特别的需�
 内容：File not exist
 
 含义：获取文件url、删除文件时传入的文件名不存在
-
-
-
-
-
-
 

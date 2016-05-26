@@ -4,13 +4,9 @@
 
 - Bmob的JavaScript SDK基于`Backbone.js`框架开发，在使用过程中除`Bmob.view`类需要提供jQuery或者类似JQuery的`$`方法外，不需要再引入其他类库。
 
-
-
-
 ## 典型案例
 
 聊天室：[http://chatroom.bmob.cn](http://chatroom.bmob.cn) （采用实时数据同步SDK开发，右击可直接查看源码）
-
 
 ## 应用程序
 在Bmob平台注册后，每个账户可创建多个应用程序，创建的每个应用程序都有其独自的应用程序ID，此后所有的应用程序将凭其ID进行Bmob SDK的使用。即使只有一个应用程序，也可以以不同的版本进行测试和生产。
@@ -226,7 +222,6 @@ query.greaterThan("score", 100);
 
 一个完整的例子：
 
-
 ```
 var GameScore = Bmob.Object.extend("GameScore");
 var query = new Bmob.Query(GameScore);
@@ -340,7 +335,6 @@ userQuery.find({
 });
 ```
 
-
 ### 查询指定列
 
 有时候你不想返回所有的字段信息，那么就可以用`select`方法来限定返回的字段。示例代码如下：
@@ -366,7 +360,6 @@ query.find().then(function(results) {
 var query = new Bmob.Query(GameScore);
 query.startsWith("playerName", "bm");
 ```
-
 
 ### 或查询
 
@@ -555,7 +548,6 @@ query.get("bc5da708dc",{
 }); 
 ```
 
-
 ## 数据关联
 
 ### 添加/修改关联关系
@@ -627,7 +619,6 @@ user.save();
 relation.add([post1, post2, post3]);
 user.save();
 ```
-
 
 ### 查询关联关系
 
@@ -715,7 +706,6 @@ gameScore.save();
 
 直接上传文件，例如，我们上传一个内容为"Hello, World!"，名称为"hello.txt"的文件，可用如下的代码：
 
-
 ```
 var bytes = "Hello, World!";
 var file = new Bmob.File2("hello.txt", bytes);
@@ -734,7 +724,6 @@ file.save().then(function(obj) {
 
 然后，在一个处理`click`或其他的函数里，获取对那个文件的一个引用：
 
-
 ```
         var fileUploadControl = $("#profilePhotoFileUpload")[0];
         if (fileUploadControl.files.length > 0) {
@@ -750,9 +739,6 @@ file.save().then(function(obj) {
   file.destroy(); //删除文件
 
 ```
-
-
-
 
 ## 图片处理
 
@@ -809,7 +795,6 @@ Bmob.Image.thumbnail({"image":"http://file.bmob.cn/M00/01/26/wKgBP1OX9LLVh5gNAAH
 }
 ```
 
-
 ### 水印图
 
 提供原图的URL地址，水印图的URL地址和相应的参数，返回缩微图的URL地址，具体参数定义如下：
@@ -857,7 +842,6 @@ Bmob.Image.watermark({"image":"http://test.com/new/images/banner005.jpg","waterm
   "file":"base64的文件内容"
 }
 ```
-
 
 ## Promise
 
@@ -1016,7 +1000,6 @@ delay(100).then(function() {
 });
 ```
 
-
 ## Collection
 
 一个`Bmob.Collection`就是一个`Bmob.Objects`的有序集合，它和`Backbone.Collection`是兼容的，有相同的特性和功能，你可以通过用一个模型类或者一个特定的`Bmob.Query`来创建一个新的子类。
@@ -1105,7 +1088,6 @@ collection.reset([
 
 `Bmob.User`是`Bmob.Object`的一个子类，而且有`Bmob.Object`一样的功能，比如可变的模式、自动的持久化、键值对接口等。所有对`Bmob.Object`有用的方法同样可以作用于`Bmob.User`。`Bmob.User`的不同之处在于`Bmob.User`对于用户的账户有一些特定的功能。
 
-
 ### 属性
 
 `Bmob.User`有一些与`Bmob.Object`不一样的字段:
@@ -1138,7 +1120,6 @@ user.signUp(null, {
   }
 });
 ```
-
 
 这个调用会异步地在在你的应用中创建一个新的用户。在它这样做之前，它同样会确认用户名和`email`在应用内都是唯一的。同样，我们从不会将用户密码以明文向任何客户端发送。
 
@@ -1248,7 +1229,6 @@ var user = Bmob.User.logIn("my_username", "my_password", {
 从`Bmob.User.current()`获取的`Bmob.User`总是已经通过验证了的。
 
 如果你需要查看一个`Bmob.User`是否已经认证过了，你可以调用`authenticated`方法，你不需要查看一个认证方法中返回的`Bmob.User`对象是否已经通过验证了。
-
 
 ### 其他对象的安全
 
@@ -1374,7 +1354,6 @@ Bmob提供了数据实时功能，当开发者监听某个变化事件，例如�
 例如，合法的运行环境：http://local.project/appweb/sdk/js/demo/bmobSocketIo.html
 无效的本地运行环境：file:///D:/jeff/project/appweb/sdk/js/%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%97%B6%E5%B9%B3%E5%8F%B0/test/bmobSocketIo.html
 
-
 ### 安装实时数据平台的js
 
 一、把下面这行代码加入你的页面中，其中，"bmobSocketIo.js"为实时数据平台的js文件。
@@ -1388,7 +1367,6 @@ Bmob提供了数据实时功能，当开发者监听某个变化事件，例如�
 ```
 BmobSocketIo.initialize("你的Application ID");
 ```
-
 
 ### 订阅事件
 
@@ -1442,7 +1420,6 @@ BmobSocketIo.unsubUpdateRow("GameScore","3342e40e4f");
 BmobSocketIo.unsubDeleteRow("GameScore","1256e40e4f");
 ```
 
-
 ### 监听触发的事件
 
 
@@ -1467,7 +1444,6 @@ tablename为更新的表，objectId为更新行的objectId，data为服务端返
       //业务逻辑的代码
    };
 ```
-
 
 #### 监听行删除的事件
 
@@ -1528,7 +1504,6 @@ tablename为更新的表，objectId为更新行的objectId，data为服务端返
 `users` :一个指向一系列用户的关系, 这些用户会继承角色的权限。
 
 `roles` : 一个指向一系列子角色的关系, 这些子关系会继承父角色所有的权限。
-
 
 ### 创建角色
 
@@ -1605,7 +1580,6 @@ var moderators = /* Your "Moderators" role */;
 moderators.getRoles().add(administrators);
 moderators.save();
 ```
-
 
 ## 地理位置
 
@@ -1724,7 +1698,6 @@ Bmob.Sms.requestSms({"mobilePhoneNumber": "131xxxxxxxx","content": "您的验证
 });
 ```
 
-
 你还可以选择定时发送，比如未来的某一时刻给某个手机发送一条短信，sendTime的格式必须是YYYY-mm-dd HH:ii:ss， 如: 2015-05-26 12:13:14，请求如下：
 ```
 Bmob.Sms.requestSms({"mobilePhoneNumber": "131xxxxxxxx","content": "您的验证码是：222222, 有效期是10分钟。","sendTime": "2016-05-26 12:13:14"} ).then(function(obj) {
@@ -1740,7 +1713,6 @@ Bmob.Sms.requestSms({"mobilePhoneNumber": "131xxxxxxxx","content": "您的验证
 	"smsId": 1232222
 }
 ```
-
 
 ### 请求短信验证码
 如果没有在管理后台创建好模板，可使用默认的模板，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 默认的模板是: **您的验证码是%smscode%，有效期为%ttl%分钟。您正在使用%appname%的验证码**
@@ -1815,7 +1787,6 @@ Bmob.Sms.querySms(6817361).then(function(obj) {
 其中sms_state是发送状态，有值: SENDING-发送中，FAIL-发送失败 SUCCESS-发送成功
 其中verify_state是验证码是否验证状态， 有值: true-已验证 false-未验证
 
-
 ## 支付服务
 
 ### 网页端调起支付宝支付接口
@@ -1875,5 +1846,4 @@ trade_state-NOTPAY（未支付）或 SUCCESS（支付成功）
 ## 错误代码详细说明
 
 [错误码列表](/errorcode/index.html?menukey=otherdoc&key=errorcode "错误码列表")
-
 

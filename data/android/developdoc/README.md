@@ -759,7 +759,6 @@ query.findObjects(this, new FindListener<GameScore>() {
 **注：**
 通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#index_条件查询)一节。
 
-
 ### 查询条件
 
 在查询的使用过程中，基于不同条件的查询是非常常见的，BmobQuery同样也支持不同条件的查询。
