@@ -145,11 +145,12 @@ dependencies {
 
 3、BmobSDK_v3.4.6需要依赖`okhttp（2.4.0）、okio（1.4.0）`，如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy依赖包。
 
-## 兼容Android6.0
+
+## 兼容Android(6.0)
 
 自`v3.4.6`版本开始，Bmob提供了一些新的方法和工具类来帮助开发者为自己的应用兼容Android6.0系统。
 
-### 配置org.apache.http.legacy
+### 配置(org.apache.http.legacy)
 
 Android6.0版本移除了对Appache的HTTP client的支持，因此，需要添加org.apache.http.legacy.jar包，请参照如下方式添加：
 

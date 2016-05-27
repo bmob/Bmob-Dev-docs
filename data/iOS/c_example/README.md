@@ -90,7 +90,7 @@ int main(int argc, char * argv[])
 }
 ```
 
-### 添加失物/招领信息
+### 添加失物及招领信息
 
 用户填写了失物信息之后，只需要构造一个BmobObject实例，然后简单调用setObject方法就可以将信息添加到云数据库中，实现代码如下（详细代码实现参看AddViewController.m文件）：
 
@@ -111,7 +111,7 @@ int main(int argc, char * argv[])
         }];
 ```
 
-### 获取失物/招领列表
+### 获取失物及招领列表
 
 Bmob提供了复杂和简单的查询方法，可以对查询结果进行排序，可以对结果进行缓存。本案例只使用到Bmob提供的最简单的查询和排序功能，直接调用BmobQuery类的findObjects方法和orderByDescending方法来获取失物列表，实现代码如下（详细代码实现参看MainActivity类）：
 

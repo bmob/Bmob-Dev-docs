@@ -9,9 +9,7 @@
 
 请到以下的Github地址clone我们的SDK最新代码：[https://github.com/bmob/bmob-php-sdk](https://github.com/bmob/bmob-php-sdk)
 
-
 ### 安装和配置
-=========================
 
 打开`lib/BmobConfig.class.php`，填写`APPID`（后台获取“应用密钥”中的Application ID）和`RESTKEY`（后台获取“应用密钥”中的REST API Key）相应的值。如下所示：
 
@@ -23,7 +21,6 @@ class BmobConfig{
 
 }
 ```
-
 
 ## 运行效果
 
@@ -110,7 +107,7 @@ Bmob异常处理类
 
 Bmob云端代码调用类
 
-# Bmob官方信息
+## Bmob官方信息
 
 官方网址：[http://www.bmob.cn](http://www.bmob.cn)
 

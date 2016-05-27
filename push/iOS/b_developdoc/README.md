@@ -27,7 +27,7 @@
 ![](image/tuisong_4.jpg)
 
 
-### 创建&上传证书
+### 创建和上传证书
 1.创建完成后再次点击应用，点击Edit；
 
 ![](image/tuisong_6.jpg)

@@ -56,7 +56,7 @@ for(var i=0,l=items.length;i<l;i++){...}
 	类方法：methodNamesLikeThis
 	常量：SYMBOLIC_CONSTANTS_LIKE_THIS
 
-## 关于==号
+## 关于双等号
 
 开发的时候大家请慎重使用==号，有时候结果未必会是您想的那样，请看下面的调试计算结果：
 
@@ -75,7 +75,7 @@ for(var i=0,l=items.length;i<l;i++){...}
 	> " \t\r\n " == 0
 	true
 
-## 双引号
+## 关于双引号
 
 使用string时，用单引号替代双引号（写JSON时除外）。
 ```
@@ -86,7 +86,7 @@ var foo = 'bar';
 var foo = "bar";
 ```
 
-## 大括号位置
+## 关于大括号位置
 
 ```
 //正确
