@@ -1,4 +1,4 @@
-## 下载 
+## 推送SDK
 
 在Bmob官方网站的下载界面中，选择下载Android推送SDK，将下载的zip压缩包进行解压，得到Bmob_Push_v(版本号)_日期.jar。
 
