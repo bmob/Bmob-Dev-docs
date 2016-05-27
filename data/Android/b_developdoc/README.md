@@ -152,7 +152,7 @@ dependencies {
 
 自`v3.4.6`版本开始，Bmob提供了一些新的方法和工具类来帮助开发者为自己的应用兼容Android6.0系统。
 
-### 配置legacy
+### 添加对Apache的HTTP-client支持
 
 Android6.0版本移除了对Appache的HTTP client的支持，因此，需要添加org.apache.http.legacy.jar包，请参照如下方式添加：
 
