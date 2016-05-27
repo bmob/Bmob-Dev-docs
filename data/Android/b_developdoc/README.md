@@ -148,7 +148,7 @@ dependencies {
 
 
 
-## 兼容Android6.0
+## 兼容Android6
 
 自`v3.4.6`版本开始，Bmob提供了一些新的方法和工具类来帮助开发者为自己的应用兼容Android6.0系统。
 
