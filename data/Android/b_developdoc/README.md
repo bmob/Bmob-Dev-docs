@@ -114,7 +114,8 @@ dependencies {
 
 - `okhttp（2.4.0）、okio（1.4.0）`：CDN文件服务使用okhttp相关包进行文件的上传和下载（`必填`）
 - `support-v4（23.2.1）`:用于兼容Android6.0系统，并提供权限管理工具（如果需要兼容Android6.0系统，则需添加此依赖）
-- `org.apache.http.legacy`：用于兼容Android6.0系统（如果需要兼容Android6.0系统，则需添加此依赖）
+- `
+- `：用于兼容Android6.0系统（如果需要兼容Android6.0系统，则需添加此依赖）
 
 **[3]、每个版本的im依赖特定版本的bmob-sdk：**
 
@@ -151,7 +152,7 @@ dependencies {
 
 自`v3.4.6`版本开始，Bmob提供了一些新的方法和工具类来帮助开发者为自己的应用兼容Android6.0系统。
 
-### 配置org.apache.http.legacy
+### 配置legacy
 
 Android6.0版本移除了对Appache的HTTP client的支持，因此，需要添加org.apache.http.legacy.jar包，请参照如下方式添加：
 
