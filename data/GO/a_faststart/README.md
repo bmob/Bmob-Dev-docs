@@ -1,4 +1,3 @@
-
 本文档是Bmob官方提供的Go SDK，方便Go开发人员快速使用Bmob进行后端开发。
 
 ## 准备工作
@@ -75,7 +74,7 @@ func main() {
 
 * DoRestRequest - Bmob基础方法，用于完成REST API请求
 
-# Bmob官方信息
+## Bmob官方信息
 
 官方网址：[http://www.bmob.cn](http://www.bmob.cn)
 

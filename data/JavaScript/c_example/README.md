@@ -1,6 +1,3 @@
-
-## JS
-
 JS快速入门相关源码:[http://www.bmob.cn/static/bmob_jssdk_quickstart.zip
 ](http://www.bmob.cn/static/bmob_jssdk_quickstart.zip)
 

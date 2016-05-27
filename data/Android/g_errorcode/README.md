@@ -1,4 +1,5 @@
 ## AndroidSDK错误码列表
+
 |错误码      |    内容 | 含义  |
 |:-------- |:--------| :-- |
 |9001|AppKey is Null, Please initialize BmobSDK. |Application Id为空，请初始化.|

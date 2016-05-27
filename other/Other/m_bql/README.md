@@ -1,5 +1,3 @@
-
-
 Bmob Query Language（简称 BQL） 是 Bmob 为查询 API 定制的一套类似 SQL 查询语法的子集和变种，主要目的是降低大家学习 Bmob 查询的 API 的成本，可以使用传统的 SQL 语法来查询 Bmob 应用内的数据。
 
 本文档将详细介绍 BQL 的语法和常见用法。

@@ -1,9 +1,40 @@
-## 简介
-1. 用全新的架构来设计IMSDK，通过tcp协议进行通信，支持单聊（发送文本消息，图片，声音文件）
-2. 自动发送推送，当用户断开连接后，如果用户允许推送了（已设置好推送配置等），可以发送推送给用户
-3. SDK内部已实现自动拉取消息，不用开发者自己设定定时器去获取，保证消息抵达率
+## 下载iOS_Demo
 
-## 快速入门
+[点击这里下载demo（iOS）源码](https://github.com/pzee/BmobIM-Demo)
+
+Bmob即时聊天demo包含了一个完整的即时通讯的App，功能包括：
+
+1. 支持好友管理功能，包括添加好友、删除好友、获取好友列表，也可以与你已有的用户系统完全解耦；
+2. 支持的消息类型：纯文本,语音,图片,自定义消息
+3. 支持会话的本地化存储；
+
+
+
+## iOS界面效果
+
+### iOS联系人页面
+
+![](image/IMG_0613.png)
+
+
+### iOS会话页面
+
+![](image/IMG_0614.png)
+
+### iOS聊天页面
+
+![](image/IMG_0615.png)
+
+### iOS搜索联系人页面
+
+![](image/IMG_0616.png)
+
+### iOS设置页面
+
+![](image/IMG_0612.png)
+
+## iOSIM快速入门
+
 ### 下载安装BmobIMSDK
 1. 通过官网下载新的BmobIMSDK
 2. 新建项目将BmobIMSDK 复制到新的项目工程
@@ -103,6 +134,32 @@
     [self.sharedIM setupDeviceToken:self.token];
     [self.sharedIM connect];
 }
+```
+
+在应用进入前台或者后台的时候可以重新进行连接或者断开连接
+
+进入前台
+
+```
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+   
+    if (self.userId && self.userId.length > 0) {
+        [self connectToServer];
+    }
+}
+
+```
+
+进入后台
+
+```
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    if ([self.sharedIM isConnected]) {
+        [self.sharedIM disconnect];
+    }
 ```
 
 **需要说明的是，连接服务器建立一次即可，开发者自己控制连接服务器的时机。建立连接之前必须设置appKey和belongId，不然会抛出异常**
@@ -350,7 +407,7 @@ conversation.conversationTitle = self.userInfo.name;
 
 #### 发送消息
 
-发送文本消息
+**发送文本消息**
 
 ```
 -(void)sendTextWithTextField:(UITextField *)textField{
@@ -377,6 +434,108 @@ conversation.conversationTitle = self.userInfo.name;
 }
 ```
 
+**发送图片**
+
+发送图片消息的流程是通过把拍照或者图片的内容，转成Data，然后通过Bmob文件上传接口来上传文件，获取到相关的信息（文件地址之类的），再构造对应的BmobIMImageMessage对象来发送消息。
+
+Demo封装了一个直接传入image就能发送图片的方法
+
+```
++(void)uploadImage:(UIImage *)image
+        completion:(uploadBlock)block
+          progress:(BmobProgressBlock)progressBlock;
+```
+然后可以直接调用方法来发送图片，并在当前页显示出来
+
+```
+[MessageService uploadImage:resizeImage completion:^(BmobIMImageMessage *message, NSError *error) {
+        if (!error) {
+            [self.messagesArray addObject:message];
+            [self scrollToBottom];
+             __weak typeof(self)weakSelf = self;
+            
+            [self.conversation sendMessage:message completion:^(BOOL isSuccessful, NSError *error) {
+                [weakSelf reloadLastRow];
+            }];
+        }else{
+            [self showInfomation:error.localizedDescription];
+        }
+    } progress:^(CGFloat progress) {
+        [self showProgress:progress];
+    }];
+
+```
+
+**发送语音文件**
+
+发送语音消息的流程是把录音下载的Data转成AMR格式，保存在本地，然后通过Bmob文件上传接口来上传文件，获取到相关的信息（文件地址之类的），再构造对应的BmobIMAudioMessage对象来发送消息。
+
+Demo封装了一个直接传入NSData就能发送语音文件的方法
+
+```
++(void)uploadAudio:(NSData *)data
+                          duration:(CGFloat)duration
+                        completion:(uploadBlock)block
+                          progress:(BmobProgressBlock)progressBlock
+```
+
+直接调用这个方法就能发送语音文件
+
+```
+[MessageService uploadAudio:data
+                           duration:duration
+                         completion:^(BmobIMAudioMessage *message, NSError *error) {
+                             if (!error) {
+                               
+                                 [self.messagesArray addObject:message];
+                                 [self scrollToBottom];
+                                 __weak typeof(self)weakSelf = self;
+                                 [self.conversation sendMessage:message completion:^(BOOL isSuccessful, NSError *error) {
+                                     [weakSelf reloadLastRow];
+                                 }];
+                             }
+                         } progress:nil];
+```
+
+**发送其他文件消息**
+
+当开发者需要发送其他类型的文件消息的时候，先要继承BmobIMFileMessage类，通过BmobSDK提供的文件上传接口，把文件上传至服务器上，获取到url，再去创建对应的对象。
+这里的流程可以参照发送图片，发送语音的相关源代码。当然了，开发者也必须指定其msgType属性，好让应用可以根据这个属性来显示相应的视图。
+
+
+**发送位置**
+
+```
+BmobIMLocationMessage *message = [BmobIMLocationMessage messageWithAddress:@"广州大学城" attributes:@{KEY_METADATA:@{KEY_LATITUDE:@(23.039),KEY_LONGITUDE:@(113.388)}}];
+    message.conversationType =  BmobIMConversationTypeSingle;
+    message.createdTime = (uint64_t)([[NSDate date] timeIntervalSince1970] * 1000);
+    message.updatedTime = message.createdTime;
+    [self.messagesArray addObject:message];
+    [self scrollToBottom];
+    
+    __weak typeof(self)weakSelf = self;
+   
+    [self.conversation sendMessage:message completion:^(BOOL isSuccessful, NSError *error) {
+        [weakSelf reloadLastRow];
+    }];
+```
+
+**发送自定义消息**
+
+开发者也可以发送自定义消息(需继承BmobIMMessage)，例如添加好友的请求，当前聊天对象正在输入之类的消息，这种暂态的消息是不需要存储在数据库的，需要设置extra{KEY_IS_TRANSIENT:@(YES),...}。其他额外信息开发者可以自由设置
+
+例如发送添加好友通知，这种消息是暂时的，不需要保存到数据库里面，可以这样构造
+
+```
+    BmobIMMessage *message = [[BmobIMMessage alloc] init];
+    message.msgType = @"notice";
+    message.conversationType = BmobIMConversationTypeSingle;
+    message.extra = @{KEY_IS_TRANSIENT:@(YES)};
+    message.content = @"添加好友";
+    [self.conversation sendMessage:message completion:^(BOOL isSuccessful, NSError *error) {
+        NSLog(@"error %@",error.localizedDescription);
+    }];
+```
 #### 接收消息
 
 在上一个大章节 接收消息 那里，我们已经把接收到的消息用通知的形式广播出来，我们只需要在聊天页面添加观察者来监听通知就行了。
@@ -400,3 +559,4 @@ conversation.conversationTitle = self.userInfo.name;
     
 }
 ```
+
