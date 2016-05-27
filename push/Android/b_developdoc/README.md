@@ -1,4 +1,4 @@
-## 下载 
+## Android推送SDK下载 
 在Bmob官方网站的下载界面中，选择下载[Android推送SDK](http://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中。
 
 ## 添加权限
