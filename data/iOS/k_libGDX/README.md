@@ -43,7 +43,7 @@ RoboVM类似于Android的jni，使用它就可以使用Java来调用Object-C对�
 
 ![](image/libGDX_3.jpg)
 
-### libGDX环境搭建&工程创建
+### libGDX环境搭建和工程创建
 
 1.进入[libGDX官网](http://libgdx.badlogicgames.com/download.html)下载libGDX工程生成工具，该工具是一个jar应用。
 
