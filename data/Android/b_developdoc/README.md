@@ -10,7 +10,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 ### AndroidStudio配置
 
-鉴于目前Google官方推荐使用 `Android Studio` 进行Android项目开发，自 `V3.4.2` 开始，Bmob Android SDK 可以使用Gradle来进行包依赖管理，如果你使用Android Studio来进行基于BmobSDK的项目开发，建议你按照如下两个步骤进行：
+鉴于目前Google官方推荐使用 `Android Studio` 进行Android项目开发，自 `V3.4.2` 开始，Bmob Android SDK 可以使用Gradle来进行包依赖管理，如果你使用Android Studio来进行基于BmobSDK的项目开发，请按照如下两个步骤进行：
 
 一、 在`Project`的`build.gradle`文件中添加`Bmob的maven仓库地址`，示例如下：（**注意文字说明部分**）：
 
@@ -28,7 +28,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-		//Bmob的maven仓库地址，必须填写
+		//Bmob的maven仓库地址--必填
         maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
 }
@@ -45,7 +45,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion '22.0.1'
 
-	//**兼容Android6.0系统所需，如果这句话报错，可将其导入到libs文件夹下面**
+	**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用compile 'cn.bmob.android:http-legacy:1.0'**
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
@@ -55,12 +55,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+    
     lintOptions{
         abortOnError false
     }
@@ -71,51 +66,45 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
 	//以下SDK开发者请根据需要自行选择
-
-    //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
-	//3.4.7依赖，其他诸如`org.apache.http.legacy`,如果你需要兼容Android6.0可自行添加
-	compile 'cn.bmob.android:bmob-sdk:3.4.7'
-	compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okio:okio:1.7.0'
-	//注：3.4.7的SDK将数据的加解密实现转移到了底层so中，请务必导入`libbmob.so`，否则无法使用BmobSDK。
-
-	//3.4.6依赖，每个SDK对应特定版本的okhttp相关包，不可更改
-	compile 'cn.bmob.android:bmob-sdk:3.4.6'
-	compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile 'com.squareup.okio:okio:1.4.0'
-    compile 'com.android.support:support-v4:23.2.1'
-	//注:bmob-sdk:3.4.6需要依赖okhttp（2.4.0）、okio（1.4.0），如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy包，具体可查看下面注释[2]的解释
+	//bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
+    //3.4.7-aar：请务必查看下面注释[1]
+	compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
 
     //bmob-push：Bmob的推送包
     compile 'cn.bmob.android:bmob-push:0.8'
 
-	//bmob-im：Bmob的即时通讯包，如果想使用即时通讯服务，则添加以下两个包，注意每个版本的im依赖特定版本的bmob-sdk，而bmob-sdk又需要特定的依赖库，具体可以查看下面注释[3]中的对应关系
+	//bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[3]
 	compile 'cn.bmob.android:bmob-im:2.0.4'
 	compile 'cn.bmob.android:bmob-sdk:3.4.6'
-	//注：别忘记导入3.4.6的相关依赖包
+	//注：别忘记导入3.4.6的相关依赖包[2]
 
 	//bmob-sms ：Bmob单独为短信服务提供的包
     compile 'cn.bmob.android:bmob-sms:1.0.1'
 
+	//如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+	compile 'cn.bmob.android:http-legacy:1.0'
 }
 
 ```
 
 **注：**
 
-**[1]、bmob-sdk：3.4.7依赖以下包：**
+**[1]、为了降低开发者的使用成本，现提供`3.4.7-aar`，此aar包含`libbmob.so、okhttp、okio及自动更新组件所需要的资源文件`**。开发者再也不需要配置libbmob.so,不需要添加okhttp、okio，也不需要复制自动更新组件的资源文件啦，只需要添加以下依赖即可。
 
-- `okhttp3(3.2.0)、okio(1.7.0)`:CDN文件服务的依赖库升级到`okhttp3`，用于文件的上传和下载（`必填`）
-- `libbmob.so`                :用来替换数据加解密方式的底层so库（`必填`），在官网下载的SDK解压包的libs目录内
+	compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
 
 注：由于`PermissionManager权限管理类`需要依赖`support-v4:23.2.1`的jar包,导致开发者认为SDK依赖文件较多，故分离出SDK。开发者如果需要兼容Android6.0系统，可以在下载的SDK的官方Demo的`com.example.bmobexample.permission`包下面查看该类源码。
 
 **[2]、bmob-sdk:3.4.6依赖以下包：**
+	
+	compile 'cn.bmob.android:bmob-sdk:3.4.6'
+	compile 'com.squareup.okhttp:okhttp:2.4.0'//CDN文件服务使用okhttp相关包进行文件的上传和下载（必填）
+    compile 'com.squareup.okio:okio:1.4.0'
 
-- `okhttp（2.4.0）、okio（1.4.0）`：CDN文件服务使用okhttp相关包进行文件的上传和下载（`必填`）
-- `support-v4（23.2.1）`:用于兼容Android6.0系统，并提供权限管理工具（如果需要兼容Android6.0系统，则需添加此依赖）
-- `
-- `：用于兼容Android6.0系统（如果需要兼容Android6.0系统，则需添加此依赖）
+如果需要兼容Android6.0系统，请添加以下两项：
+
+	compile 'com.android.support:support-v4:23.2.1'
+	compile 'cn.bmob.android:http-legacy:1.0'
 
 **[3]、每个版本的im依赖特定版本的bmob-sdk：**
 
@@ -145,7 +134,6 @@ dependencies {
 2、BmobSDK_v3.4.7需要依赖`okhttp3（3.2.0）、okio（1.7.0）`及`libbmob.so`库。
 
 3、BmobSDK_v3.4.6需要依赖`okhttp（2.4.0）、okio（1.4.0）`，如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy依赖包。
-
 
 
 ## 兼容Android6
