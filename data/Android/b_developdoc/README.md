@@ -1070,48 +1070,15 @@ bmobQuery.findObjects(this, new FindListener<Person>() {
 ### 统计查询
 
 从`BmobSDKV3.3.6`开始，Bmob为开发者提供了以下关键字或其组合的统计查询操作,分别用于计算`总和、平均值、最大值、最小值`，同时支持分组和过滤条件。
-<table>
-<tr>
-<th> 方法名 </td>
-<th> 参数说明 </td>
-<th> 方法说明 </td>
-</tr>
-<tr>
-<td> sum </td>
-<td> String[] sumKeys（多个列名） </td>
-<td> 求某列或多列的和 </td>
-</tr>
-<tr>
-<td>average</td>
-<td>String[] aveKeys（多个列名）</td>
-<td>求某列或多列的平均值</td>
-</tr>
-<tr>
-<td>max</td>
-<td>String[] maxKeys（多个列名）</td>
-<td>求某列或多列的最大值</td>
-</tr>
-<tr>
-<td>min</td>
-<td>String[] minKeys（多个列名）</td>
-<td>求某列或多列的最小值</td>
-</tr>
-<tr>
-<td>groupby</td>
-<td>String[] groupKeys（多个列名）</td>
-<td>分组</td>
-</tr>
-<tr>
-<td>having</td>
-<td>HashMap map(键（String）值(Object)对的形式)</td>
-<td>分组的过滤条件</td>
-</tr>
-<tr>
-<td>setHasGroupCount</td>
-<td>boolean hasCount</td>
-<td>是否返回每个分组的记录数</td>
-</tr>
-</table>
+|方法名|参数说明|方法说明|
+|---|---|---|
+|sum|String[] sumKeys（多个列名）|求某列或多列的和|
+|average|String[] aveKeys（多个列名）|求某列或多列的平均值|
+|max|String[] maxKeys（多个列名）|求某列或多列的最大值|
+|min|String[] minKeys（多个列名）|求某列或多列的最小值|
+|groupby|String[] groupKeys（多个列名）|分组|
+|having|HashMap map(键（String）值(Object)对的形式)|分组的过滤条件|
+|setHasGroupCount|boolean hasCount|是否返回每个分组的记录数|
 
 注：
 1、为避免和用户创建的列名称冲突，Bmob约定以上查询返回的字段采用`_(关键字)+首字母大写的列名` 的格式：
@@ -1898,34 +1865,28 @@ Bmob提供了`Pointer（一对一、一对多）`和`Relation（多对多）`两
 在这个场景中涉及到三个表：用户表（`_User`）、帖子表（`Post`）、评论表（`Comment`）,以下是各个表的字段：
 
 `_User`字段如下：
-<table>
-<tr><th> 字段 </td><th>类型</th><th>  含义</th></tr>
-<tr><td> objectId </td><td>  String</td><td>  用户ID</td></tr>
-<tr><td> username </td><td>  String</td><td>  用户名(可以既发帖子又发评论)</td></tr>
-<tr><td> age </td><td>  Integer</td><td>  年龄</td></tr>
-</table>
-----------
+|字段|类型|含义|
+|---|---|---|
+|objectId|String|用户ID|
+|username|String|用户名(可以既发帖子又发评论)|
+|age|Integer|年龄|
 
 `Post`字段如下：
-<table>
-<tr><th> 字段 </td><th>  含义</th><th>  类型</th></tr>
-<tr><td> objectId </td><td>  String</td><td> 帖子ID </td></tr>
-<tr><td> title </td><td>  String</td><td> 帖子标题 </td></tr>
-<tr><td> content </td><td>  String</td><td> 帖子内容 </td></tr>
-<tr><td> author </td><td>  Pointer<_User></td><td> 帖子作者 </td></tr>
-<tr><td> likes </td><td>  Relation<_User></td><td> 喜欢帖子的读者 </td></tr>
-</table>
-----------
+|字段|含义|类型|
+|---|---|---|
+|objectId|String|帖子ID|
+|title|String|帖子标题|
+|content|String|帖子内容|
+|author|Pointer|帖子作者|
+|likes|Relation|喜欢帖子的读者|
 
 `Comment`字段如下：
-<table>
-<tr><th> 字段 </td><th>  含义</th><th>  类型</th></tr>
-<tr><td> objectId </td><td>  String</td><td> 评论ID </td></tr>
-<tr><td> content </td><td>  String</td><td> 评论内容 </td></tr>
-<tr><td> post </td><td>   Pointer<Post></td><td> 评论对应的帖子 </td></tr>
-<tr><td> author </td><td>  Pointer<_User></td><td> 评论该帖子的人 </td></tr>
-</table>
-----------
+|字段|含义|类型|
+|---|---|---|
+|objectId|String|评论ID|
+|content|String|评论内容|
+|post|Pointer|评论对应的帖子|
+|author|Pointer|评论该帖子的人|
 
 #### Web端创建关联字段
 如果你需要在Web端创建上述表的话，那么当选择的字段类型为`Pointer或Relation`时，会提示你选择该字段所指向或关联的数据表。
