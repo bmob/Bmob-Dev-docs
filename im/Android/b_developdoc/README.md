@@ -42,11 +42,12 @@
 
 `NewIM_V2.0.x_Demo`-官方发布的示例Demo,一个完整即时通讯Demo，包含陌生人聊天及基于好友之间的聊天（v2.0.4以后版本demo提供）。
 
+
 ### Android Studio配置
 
 #### 自动导入(推荐)
 
-一、 在`Project`的`build.gradle`文件中添加`Bmob的maven仓库地址`，示例如下：（**注意文字说明部分**）：
+1. 在`Project`的`build.gradle`文件中添加`Bmob的maven仓库地址`，示例如下：（**注意文字说明部分**）：
 
 	buildscript {
 	    repositories {
@@ -65,7 +66,7 @@
 	    }
 	}
 
-二、 在`app`的`build.gradle`文件中添加`compile依赖文件`,示例如下：（**注意文字说明部分**）：
+2. 在`app`的`build.gradle`文件中添加`compile依赖文件`,示例如下：（**注意文字说明部分**）：
 
 
 
@@ -101,7 +102,7 @@
 - `bmob-im:2.0.4--->bmob-sdk:3.4.6` 
 - `bmob-im:2.0.5--->bmob-sdk:3.4.7-aar`
 
-**2、自`2.0.5`版本开始提供 `aar` 格式的NewIMSDK,该aar文件包含以下内容：**
+**[2]、自`2.0.5`版本开始提供 `aar` 格式的NewIMSDK,该aar文件包含以下内容：**
 
 - `BmobNewIM_(版本号)_(发布日期).jar` :NewIM 核心SDK
 - `androidasync_2.1.6.jar`			:用于协议通讯
@@ -111,9 +112,9 @@
 
 #### 手动导入
 
-- 开发者到[SDK下载中心](http://www.bmob.cn/downloads)下载 `即时通讯` 的Android 版本的SDK，并将下载下来的`libs`文件夹里面的文件根据需要复制到工程的libs目录下(注意，自`v3.4.7`开始，提供`libbmob.so`文件)； 
+1. 开发者到[SDK下载中心](http://www.bmob.cn/downloads)下载 `即时通讯` 的Android 版本的SDK，并将下载下来的`libs`文件夹里面的文件根据需要复制到工程的libs目录下(注意，自`v3.4.7`开始，提供`libbmob.so`文件)； 
 
-- 在`app`的`buid.gradle`文件中添加SO库目录配置：
+2. 在`app`的`buid.gradle`文件中添加SO库目录配置：
 
 		android {
 	        sourceSets {
@@ -121,7 +122,7 @@
 	       }
 		}
 
-- 点击Sync，同步配置。
+3. 点击Sync，同步配置。
 
 
 ### 配置AndroidManifest.xml
