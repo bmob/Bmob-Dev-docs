@@ -1,3 +1,27 @@
+v3.0.2   2016年5月31日
+1.将过长字符串通过getResourceAsStream方式加载,兼容部分旧的编译器
+2.更新了混淆规则,详细内容见文档
+3.支付插件的名字统一为"安全支付控件"
+
+v3.0.1   2016年5月30日
+1.提供关闭Service的接口，BP.ForceExit();
+2.修复102(安全认证)的问题
+3.将插件上的支付宝sdk升级到最新版
+4.支付插件改名为"BPay安全控件"
+5.Demo中添加了检查支付插件版本并更新的示例
+
+v3.0   2016年5月27日
+1.请勿将支付sdk用于违规途径,一经发现,本平台可在不通知开发者的情况下紧急封禁账号以避免损失;
+2.支付宝支付和微信支付都需要使用支付插件(本目录下的’BmobPlugin.apk’),请确保有读写SD卡权限;
+3.如果担心插件被应用市场扫描出带有支付功能,可将插件通过加密或下载的方式隐藏起来;
+4.混淆规则如下:
+-keep class c.b.BP
+-keep class c.b.PListener
+-keep class c.b.QListener
+-keepclasseswithmembers class c.b.BP{ *; }
+-keepclasseswithmembers class * implements c.b.PListener{ *; }
+-keepclasseswithmembers class * implements c.b.QListener{ *; }
+
 v2.7   2016年4月27日
  修复了Unity项目初始化时提示混淆失败的问题(在Assets/Android/assets下添加了s.db和j.db文件)
 
