@@ -37,7 +37,7 @@
 ```
 注意，为了确保体验，建议使用异步调用的方法。
 
-关于云端逻辑的编写，详细参考  [云端逻辑开发文档](http://docs.bmob.cn/cloudcode/developdoc/index.html?menukey=develop_doc&key=develop_cloudcode)
+关于云端逻辑的编写，详细参考  [云端逻辑开发文档](http://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html)
 
 
 
