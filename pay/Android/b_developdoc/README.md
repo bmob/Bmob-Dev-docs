@@ -14,8 +14,10 @@ Android支付SDK接口是Bmob为广大开发人员提供的统一、正规的收
 
 **1）封建迷信和/或淫秽、色情、下流的信息或教唆犯罪的信息；**
 **2）博彩有奖、赌博游戏、“私服”、“外挂”等非法互联网出版活动；**
-Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或断开链接。同时，本平台有权视用户的行为性质，采取包括但不限于暂停或终止服务，限制、冻结或终止本平台网站账号的使用，追究法律责任等措施。
-2.应用遇到过多的用户投诉，如应用的使用者支付了相关款项，但是该应用却没有提供相应的服务。本平台有权限制或冻结该应用支付收入的所有款项，并保留追究法律责任的权利。
+
+Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或断开链接。同时，本平台有权视用户的行为性质，采取包括但不限于暂停或终止服务，限制、冻结或终止本平台网站账号的使用，追究法律责任等措施。
+
+2.应用遇到过多的用户投诉，如应用的使用者支付了相关款项，但是该应用却没有提供相应的服务。本平台有权限制或冻结该应用支付收入的所有款项，并保留追究法律责任的权利。
 
 ##  打款需知
 
@@ -46,52 +48,33 @@ Android支付SDK接口是Bmob为广大开发人员提供的统一、正规的收
 - 将名为libs的文件夹放在您项目根目录下（里面有 BmobPay_版本号.jar文件）
 - 在您项目的AndroidManifest.xml中添加以下权限:
 
-		    <uses-permission android:name="android.permission.INTERNET" />
-		    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-		    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-		    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-		    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-		    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-     
-- 在AndroidManifest.xml的Application标签下添加以下内容：
+		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-        <activity
-            android:name="c.b.a.A"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="c.b.a.B"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent" />
-
-- 在您的应用程序主Activity的onCreate中调用如下方法：<p>
+- 在您的应用程序主Activity的onCreate中调用如下方法：
   （Application ID在后台应用管理的 数据浏览->应用信息->应用密钥->Application ID）
 
-    		BP.init(context,"你的Application ID");
+    	BP.init(context,"你的Application ID");
 **注意：新版的支付sdk不能被数据服务sdk的初始化方法取代了，无论您是否使用了Bmob数据服务SDK，都要进行支付SDK的初始化**
 
 - 发起支付调用，请使用如下方法：
 	
-		/**
-     	 * 第5个参数为true时调用支付宝支付，为false时调用微信支付
+	/**
+     	 * 第4个参数为true时调用支付宝支付，为false时调用微信支付
      	 */
-		BP.pay(MainActivity.this, "商品名称", "商品描述", 0.02, true, new Plistener(){...});
+		BP.pay("商品名称", "商品描述", 0.02, true, new Plistener(){...});
 		
 - 在需要调用订单查询的地方，调用如下方法(微信订单和支付宝订单通用)：
 
-		BP.query(MainActivity.this, "订单id", new QListener(){...});
+		BP.query("订单id", new QListener(){...});
 
 ## 类库说明
 
 **c.b.BP**
 
-- BP.pay(Activity activity, String title, String descript, double money, boolean aliOrWetchat, Plistener listener)
+- BP.pay(String title, String descript, double money, boolean aliOrWetchat, Plistener listener)
 
 |类型|名称|说明|
 |---|---|---|
-|Activity|activity|调用支付时的Activity|
 |String|title|商品的名称,请注意不要有违禁字眼,可以为空<p>只允许中文、数字、英文和下划线、英文破折号，否则过滤|
 |String|descript|商品的详情描述,请注意不要有违禁字眼,可以为空<p>只允许中文、数字、英文和下划线、英文破折号，否则过滤|
 |double|price|商品的价格,建议测试用0.02|
@@ -104,11 +87,10 @@ Android支付SDK接口是Bmob为广大开发人员提供的统一、正规的收
 
 	调用微信支付，要安装插件(如果没有安装,会监听器的fail方法会返回-3错误码)，插件在sdk文档的plugin文件夹下，demo有通过assets安装的示例
 
-- BP.query(Activity activity, String orderId, QListener listener)
+- BP.query(String orderId, QListener listener)
 
 |类型|名称|说明|
 |---|---|---|
-|Activity|activity|调用查询订单时的Activity|
 |String|orderId|支付订单号,不可为空|
 |OrderQueryListener|listener|查询结果监听类c.b.QListener<p>有成功、失败等方法|
 
@@ -153,7 +135,7 @@ Android支付SDK接口是Bmob为广大开发人员提供的统一、正规的收
 |------|------|
 |-1|微信返回的错误码，可能是未安装微信，也可能是微信没获得网络权限等|
 |-2|微信支付用户中断操作|
-|-3|未安装微信支付插件|
+|-3|未安装支付插件|
 |102|设置了安全验证，但是签名或IP不对|
 |6001|支付宝支付用户中断操作|
 |4000|支付宝支付出错，可能是参数有问题|
@@ -223,7 +205,7 @@ out_trade_no：Bmob返回的订单号
 trade_no：支付宝或微信返回的订单号
 
 ## 其他
-- 请不要混淆sdk中的任何类和方法名(c.b.*和c.b.a.*)
+- 混淆规则如下: -keep class c.b.BP -keep class c.b.PListener -keep class c.b.QListener -keepclasseswithmembers class c.b.BP{ *; } keepclasseswithmembers class * implements c.b.PListener{ *; } -keepclasseswithmembers class * implements c.b.QListener{ *; }
 - 在[Bmob财务管理平台](http://www.bmob.cn/finance/info "Bmob财务管理平台")订单管理处，金额从小数点后第三位开始不显示，比如支付了0.01元实收0.00，其实是0.0095
 - 如果用户的手机有“应用锁”功能（即点击应用后跳出系统设定的解锁界面，如小米、360、腾讯管家都可能有该功能），则可能会导致支付中断（支付宝返回6001，微信返回-2），这是微信和支付宝sdk出于安全考虑设置的，请建议用户出现该问题时先关掉支付宝钱包或微信的应用锁
 - 由于微信Sdk的限制，无法判断微信是否已登陆用户，**如果未登陆用户，监听器的fail方法可能不被调用**，请开发者们提醒自己的用户确保微信已登陆
