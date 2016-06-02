@@ -43,7 +43,7 @@ AS3.0访问RestApi：[http://wenda.bmob.cn//?/question/193](http://wenda.bmob.cn
 
 API 访问需要在 https://api.bmob.cn 域名下，相对路径前缀 /1/ 表明现在使用的是第 1 版的 API。
 
-### 对象
+### 对象快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
@@ -54,7 +54,7 @@ API 访问需要在 https://api.bmob.cn 域名下，相对路径前缀 /1/ 表�
 |/1/classes/TableName/objectId|GET|查询数据|
 |/1/cloudQuery|GET|使用BQL查询|
 
-### 用户
+### 用户快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
@@ -68,7 +68,7 @@ API 访问需要在 https://api.bmob.cn 域名下，相对路径前缀 /1/ 表�
 |/1/updateUserPassword/objectId|POST|旧密码更新密码|
 |/1/requestEmailVerify|POST|邮箱验证|
 
-### 文件管理
+### 文件管理快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
@@ -76,7 +76,7 @@ API 访问需要在 https://api.bmob.cn 域名下，相对路径前缀 /1/ 表�
 |/2/files/cdnName/url|DELETE|删除文件|
 |/2/cdnBatchDelete|POST|批量删除CDN文件|
 
-### ACL和角色管理
+### ACL和角色管理快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
@@ -84,13 +84,13 @@ API 访问需要在 https://api.bmob.cn 域名下，相对路径前缀 /1/ 表�
 |/1/roles/objectId|GET|获取角色|
 |/1/roles/objectId|PUT|更新角色|
 
-### 云端逻辑
+### 云端逻辑快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
 |/1/functions/funcName|POST|调用云端逻辑|
 
-### 推送
+### 推送快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
@@ -98,14 +98,14 @@ API 访问需要在 https://api.bmob.cn 域名下，相对路径前缀 /1/ 表�
 |/1/installations/objectId|PUT|订阅频道和退订|
 |/1/push|POST|推送信息|
 
-### 支付
+### 支付快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
 |/1/webpay|POST|调起支付接口|
 |/1/pay/out_trade_no|GET|查询订单|
 
-### 短信
+### 短信快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
@@ -115,7 +115,7 @@ API 访问需要在 https://api.bmob.cn 域名下，相对路径前缀 /1/ 表�
 |/1/querySms/:smsId|GET|查询短信状态|
 
 
-### app服务
+### app服务快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
@@ -125,7 +125,7 @@ API 访问需要在 https://api.bmob.cn 域名下，相对路径前缀 /1/ 表�
 |/1/apps/appId|PUT|修改app信息|
 
 
-### 数据表
+### 数据表快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
@@ -135,7 +135,7 @@ API 访问需要在 https://api.bmob.cn 域名下，相对路径前缀 /1/ 表�
 |/1/schemas/TableName|PUT|修改表|
 |/1/schemas/TableName|DELETE|删除表|
 
-### 其它功能
+### 其它功能快速参考
 
 |URL|HTTP|功能|
 |:---|:---|:---|
@@ -3660,7 +3660,7 @@ curl -X GET \
 
 ## 云端逻辑
 
-相关云端逻辑的编写方式，请参考[云端逻辑开发文档](http://docs.bmob.cn/cloudcode/developdoc/index.html?menukey=develop_doc&key=develop_cloudcode)
+相关云端逻辑的编写方式，请参考[云端逻辑开发文档](http://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html#index_%E8%8CBmob%10%F7)
 
 ### 运行云端逻辑
 
