@@ -12,9 +12,8 @@ Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可�
 
 - 获取前N名数据排行信息：[https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js](https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js)
 
-- 请求生成缩略图：[http://wenda.bmob.cn//?/question/129](http://wenda.bmob.cn//?/question/129)
 
-在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[http://docs.bmob.cn/codehelp/index.html?menukey=otherdoc&key=codehelp](http://docs.bmob.cn/codehelp/index.html?menukey=otherdoc&key=codehelp)
+在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
 
 ## 调用云端逻辑的方式
 
@@ -101,10 +100,6 @@ request.body.name
 	}
 
 ```
-
-
-
-
 
 ### response模块
 

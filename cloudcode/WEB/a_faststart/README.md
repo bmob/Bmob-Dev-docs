@@ -47,7 +47,7 @@ function onRequest(request, response, modules) {
 
 云端逻辑的调用执行可以是在云端（通过“定时任务”模块去设置执行，实现定时业务逻辑计算的功能，如排行榜，这个操作非常简单，这里不再一一介绍），但更多的开发者是通过SDK调用的方式来执行云端逻辑。这有点像存储过程，大家可以将更多的业务逻辑放在云端，可以随意改变，不需要更新应用，也不需要上传太多的数据参数。
 
-安装和初始化SDK的过程大家根据各自的平台（[Android](http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "Android快速入门文档") / [iOS](http://docs.bmob.cn/ios/faststart/index.html?menukey=fast_start&key=start_ios "iOS快速入门文档")等）具体参考快速入门文档即可。
+安装和初始化SDK的过程大家根据各自的平台（[Android](http://docs.bmob.cn/data/Android/a_faststart/doc/index.html "Android快速入门文档") / [iOS](http://docs.bmob.cn/data/iOS/a_faststart/doc/index.html "iOS快速入门文档")等）具体参考快速入门文档即可。
 
 ## 调用云端逻辑
 
