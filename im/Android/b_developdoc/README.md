@@ -36,13 +36,94 @@
 
 2、解压之后的文件夹内容如下：
 
-`libs(包含三个jar文件)`-这三个jar需要全部复制进工程中才可以使用新版IM
+`libs(NewIM服务所需的jar文件)`-这些jar需要全部复制进工程中才可以使用新版IM，包含imsdk及所需的bmobsdk
 
 `values(bmob_im_notification_strings.xml)`-用于通知栏显示
 
 `NewIM_V2.0.x_Demo`-官方发布的示例Demo,一个完整即时通讯Demo，包含陌生人聊天及基于好友之间的聊天（v2.0.4以后版本demo提供）。
 
-***注：libs和values文件夹下面的都需要复制到应用中，否则将无法正常使用IM服务。***
+
+### Android Studio配置
+
+#### 自动导入(推荐)
+
+1. 在`Project`的`build.gradle`文件中添加`Bmob的maven仓库地址`，示例如下：（**注意文字说明部分**）：
+
+	buildscript {
+	    repositories {
+	        jcenter()
+	    }
+	    dependencies {
+	        classpath 'com.android.tools.build:gradle:1.2.3'
+	    }
+	}
+	
+	allprojects {
+	    repositories {
+	        jcenter()
+			//Bmob的maven仓库地址--必填
+	        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+	    }
+	}
+
+2. 在`app`的`build.gradle`文件中添加`compile依赖文件`,示例如下：（**注意文字说明部分**）：
+
+
+
+	apply plugin: 'com.android.application'
+	
+	android {
+	    compileSdkVersion 22
+	    buildToolsVersion '22.0.1'
+	
+	    ...
+	}
+	
+	
+	dependencies {
+	    compile fileTree(dir: 'libs', include: ['*.jar'])
+	
+		//bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[1]
+		compile 'cn.bmob.android:bmob-im:2.0.5@aar'
+		compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+	}
+
+
+
+**注：**
+
+**[1]、IM服务使用BmobSDK的 `BmobFile` 用于图片、语音等文件消息的发送，因此必须导入特定版本的BmobSDK。具体的对应关系如下：**
+
+- `bmob-im:1.1.8--->bmob-sdk:3.3.5`
+- `bmob-im:1.1.9--->bmob-sdk:3.4.3`
+- `bmob-im:2.0.1--->bmob-sdk:3.4.6-0304`
+- `bmob-im:2.0.2--->bmob-sdk:3.4.6-0304`
+- `bmob-im:2.0.3--->bmob-sdk:3.4.6`
+- `bmob-im:2.0.4--->bmob-sdk:3.4.6` 
+- `bmob-im:2.0.5--->bmob-sdk:3.4.7-aar`
+
+**[2]、自`2.0.5`版本开始提供 `aar` 格式的NewIMSDK,该aar文件包含以下内容：**
+
+- `BmobNewIM_(版本号)_(发布日期).jar` :NewIM 核心SDK
+- `androidasync_2.1.6.jar`			:用于协议通讯
+- `bmob_im_notification_strings.xml`:用于通知栏显示
+
+因此，**推荐使用aar方式自动导入IMSDK**。
+
+#### 手动导入
+
+1. 开发者到[SDK下载中心](http://www.bmob.cn/downloads)下载 `即时通讯` 的Android 版本的SDK，并将下载下来的`libs`文件夹里面的文件根据需要复制到工程的libs目录下(注意，自`v3.4.7`开始，提供`libbmob.so`文件)； 
+
+2. 在`app`的`buid.gradle`文件中添加SO库目录配置：
+
+		android {
+	        sourceSets {
+	            main.jniLibs.srcDirs = ['libs']
+	       }
+		}
+
+3. 点击Sync，同步配置。
+
 
 ### 配置AndroidManifest.xml
 
