@@ -84,7 +84,7 @@ public class MyPushMessageReceiver extends BroadcastReceiver{
 	// 启动推送服务
 	BmobPush.startWork(this);
 ```
-代码中的"你的AppKey"就是你在Bmob后台中创建的应用程序的AppKey，如果你不知道这是什么，可以参考[快速入门文档](http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "Android快速入门")中的注册Bmob账号部分。
+代码中的"你的AppKey"就是你在Bmob后台中创建的应用程序的AppKey，如果你不知道这是什么，可以参考[快速入门文档](http://docs.bmob.cn/data/Android/a_faststart/doc/index.html "Android快速入门")中的注册Bmob账号部分。
 
 ## 在web端进行推送设置
 

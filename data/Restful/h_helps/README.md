@@ -45,6 +45,6 @@ restapi可以发送推送信息，也可以通过get的方式获取聊天内容�
 
 ### 哪里可以看到错误码
 
-[点击这里](http://docs.bmob.cn/errorcode/index.html?menukey=otherdoc&key=errorcode)可以查看RestApi的错误码列表。
+[点击这里](http://docs.bmob.cn/data/Restful/g_errorcode/doc/index.html)可以查看RestApi的错误码列表。
 
 

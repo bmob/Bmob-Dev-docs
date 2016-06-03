@@ -123,7 +123,7 @@ public class MainActivity extends Activity {
 
 ## 添加一行数据
 
-首先创建JavaBean（对应为Bmob后台的数据表，更详细的解释请[查看Android开发文档](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android)）
+首先创建JavaBean（对应为Bmob后台的数据表，更详细的解释请[查看Android开发文档](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html)）
 
 ```java
 public class Person extends BmobObject {
@@ -233,7 +233,7 @@ p2.delete(this, new DeleteListener() {
 
 [快速入门相关源码下载](http://www.bmob.cn/static/Bmob_android_quickstart.zip "快速入门相关源码下载")
 
-案例教程和源码是快速入门的最简单方法，Bmob也为大家准备了相关的[案例教程和源码](http://docs.bmob.cn/android/example/index.html?menukey=example_teach_doc&key=example_teach_android)，欢迎大家下载和查看。
+案例教程和源码是快速入门的最简单方法，Bmob也为大家准备了相关的[案例教程和源码](http://docs.bmob.cn/data/Android/c_example/doc/index.html)，欢迎大家下载和查看。
 
 为方便大家更好的理解Bmob SDK能够做的事情，我们还特意为大家提供了一些源码，大家可以下载之后，**嵌入Bmob的AppKey**，再打包运行。
 
@@ -251,6 +251,6 @@ p2.delete(this, new DeleteListener() {
 
 ## 阅读更多的文档
 
-快速入门只是提供了最最基本的介绍，如果你想了解更多的功能，请查看我们的详细开发文档：[http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android)
+快速入门只是提供了最最基本的介绍，如果你想了解更多的功能，请查看我们的详细开发文档：[http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html)
 
 

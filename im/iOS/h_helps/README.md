@@ -7,7 +7,7 @@ Android：[bmob-android-im-sdk](https://github.com/bmob/bmob-android-im-sdk)
 
 请先在Web后台配置包名或者证书。
 
-详情查看IM常见问题部分：[IM常见问题](http://docs.bmob.cn/im/faststart/index.html?menukey=fast_start&key=start_im#index_%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94)
+
 
 ## 消息推送的时候我没开启网络，在推送一段时间后再开启网络，会收到消息吗？
 
@@ -15,7 +15,7 @@ Android：[bmob-android-im-sdk](https://github.com/bmob/bmob-android-im-sdk)
 
 ## Bmob可以做群聊吗？
 
-可以利用[数据实时同步](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#index_%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5)来实现群聊。
+可以利用[数据实时同步](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#index_数据实时功能)来实现群聊。
 
 思路可以这样：
 

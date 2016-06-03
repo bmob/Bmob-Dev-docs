@@ -5,11 +5,11 @@
 Bmob完全支持iOS 64bit/32bit的真机和模拟器调试。
 
 ### 请问有对应的swift，开发方法吗？
-Swift项目中使用BmobSDK可以看这个文档：[Swift项目中使用BmobSDK](http://docs.bmob.cn/swift/index.html?menukey=otherdoc&key=swift)
+Swift项目中使用BmobSDK可以看这个文档：[Swift项目中使用BmobSDK](http://docs.bmob.cn/data/iOS/l_swift/doc/index.html)
 
 ### 哪里可以看到错误码
 
-请查看iOS开发文档中的[错误代码列表](http://docs.bmob.cn/ios/developdoc/index.html?menukey=develop_doc&key=develop_ios#index_错误码列表)。
+请查看iOS开发文档中的[错误代码列表](http://docs.bmob.cn/data/iOS/g_errorcode/doc/index.html)。
 
 ### 注册和登录的流程是怎样开发的
 
@@ -36,7 +36,7 @@ Bmob SDK中，邮箱的验证和用户的注册登录是异步的关系，也就
 
 ### 如果每个用户都有写入权限，安全应该怎么做？ 
 
-可以设置ACL，详情请查看文档[ACL和角色](http://docs.bmob.cn/ios/developdoc/index.html?menukey=develop_doc&key=develop_ios#index_ACL%E5%92%8C%E8%A7%92%E8%89%B2)。
+可以设置ACL，详情请查看文档[ACL和角色](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#index_ACL和角色)。
 
 ### 注册的时候如何给User表自定义的字段插值？
  

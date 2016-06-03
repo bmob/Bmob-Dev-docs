@@ -154,7 +154,7 @@ query.first({
 ```
 
 **这里需要注意一点的是：**
-默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/jssdk/developdoc/index.html?menukey=develop_doc&key=develop_jssdk#index_条件查询)一节。
+默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/data/JavaScript/b_developdoc/doc/index.html#index_分页查询)一节。
 
 ### 获取对象的特殊属性
 
@@ -1465,7 +1465,7 @@ tablename为更新的表，objectId为更新行的objectId，data为服务端返
 
 ## ACL和角色
 
-数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety)，了解Bmob如何保护数据安全）。
+数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/other/Other/m_bql/doc/index.html)，了解Bmob如何保护数据安全）。
 
 其中，最灵活的方法是通过ACL和角色，它的思路是每一条数据有一个用户和角色的列表，以及这些用户和角色拥有什么样的许可权限。
 
@@ -1630,220 +1630,7 @@ query.find({
 });
 ```
 
-## 云端逻辑
-
-云端逻辑调用使用`Bmob.Cloud.run`方法，如调用云端逻辑中的"test"方法，并传递name参数到服务器中的示例代码如下：
-
-```
-Bmob.Cloud.run('test', {"name":"tom"}, {
-  success: function(result) {
-    alert(result);
-  },
-  error: function(error) {
-  }
-})
-```
-
-如果不需要传递参数，示例代码如下：
-
-```
-Bmob.Cloud.run('test', {}, {
-  success: function(result) {
-    alert(result);
-  },
-  error: function(error) {
-  }
-})
-```
-
-## 推送通知
-
-向移动设备发送通知消息的示例代码如下：
-
-```
-//向订阅了public频道的设备推送通知
-Bmob.Push.send({
-  channels: [ "Public" ],
-  data: {
-     alert: "Public message"
-  }
-});
-```
-
-大家可以查看文档：[Bmob消息推送](http://docs.bmob.cn/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful "Bmob移动后端云服务平台") 获取更详细的信息。
-
-## 短信服务
-
-在一些应用场景下，你可能希望用户验证手机号码后才能进行一些操作，例如充值等。这些操作跟用户系统没有关系，可以通过我们提供的的短信验证API来实现。
-
-每个 [Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 帐户有 100 个免费额度的短信数量，超过需要购买短信条数才能继续使用。
-
-为了保障短信的下发速度和送达率，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 为所有用户申请了一致的独享通道，默认使用 **【云验证】** 作为签名，且不可更改。
-
-### 请求发送短信内容
-
-这个接口可让开发者使用  [Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 的短信功能灵活发送短信内容到用户的手机上。
-
-此接口必须要开发者在后台提交身份证信息，在([Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")》账户管理》身份验证) 中填写，并通过了我们的审核后才可以使用。
-
-请不要发送任何敏感内容，一经发现，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 有权立刻停止您的该接口使用权。
-
-
-输入手机号码、短信内容，就可以给用户的手机号码发送自定义的短信内容了，以下的content只要在不违反相关规定的前提下，你可以随意输入：
-```
-Bmob.Sms.requestSms({"mobilePhoneNumber": "131xxxxxxxx","content": "您的验证码是：222222, 有效期是10分钟。"} ).then(function(obj) {
-  alert("smsId:"+obj.smsId); //
-}, function(err){
-  alert("发送失败:"+err);
-});
-```
-
-你还可以选择定时发送，比如未来的某一时刻给某个手机发送一条短信，sendTime的格式必须是YYYY-mm-dd HH:ii:ss， 如: 2015-05-26 12:13:14，请求如下：
-```
-Bmob.Sms.requestSms({"mobilePhoneNumber": "131xxxxxxxx","content": "您的验证码是：222222, 有效期是10分钟。","sendTime": "2016-05-26 12:13:14"} ).then(function(obj) {
-  alert("smsId:"+obj.smsId); //
-}, function(err){
-  alert("发送失败:"+err);
-});
-```
-
-成功返回，短信验证码ID，可用于后面使用查询短信状态接口来查询该条短信是否发送成功：
-```
-{
-	"smsId": 1232222
-}
-```
-
-### 请求短信验证码
-如果没有在管理后台创建好模板，可使用默认的模板，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 默认的模板是: **您的验证码是%smscode%，有效期为%ttl%分钟。您正在使用%appname%的验证码**
-
-使用默认的模板请求短信验证码：
-```
-Bmob.Sms.requestSmsCode({"mobilePhoneNumber": "131xxxxxxxx"} ).then(function(obj) {
-  alert("smsId:"+obj.smsId); //
-}, function(err){
-  alert("发送失败:"+err);
-});
-```
-
-成功返回，短信验证码ID，可用于后面使用查询短信状态接口来查询该短信验证码是否发送成功和是否验证过：
-```
-{
-	"smsId": 1232222
-}
-```
-
-如果你已经在 [Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 后台设置了自己的模板，并已经是审核通过了，则可以使用自己的模板给用户的手机号码发送短信验证码了：
-```
-Bmob.Sms.requestSmsCode({"mobilePhoneNumber": "131xxxxxxxx", "template":"注册模板"} ).then(function(obj) {
-  alert("smsId:"+obj.smsId); //
-}, function(err){
-  alert("发送失败:"+err);
-});
-```
-
-成功返回，短信验证码ID，可用于后面使用查询短信状态接口来查询该短信验证码是否发送成功和是否验证过：
-```
-{
-	"smsId": 1232222
-}
-```
-
-### 验证短信验证码
-
-通过以下接口，你可以验证用户输入的验证码是否是有效的：
-```
-Bmob.Sms.verifySmsCode("131xxxxxxxx", 125466).then(function(obj) {
-  alert("msg:"+obj.msg); //
-}, function(err){
-  alert("发送失败:"+err);
-});
-```
-
-成功返回以下JSON，表明验证码验证通过：
-```
-{
-	"msg":"ok"
-}
-```
-
-### 查询短信状态
-
-通过以下接口，你可以查询某条短信是否发送成功，如果是使用了Bmob的模板的话还能查询到是否被验证过，其实:smsId是请求短信验证码API返回的smsId值：
-```
-Bmob.Sms.querySms(6817361).then(function(obj) {
-  alert("status:"+obj.sms_state); //
-}, function(err){
-  alert("发送失败:"+err);
-});
-```
-成功返回以下JSON：
-```
-{
-  "sms_state": "SENDING", 
-  "verify_state": false
-}
-```
-其中sms_state是发送状态，有值: SENDING-发送中，FAIL-发送失败 SUCCESS-发送成功
-其中verify_state是验证码是否验证状态， 有值: true-已验证 false-未验证
-
-## 支付服务
-
-### 网页端调起支付宝支付接口
-
-js可使用以下接口调起支付宝的支付接口，PHP开发者可参考：[Bmob PHP SDK](https://github.com/bmob/bmob-php-sdk "Bmob PHP SDK")  仓库的pay目录下的payapi.php文件编写该接口。
-```
-Bmob.Pay.webPay(0.01, "充值", "给应用充值0.01元").then(function(obj) {
-  // <div id="pay_content"></div>
-  //pay_content是一个空div，运行跳转到支付宝的js代码
-  $("#pay_content").html(obj.html);
-}, function(err){
-  alert("发送失败:"+err);
-});
-```
-成功返回以下JSON, 失败时返回请看 [支付功能相关错误码](/errorcode/index.html?menukey=otherdoc&key=errorcode#index_支付功能相关错误码 "支付功能相关错误码")
-```
-{
-  "html": "html内容",
-  "out_trade_no": "9f392618f449a71c6fcfdee38d2b29e4",
-}
-```
-上面的代码把返回的html内容输出到你的Web页面上id为pay_content的div，将会自动跳转至支付宝收银台。
-
-关于移动端如何使用支付功能，请查看 [Android支付SDK](/androidpay/index.html?menukey=fast_start&key=start_android_pay "Android支付SDK") 或 [iOS支付SDK](/iospay/index.html?menukey=fast_start&key=start_ios_pay "iOS支付SDK")。
-
-### 查询订单
-```
-Bmob.Pay.queryOrder(435434).then(function(obj) {
-   alert("status:"+obj.name); //
-}, function(err){
-  alert("发送失败:"+err);
-});
-```
-成功返回以下JSON, 失败时返回请看 [支付功能相关错误码](/errorcode/index.html?menukey=otherdoc&key=errorcode#index_支付功能相关错误码 "支付功能相关错误码")
-```
-{
-  "name": "商品",
-  "body": "商品详情",
-  "create_time": "2015-03-24 11:14:58",
-  "out_trade_no": "9f392618f449a71c6fcfdee38d2b29e4",
-  "transaction_id": "2015061100001000330057820379"
-  "pay_type": "WECHATPAY",
-  "total_fee": 0.01,
-  "trade_state": "NOTPAY",
-}
-```
-返回的信息简单描述如下：
-name-订单或商品名称 
-body-商品详情  
-create_time - 调起支付的时间  
-out_trade_no-Bmob系统的订单号  
-transaction_id-微信或支付宝的系统订单号
-pay_type-WECHATPAY（微信支付）或ALIPAY（支付宝支付） 
-total_fee - 订单总金额  
-trade_state-NOTPAY（未支付）或 SUCCESS（支付成功）
-
 ## 错误代码详细说明
 
-[错误码列表](/errorcode/index.html?menukey=otherdoc&key=errorcode "错误码列表")
+[错误码列表](http://docs.bmob.cn/data/Restful/g_errorcode/doc/index.html "错误码列表")
 

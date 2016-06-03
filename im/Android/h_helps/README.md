@@ -15,7 +15,7 @@ Android：[bmob-android-im-sdk](https://github.com/bmob/bmob-android-im-sdk)
 
 ## Bmob可以做群聊吗？
 
-可以利用[数据实时同步](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#index_%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5)来实现群聊。
+可以利用[数据实时同步](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html#index_数据实时同步)来实现群聊。
 
 思路可以这样：
 

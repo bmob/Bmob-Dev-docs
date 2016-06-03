@@ -118,7 +118,7 @@ modules是Bmob云端逻辑提供给大家的各种对象处理的模块，包括
   //下面进行其他操作
 ```
 
-** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](http://docs.bmob.cn/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful)。 **
+** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_简介)。 **
 
 ## 数据库对象
 

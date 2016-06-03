@@ -1,0 +1,114 @@
+在一些应用场景下，你可能希望用户验证手机号码后才能进行一些操作，例如充值等。这些操作跟用户系统没有关系，可以通过我们提供的的短信验证API来实现。
+
+每个 [Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 帐户有 100 个免费额度的短信数量，超过需要购买短信条数才能继续使用。
+
+为了保障短信的下发速度和送达率，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 为所有用户申请了一致的独享通道，默认使用 **【云验证】** 作为签名，且不可更改。
+
+## 请求发送短信内容
+
+这个接口可让开发者使用  [Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 的短信功能灵活发送短信内容到用户的手机上。
+
+此接口必须要开发者在后台提交身份证信息，在([Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")》账户管理》身份验证) 中填写，并通过了我们的审核后才可以使用。
+
+请不要发送任何敏感内容，一经发现，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 有权立刻停止您的该接口使用权。
+
+
+输入手机号码、短信内容，就可以给用户的手机号码发送自定义的短信内容了，以下的content只要在不违反相关规定的前提下，你可以随意输入：
+```
+Bmob.Sms.requestSms({"mobilePhoneNumber": "131xxxxxxxx","content": "您的验证码是：222222, 有效期是10分钟。"} ).then(function(obj) {
+  alert("smsId:"+obj.smsId); //
+}, function(err){
+  alert("发送失败:"+err);
+});
+```
+
+你还可以选择定时发送，比如未来的某一时刻给某个手机发送一条短信，sendTime的格式必须是YYYY-mm-dd HH:ii:ss， 如: 2015-05-26 12:13:14，请求如下：
+```
+Bmob.Sms.requestSms({"mobilePhoneNumber": "131xxxxxxxx","content": "您的验证码是：222222, 有效期是10分钟。","sendTime": "2016-05-26 12:13:14"} ).then(function(obj) {
+  alert("smsId:"+obj.smsId); //
+}, function(err){
+  alert("发送失败:"+err);
+});
+```
+
+成功返回，短信验证码ID，可用于后面使用查询短信状态接口来查询该条短信是否发送成功：
+```
+{
+	"smsId": 1232222
+}
+```
+
+## 请求短信验证码
+如果没有在管理后台创建好模板，可使用默认的模板，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 默认的模板是: **您的验证码是%smscode%，有效期为%ttl%分钟。您正在使用%appname%的验证码**
+
+使用默认的模板请求短信验证码：
+```
+Bmob.Sms.requestSmsCode({"mobilePhoneNumber": "131xxxxxxxx"} ).then(function(obj) {
+  alert("smsId:"+obj.smsId); //
+}, function(err){
+  alert("发送失败:"+err);
+});
+```
+
+成功返回，短信验证码ID，可用于后面使用查询短信状态接口来查询该短信验证码是否发送成功和是否验证过：
+```
+{
+	"smsId": 1232222
+}
+```
+
+如果你已经在 [Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 后台设置了自己的模板，并已经是审核通过了，则可以使用自己的模板给用户的手机号码发送短信验证码了：
+```
+Bmob.Sms.requestSmsCode({"mobilePhoneNumber": "131xxxxxxxx", "template":"注册模板"} ).then(function(obj) {
+  alert("smsId:"+obj.smsId); //
+}, function(err){
+  alert("发送失败:"+err);
+});
+```
+
+成功返回，短信验证码ID，可用于后面使用查询短信状态接口来查询该短信验证码是否发送成功和是否验证过：
+```
+{
+	"smsId": 1232222
+}
+```
+
+## 验证短信验证码
+
+通过以下接口，你可以验证用户输入的验证码是否是有效的：
+```
+Bmob.Sms.verifySmsCode("131xxxxxxxx", 125466).then(function(obj) {
+  alert("msg:"+obj.msg); //
+}, function(err){
+  alert("发送失败:"+err);
+});
+```
+
+成功返回以下JSON，表明验证码验证通过：
+```
+{
+	"msg":"ok"
+}
+```
+
+## 查询短信状态
+
+通过以下接口，你可以查询某条短信是否发送成功，如果是使用了Bmob的模板的话还能查询到是否被验证过，其实:smsId是请求短信验证码API返回的smsId值：
+```
+Bmob.Sms.querySms(6817361).then(function(obj) {
+  alert("status:"+obj.sms_state); //
+}, function(err){
+  alert("发送失败:"+err);
+});
+```
+成功返回以下JSON：
+```
+{
+  "sms_state": "SENDING", 
+  "verify_state": false
+}
+```
+其中sms_state是发送状态，有值: SENDING-发送中，FAIL-发送失败 SUCCESS-发送成功
+其中verify_state是验证码是否验证状态， 有值: true-已验证 false-未验证
+
+

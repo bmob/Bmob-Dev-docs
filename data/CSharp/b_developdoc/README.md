@@ -190,7 +190,7 @@ objectId: "0c6db13c", score: 25, playerName: "bmob", cheatMode: false,createdAt:
 
 
 **这里需要注意一点的是：**
-默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/unity/developdoc/index.html?menukey=develop_doc&key=develop_unity#index_分页查询)一节。
+默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/data/CSharp/b_developdoc/doc/index.html#index_分页查询)一节。
 
 ### 查询单条数据
 当我们知道某条数据的objectId时，就可以根据objectId直接获取单条数据对象。例如：查询objectId为`68ee8131ca`的人员信息。
@@ -863,7 +863,7 @@ emailVerified 字段有 3 种状态可以考虑：
 
 ## ACL和角色
 
-数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety)，了解Bmob如何保护数据安全）。
+数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)，了解Bmob如何保护数据安全）。
 
 其中，最灵活的方法是通过ACL和角色，它的思路是每一条数据有一个用户和角色的列表，以及这些用户和角色拥有什么样的许可权限。
 
@@ -1108,22 +1108,6 @@ BmobGeoPoint point = new BmobGeoPoint(39.913768382429105, 116.39727786183357);
 
 2. 地理位置的点不能超过规定的范围。`纬度的范围`应该是在`-90.0到90.0`之间。`经度的范围`应该是在`-180.0到180.0`之间。如果您添加的经纬度超出了以上范围，将导致程序错误。
 
-## 云端代码
-
-云端代码的调用方法非常简单，如下为调用执行云端方法`test`的实现代码：
-```java
-	Bmob.Endpoint<Hashtable>("test", (resp, exception) => 
-	{
-		if (exception != null)
-		{
-			print("调用失败, 失败原因为： " + exception.Message);
-			return;
-		}
-
-		print("返回对象为： " + resp);
-	});
-```
-相关云端代码的编写方式，请参考[云端代码开发文档](http://docs.bmob.cn/cloudcode/developdoc/index.html?menukey=develop_doc&key=develop_cloudcode)。
 
 
 ## 其他功能
@@ -1144,3 +1128,5 @@ BmobGeoPoint point = new BmobGeoPoint(39.913768382429105, 116.39727786183357);
 		print("返回MS为： " + resp.MS); 
 	});
 ```
+
+

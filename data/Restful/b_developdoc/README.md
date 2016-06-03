@@ -17,7 +17,7 @@
 
 JAVA访问RestApi：[http://wenda.bmob.cn//?/question/51](http://wenda.bmob.cn//?/question/51)
 
-PHP访问RestApi：[http://docs.bmob.cn/phpsdk/index.html?menukey=otherdoc&key=phpsdk](http://docs.bmob.cn/phpsdk/index.html?menukey=otherdoc&key=phpsdk)
+PHP访问RestApi：[http://docs.bmob.cn/data/PHP/a_faststart/doc/index.html](http://docs.bmob.cn/data/PHP/a_faststart/doc/index.html)
 
 AS3.0访问RestApi：[http://wenda.bmob.cn//?/question/193](http://wenda.bmob.cn//?/question/193)
 
@@ -2152,7 +2152,7 @@ curl -X POST \
 
 另外，username 支持传入_User表的username或email或mobilePhoneNumber字段的值，作为登录的扩展功能，以实现邮箱和密码、手机号和密码登录功能。
 
-除了有用户名或邮箱或手机号码和密码登录的功能，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 还支持使用手机号码和验证码一键快速登录的功能，而 **smsCode** 是使用 [请求短信验证码API](/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful#index_请求短信验证码 "请求短信验证码API")发送到用户手机上的 6位验证码字符串：
+除了有用户名或邮箱或手机号码和密码登录的功能，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 还支持使用手机号码和验证码一键快速登录的功能，而 **smsCode** 是使用 [请求短信验证码API](http://docs.bmob.cn/sms/Restful/b_developdoc/doc/index.html "请求短信验证码API")发送到用户手机上的 6位验证码字符串：
 
 **请求**
 
@@ -3219,7 +3219,7 @@ curl -X POST \
 
 ## ACL和角色
 
-数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety)，了解Bmob如何保护数据安全）。
+数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)，了解Bmob如何保护数据安全）。
 
 其中，最灵活的方法是通过ACL和角色，它的思路是每一条数据有一个用户和角色的列表，以及这些用户和角色拥有什么样的许可权限。
 
