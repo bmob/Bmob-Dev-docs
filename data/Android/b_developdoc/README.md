@@ -1076,6 +1076,7 @@ bmobQuery.findObjects(this, new FindListener<Person>() {
 ### 统计查询
 
 从`BmobSDKV3.3.6`开始，Bmob为开发者提供了以下关键字或其组合的统计查询操作,分别用于计算`总和、平均值、最大值、最小值`，同时支持分组和过滤条件。
+
 |方法名|参数说明|方法说明|
 |:---|:---|:---|
 |sum|String[] sumKeys（多个列名）|求某列或多列的和|
