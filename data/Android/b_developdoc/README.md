@@ -1871,6 +1871,7 @@ Bmob提供了`Pointer（一对一、一对多）`和`Relation（多对多）`两
 在这个场景中涉及到三个表：用户表（`_User`）、帖子表（`Post`）、评论表（`Comment`）,以下是各个表的字段：
 
 `_User`字段如下：
+
 |字段|类型|含义|
 |:---|:---|:---|
 |objectId|String|用户ID|
@@ -1878,6 +1879,7 @@ Bmob提供了`Pointer（一对一、一对多）`和`Relation（多对多）`两
 |age|Integer|年龄|
 
 `Post`字段如下：
+
 |字段|含义|类型|
 |:---|:---|:---|
 |objectId|String|帖子ID|
@@ -1887,6 +1889,7 @@ Bmob提供了`Pointer（一对一、一对多）`和`Relation（多对多）`两
 |likes|Relation|喜欢帖子的读者|
 
 `Comment`字段如下：
+
 |字段|含义|类型|
 |:---|:---|:---|
 |objectId|String|评论ID|
