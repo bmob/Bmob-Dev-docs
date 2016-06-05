@@ -147,7 +147,7 @@ SDK中为自动更新方式提供了`忽略版本更新`功能，当用户勾选
 
 **请不要上传apk文件到`path`字段，改为`填写apk文件的url地址`到`android_url`字段。**
 
-具体原因请查看 [常见问题](http://docs.bmob.cn/android/autoupdate/index.html?menukey=otherdoc&key=autoupdate#index_常见问题)。
+具体原因请查看 [常见问题](http://docs.bmob.cn/data/Android/h_helps/doc/index.html)。
 
 ### 6、集成检测
 
@@ -277,7 +277,8 @@ BmobUpdateAgent.setUpdateOnlyWifi（boolean updateOnlyWifi）
 
 自4月13日上线CDN文件服务以来，通过Web后台上传的apk文件都会自动上传到CDN服务提供商那里，而v3.4.6以前版本的SDK中的自动更新功能中得到`用于下载的url地址会将Bmob原有的文件域名拼接到BmobFile的url前面`。
 
-因此，最终拼接成的用于下载的地址是类似这样的：http://file.bmob.cn/http://bmob-cdn-82.b0.upaiyun.com/2016/04/20/文件名.apk，由此导致 `解析包出错`。
+因此，最终拼接成的用于下载的地址是类似这样的：[](http://file.bmob.cn/http://bmob-cdn-82.b0.upaiyun.com/2016/04/20/文件名.apk)，由此导致 `解析包出错`。
+
 
 2、**解决方法：**
 	

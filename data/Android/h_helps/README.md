@@ -59,7 +59,7 @@ Bmob SDK中，邮箱的验证和用户的注册登录是异步的关系，也就
 
 ### 我有个Relation字段，想用它来记录喜欢这篇文章的用户，我该怎么添加里面的数据呢？
 
-这个问题请看 [数据关联](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#index_%E6%95%B0%E6%8D%AE%E5%85%B3%E8%81%94) 相关文档。
+这个问题请看 [数据关联](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html#index_数据关联性) 相关文档。
 
 ### Bmob数据库的pointer和我自己使用外建字段的区别？
 
@@ -78,7 +78,7 @@ web开发者后台的文件服务中，有一个 文件大小限制 的功能，
 
 利用原子计数器   
 很多应用可能会有计数器功能的需求，比如文章点赞的功能，如果大量用户并发操作，用普通的更新方法操作的话，会存在数据不一致的情况。
-详情请查看[原子计数器](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#index_%E5%8E%9F%E5%AD%90%E8%AE%A1%E6%95%B0%E5%99%A8)。
+详情请查看[原子计数器](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html#index_原子计数器)。
 
 ### 手机中安装两个包含bmob push sdk的app，那么这时另一个包含bmobpush sdk的app会报错。
 解决方法：

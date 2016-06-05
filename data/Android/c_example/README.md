@@ -41,7 +41,7 @@
 
 ### 数据结构设计
 
-本案例的数据结构非常简单，只需要设计两个表，一个是失物表（Lost表），一个是招领表（Found表），对应的数据结构如下（省略对常用默认字段objectId、createAt、updateAt的描述，对于还不知道怎么创建应用和添加数据表的开发朋友请先移步[快速入门指南](http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "快速入门指南")查看相关教程）：
+本案例的数据结构非常简单，只需要设计两个表，一个是失物表（Lost表），一个是招领表（Found表），对应的数据结构如下（省略对常用默认字段objectId、createAt、updateAt的描述，对于还不知道怎么创建应用和添加数据表的开发朋友请先移步[快速入门指南](http://docs.bmob.cn/data/Android/a_faststart/doc/index.html "快速入门指南")查看相关教程）：
 
 失物表（Lost）
 
@@ -181,7 +181,7 @@ Bmob云数据库对每条新增的数据都有一个唯一标识（objectId）�
 
 ### 后记
 
-本案例只是演示如何用Bmob进行快速的数据增删改查，在真实的应用环境下，你还可能还需要使用到用户系统、文件服务、更复杂的数据结构和服务，这些都可以使用Bmob就可以实现。如果想要获取更多的信息，请各位查看Bmob的[开发文档](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android "开发文档")或者联系技术客服。欢迎砸砖，欢迎提出更多的意见和建议帮助Bmob更好的发展。谢谢～
+本案例只是演示如何用Bmob进行快速的数据增删改查，在真实的应用环境下，你还可能还需要使用到用户系统、文件服务、更复杂的数据结构和服务，这些都可以使用Bmob就可以实现。如果想要获取更多的信息，请各位查看Bmob的[开发文档](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html "开发文档")或者联系技术客服。欢迎砸砖，欢迎提出更多的意见和建议帮助Bmob更好的发展。谢谢～
 
 ### 案例下载
 
@@ -199,7 +199,7 @@ Bmob云数据库对每条新增的数据都有一个唯一标识（objectId）�
 
 ### 上传文件数据结构设计
 
-本案例的数据结构非常简单，只需要设计两个表，一个是电影表（Movie表，只有一个File字段），一个是音乐表（Music表，有两个File字段），对应的数据结构如下（省略对常用默认字段objectId、createAt、updateAt的描述，对于还不知道怎么创建应用和添加数据表的开发朋友请先移步[快速入门指南](http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "快速入门指南")查看相关教程）：
+本案例的数据结构非常简单，只需要设计两个表，一个是电影表（Movie表，只有一个File字段），一个是音乐表（Music表，有两个File字段），对应的数据结构如下（省略对常用默认字段objectId、createAt、updateAt的描述，对于还不知道怎么创建应用和添加数据表的开发朋友请先移步[快速入门指南](http://docs.bmob.cn/data/Android/a_faststart/doc/index.html "快速入门指南")查看相关教程）：
 
 电影表（Movie表）
 
@@ -466,7 +466,7 @@ private void insertObject(final BmobObject obj){
  查看反馈意见截图
 
 ### 反馈案例数据结构设计
-在Bmob开发者后台创建一个应用（还不知道怎么创建应用和添加数据表的开发朋友请先移步[快速入门指南](http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "快速入门指南")查看相关教程），添加两个表，分别是Feedback（用户反馈信息表，存储用户提交的反馈信息）和Installation（设备安装表，存储需要接收推送信息的设备信息）。以下是对这两个表的数据结构的详细描述（省略对常用默认字段objectId、createAt、updateAt的描述）
+在Bmob开发者后台创建一个应用（还不知道怎么创建应用和添加数据表的开发朋友请先移步[快速入门指南](http://docs.bmob.cn/data/Android/a_faststart/doc/index.html "快速入门指南")查看相关教程），添加两个表，分别是Feedback（用户反馈信息表，存储用户提交的反馈信息）和Installation（设备安装表，存储需要接收推送信息的设备信息）。以下是对这两个表的数据结构的详细描述（省略对常用默认字段objectId、createAt、updateAt的描述）
 
 
 Feedback表
