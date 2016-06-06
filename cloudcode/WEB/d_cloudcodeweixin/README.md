@@ -261,7 +261,7 @@ function onRequest(request, response, modules) {
 
 ![](image/18.png)
 
-需要了解更多云端逻辑的操作，可阅读[http://docs.bmob.cn/cloudcode/developdoc/index.html?menukey=develop_doc&key=develop_cloudcode](http://docs.bmob.cn/cloudcode/developdoc/index.html?menukey=develop_doc&key=develop_cloudcode "云端逻辑开发文档")
+需要了解更多云端逻辑的操作，可阅读[http://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html](http://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html "云端逻辑开发文档")
 
 在编写云端逻辑时有个注意事项：云端逻辑是使用异步编程。也就是说，当遇到文件读写请求，网络请求等IO操作时，代码不等待IO操作返回结果就执行后面的语句,当接收到IO操作的返回结果后才调用回调函数。
 

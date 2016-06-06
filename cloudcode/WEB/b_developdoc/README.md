@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 ## 简介
+
 Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可能希望增加一些特有的业务逻辑，并能灵活掌控，Bmob云端逻辑提供了这种灵活性，可以让您的代码直接在Bmob云上运行。一旦你在云端更新了代码，所有的移动应用都会立即自动更新，新功能的发布将会变得更加简单可控。
 
 ## 开源案例
@@ -234,7 +234,7 @@ function onRequest(request, response, modules) {
 }                                                    
 ```
 
-其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[http://docs.bmob.cn/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful#index_统计对象数量](http://docs.bmob.cn/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful#index_统计对象数量)。
+其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_查询结果计数](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_查询结果计数)。
 
 ### 修改数据
 ```
@@ -1656,7 +1656,7 @@ Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可�
 
 - 请求生成缩略图：[http://wenda.bmob.cn//?/question/129](http://wenda.bmob.cn//?/question/129)
 
-在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[http://docs.bmob.cn/codehelp/index.html?menukey=otherdoc&key=codehelp](http://docs.bmob.cn/codehelp/index.html?menukey=otherdoc&key=codehelp)
+在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
 
 ## 调用云端逻辑的方式
 
@@ -1765,7 +1765,7 @@ modules是Bmob云端逻辑提供给大家的各种对象处理的模块，包括
   //下面进行其他操作
 ```
 
-** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](http://docs.bmob.cn/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful)。 **
+** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html)。 **
 
 ## 数据库对象
 
@@ -1880,7 +1880,7 @@ function onRequest(request, response, modules) {
 }                                                    
 ```
 
-其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[http://docs.bmob.cn/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful#index_统计对象数量](http://docs.bmob.cn/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful#index_统计对象数量)。
+其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_查询结果计数](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_查询结果计数)。
 
 ### 修改数据
 ```
@@ -3285,6 +3285,6 @@ function onRequest(request, response, modules) {
     });
 }                                                                                                 
 ```
->>>>>>> origin/master
+
 
 
