@@ -7,8 +7,6 @@ Android：[bmob-android-im-sdk](https://github.com/bmob/bmob-android-im-sdk)
 
 请先在Web后台配置包名或者证书。
 
-详情查看IM常见问题部分：[IM常见问题](http://docs.bmob.cn/im/faststart/index.html?menukey=fast_start&key=start_im#index_%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94)
-
 ## 消息推送的时候我没开启网络，在推送一段时间后再开启网络，会收到消息吗？
 
 在断网开始的一分钟内发的消息是接收不到的，因为心跳包的默认时间是一分钟，这一分钟内，服务器不认为该链接是断开的，所以消息不会保存成离线消息。
