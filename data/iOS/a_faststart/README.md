@@ -22,7 +22,7 @@
 
 获取Application ID后，下载SDK，开发者可以根据自己的需求选择相应的iOS SDK 或Android SDK，点击下载即可。
 
-![](image/rumen_miyue_3.png)
+![](image/xiazai.png)
 
 ## 安装BmobSDK
 
