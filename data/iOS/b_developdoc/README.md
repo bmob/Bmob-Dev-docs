@@ -51,7 +51,7 @@ iOS9默认不允许进行http请求，所以在使用SDK的过程中需要往Inf
 
 ### 应用安全
 
-请大家在使用Bmob开发应用程序之前，认真阅读我们给大家提供的“数据与安全”的文档，确保你的应用在发布时安全。文档的链接地址是：[http://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety](http://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety)
+请大家在使用Bmob开发应用程序之前，认真阅读我们给大家提供的“数据与安全”的文档，确保你的应用在发布时安全。文档的链接地址是：[http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)
 
 ## 对象
 
@@ -463,7 +463,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 
 **这里需要注意的是：**
 
-1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/ios/developdoc/index.html?menukey=develop_doc&key=develop_ios#index_分页查询)一节。
+1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#index_查询)一节中的分页查询。
 
 2.当查询的是用户表这种系统表的时候，返回的是BmobUser的数组，设备表，角色表也是这样的。
 
@@ -946,7 +946,7 @@ bquery.maxCacheAge = 10000;
 
 `Bmob Query Language`（简称 BQL）是 Bmob 自 `BmobSDK V1.5.7` 版本开始，为查询 API 定制的一套类似 SQL 查询语法的子集和变种，主要目的是降低大家学习 Bmob 查询 API 的成本，可以使用传统的 SQL 语法来查询 Bmob 应用内的数据。
 
-具体的 BQL 语法，请参考 [Bmob Query Language 详细指南](http://docs.bmob.cn/bql/index.html?menukey=otherdoc&key=bql)。
+具体的 BQL 语法，请参考 [Bmob Query Language 详细指南](http://docs.bmob.cn/other/Other/m_bql/doc/index.html)。
 
 #### 基本BQL查询
 可以通过以下方法来进行SQL查询：
@@ -1043,7 +1043,7 @@ bquery.maxCacheAge = 10000;
 
 #### 内置函数
 
-对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](http://docs.bmob.cn/bql/index.html?menukey=otherdoc&key=bql#index_%E5%8D%A0%E4%BD%8D%E7%AC%A6%E6%9F%A5%E8%AF%A2%E7%94%A8%E5%88%B0%E7%9A%84%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0)用到的内置函数列出的形式进行查询操作：
+对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](http://docs.bmob.cn/other/Other/m_bql/doc/index.html#index_内置函数介绍)用到的内置函数列出的形式进行查询操作：
 
 举例：我想查询在 '2015-05-14 14:56:30' 后的创建的记录，可以这样：
 
@@ -1094,7 +1094,7 @@ bquery.maxCacheAge = 10000;
  - 使用`- (void)queryBQLCanCacheInBackgroundWithblock:(BmobBQLObjectResultBlock)block;`进行查询时，通过 `-(void)setBQL:(NSString*)bql;` 和 `-(void)setPlaceholder:(NSArray*)ary;` 来设置BQL语句和占位符。
 
 
-缓存策略只对普通查询有效，统计查询只支持从网络进行查询。具体使用可参考iOS开发文档中的[缓存查询](http://docs.bmob.cn/ios/developdoc/index.html?menukey=develop_doc&key=develop_ios#index_%E7%BC%93%E5%AD%98%E6%9F%A5%E8%AF%A2)
+缓存策略只对普通查询有效，统计查询只支持从网络进行查询。具体使用可参考iOS开发文档中的[查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#index_查询)缓存查询小节。
 
 ## 数组
 
@@ -2709,160 +2709,4 @@ BmobSDK默认是20s后得不到回复就提示超时，如果没有特别的需�
 };
 ```
 
-
-## 错误码列表
-
-以下是iOS的错误码列表，如果在开发过程中还遇到其他的错误信息，请查找我们的[RestAPI错误码列表](http://docs.bmob.cn/errorcode/index.html?menukey=otherdoc&key=errorcode)。
-
-**100**
-
-内容：It is busy...Try it later!
-
-含义：一般是请求服务器的内容有误，如果是查询的话，请检查一下查询条件是否有误。
-
-**20000**
-
-内容：nil password!
-
-含义：登录或者注册时输入的密码为空。
-
-**20001**
-
-内容：nil username!
-
-含义：登录或者注册时输入的用户名为空。
-
-**20002**
-
-内容：connect failed!
-
-含义：请求失败。
-
-**20003**
-
-内容：none objectid!
-
-含义：更新对象、删除对象、查询单个对象时没有objectid
-
-**20004**
-
-内容：none object!
-
-含义：查询时，查询结果为空
-
-**20005**
-
-内容：expired!
-
-含义：缓存查询时，查询时间已过期
-
-
-**20006**
-
-内容：cloud function failed!
-
-含义：云端逻辑调用失败
-
-**20008**
-
-内容：none filename!
-
-含义：上传文件时，文件名为空
-
-
-**20009**
-
-内容：none file!
-
-含义：上传文件时，找不到文件
-
-**20010**
-
-内容：unknow error!
-
-含义：未知错误
-
-**20011**
-
-内容：none filendata!
-
-含义：上传文件时，文件内容为空
-
-**20012**
-
-内容：update content is nil!
-
-含义：更新时，更新内容为空
-
-**20013**
-
-内容：fuction name is nil!
-
-含义：调用云端逻辑时，函数名为空
-
-**20014**
-
-内容：array is too big!
-
-含义：批量操作时，传入的数组超过界限
-
-**20015**
-
-内容：nil array!
-
-含义：批量操作时，传入的数组为空
-
-**20016**
-
-内容：nil push content!
-
-含义：推送时，推送内容为空
-
-**20017**
-
-内容：init is not finish,please wait a moment
-
-含义：初始化未完成
-
-**20023**
-
-内容：init fail
-
-含义：初始化失败
-
-**20024**
-
-内容：format error
-
-含义：批量文件上传时格式错误
-
-**20025**
-
-内容：nil class name
-
-含义：表名为空
-
-**20027**
-
-内容：string is nil or equal ""
-
-含义：传的参数有错，一般是传入空字符串造成
-
-**20028**
-
-内容：Invalid mobile phone number, the format can't be empty or null
-
-含义：非法手机号
-
-**20029**
-
-内容：Invalid sms code, the format can't be empty or null
-
-含义：非法验证码
-
-**20030**
-
-内容：File not exist
-
-含义：获取文件url、删除文件时传入的文件名不存在
 
