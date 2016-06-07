@@ -8,6 +8,6 @@
 
 ## 有哪些其它需要注意的事项
 
-支付问题：[点击查看其它注意事项](http://docs.bmob.cn/pay/Android/b_developdoc/doc/index.html#index_支付回调)
+支付问题：[点击查看其它注意事项](http://docs.bmob.cn/pay/Android/b_developdoc/doc/index.html#支付回调)
 
 

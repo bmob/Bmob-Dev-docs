@@ -463,7 +463,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 
 **这里需要注意的是：**
 
-1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#index_查询)一节中的分页查询。
+1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)一节中的分页查询。
 
 2.当查询的是用户表这种系统表的时候，返回的是BmobUser的数组，设备表，角色表也是这样的。
 
@@ -1043,7 +1043,7 @@ bquery.maxCacheAge = 10000;
 
 #### 内置函数
 
-对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](http://docs.bmob.cn/other/Other/m_bql/doc/index.html#index_内置函数介绍)用到的内置函数列出的形式进行查询操作：
+对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](http://docs.bmob.cn/other/Other/m_bql/doc/index.html#内置函数介绍)用到的内置函数列出的形式进行查询操作：
 
 举例：我想查询在 '2015-05-14 14:56:30' 后的创建的记录，可以这样：
 
@@ -1094,7 +1094,7 @@ bquery.maxCacheAge = 10000;
  - 使用`- (void)queryBQLCanCacheInBackgroundWithblock:(BmobBQLObjectResultBlock)block;`进行查询时，通过 `-(void)setBQL:(NSString*)bql;` 和 `-(void)setPlaceholder:(NSArray*)ary;` 来设置BQL语句和占位符。
 
 
-缓存策略只对普通查询有效，统计查询只支持从网络进行查询。具体使用可参考iOS开发文档中的[查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#index_查询)缓存查询小节。
+缓存策略只对普通查询有效，统计查询只支持从网络进行查询。具体使用可参考iOS开发文档中的[查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)缓存查询小节。
 
 ## 数组
 
@@ -2158,7 +2158,7 @@ BmobFile *file1 = [[BmobFile alloc] initWithClassName:@"Asc" withFilePath:fileSt
 ```
 
 ### 以分片的方式上传文件
-分片上传文件和上传整个文件的机制有所不同，是先把整个文件进行分片（256KB一片），然后再进行一片一片的上传（具体实现可查看[RestAPI文档](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_文件管理)）。当文件以分片的方式上传到Bmob服务器时，具有几种优势：
+分片上传文件和上传整个文件的机制有所不同，是先把整个文件进行分片（256KB一片），然后再进行一片一片的上传（具体实现可查看[RestAPI文档](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#文件管理)）。当文件以分片的方式上传到Bmob服务器时，具有几种优势：
 
 1. 适合于尺寸较大的文件传输，通过切片来避免单个HTTP数据量过大而导致连接超时；
 

@@ -5,7 +5,7 @@
 云端逻辑的执行有多种方法：
 
 - 定时任务（直接在Web管理后台中设定）； 
-- RestApi调用（参考开发文档：[http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_0%06Mn](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_0%06Mn)）； 
+- RestApi调用（参考开发文档：[http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#0%06Mn](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#0%06Mn)）； 
 - SDK调用。
 
 其中，在SDK中调用云端逻辑的方法如下：

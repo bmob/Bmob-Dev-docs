@@ -16,7 +16,7 @@ Go SDK封装了Bmob RESTful API，但并不包含功能封装，如果需要调�
 请大家在使用Bmob开发应用程序之前，仔细阅读“数据与安全”的文档：[http://docs.bmob.cn/other/Other/m_bql/doc/index.html](http://docs.bmob.cn/other/Other/m_bql/doc/index.html)
 
 ## 数据类型
-除了JSON标准里定义的数据类型外，还支持Bmob自定义的数据类型：[http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_对象](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#index_对象)
+除了JSON标准里定义的数据类型外，还支持Bmob自定义的数据类型：[http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#对象](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#对象)
 这些类型操作相关的基本数据结构在types.go中定义，由于JSON是schema-less的，你可以只填充必要的字段来完成操作
 
 ## RESTful请求

@@ -161,7 +161,7 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     https://api.bmob.cn/1/pay/Bmob系统生成的订单号
 
-成功返回以下JSON, 失败时返回请看 [支付功能相关错误码](/errorcode/index.html?menukey=otherdoc&key=errorcode#index_支付功能相关错误码 "支付功能相关错误码")
+成功返回以下JSON, 失败时返回请看 [支付功能相关错误码](/errorcode/index.html?menukey=otherdoc&key=errorcode#支付功能相关错误码 "支付功能相关错误码")
 
     {
     "name": "商品",

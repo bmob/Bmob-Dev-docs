@@ -154,7 +154,7 @@ query.first({
 ```
 
 **这里需要注意一点的是：**
-默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/data/JavaScript/b_developdoc/doc/index.html#index_分页查询)一节。
+默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/data/JavaScript/b_developdoc/doc/index.html#分页查询)一节。
 
 ### 获取对象的特殊属性
 

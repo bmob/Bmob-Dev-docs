@@ -190,7 +190,7 @@ objectId: "0c6db13c", score: 25, playerName: "bmob", cheatMode: false,createdAt:
 
 
 **这里需要注意一点的是：**
-默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/data/CSharp/b_developdoc/doc/index.html#index_分页查询)一节。
+默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/data/CSharp/b_developdoc/doc/index.html#分页查询)一节。
 
 ### 查询单条数据
 当我们知道某条数据的objectId时，就可以根据objectId直接获取单条数据对象。例如：查询objectId为`68ee8131ca`的人员信息。

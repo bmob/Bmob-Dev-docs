@@ -2092,7 +2092,7 @@ Content-Type: application/json
 }
 ```
 
-其中 **mobilePhoneNumber** 就是手机号码，而 **smsCode** 是使用 [请求短信验证码API](/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful#index_请求短信验证码 "请求短信验证码API")发送到用户手机上的 6位验证码字符串。如果是新用户且不传入 username，默认用户名将是手机号码。
+其中 **mobilePhoneNumber** 就是手机号码，而 **smsCode** 是使用 [请求短信验证码API](/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful#请求短信验证码 "请求短信验证码API")发送到用户手机上的 6位验证码字符串。如果是新用户且不传入 username，默认用户名将是手机号码。
 
 **成功时响应**
 
@@ -2391,7 +2391,7 @@ curl -X DELETE \
 
 你可以一次获取多个用户，只要向用户的根URL发送一个GET请求，没有任何URL参数的话，可以简单地列出所有用户。
 
-所有的对普通对象的查询选项都适用于对用户对象的查询，所以可以查看 [查询](#index_查询) 部分来获取详细信息。
+所有的对普通对象的查询选项都适用于对用户对象的查询，所以可以查看 [查询](#查询) 部分来获取详细信息。
 
 User表是一个特殊的表，专门用于存储用户对象。在浏览器端，你会看到一个User表旁边有一个小人的图标。
 
@@ -2521,7 +2521,7 @@ curl -X POST \
 
 **请求描述**
 
-如果用户有绑定了手机号码，就可以通过手机验证码短信来实现使用手机号码找回密码的功能，先调用 [请求短信验证码API](/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful#index_请求短信验证码 "请求短信验证码API")会将验证码发送到用户手机上，用户收到验证码并输入后，调用PUT /1/resetPasswordBySmsCode/smsCode 来为用户设置新的密码。
+如果用户有绑定了手机号码，就可以通过手机验证码短信来实现使用手机号码找回密码的功能，先调用 [请求短信验证码API](/restful/developdoc/index.html?menukey=develop_doc&key=develop_restful#请求短信验证码 "请求短信验证码API")会将验证码发送到用户手机上，用户收到验证码并输入后，调用PUT /1/resetPasswordBySmsCode/smsCode 来为用户设置新的密码。
 
 **请求**
 

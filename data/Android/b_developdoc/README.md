@@ -318,11 +318,11 @@ public class GameScore extends BmobObject{
 
 为了提供更好的服务，BmobSDK中提供了BmobUser、BmobInstallation、BmobRole三个特殊的BmobObject对象来完成不同的功能，在这里我们统一称为特殊对象。
 
- - BmobUser对象主要是针对应用中的用户功能而提供的，它对应着web端的User表，使用BmobUser对象可以很方便的在应用中实现用户的注册、登录、邮箱验证等功能，具体的使用方法可查看文档的[`用户管理`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#index_用户管理)部分。
+ - BmobUser对象主要是针对应用中的用户功能而提供的，它对应着web端的User表，使用BmobUser对象可以很方便的在应用中实现用户的注册、登录、邮箱验证等功能，具体的使用方法可查看文档的[`用户管理`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#用户管理)部分。
 
- - BmobInstallation对象主要用于应用的安装设备管理中，它对应着web端的Installation表，任何安装了你应用的设备都会在此表中产生一条数据标示该设备。结合Bmob提供的推送功能，还可以实现将自定义的消息推送给不同的设备终端，具体的使用方法可查看文档的[`消息推送`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#index_消息推送)部分。
+ - BmobInstallation对象主要用于应用的安装设备管理中，它对应着web端的Installation表，任何安装了你应用的设备都会在此表中产生一条数据标示该设备。结合Bmob提供的推送功能，还可以实现将自定义的消息推送给不同的设备终端，具体的使用方法可查看文档的[`消息推送`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#消息推送)部分。
 
- - BmobRole对象主要用于角色管理，对应用于Web端的Role表，具体的使用方法可查看文档的[`ACL和角色`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#index_ACL和角色)部分。
+ - BmobRole对象主要用于角色管理，对应用于Web端的Role表，具体的使用方法可查看文档的[`ACL和角色`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#ACL和角色)部分。
 
 ## 数据类型
 
@@ -1581,7 +1581,7 @@ query.doSQLQuery(context,new SQLQueryListener<GameScore>(){
 
 ##### 内置函数
 
-对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](http://docs.bmob.cn/other/Other/m_bql/doc/index.html#index_内置函数介绍)列出的形式进行查询操作：
+对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](http://docs.bmob.cn/other/Other/m_bql/doc/index.html#内置函数介绍)列出的形式进行查询操作：
 
 举例：我想查询当前用户在2015年5月12日之后，在特定地理位置附近的游戏记录，可以这样：
 
@@ -3016,7 +3016,7 @@ BmobSMS.requestSMSCode(context, "11位手机号码", "模板名称",new RequestS
 
 **2）、如果你提交的短信模板无法发送，则有可能包含一些敏感监控词，具体可去Github下载  [短信关键字监控参考文档](https://github.com/bmob/bmob-public-docs/blob/master/%E7%9F%AD%E4%BF%A1%E5%85%B3%E9%94%AE%E5%AD%97%E7%9B%91%E6%8E%A7%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3.doc)  来查看提交内容是否合法。**
 
-**3）、一天一个应用给同一手机号发送的短信不能超过10条，否则会报`10010`错误，其他错误码可查看  [短信功能相关错误码](http://docs.bmob.cn/other/Other/g_errorcode/doc/index.html#index_短信功能相关错误码) 。**
+**3）、一天一个应用给同一手机号发送的短信不能超过10条，否则会报`10010`错误，其他错误码可查看  [短信功能相关错误码](http://docs.bmob.cn/other/Other/g_errorcode/doc/index.html#短信功能相关错误码) 。**
 
 
 ##### 验证验证码
@@ -3259,7 +3259,7 @@ Bmob提供了非常简单的方法来实现第三方账号登陆的功能，目�
 
 **注：**
 
-1、以下均为SDK对文件进行操作的方法，如果你想在Web端对文件进行操作，请查看我们的帮助文档：[如何在Web后台上传文件](http://docs.bmob.cn/other/Other/h_helps/doc/index.html#index_Web开发者后台相关问题)
+1、以下均为SDK对文件进行操作的方法，如果你想在Web端对文件进行操作，请查看我们的帮助文档：[如何在Web后台上传文件](http://docs.bmob.cn/other/Other/h_helps/doc/index.html#Web开发者后台相关问题)
 
 2、自 `BmobSDKv3.4.6` 开始，文件服务需要注意以下几个方面：
 
@@ -3553,7 +3553,7 @@ BmobFile.deleteBatch(this, urls, new DeleteBatchListener() {
 });
 
 ```
-为方便大家理解文件服务的使用，Bmob提供了一个文件上传的案例和源码，大家可以到[示例和教程中查看和下载](http://docs.bmob.cn/data/Android/c_example/doc/index.html#index_上传文件案例教程)。
+为方便大家理解文件服务的使用，Bmob提供了一个文件上传的案例和源码，大家可以到[示例和教程中查看和下载](http://docs.bmob.cn/data/Android/c_example/doc/index.html#上传文件案例教程)。
 
 **注：**
 
@@ -4062,7 +4062,7 @@ Bmob.getAllTableSchema(context, new GetAllTableSchemaListener() {
 
 ## 错误码列表
 
-**Android SDK的错误码都是以`9`开头的，其他错误码请点击查看：[RestAPI错误码列表](http://docs.bmob.cn/data/Android/g_errorcode/doc/index.html#index_RESTAPI错误码列表)。**
+**Android SDK的错误码都是以`9`开头的，其他错误码请点击查看：[RestAPI错误码列表](http://docs.bmob.cn/data/Android/g_errorcode/doc/index.html#RESTAPI错误码列表)。**
 
 **9001**
 
