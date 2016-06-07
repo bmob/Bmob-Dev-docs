@@ -1,8 +1,9 @@
 v2.0.5_Beta	  2016年6月01日
-1、自2.0.5版本开始，提供aar格式的NewIMSDK,包含BmobNewIM_xxxx.jar、androidasync_2.1.6.jar、bmob_im_notification_strings.xml，开发者不再需要导入以上文件；
-2、demo提供自定义会话类型的示例，并修复部分已知问题；
-3、操作本地会话及消息表时去除服务连接的检验，减少client disconnect的发生；
-4、与之配套使用的BmobSDK版本3.4.7。
+1、BmobImService更名为BmobIMService,请务必修改；
+2、自2.0.5版本开始，提供aar格式的NewIMSDK,包含BmobNewIM_xxxx.jar、androidasync_2.1.6.jar、bmob_im_notification_strings.xml，开发者不再需要导入以上文件；
+3、demo提供自定义会话类型的示例，并修复部分已知问题；
+4、操作本地会话及消息表时去除服务连接的检验，减少client disconnect的发生；
+5、与之配套使用的BmobSDK版本3.4.7。
 
 v2.0.4_Beta   2016年4月29日
 1、优化服务重连机制；

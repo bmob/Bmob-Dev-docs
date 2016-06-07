@@ -171,9 +171,8 @@
 	    </intent-filter>
   </receiver>
   <service
-    android:name="cn.bmob.newim.core.service.BmobImService"
+    android:name="cn.bmob.newim.core.service.BmobIMService"
     android:process=":bmobcore" />
-   //v2.0.4版本增加service-用于进程保活
   <service
     android:name="cn.bmob.newim.core.service.NotifyService"
     android:process=":bmobcore" />
@@ -181,6 +180,8 @@
   <service android:name="cn.bmob.newim.core.service.HeartBeatService" />
 
 ```
+
+**注：自v2.0.5版本开始，将原来的`BmobImService`名称更换为'BmobIMService'，请务必修改，否则将无法正常使用IM服务。**
 
 ### 注册消息接收器
 
@@ -884,36 +885,34 @@ public class BmobIMApplication extends Application{
 
 - 如果你使用的SDK版本是`NewIM_V2.0.1`,那么你需要在应用中创建一个`BroadcastReceiver`广播消息接收器，用于接收服务器发来的消息。
 
-```java
-public class MessageReceiver extends BroadcastReceiver {
+	public class MessageReceiver extends BroadcastReceiver {
+	
+	    @Override
+	    public void onReceive(final Context context, Intent intent) {
+	        if(intent!=null){
+	            final MessageEvent event =(MessageEvent)intent.getSerializableExtra("event");
+				//可以统一在此检测更新会话及用户信息
+		        UserModel.getInstance().updateUserInfo(event, new UpdateCacheListener() {
+		            @Override
+		            public void done(BmobException e) {
+		                BmobIMMessage msg = event.getMessage();
+						//用户自定义的消息类型，其类型值均为0
+		                if(BmobIMMessageType.getMessageTypeValue(msg.getMsgType())==0){
+		                    //自行处理自定义消息类型
+		                    Logger.i(msg.getMsgType() + "," + msg.getContent() + "," + msg.getExtra());
+		                }else{//SDK内部内部支持的消息类型
+		                    if (BmobNotificationManager.getInstance(context).isShowNotification()){
+								//如果需要显示通知栏，可以使用BmobNotificationManager类提供的方法，也可以自己写通知栏显示方法
+		                   }else{//直接发送消息事件
+		                        Logger.i("当前处于应用内，发送event");
+		                        EventBus.getDefault().post(event);
+		                    }
+		                }
+		            }
+		        });
+	    }
+	}
 
-    @Override
-    public void onReceive(final Context context, Intent intent) {
-        if(intent!=null){
-            final MessageEvent event =(MessageEvent)intent.getSerializableExtra("event");
-			//可以统一在此检测更新会话及用户信息
-	        UserModel.getInstance().updateUserInfo(event, new UpdateCacheListener() {
-	            @Override
-	            public void done(BmobException e) {
-	                BmobIMMessage msg = event.getMessage();
-					//用户自定义的消息类型，其类型值均为0
-	                if(BmobIMMessageType.getMessageTypeValue(msg.getMsgType())==0){
-	                    //自行处理自定义消息类型
-	                    Logger.i(msg.getMsgType() + "," + msg.getContent() + "," + msg.getExtra());
-	                }else{//SDK内部内部支持的消息类型
-	                    if (BmobNotificationManager.getInstance(context).isShowNotification()){
-							//如果需要显示通知栏，可以使用BmobNotificationManager类提供的方法，也可以自己写通知栏显示方法
-	                   }else{//直接发送消息事件
-	                        Logger.i("当前处于应用内，发送event");
-	                        EventBus.getDefault().post(event);
-	                    }
-	                }
-	            }
-	        });
-    }
-}
-
-```
 
 别忘记在`AndroidManifest.xml`中注册这个receiver
 
@@ -1024,16 +1023,14 @@ SDK在`BmobIMMessage`类中新增`isTransient`属性来标识该条消息是否�
 
 例如：
 
-```java
-BmobIMAudioMessage audio =new BmobIMAudioMessage();
-image.setRemoteUrl("远程音频地址");
-//设置音频文件的来源
-Map<String,Object> map =new HashMap<>();
-map.put("from", "优酷");
-audio.setExtraMap(map);
-c.sendMessage(audio, listener);
+	BmobIMAudioMessage audio =new BmobIMAudioMessage();
+	image.setRemoteUrl("远程音频地址");
+	//设置音频文件的来源
+	Map<String,Object> map =new HashMap<>();
+	map.put("from", "优酷");
+	audio.setExtraMap(map);
+	c.sendMessage(audio, listener);
 
-```
 
 **任何继承`BmobIMExtraMessage`类的消息均支持设置额外信息。**
 
@@ -1048,55 +1045,51 @@ c.sendMessage(audio, listener);
 
 以下为添加好友请求的消息类：
 
-```java
-public class AddFriendMessage extends BmobIMExtraMessage{
+	public class AddFriendMessage extends BmobIMExtraMessage{
+	
+	    @Override
+	    public String getMsgType() {
+	        return "add";
+	    }
+	
+	    @Override
+	    public boolean isTransient() {
+	        //设置为true,表明为暂态消息，那么这条消息并不会保存到对方的本地db中
+	        //设置为false,则会保存到对方指定会话的本地数据库中
+	        return true;
+	    }
+	
+	    public AddFriendMessage(){}
+	
+	}
 
-    @Override
-    public String getMsgType() {
-        return "add";
-    }
-
-    @Override
-    public boolean isTransient() {
-        //设置为true,表明为暂态消息，那么这条消息并不会保存到对方的本地db中
-        //设置为false,则会保存到对方指定会话的本地数据库中
-        return true;
-    }
-
-    public AddFriendMessage(){}
-
-}
-
-```
 
 自定义消息的发送如下：
 
-```java
-//启动一个会话，如果isTransient设置为true,则不会创建在本地会话表中创建该会话，
-//设置isTransient设置为false,则会在本地数据库的会话列表中先创建（如果没有）与该用户的会话信息，且将用户信息存储到本地的用户表中
-BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info, true,null);
-//这个obtain方法才是真正创建一个管理消息发送的会话
-BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), c);
-AddFriendMessage msg =new AddFriendMessage();
-User currentUser = BmobUser.getCurrentUser(this,User.class);
-msg.setContent("很高兴认识你，可以加个好友吗?");//给对方的一个留言信息
-Map<String,Object> map =new HashMap<>();
-map.put("name", currentUser.getUsername());//发送者姓名，这里只是举个例子，其实可以不需要传发送者的信息过去
-map.put("avatar",currentUser.getAvatar());//发送者的头像
-map.put("uid",currentUser.getObjectId());//发送者的uid
-msg.setExtraMap(map);
-conversation.sendMessage(msg, new MessageSendListener() {
-    @Override
-    public void done(BmobIMMessage msg, BmobException e) {
-        if (e == null) {//发送成功
-            toast("好友请求发送成功，等待验证");
-        } else {//发送失败
-            toast("发送失败:" + e.getMessage());
-        }
-    }
-});
+	//启动一个会话，如果isTransient设置为true,则不会创建在本地会话表中创建该会话，
+	//设置isTransient设置为false,则会在本地数据库的会话列表中先创建（如果没有）与该用户的会话信息，且将用户信息存储到本地的用户表中
+	BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info, true,null);
+	//这个obtain方法才是真正创建一个管理消息发送的会话
+	BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), c);
+	AddFriendMessage msg =new AddFriendMessage();
+	User currentUser = BmobUser.getCurrentUser(this,User.class);
+	msg.setContent("很高兴认识你，可以加个好友吗?");//给对方的一个留言信息
+	Map<String,Object> map =new HashMap<>();
+	map.put("name", currentUser.getUsername());//发送者姓名，这里只是举个例子，其实可以不需要传发送者的信息过去
+	map.put("avatar",currentUser.getAvatar());//发送者的头像
+	map.put("uid",currentUser.getObjectId());//发送者的uid
+	msg.setExtraMap(map);
+	conversation.sendMessage(msg, new MessageSendListener() {
+	    @Override
+	    public void done(BmobIMMessage msg, BmobException e) {
+	        if (e == null) {//发送成功
+	            toast("好友请求发送成功，等待验证");
+	        } else {//发送失败
+	            toast("发送失败:" + e.getMessage());
+	        }
+	    }
+	});
 
-```
 
 ## 用户管理
 
@@ -1113,13 +1106,6 @@ conversation.sendMessage(msg, new MessageSendListener() {
 - `name` `用户名` （NewIMDemo中是用的是BmobUser的username）
 - `avatar` `用户头像`
 
-### 获取本地用户信息
-
-```
-//获取指定uid的用户信息
-BmobIM.getInstance().getUserInfo(String uid)
-
-```
 ### 更新本地用户信息
 
 使用如下方法更新本地用户信息：
@@ -1136,8 +1122,18 @@ BmobIM.getInstance().updateBatchUserInfo(List<BmobIMUserInfo> list)
 
 以下两种情况需要更新用户信息：
 
-1. `当注册或登录成功后，需要更新下当前用户的信息到本地数据库的用户表中`;
+1. `当注册或登录成功后，需要更新下当前用户的信息到本地数据库的用户表中，这样才能通过getUserInfo方法获取到本地的用户信息。`;
 2. `当接收到某人(例如A)的消息时候，同样需要更新A的用户信息到本地用户表中，否则在会话界面将默认显示的是用户的userId，也就是Demo中的BmobUser的objectId值`。
+
+### 获取本地用户信息
+
+```
+//获取指定uid的用户信息
+BmobIM.getInstance().getUserInfo(String uid)
+
+```
+
+**注： IMSDK内部会自动创建了一个本地数据库用来存储用户信息，开发者需要先调用`updateUserInfo`更新用户信息到本地数据库中，才能通过`getUserInfo(uid)`获取到本地用户信息。**
 
 ## 好友管理
 
