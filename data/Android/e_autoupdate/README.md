@@ -7,6 +7,7 @@
 res文件夹下载地址：[http://www.bmob.cn/static/res.zip](http://www.bmob.cn/static/res.zip)
 
 这里需要注意的是：
+
 1. 请不要随便删除其中的文件。
 2. BmobSDK提供的资源文件都以bmob_开头。
 
@@ -157,11 +158,11 @@ SDK中默认开启了集成检测功能，在调用任意的更新接口后，�
 
 toast的含义如下：
 
-"Please copy all resources (res/) from SDK to your project!"：请检查是不是把res文件夹下所有的资源文件都放到了工程中。
-
-"Please add Permission in AndroidManifest!"：请检查上述步骤中的相关权限是否正确添加。
-
-"Please add Activity in AndroidManifest!"：请检查上述步骤中的Activity是否正确添加。
+	"Please copy all resources (res/) from SDK to your project!"：请检查是不是把res文件夹下所有的资源文件都放到了工程中。
+	
+	"Please add Permission in AndroidManifest!"：请检查上述步骤中的相关权限是否正确添加。
+	
+	"Please add Activity in AndroidManifest!"：请检查上述步骤中的Activity是否正确添加。
 
 
 ## 其他更新方式
@@ -172,21 +173,19 @@ toast的含义如下：
 ### 手动更新
 
 许多应用的设置界面中都会有检查更新等类似功能，需要用户主动触发而检测更新。它的默认行为基本和自动更新基本一致。它和自动更新的主要区别是：在这种手动更新的情况下，无论网络状况是否Wifi，无论用户是否忽略过该版本的更新，都可以像下面的示例一样在按钮的回调中发起更新检查，代替update(Context context)：
-```java
-public void onClick(View v) {
-    BmobUpdateAgent.forceUpdate(mContext);
-}
-```
+
+	public void onClick(View v) {
+	    BmobUpdateAgent.forceUpdate(mContext);
+	}
 
 ### 静默下载更新
 
 当用户进入应用首页后如果处于wifi环境检测更新，如果有更新，后台下载新版本，如果下载成功，则进行通知栏展示，用户点击通知栏开始安装。静默下载过程中如果wifi断开，则会停止下载。实现的方法是：在应用程序入口Activity里的`OnCreate()`方法中调用如下代码：
-```java
-public void onCreate(Bundle  savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    BmobUpdateAgent.silentUpdate(this);
-}
-```
+	
+	public void onCreate(Bundle  savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    BmobUpdateAgent.silentUpdate(this);
+	}
 
 ## 自定义功能
 
@@ -257,56 +256,60 @@ BmobUpdateAgent.setUpdateOnlyWifi（boolean updateOnlyWifi）
 
 **注：UpdateStatus列表**
 
-1. UpdateStatus.TimeOut    =-1：查询出错或超时
-2. UpdateStatus.Yes        = 0：有更新
-3. UpdateStatus.No         = 1：没有更新
-4. UpdateStatus.IGNORED    = 3：该版本已被忽略更新
-5. UpdateStatus.EmptyField = 2：字段值为空，请检查以下内容：
-- 是否已填写target_size目标apk大小（以字节为单位）；
-- path或者android_url两者是否必填其中一项（若两者都填写，则默认下载path字段下的apk文件）
-6. UpdateStatus.ErrorSizeFormat = 4：请检查target_size填写的格式，请使用file.length()方法获取apk大小
-7. UpdateStatus.Update     =6： 代表点击的是“立即更新”
-8. UpdateStatus.NotNow     =7： 代表点击的是“以后再说”
-9. UpdateStatus.Close      =8： 代表关闭对话框-->只有在强制更新状态下才会在更新对话框的右上方出现close按钮,如果用户不点击”立即更新“按钮，这时候开发者可做些操作，比如直接退出应用等
+	UpdateStatus.TimeOut    =-1：查询出错或超时
+	UpdateStatus.Yes        = 0：有更新
+	UpdateStatus.No         = 1：没有更新
+	UpdateStatus.IGNORED    = 3：该版本已被忽略更新
+	UpdateStatus.EmptyField = 2：字段值为空，请检查以下内容：
+		 						1)、是否已填写target_size目标apk大小（以字节为单位）；
+		 						2)、path或者android_url两者是否必填其中一项（若两者都填写，则默认下载path字段下的apk文件）
+	UpdateStatus.ErrorSizeFormat = 4：请检查target_size填写的格式，请使用file.length()方法获取apk大小
+	UpdateStatus.Update     =6： 代表点击的是“立即更新”
+	UpdateStatus.NotNow     =7： 代表点击的是“以后再说”
+	UpdateStatus.Close      =8： 代表关闭对话框-->只有在强制更新状态下才会在更新对话框的右上方出现close按钮,如果用户不点击”立即更新“按钮，这时候开发者可做些操作，比如直接退出应用等
 
 ## 常见问题
  
-一、** 为什么上传新的apk文件后，使用 `v3.4.6以前版本的SDK开发的旧应用` 的自动更新功能会出现 `解析包出错` 问题？**
+一、**上传新的APK文件之后，为什么使用 `v3.4.6以前版本的SDK开发的旧应用` 的自动更新功能出现`解析包出错`问题？**
  
-1、原因：
-
-自4月13日上线CDN文件服务以来，通过Web后台上传的apk文件都会自动上传到CDN服务提供商那里，而v3.4.6以前版本的SDK中的自动更新功能中得到`用于下载的url地址会将Bmob原有的文件域名拼接到BmobFile的url前面`。
-
-因此，最终拼接成的用于下载的地址是类似这样的：[](http://file.bmob.cn/http://bmob-cdn-82.b0.upaiyun.com/2016/04/20/文件名.apk)，由此导致 `解析包出错`。
-
-
-2、**解决方法：**
+1、表现：
 	
-**不要上传apk文件到`AppVersion`表的`path`字段，改为填写url地址到`AppVersion`表的`android_url`字段**，以此来恢复旧应用的自动更新功能。
+	只下载58字节后就弹出安装界面，点击安装出现`解析包出错`的错误。
+	
+2、原因：
+
+     自4月13日上线CDN文件服务以来，通过Web后台上传的apk文件都会自动上传到CDN服务提供商那里，而`v3.4.6以前版本的SDK`的自动更新功能中得到`用于下载的url地址会将Bmob原有的文件域名拼接到BmobFile的url前面`。
+
+	因此，最终拼接成的用于下载的地址是类似这样的：`http://file.bmob.cn/http://bmob-cdn-82.b0.upaiyun.com/2016/04/20/xxx.apk`，由此导致 `解析包出错`。
+
+3、解决方法：
+	
+	不要上传apk文件到`AppVersion`表的`path`字段，改为填写url地址到`AppVersion`表的`android_url`字段，以此来恢复旧应用的自动更新功能。
 
 其中，`android_url`可以是以下两种之一：
 
-1）、`各大应用市场的应用下载地址`
-2）、`上传新的apk文件到bmob的其他表的文件字段中，然后通过getFileUrl(context)获取到的url地址`
+	1）、`各大应用市场的应用下载地址`
+	2）、`上传新的apk文件到bmob的其他表的文件字段中，然后通过getFileUrl(context)获取到的url地址`
+
+
+**注：如果是新发布的应用(使用BmobV3.4.6后的版本开发的应用)，则仍然可以上传apk文件到`AppVersion`表的`path`字段中。**
 
 
 二、 **为什么调用`BmobUpdateAgent.update(this)`方法后没有弹出更新对话框？**
 
 请仔细检查以下几方面：
 
-1）、如果是通过`手动方法`在后台创建的AppVersion表的话，则仔细对照文档检查各个字段的名称是否正确填写，注意大小写;
+	1）、如果是通过`手动方法`在后台创建的AppVersion表的话，则仔细对照文档检查各个字段的名称是否正确填写，注意大小写;
 
-2）、`AndroidManifest.xml`中的的`android:versionCode`的值是否比后台的`AppVersion`表中填写的`version_i`的值`小`;
+	2）、`AndroidManifest.xml`中的的`android:versionCode`的值是否比后台的`AppVersion`表中填写的`version_i`的值`小`;
 
-3）、`target_size`的值是否正确填写，填写的是apk的字节大小，没有单位，例如：很多开发者填写的是'x.xxM',这个格式是错误的;
+	3）、`target_size`的值是否正确填写，填写的是apk的字节大小，没有单位，例如：很多开发者填写的是'x.xxM',这个格式是错误的;
 
-4)、`AndroidManifest.xml`中的`BMOB_CHANNEL`的值是否和后台的`AppVersion`表中填写的`channel`的值`相等`。
+	4)、`AndroidManifest.xml`中的`BMOB_CHANNEL`的值是否和后台的`AppVersion`表中填写的`channel`的值`相等`。
 
-```java
- <!-- 设置应用渠道，如果应用不需要区分渠道，则建议删除此行 -->
-<meta-data android:name="BMOB_CHANNEL" android:value="bmob"/>
+	 <!-- 设置应用渠道，如果应用不需要区分渠道，则建议删除此行 -->
+	<meta-data android:name="BMOB_CHANNEL" android:value="bmob"/>
 
-```
 ## 案例源码
 
 这里我们提供了一个使用BmobSDK自动更新功能的实例程序供大家参考。下载地址如下：[https://github.com/bmob/bmob-android-demo-autoupdate](https://github.com/bmob/bmob-android-demo-autoupdate)
