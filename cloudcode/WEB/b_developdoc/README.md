@@ -121,12 +121,12 @@ request.body.name
 
 #### 获取调用云端逻辑的http方式
 
-当云端逻辑是用于某些平台的回调时，同一段云端逻辑可能有时是采用get的方式调用，有时是采用post的方式调用。为了方便开发者获取当前云端逻辑的调用方式，新增了模块oHttptype，用于获取当前云端逻辑是采用get还是post方式调用。
+当云端逻辑是用于某些平台的回调时，同一段云端逻辑可能有时是采用get的方式调用，有时是采用post的方式调用。为了方便开发者获取当前云端逻辑的调用方式，可用下面的方法获取当前云端逻辑是采用get还是post方式调用。
 
 例子如下：
 ```
-	var httptype = modules.oHttptype;　//获取调用云端逻辑的是post或者get方式
-    if ("get" == httptype) {
+	var httptype = request.method;　//获取调用云端逻辑的是post或者get方式
+    if ("GET" == httptype) {
 		//采用get方式调用云端逻辑
 	}else{
 		//采用post方式调用云端逻辑
