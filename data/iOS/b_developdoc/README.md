@@ -96,7 +96,7 @@ BmobObject提供以下几种方法对BmobOjbect进行初始化：
  *
  *  @return BmobObject对象
  */
-+(instancetype)objectWithoutDatatWithClassName:(NSString*)className objectId:(NSString *)objectId;
++(instancetype)objectWithoutDataWithClassName:(NSString*)className objectId:(NSString *)objectId;
 
 /**
  *  从字典创建BmobObject
@@ -255,7 +255,7 @@ BmobObject提供以下几种方法对BmobOjbect进行初始化：
             NSLog(@"%@",gameScore);
             
             //此处是更新操作
-            BmobObject *gameScoreChanged = [BmobObject objectWithoutDatatWithClassName:@"GameScore" objectId:gameScore.objectId];
+            BmobObject *gameScoreChanged = [BmobObject objectWithoutDataWithClassName:@"GameScore" objectId:gameScore.objectId];
             [gameScoreChanged setObject:@"women" forKey:@"userAttibute.gender"];
             [gameScoreChanged updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                 if (isSuccessful) {
@@ -353,7 +353,7 @@ date = {
     [gameScore setObject:@0 forKey:@"atomicCounter"];
     [gameScore saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
         if (isSuccessful) {
-            BmobObject *gameScoreToBeChanged = [BmobObject objectWithoutDatatWithClassName:@"GameScore" objectId:gameScore.objectId];
+            BmobObject *gameScoreToBeChanged = [BmobObject objectWithoutDataWithClassName:@"GameScore" objectId:gameScore.objectId];
             [gameScoreToBeChanged incrementKey:@"atomicCounter"];
             [gameScoreToBeChanged updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                 if (isSuccessful) {
@@ -384,7 +384,7 @@ date = {
 从服务器删除对象：
 
 ```
-    BmobObject *bmobObject = [BmobObject objectWithoutDatatWithClassName:@"GameScore"  objectId:@"baaf9cfa1b"];
+    BmobObject *bmobObject = [BmobObject objectWithoutDataWithClassName:@"GameScore"  objectId:@"baaf9cfa1b"];
     [bmobObject deleteInBackgroundWithBlock:^(BOOL isSuccessful, NSError *error) {
         if (isSuccessful) {
             //删除成功后的动作
@@ -1110,7 +1110,7 @@ bquery.maxCacheAge = 10000;
 添加一行记录时创建一个普通的类似于列表的数组类型字段，可以使用以下方法添加：
 
 ```
-BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameScore" objectId:@"xxxxxxxx"];
+BmobObject *gameScore = [BmobObject objectWithoutDataWithClassName:@"GameScore" objectId:@"xxxxxxxx"];
 [gameScore addObjectsFromArray:@[@"P1",@"P2"] forKey:@"skill"];
 [gameScore updateInBackground];
 ```
@@ -1125,7 +1125,7 @@ BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameScore"
 如下面就移除了P3这个元素:
 
 ```
-BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameScore" objectId:@"xxxxxxxx"];
+BmobObject *gameScore = [BmobObject objectWithoutDataWithClassName:@"GameScore" objectId:@"xxxxxxxx"];
 [gameScore removeObjectsInArray:@[@"P3"] forKey:@"skill"];
 [gameScore updateInBackground];
 ```
@@ -1134,7 +1134,7 @@ BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameScore"
 每一种方法都会有一个objects，即包含了这些方法将被添加或删除的对象列表，举个例子，技能skills是一个类似于集合的数组类型，那么我们可以在skills中加入一些对象，只有在skills原来的对象中不包含这些值的情况下才会被加入:
 
 ```
-BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameScore" objectId:@"xxxxxxxx"];
+BmobObject *gameScore = [BmobObject objectWithoutDataWithClassName:@"GameScore" objectId:@"xxxxxxxx"];
 [gameScore addUniqueObjectsFromArray:@[@"P3"] forKey:@"skill"];
 [gameScore updateInBackground];
 ```
@@ -1221,7 +1221,7 @@ BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameScore"
 那么我们要修改projectExperiences数组中第一个对象的name值：
 
 ```
-BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameScore" objectId:@"xxxxxxxx"];
+BmobObject *gameScore = [BmobObject objectWithoutDataWithClassName:@"GameScore" objectId:@"xxxxxxxx"];
 [bmobObject setObject:@"项目名称2" forKey:@"projectExperiences.0.name"];
 [gameScore updateInBackground];
 ```
@@ -1279,7 +1279,7 @@ Post表
     [post setObject:@"content4" forKey:@"content"];
     
     //设置帖子关联的作者记录
-    BmobUser *author = [BmobUser objectWithoutDatatWithClassName:@"_User" objectId:@"vbhGAAAY"];
+    BmobUser *author = [BmobUser objectWithoutDataWithClassName:@"_User" objectId:@"vbhGAAAY"];
     [post setObject:author forKey:@"author"];
     
     //异步保存
@@ -1343,7 +1343,7 @@ Post表
         }else if (object) {
             BmobObject *post = object;
             //获得BmobUser对象
-            BmobUser *user = [BmobUser objectWithoutDatatWithClassName:@"_User" objectId:@"qXZeCCCX"];
+            BmobUser *user = [BmobUser objectWithoutDataWithClassName:@"_User" objectId:@"qXZeCCCX"];
             //设置post的author值为新获得的BmobUser对象
             [post setObject:user forKey:@"author"];
 
@@ -1365,7 +1365,7 @@ Post表
  //查询帖子表
  BmobQuery *query = [BmobQuery queryWithClassName:@"Post"];
  //构建objectId为vbhGAAAY 的作者
- BmobUser *author = [BmobUser objectWithoutDatatWithClassName:@"_User" objectId:@"vbhGAAAY"];
+ BmobUser *author = [BmobUser objectWithoutDataWithClassName:@"_User" objectId:@"vbhGAAAY"];
  //添加作者是objectId为vbhGAAAY条件
  [query whereKey:@"author" equalTo:author];
  [query findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
@@ -1477,12 +1477,12 @@ Pointer可以用来表示一对一或者一对多的关系，其实可以看成�
 
 ```
     //获取要添加关联关系的post
-    BmobObject *post = [BmobObject objectWithoutDatatWithClassName:@"Post" objectId:@"ZqQ7KKKx"];
+    BmobObject *post = [BmobObject objectWithoutDataWithClassName:@"Post" objectId:@"ZqQ7KKKx"];
     
     //新建relation对象
     BmobRelation *relation = [[BmobRelation alloc] init];
-    [relation addObject:[BmobObject objectWithoutDatatWithClassName:@"_User" objectId:@"vbhGAAAY"]];
-    [relation addObject:[BmobObject objectWithoutDatatWithClassName:@"_User" objectId:@"qXZeCCCX"]];
+    [relation addObject:[BmobObject objectWithoutDataWithClassName:@"_User" objectId:@"vbhGAAAY"]];
+    [relation addObject:[BmobObject objectWithoutDataWithClassName:@"_User" objectId:@"qXZeCCCX"]];
     
     //添加关联关系到likes列中
     [post addRelation:relation forKey:@"likes"];
@@ -1510,11 +1510,11 @@ Post表：
 如果要从刚刚的添加的likes列中删去其中一个读者，可采用以下代码。
 
 ```
-    BmobObject *post = [BmobObject objectWithoutDatatWithClassName:@"Post" objectId:@"ZqQ7KKKx"];
+    BmobObject *post = [BmobObject objectWithoutDataWithClassName:@"Post" objectId:@"ZqQ7KKKx"];
     
     //新建relation对象
     BmobRelation *relation = [[BmobRelation alloc] init];
-    [relation removeObject:[BmobObject objectWithoutDatatWithClassName:@"_User" objectId:@"vbhGAAAY"]];
+    [relation removeObject:[BmobObject objectWithoutDataWithClassName:@"_User" objectId:@"vbhGAAAY"]];
     
     //添加关联关系到likes列中
     [post addRelation:relation forKey:@"likes"];
@@ -1538,11 +1538,11 @@ Post表：
 如果需要给objectId为ZqQ7KKKx的帖子添加多一个喜欢该帖子的读者可以使用以下代码
 
 ```
-    BmobObject *author = [BmobObject objectWithoutDatatWithClassName:@"Post" objectId:@"ZqQ7KKKx"];
+    BmobObject *author = [BmobObject objectWithoutDataWithClassName:@"Post" objectId:@"ZqQ7KKKx"];
     
     //新建relation对象
     BmobRelation *relation = [[BmobRelation alloc] init];
-    [relation addObject:[BmobObject objectWithoutDatatWithClassName:@"_User" objectId:@"J6RU888L"]];
+    [relation addObject:[BmobObject objectWithoutDataWithClassName:@"_User" objectId:@"J6RU888L"]];
     //添加关联关系到postlist列中
     [author addRelation:relation forKey:@"likes"];
     
@@ -1569,7 +1569,7 @@ Post表：
     BmobQuery *bquery = [BmobQuery queryWithClassName:@"_User"];
     
     //需要查询的列
-    BmobObject *post = [BmobObject objectWithoutDatatWithClassName:@"Post" objectId:@"ZqQ7KKKx"];
+    BmobObject *post = [BmobObject objectWithoutDataWithClassName:@"Post" objectId:@"ZqQ7KKKx"];
     [bquery whereObjectKey:@"likes" relatedTo:post];
     
     
@@ -2400,10 +2400,10 @@ blog.ACL= acl;
 BmobObject *wageinfo  = [[BmobObject alloc] initWithClassName:@"wageinfo"];
 [wageinfo setObject:[NSNumber numberWithUnsignedInteger:100000] forKey:@"wage"];
 //这里创建四个用户对象，分别为老板、人事小张、出纳小谢和自己
-BmobUser *boss        = [BmobUser objectWithoutDatatWithClassName:@"User" objectId:@"xxxxxx"];
-BmobUser *hr_zhang    = [BmobUser objectWithoutDatatWithClassName:@"User" objectId:@"xxxxxx"];
-BmobUser *cashier_xie = [BmobUser objectWithoutDatatWithClassName:@"User" objectId:@"xxxxxx"];
-BmobUser *me          = [BmobUser objectWithoutDatatWithClassName:@"User" objectId:@"xxxxxx"];
+BmobUser *boss        = [BmobUser objectWithoutDataWithClassName:@"User" objectId:@"xxxxxx"];
+BmobUser *hr_zhang    = [BmobUser objectWithoutDataWithClassName:@"User" objectId:@"xxxxxx"];
+BmobUser *cashier_xie = [BmobUser objectWithoutDataWithClassName:@"User" objectId:@"xxxxxx"];
+BmobUser *me          = [BmobUser objectWithoutDataWithClassName:@"User" objectId:@"xxxxxx"];
 //创建ACL对象
 BmobACL *acl = [BmobACL ACL];
 //4个用户对象均可读
@@ -2431,11 +2431,11 @@ wageinfo.ACL= acl;
 BmobObject *wageinfo  = [[BmobObject alloc] initWithClassName:@"wageinfo"];
 [wageinfo setObject:[NSNumber numberWithUnsignedInteger:100000] forKey:@"wage"];
 //这里创建5个用户对象，分别为老板、人事小张、人事小罗、出纳小谢和自己
-BmobUser *boss           = [BmobUser objectWithoutDatatWithClassName:@"User" objectId:@"xxxxxx"];
-BmobUser *hr_zhang       = [BmobUser objectWithoutDatatWithClassName:@"User" objectId:@"xxxxxx"];
-BmobUser *hr_luo         = [BmobUser objectWithoutDatatWithClassName:@"User" objectId:@"xxxxxx"];;
-BmobUser *cashier_xie    = [BmobUser objectWithoutDatatWithClassName:@"User" objectId:@"xxxxxx"];
-BmobUser *me             = [BmobUser objectWithoutDatatWithClassName:@"User" objectId:@"xxxxxx"];
+BmobUser *boss           = [BmobUser objectWithoutDataWithClassName:@"User" objectId:@"xxxxxx"];
+BmobUser *hr_zhang       = [BmobUser objectWithoutDataWithClassName:@"User" objectId:@"xxxxxx"];
+BmobUser *hr_luo         = [BmobUser objectWithoutDataWithClassName:@"User" objectId:@"xxxxxx"];;
+BmobUser *cashier_xie    = [BmobUser objectWithoutDataWithClassName:@"User" objectId:@"xxxxxx"];
+BmobUser *me             = [BmobUser objectWithoutDataWithClassName:@"User" objectId:@"xxxxxx"];
 //创建HR和Cashier两个用户角色（这里为了举例BmobRole的使用，将这段代码写在这里，正常情况下放在员工管理界面会更合适）
 BmobRole *hr             = [BmobRole roleWithName:@"HR"];
 BmobRole *cashier        = [BmobRole roleWithName:@"Cashier"];
