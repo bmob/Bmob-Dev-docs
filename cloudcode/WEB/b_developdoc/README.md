@@ -51,7 +51,39 @@ curl -X POST \
 test：云端逻辑的名称
 name=jeff: 传入一个参数，名称是name，值是jeff
 
+## 转为套餐后调用云端逻辑的方式
 
+bmob允许以http的方式直接调用云端逻辑。
+
+### 获取应用的id值
+
+进入应用后台->云逻辑，下图中的箭头所指的数字就是该应用的id值：
+![](image/appid.png)
+
+
+### 以Get的方式调用云端逻辑
+
+下面展示了以Get的方式调用云端逻辑：
+```
+curl -X GET http://cloud-xxxxx.bmobapp.com/test?name=jeff
+```
+其中：
+cloud-xxxxx.bmobapp.com：该应用的云端代码专属域名，其中xxxxx为上节“获取应用的id值”所获取的id值。
+test：云端逻辑的名称。
+name=jeff: 传入一个参数，名称是name，值是jeff。
+
+### 以Post的方式调用云端逻辑
+下面展示了以Post的方式调用云端逻辑：
+```
+curl -X POST \
+    -H "Content-Type: application/x-www-form-urlencoded" \
+    -d 'name=jeff' \
+    http://cloud-xxxxx.bmobapp.com/test
+```
+其中：
+cloud-xxxxx.bmobapp.com：该应用的云端代码专属域名，其中xxxxx为上节“获取应用的id值”所获取的id值。
+test：云端逻辑的名称
+name=jeff: 传入一个参数，名称是name，值是jeff
 
 
 ## 云端逻辑模块解释
