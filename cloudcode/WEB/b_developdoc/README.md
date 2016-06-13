@@ -61,7 +61,7 @@ bmob允许以http的方式直接调用云端逻辑。
 ![](image/appid.png)
 
 
-### 以Get的方式调用云端逻辑
+### Get的方式调用云端逻辑
 
 下面展示了以Get的方式调用云端逻辑：
 ```
@@ -72,7 +72,7 @@ cloud-xxxxx.bmobapp.com：该应用的云端代码专属域名，其中xxxxx为�
 test：云端逻辑的名称。
 name=jeff: 传入一个参数，名称是name，值是jeff。
 
-### 以Post的方式调用云端逻辑
+### Post的方式调用云端逻辑
 下面展示了以Post的方式调用云端逻辑：
 ```
 curl -X POST \
