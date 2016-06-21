@@ -1,3 +1,13 @@
+v3.0.3   2016年6月21日
+1.请勿将支付sdk用于违规途径,一经发现,本平台可在不通知开发者的情况下紧急封禁账号以避免损失;
+2.支付宝支付和微信支付都需要使用支付插件(本目录下的’BmobPayPlugin.apk’),请确保有读写SD卡权限;
+3.如果担心插件被应用市场扫描出带有支付功能,可将插件通过加密或下载的方式隐藏起来;
+4.混淆规则如下:
+-libraryjars libs/xxx.jar(替换jar包名)
+-keepclasseswithmembers class c.b.** { *; }
+-keep interface c.b.PListener{ *; }
+-keep interface c.b.QListener{ *; }
+
 v3.0.2   2016年5月31日
 1.将过长字符串通过getResourceAsStream方式加载,兼容部分旧的编译器
 2.更新了混淆规则,详细内容见文档
