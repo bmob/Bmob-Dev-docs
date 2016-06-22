@@ -1,12 +1,15 @@
 ## 注册Bmob帐号
+
 在网址栏输入www.bmob.cn或者在百度输入Bmob进行搜索，打开Bmob官网后，点击右上角的“注册”，在跳转页面填入你的姓名、邮箱、设置密码，确认后到你的邮箱激活Bmob账户，你就可以用Bmob轻松开发应用了。
 
 ![](image/rumen_zhuce.png)
+
 ## 网站后台创建应用
 
 登录账号进入bmob后台后，点击后台界面左上角“创建应用”，在弹出框输入你应用的名称，然后确认，你就拥有了一个等待开发的应用。
 
 ![](image/rumen_chuangjian.png)
+
 ## 获取应用密钥和下载SDK
 
 选择你要开发的应用，进入该应用
@@ -22,11 +25,147 @@
 
 ![](image/xiazai.png)
 
-## 安装BmobSDK
-一、在你的项目根目录下创建"libs"目录，将下载的BmobSDK文件放入该目录下。
+## SDK导入
 
-二、在你的应用程序的`AndroidManifest.xml`文件中添加相应的权限：
+### AndroidStudio配置
+
+鉴于目前Google官方推荐使用 `Android Studio` 进行Android项目开发，自 `V3.4.2` 开始，Bmob Android SDK 可以使用Gradle来进行包依赖管理，如果你使用Android Studio来进行基于BmobSDK的项目开发，有两种方式：
+
+### 自动导入(推荐)
+
+请按照如下两个步骤进行：
+
+1. 在 `Project` 的 `build.gradle` 文件中添加 `Bmob的maven仓库地址`，示例如下：（**注意文字说明部分**）：
+
+	buildscript {
+	    repositories {
+	        jcenter()
+	    }
+	    dependencies {
+	        classpath 'com.android.tools.build:gradle:1.2.3'
+	    }
+	}
+	
+	allprojects {
+	    repositories {
+	        jcenter()
+			//Bmob的maven仓库地址--必填
+	        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+	    }
+	}
+
+
+
+2.  在`app`的`build.gradle`文件中添加`compile依赖文件`,示例如下：（**注意文字说明部分**）：
+
+	apply plugin: 'com.android.application'
+	
+	android {
+	    compileSdkVersion 22
+	    buildToolsVersion '22.0.1'
+	
+		**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用compile 'cn.bmob.android:http-legacy:1.0'**
+	    useLibrary 'org.apache.http.legacy'
+	
+	    ...
+	}
+	
+	
+	dependencies {
+	    compile fileTree(dir: 'libs', include: ['*.jar'])
+	
+		//以下SDK开发者请根据需要自行选择
+		//bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
+	    //3.4.7-aar：请务必查看下面注释[1]
+		compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+	
+	    //bmob-push：Bmob的推送包
+	    compile 'cn.bmob.android:bmob-push:0.8'
+	
+		//bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[2]
+		compile 'cn.bmob.android:bmob-im:2.0.5@aar'
+		compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+	
+		//bmob-sms ：Bmob单独为短信服务提供的包
+	    compile 'cn.bmob.android:bmob-sms:1.0.1'
+	
+		//如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+		compile 'cn.bmob.android:http-legacy:1.0'
+	}
+
+
+**注：**
+
+**[1]、为了降低开发者的使用成本，现提供`3.4.7-aar`，此aar包含`libbmob.so、okhttp、okio及自动更新组件所需要的资源文件`**。开发者再也不需要配置libbmob.so,不需要添加okhttp、okio，也不需要复制自动更新组件的资源文件啦，只需要添加以下依赖即可。
+
+	compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+
+注：由于`PermissionManager权限管理类`需要依赖`support-v4:23.2.1`的jar包,导致开发者认为SDK依赖文件较多，故分离出SDK。开发者如果需要兼容Android6.0系统，可以在下载的SDK的官方Demo的`com.example.bmobexample.permission`包下面查看该类源码。
+
+**[2]、每个版本的im依赖特定版本的bmob-sdk：**
+
+- `bmob-im:1.1.8--->bmob-sdk:3.3.5`
+- `bmob-im:1.1.9--->bmob-sdk:3.4.3`
+- `bmob-im:2.0.1--->bmob-sdk:3.4.6-0304`
+- `bmob-im:2.0.2--->bmob-sdk:3.4.6-0304`
+- `bmob-im:2.0.3--->bmob-sdk:3.4.6`
+- `bmob-im:2.0.4--->bmob-sdk:3.4.6` 
+- `bmob-im:2.0.5--->bmob-sdk:3.4.7-aar`
+
+其中
+
+- `bmob-sdk:3.4.6-0304`是Bmob Android SDK的过渡版本，主要用于NewIM_v2.0.1及v2.0.2
+- `bmob-sdk:3.4.6`的相关依赖包可见注释[3]
+
+**[3]、bmob-sdk:3.4.6依赖以下包：**
+	
+	compile 'cn.bmob.android:bmob-sdk:3.4.6'
+	compile 'com.squareup.okhttp:okhttp:2.4.0'//CDN文件服务使用okhttp相关包进行文件的上传和下载（必填）
+    compile 'com.squareup.okio:okio:1.4.0'
+
+如果需要兼容Android6.0系统，请添加以下两项：
+
+	compile 'com.android.support:support-v4:23.2.1'
+	compile 'cn.bmob.android:http-legacy:1.0'
+
+**[4]、bmob-sms适用于只需要使用Bmob短信功能的开发者，而bmob-sdk内部包含了bmob-sms的短信功能,请不要重复添加。**
+
+**[5]、BmobSDK的官方仓库：[bmob-android-sdk](https://github.com/bmob/bmob-android-sdk)，开发者可到此仓库查看最新发布的各版本SDK，我们会尽量与官网发布的SDK保持同步更新。**
+
+#### 手动导入
+
+1. 开发者到[SDK下载中心](http://www.bmob.cn/downloads)下载 `数据服务` 的Android 版本的SDK，并将下载下来的`libs`文件夹里面的文件根据需要复制到工程的libs目录下(注意，自`v3.4.7`开始提供`libbmob.so`文件)； 
+
+2. 在`app`的`buid.gradle`文件中添加SO库目录配置：
+
+		android {
+	        sourceSets {
+	            main.jniLibs.srcDirs = ['libs']
+	       }
+		}
+
+3. 点击Sync，同步配置。
+
+### Eclipse导入
+
+开发者到 [SDK下载中心](http://www.bmob.cn/downloads) 下载 `数据服务` 的Android 版本的SDK，在Eclipse工程的项目根目录中新建`libs`文件夹，将下载的jar包添加到此文件夹即可。
+
+**注：**
+
+1、若配置不成功，则需要额外增加以下步骤：
+
+右键工程根目录，选择`Properties -> Java Build Path -> Libraries`，然后点击`Add External JARs...` 选择指向该libs文件夹下的jar的路径，点击OK即可。
+
+2、BmobSDK_v3.4.7需要依赖`okhttp3（3.2.0）、okio（1.7.0）`及`libbmob.so`库。
+
+3、BmobSDK_v3.4.6需要依赖`okhttp（2.4.0）、okio（1.4.0）`，如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy依赖包。
+
+## 配置AndroidManifest.xml
+
+在你的应用程序的`AndroidManifest.xml`文件中添加相应的权限：
+
 ```xml
+
 <!--允许联网 --> 
 <uses-permission android:name="android.permission.INTERNET" /> 
 <!--获取GSM（2g）、WCDMA（联通3g）等网络状态的信息  --> 
@@ -90,6 +229,7 @@
 ## 初始化BmobSDK
 
 在你应用程序启动的Activity的onCreate()方法中初始化Bmob功能。代码如下所示：
+
 ```java
 package com.bmob.example;
 import cn.bmob.v3.Bmob;
