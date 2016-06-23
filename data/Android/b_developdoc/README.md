@@ -107,6 +107,7 @@ Android6.0中，`Notification.setLatestEventInfo()`方法被移除，替代的�
 
 参照代码如下：
 
+```
 	NotificationManager notificationManager = (NotificationManager) mContext
 			.getSystemService(Context.NOTIFICATION_SERVICE);
 	PendingIntent pi = PendingIntent.getActivity(mContext, 0,
@@ -118,6 +119,7 @@ Android6.0中，`Notification.setLatestEventInfo()`方法被移除，替代的�
 			.setSmallIcon(R.drawable.ic_launcher);
 	Notification notification = builder.build();
 	notificationManager.notify(0, notification);
+```
 
 ## 对象
 

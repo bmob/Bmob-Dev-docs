@@ -37,6 +37,7 @@ curl -X GET http://cloud.bmob.cn/0348d0c262bc91d9/test?name=jeff
 0348d0c262bc91d9：应用的Secret Key。
 test：云端逻辑的名称
 name=jeff: 传入一个参数，名称是name，值是jeff
+与restful不同，无需再传其它诸如app id等请求头。
 
 ### 以Post的方式调用云端逻辑
 下面展示了以Post的方式调用云端逻辑：
@@ -50,6 +51,7 @@ curl -X POST \
 0348d0c262bc91d9：应用的Secret Key。
 test：云端逻辑的名称
 name=jeff: 传入一个参数，名称是name，值是jeff
+与restful不同，无需再传其它诸如app id等请求头。
 
 ## 转为套餐后调用云端逻辑的方式
 
@@ -71,6 +73,7 @@ curl -X GET http://cloud-xxxxx.bmobapp.com/test?name=jeff
 cloud-xxxxx.bmobapp.com：该应用的云端代码专属域名，其中xxxxx为上节“获取应用的id值”所获取的id值。
 test：云端逻辑的名称。
 name=jeff: 传入一个参数，名称是name，值是jeff。
+与restful不同，无需再传其它诸如app id等请求头。
 
 ### Post的方式调用云端逻辑
 下面展示了以Post的方式调用云端逻辑：
@@ -84,7 +87,7 @@ curl -X POST \
 cloud-xxxxx.bmobapp.com：该应用的云端代码专属域名，其中xxxxx为上节“获取应用的id值”所获取的id值。
 test：云端逻辑的名称
 name=jeff: 传入一个参数，名称是name，值是jeff
-
+与restful不同，无需再传其它诸如app id等请求头。
 
 ## 云端逻辑模块解释
 
@@ -1671,3 +1674,5 @@ function onRequest(request, response, modules) {
     });
 }                                                                                                 
 ```
+
+
