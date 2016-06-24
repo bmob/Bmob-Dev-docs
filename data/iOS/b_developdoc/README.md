@@ -256,10 +256,10 @@ BmobObject提供以下几种方法对BmobOjbect进行初始化：
             
             //此处是更新操作
             BmobObject *gameScoreChanged = [BmobObject objectWithoutDataWithClassName:@"GameScore" objectId:gameScore.objectId];
-            [gameScoreChanged setObject:@"women" forKey:@"userAttibute.gender"];
+            [gameScoreChanged setObject:@"Mike" forKey:@"userAttibute.name"];
             [gameScoreChanged updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                 if (isSuccessful) {
-                    NSLog(@"更新成功，以下为对象值，可以看到json里面的gender已经改变");
+                    NSLog(@"更新成功，以下为对象值，可以看到json里面的name已经改变");
                     NSLog(@"%@",gameScoreChanged);
                 } else {
                     NSLog(@"%@",error);
