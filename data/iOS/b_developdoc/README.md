@@ -573,7 +573,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 ```
 bquery.limit = 3;//限制得到的结果条数为3条
 ```
-在数据较多的情况下，在limit的基础上分页显示数据是比较合理的解决办法，skip属性可以做到跳过查询的前多少条数据来实现分页查询的功能。默认情况下Skip的值为100。
+在数据较多的情况下，在limit的基础上分页显示数据是比较合理的解决办法，skip属性可以做到跳过查询的前多少条数据来实现分页查询的功能。默认情况下Skip的值为0。
 
 ```
 bquery.skip = 3;//跳过3条数据
