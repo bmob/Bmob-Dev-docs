@@ -76,8 +76,8 @@
 	
 		//以下SDK开发者请根据需要自行选择
 		//bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
-	    //3.4.7-aar：请务必查看下面注释[1]
-		compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+	    //3.5.0：请务必查看下面注释[1]
+		compile 'cn.bmob.android:bmob-sdk:3.5.0'
 	
 	    //bmob-push：Bmob的推送包
 	    compile 'cn.bmob.android:bmob-push:0.8'
@@ -96,9 +96,9 @@
 
 **注：**
 
-**[1]、为了降低开发者的使用成本，现提供`3.4.7-aar`，此aar包含`libbmob.so、okhttp、okio及自动更新组件所需要的资源文件`**。开发者再也不需要配置libbmob.so,不需要添加okhttp、okio，也不需要复制自动更新组件的资源文件啦，只需要添加以下依赖即可。
+**[1]、为了降低开发者的使用成本，自v3.4.7开始，同步提供`aar`格式的文件，此aar包含`libbmob.so、依赖jar包(okhttp、okio、rx、gson等)及自动更新组件所需要的资源文件`**。开发者再也不需要配置libbmob.so,不需要添加依赖jar，也不需要复制自动更新组件的资源文件啦，只需要添加以下依赖即可。
 
-	compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+	compile 'cn.bmob.android:bmob-sdk:3.5.0'
 
 注：由于`PermissionManager权限管理类`需要依赖`support-v4:23.2.1`的jar包,导致开发者认为SDK依赖文件较多，故分离出SDK。开发者如果需要兼容Android6.0系统，可以在下载的SDK的官方Demo的`com.example.bmobexample.permission`包下面查看该类源码。
 
@@ -154,11 +154,13 @@
 
 1、若配置不成功，则需要额外增加以下步骤：
 
-右键工程根目录，选择`Properties -> Java Build Path -> Libraries`，然后点击`Add External JARs...` 选择指向该libs文件夹下的jar的路径，点击OK即可。
+右键工程根目录，选择`Properties -> Java Build Path -> Libraries`，然后点击`Add External JARs...` 选择指向该libs文件夹下的jar的路径，点击OK即可
 
-2、BmobSDK_v3.4.7需要依赖`okhttp3（3.2.0）、okio（1.7.0）`及`libbmob.so`库。
+2、BmobSDK_v3.5.0需要依赖`rxjava（1.1.6）、rxandroid(1.2.0)、gson(2.6.2)、okhttp3（3.3.1）、okio（1.7.0）`及`libbmob.so`库；
 
-3、BmobSDK_v3.4.6需要依赖`okhttp（2.4.0）、okio（1.4.0）`，如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy依赖包。
+3、BmobSDK_v3.4.7需要依赖`okhttp3（3.2.0）、okio（1.7.0）`及`libbmob.so`库；
+
+4、BmobSDK_v3.4.6需要依赖`okhttp（2.4.0）、okio（1.4.0）`，如果需要兼容Android6.0系统，则还需要添加support-v4（23.2.1）及org.apache.http.legacy依赖包。
 
 ## 配置AndroidManifest.xml
 
