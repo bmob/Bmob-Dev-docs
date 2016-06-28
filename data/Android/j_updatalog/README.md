@@ -35,17 +35,14 @@ v3.4.6   2016年4月20日
 1. [关于旧版本自动更新组件出现解析包出错问题的解决方法](http://docs.bmob.cn/data/Android/e_autoupdate/doc/index.html#常见问题)；
 2. 修复v3.4.6_0413版本中自动更新组件出现的AndroidRuntimeException问题；
 3. 增加文件服务的AppKey和Wake_Lock权限检测。
-
 新增：
 1. 新增CDN文件服务，废弃原来的新旧文件服务，但上传方法名不变；
 2. 新增文件下载download方法，允许设定文件的下载目录；
 3. 新增文件批量删除接口（只针对于通过CDN文件服务上传的文件）；
 4. 新增BmobConfig类，允许开发者设置查询超时时间及文件上传时的每片大小；
 5. 全面兼容Android6.0系统，并增加权限管理工具类(PermissionManager)，方便开发者对权限进行控制和管理。
-
 转移：
 文件的批量上传的静态uploadBatch方法由Bmob类转移至BmobFile类。
-
 修复：
 1. 修复调用add、addUnique、remove、removeAll、increment、setValue等方法成功后本地用户信息未及时更新的问题；
 2. 修复自动更新组件中target_size填成英文导致应用奔溃的问题；
