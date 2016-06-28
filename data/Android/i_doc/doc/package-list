@@ -1,5 +1,5 @@
 cn.bmob.v3
 cn.bmob.v3.datatype
 cn.bmob.v3.exception
-cn.bmob.v3.helper
 cn.bmob.v3.listener
+cn.bmob.v3.update
