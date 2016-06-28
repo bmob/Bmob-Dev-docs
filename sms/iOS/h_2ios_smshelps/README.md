@@ -5,6 +5,7 @@ A:短信SDK是在不需要使用BmobSDK时才使用的，BmobSDK里本身包含�
 
 Q:手机验证码注册不成功
 如果注册前不验证验证码是否正确，直接发送注册请求，就可以注册成功，如果先验证，就会报错。提示：code error 207 ，输入的验证码是正确的。请问如何解决。
+
 ```
 - (IBAction)registerNewUser:(id)sender {
 // 验证注册码是否正确
@@ -34,6 +35,7 @@ NSLog(@"输入的验证码不正确");
 
 }
 ```
+
 A:验证码注册只需要在注册的时候输入即可，不需要先进行一次验证的，verifySMSCodeInBackgroundWithPhoneNumber方法是用于注册以后的验证功能
 
 ---

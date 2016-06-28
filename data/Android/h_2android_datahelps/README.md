@@ -127,7 +127,6 @@ A:可以使用缓存查询，具体可以查看官方文档
 
 ---
 
-
 Q:怎么通过BmobUser的一个属性列来获取其他列的信息
 A:使用bmob的查询功能，查询Username 等于名称的用户信息即可，使用的是addWhereEqualTo方法
 
@@ -135,11 +134,14 @@ A:使用bmob的查询功能，查询Username 等于名称的用户信息即可�
 
 Q:我的应用想只查询最新上传的一组数据，请问该如何操作呢
 A:可以根据时间来设置条件，再进行查询
+
 ---
 
 Q:查询中findListener中的onerror方法不执行,两次测试均是数据库无该数据的，但是程序均不执行onerror方法
 A:没有数据不代表查询出错，当没有数据符合你的查询条件时，就会返回空，此时还是执行onSuccess的
+
 ---
+
 Q:想问问查询的时候排序有多个关键字怎么解决？
 A:数据服务的文档中有的，在开发文档的查询数据->查询条件->排序那里：
 
@@ -155,13 +157,11 @@ query.order("-score");
 query.order("-score,createdAt");
 说明：多个字段排序时，先按第一个字段进行排序，再按第二个字段进行排序，依次进行。
 
-## 数组
-
 ## 数据关联
 
 Q:我有个Relation字段，想用它来记录喜欢这篇文章的用户，我该怎么添加里面的数据呢？
-
 A:这个问题请看 [数据关联](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html#数据关联性) 相关文档。
+
 ---
 
 Q:Relation字段 能否像pointer一样在查询的时候一并把关联的记录也查询下来，不需要二次查询
@@ -177,7 +177,6 @@ A:查询的时候应该没有用includ查询进去
 
 Q:查询数据时，表中的一个字段是pointer字段，如何将这个pointer字段的一个属性作为查询匹配条件？
 A:
-
 ```
 BmobQuery<Comment> query = new BmobQuery<Comment>();
 BmobQuery<Post> innerQuery = new BmobQuery<Post>();
@@ -200,6 +199,7 @@ public void onError(int code, String msg) {
 });
 ```
 如上，就是使用内部查询就可以实现你的需求了，只需要将查询条件和表名换成你需要的就可以了～
+
 ---
 
 Q:如果一个用户要收藏一个产品应该怎么定义对象
@@ -247,12 +247,13 @@ A:include的用法在文档里面已经说明了的(http://docs.bmob.cn/android/
 ## 用户管理
 
 Q:打开了邮箱验证功能，注册成功后未验证也能登录成功？
-
 A:Bmob SDK中，邮箱的验证和用户的注册登录是异步的关系，也就是说，即使用户没有点击邮箱验证功能，也是一样可以登录成功的。如果需要限制用户的登录或者只能查看到登录后的部分功能，可以使用`BmobUser.getEmailVerified`。
----
-Q:Bmob如何实现用户登录之后获取数据读写权限，以及如何实现登出操作的？
 
+---
+
+Q:Bmob如何实现用户登录之后获取数据读写权限，以及如何实现登出操作的？
 A:用户登录之后，我们会把获取到的用户信息保存在本地文件中，你可以通过`BmobUser.getCurrentUser`方法获取对应的值，当调用 `logout`方法之后，这些缓存的数据就会清除。如果不调用`logout`方法，下次重新打开这个应用，还是可以通过`BmobUser.getCurrentUser`方法获得上次登陆的用户信息，从而判断是否登陆过。
+
 ---
 
 Q:BmobUser.logOut(getApplicationContext()); //清除缓存用户对象
@@ -282,6 +283,7 @@ email: 用户的电子邮件地址（可选）。
 emailVerified:邮箱认证状态（可选）。
 mobilePhoneNumber：手机号码（可选）。
 mobilePhoneNumberVerified：手机号码的认证状态（可选）。
+
 ---
 
 Q:第三方登录之后该怎么获得User的objectId呢？
@@ -298,8 +300,10 @@ Q:修改数据提示User cannot be altered without sessionToken Error.
 A:这种情况一般都是没有进行用户登录就对用户信息进行更新导致的
 
 ---
+
 Q:更新用户update时失败，9012错误
 A:9012是context is null,没传上下文对象
+
 ---
 
 Q:用了getobjectId方法为什么还是显示objectId cant't be empty。
@@ -338,9 +342,9 @@ Q:更新了用户信息后 服务器都更新了数据 但是本地缓存用户�
 A:更新用户信息后需要从新登陆，本地用户信息才会更新。
 
 ---
+
 Q:登录后在个人资料中上传头像在用户表，并且要头像和用户要对应。
 A:上传图片成功后，将BmobFile对象更新到当前用户的头像字段中即可。
-
 
 ---
 
@@ -349,6 +353,7 @@ A:该字段需要注册用户点击了验证邮件才会主动设置为true
 
 
 ## 数据实时功能
+
 Q:如何实现Bmob服务端向Android应用发送实时通知？如某个数据过高需要提醒APP用户
 A:以使用实时数据监听功能来实现
 
@@ -513,6 +518,7 @@ A:Cause: com.android.dex.DexException: Multiple dex files define Landroid/suppor
 Error:Execution failed for task ':app:transformClassesWithDexForDebug'.
 
 这是重复导包造成的，你用的v4和v7包重复了，你需要去掉报错的那个模块
+
 ---
 
 Q:我使用BmobUser.login接口,返回onFailure的参数code分别对应什么情况?有说明文档么?
@@ -557,6 +563,7 @@ A:bmob的jar里面包含了volley,无需再次导入
 
 Q:移动端和WEB端能用BMOB作为云端，实现数据共享么？
 A:可以的，使用同一个app id来进行操作即可
+
 ---
 
 Q:真机运行时控制台输出 Error:warning: Ignoring InnerClasses attribute for an anonymous inner class
@@ -566,6 +573,7 @@ lintOptions {
 ignoreWarnings true
 }
 ```
+
 ---
 
 Q:把应用装到手机很慢，一直在Gradle Build
@@ -588,6 +596,7 @@ A:详情移步到博客http://www.kiuber.top/2016/05/24/android-studio-add-so/
 
 Q:邮箱验证用哪个SDK
 A:使用数据服务SDK即可
+
 ---
 
 Q:Android studio连接Bmob时报错

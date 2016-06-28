@@ -3,6 +3,7 @@ A:自己控制的呀，想保存到后台，那你就调用save方法来创建�
 
 ---
 Q:BmobIM2.0 发送自定义消息失败
+
 ```
 SendCommentMessage commentMessage=new SendCommentMessage();
             User currentUser = BmobUser.getCurrentUser(DynamicDetailActivity.this,User.class);
@@ -31,6 +32,7 @@ SendCommentMessage commentMessage=new SendCommentMessage();
 
 ```
 A:还少了一个步骤，使用obtain方法创建一个用于控制发送消息的会话实例
+
 ---
 
 Q:BmobIMUserInfo info为null
