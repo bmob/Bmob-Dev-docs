@@ -131,11 +131,12 @@ Q:
 1.unity里面必须使用BmobUnity Bmob = gameObject.GetComponent<BmobUnity>();
 来获取bmob对象吗 ？能不能 用C#DLL里面的 new方法呢？因为BmobUnity继承了mono所以不能new这个很麻烦，毕竟数据操作是模型层干的事情
 2.在查找数据的时候，Main.Bmob.Find方法不在主线程 ，也没有回调，导致后面的代码在结果出来之前优先执行了。
-3. 以上两面我看c#的SDK完美解决了，可惜unity里面不能用c#的bmob.dll
+3.以上两面我看c#的SDK完美解决了，可惜unity里面不能用c#的bmob.dll
+
 A:
-1 不能用new的方式，bmob异步请求用了MonoBehaviour#StartCoroutine
-2 没有回调？？自己先查看下API。
-3 Unity和C#不同的，Unity是一个封装的版本，需要兼容各个平台的东西。
+1.不能用new的方式，bmob异步请求用了MonoBehaviour#StartCoroutine
+2.没有回调？？自己先查看下API。
+3.Unity和C#不同的，Unity是一个封装的版本，需要兼容各个平台的东西。
 
 
 ---
