@@ -1,3 +1,25 @@
+v3.5.0 2016年06月27日
+1、使用`Rx+okhttp3`全面重构BmobSDK，所有方法均额外提供Observable形式调用；
+	1)、Context参数变化：除初始化方法外，其余方法均不再需要传递Context参数
+	2)、回调函数变化：
+		a、所有回调函数的onSuccess、onFailure方法统一调整为done(T t,BmobException e)形式；
+		b、合并以下回调函数：
+			GetListener<T>->QueryListener<T>
+			GetCallbackGetCallback->QueryListener<JSONObject>
+			FindCallback->QueryListener<JSONArray>
+			DeleteListener、EmailVerifyListener、ResetPasswordByCodeListener、ResetPasswordByEmailListener、VerifySMSCodeListener->UpdateListener
+			GetServerTimeListener->QueryListener<Long>
+			OtherLoginListener-->LogInListener<JSONObject>
+			StatisticQueryListener、FindStatisticsListener->QueryListener<JSONArray>
+			GetTableSchemaListener->>QueryListener<BmobTableSchema>
+			GetAllTableSchemaListener->QueryListListener<BmobTableSchema>
+			QuerySMSStateListener->QueryListener<BmobSmsState>
+			RequestSMSCodeListener->QueryListener<Integer>
+2、新增`BmobBatch`批量操作类，支持批量添加、批量更新、批量删除的同步提交，且批量添加的请求返回objectId字段；
+3、修复由于手机时间与服务器时间相差较大引起的调用文件的upload方法返回`401 signature error`错误；
+4、解决`AndroidStudio`运行BmobSDK后出现`Ignoring InnerClasses attribute for an anonymous inner class`的警告；
+5、同步更新`BmobPush_v1.0.0`推送SDK。
+
 v3.4.7  2016年5月27日
 1、文件服务的依赖库升级到okhttp3;
 2、修复调用文件的download方法有时成功有时却提示`file download error(9015)`的错误;
@@ -9,7 +31,7 @@ v3.4.7  2016年5月27日
 
 v3.4.6   2016年4月20日
 附加：
-1、关于旧版本自动更新组件出现解析包出错问题的解决方法；
+1、[关于旧版本自动更新组件出现解析包出错问题的解决方法](http://docs.bmob.cn/data/Android/e_autoupdate/doc/index.html#常见问题)；
 2、修复v3.4.6_0413版本中自动更新组件出现的AndroidRuntimeException问题；
 3、增加文件服务的AppKey和Wake_Lock权限检测。
 新增：

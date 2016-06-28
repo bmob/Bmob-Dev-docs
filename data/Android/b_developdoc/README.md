@@ -12,7 +12,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 ### 添加对Apache的HTTP-client支持
 
-Android6.0版本移除了对Appache的HTTP client的支持，因此，需要添加org.apache.http.legacy.jar包，请参照如下方式添加：
+Android6.0版本移除了对Appache的HTTP client的支持，因此，需要添加`org.apache.http.legacy.jar`包，请参照如下方式添加：
 
 1. Eclipse
 
@@ -176,19 +176,19 @@ public class GameScore extends BmobObject{
 
 需要注意的是：
 
- - JavaBean不需要对objectId、createdAt、updatedAt、ACL四个属性进行定义。
+ - JavaBean不需要对`objectId、createdAt、updatedAt、ACL`四个属性进行定义。
  - 不少开发者会没有注意到createdAt和updatedAt属性中的字母d，写成createAt和updateAt。
  - 尽可能使用Integer、Boolean，而不是int、boolean，也就是选择包装类，而不是使用基本数据类型（这两者的区别大家可以看这篇文章：http://www.cnblogs.com/shenliang123/archive/2011/10/27/2226903.html）
 
 ### 特殊对象
 
-为了提供更好的服务，BmobSDK中提供了BmobUser、BmobInstallation、BmobRole三个特殊的BmobObject对象来完成不同的功能，在这里我们统一称为特殊对象。
+为了提供更好的服务，BmobSDK中提供了`BmobUser、BmobInstallation、BmobRole`三个特殊的BmobObject对象来完成不同的功能，在这里我们统一称为特殊对象。
 
- - BmobUser对象主要是针对应用中的用户功能而提供的，它对应着web端的User表，使用BmobUser对象可以很方便的在应用中实现用户的注册、登录、邮箱验证等功能，具体的使用方法可查看文档的[`用户管理`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#用户管理)部分。
+ - `BmobUser`对象主要是针对应用中的用户功能而提供的，它对应着web端的User表，使用BmobUser对象可以很方便的在应用中实现用户的注册、登录、邮箱验证等功能，具体的使用方法可查看文档的[`用户管理`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#用户管理)部分。
 
- - BmobInstallation对象主要用于应用的安装设备管理中，它对应着web端的Installation表，任何安装了你应用的设备都会在此表中产生一条数据标示该设备。结合Bmob提供的推送功能，还可以实现将自定义的消息推送给不同的设备终端，具体的使用方法可查看文档的[`消息推送`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#消息推送)部分。
+ - `BmobInstallation`对象主要用于应用的安装设备管理中，它对应着web端的Installation表，任何安装了你应用的设备都会在此表中产生一条数据标示该设备。结合Bmob提供的推送功能，还可以实现将自定义的消息推送给不同的设备终端，具体的使用方法可查看文档的[`消息推送`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#消息推送)部分。
 
- - BmobRole对象主要用于角色管理，对应用于Web端的Role表，具体的使用方法可查看文档的[`ACL和角色`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#ACL和角色)部分。
+ - `BmobRole`对象主要用于角色管理，对应用于Web端的Role表，具体的使用方法可查看文档的[`ACL和角色`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#ACL和角色)部分。
 
 ## 数据类型
 
@@ -207,14 +207,15 @@ public class GameScore extends BmobObject{
 |Pointer |特定对象|Bmob特有类型，用来标识指针类型|
 |Relation|BmobRelation|Bmob特有类型，用来标识数据关联|
 
-**注：**
-
-**1、`不能使用int、float、short byte、double、character等基本数据类型。`**
+**注：不能使用int、float、short byte、double、character等基本数据类型。`**
 
 ## 类名和表名的关系
 
 - Bmob官方推荐类名和表名完全一致的映射使用方式， 即如，上面的GameScore类，它在后台对应的表名也是GameScore（区分大小写）。
-- 如果你希望表名和类名并不相同，如表名为T_a_b，而类名还是GameScore，那么你可以使用BmobObject提供的setTableName("表名")的方法，示例代码如下：
+- 如果你希望表名和类名并不相同，如表名为T_a_b，而类名还是GameScore，那么你可以使用BmobObject提供的setTableName("表名")的方法，
+
+示例代码如下：
+
 ```java
 //这时候实际操作的表是T_a_b
 public class GameScore extends BmobObject{
@@ -244,18 +245,19 @@ public class GameScore extends BmobObject{
  * 查询数据
  */
 public void queryData(){
-	BmobQuery query = new BmobQuery("T_a_b");
-	query.findObjects(this, new FindCallback() {
-		
+	BmobQuery query =new BmobQuery("Person");
+	query.addWhereEqualTo("age", 25);
+	query.setLimit(2);
+	query.order("createdAt");
+	//v3.5.0版本提供`findObjectsByTable`方法查询自定义表名的数据
+	query.findObjectsByTable(new QueryListener<JSONArray>() {
 		@Override
-		public void onSuccess(JSONArray arg0) {
-			//注意：查询的结果是JSONArray,需要自行解析
-			showToast("查询成功:"+arg0.length());
-		}
-		
-		@Override
-		public void onFailure(int arg0, String arg1) {
-			showToast("查询失败:"+arg1);
+		public void done(JSONArray ary, BmobException e) {
+			if(e==null){
+				Log.i("bmob","查询成功："+ary.toString());
+			}else{
+				Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+			}
 		}
 	});
 }
@@ -274,18 +276,17 @@ GameScore gameScore = new GameScore();
 gameScore.setPlayerName("比目");
 gameScore.setScore(89);
 gameScore.setIsPay(false);
-gameScore.save(mContext, new SaveListener() {
-		
+gameScore.save(new SaveListener<String>() {
+
 	@Override
-	public void onSuccess() {
-		toast("添加数据成功，返回objectId为："+gameScore.getObjectId() + ”,数据在服务端的创建时间为：“ + gameScore.getCreatedAt());
+	public void done(String objectId, BmobException e) {
+		if(e==null){
+			toast("创建数据成功：" + objectId);
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		}
 	}
-		
-	@Override
-	public void onFailure(int code, String arg0) {
-		// 添加失败
-	}
-});
+})
 ```
 
 运行以上代码，如果添加成功，你可以在Bmob提供的后台的数据浏览中看到类似这样的结果：
@@ -306,18 +307,15 @@ objectId: "0c6db13c", score: 89, playerName: "比目", isPay: false,createdAt:"2
 ```java
 GameScore gameScore = new GameScore();
 gameScore.setScore(77);
-gameScore.update(this, "0c6db13c", new UpdateListener() {
+gameScore.update("0c6db13c", new UpdateListener() {
 		
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("bmob","更新成功：");
-	}
-		
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","更新失败："+msg);
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","更新成功");
+		}else{
+			Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+		}
 	}
 });
 ```
@@ -363,19 +361,17 @@ p2.setValue("bankCard",new BankCard("农行", "农行账号"));
 //p2.setValue("age",11);
 //更新Boolean类型
 //p2.setValue("gender", true);
-p2.update(this, objectId, new UpdateListener() {
-		
+p2.update(objectId, new UpdateListener() {
+
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("bmob","更新成功：");
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","更新成功");
+		}else{
+			Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+		}
 	}
-		
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","更新失败："+msg);
-	}
+	
 });
 
 ```
@@ -408,18 +404,15 @@ gameScore.update(this, updateListener);
 ```java
 GameScore gameScore = new GameScore();
 gameScore.setObjectId("dd8e6aff28");
-gameScore.delete(this, new DeleteListener() {
+gameScore.delete(new UpdateListener() {
 		
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("bmob","删除成功");
-	}
-		
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","删除失败："+msg);
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		}
 	}
 });
 ```
@@ -434,57 +427,67 @@ gameScore.delete(this, new DeleteListener() {
 GameScore gameScore = new GameScore();
 gameScore.setObjectId("dd8e6aff28");
 gameScore.remove("score");	// 删除GameScore对象中的score字段
-gameScore.update(this, new UpdateListener() {
+gameScore.update(new UpdateListener() {
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("bmob","删除GameScore对象中的score字段成功");
-	}
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","删除GameScore对象中的score字段失败："+msg);
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		}
 	}
 });
 ```
 
 ## 批量数据操作
 
+自`v3.5.0`开始,新增`BmobBatch`批量操作类，`支持批量添加、批量更新、批量删除的三种操作的同步提交`，且批量添加的请求返回objectId字段。
+
 在BmobObject对象中提供了三种用于批量操作的方法，分别是`insertBatch`、`updateBatch`、`deleteBatch`,批量添加、更新、删除。
 
- - `insertBatch`的使用方式如下：
+### 批量添加
 
 ```java
 List<BmobObject> persons = new ArrayList<BmobObject>();
 for (int i = 0; i < 3; i++) {
 	Person person = new Person();
 	person.setName("张三 "+i);
-	person.setAddress("上海朝阳路"+i+"号");
-	person.setGpsAdd(new BmobGeoPoint(112.934755, 24.52065));
-	person.setUploadTime(new BmobDate(new Date()));
-	List<String> hobbys = new ArrayList<String>();
-	hobbys.add("阅读");
-	hobbys.add("篮球");
-	hobbys.add("唱歌");
-	person.setHobby(hobbys);
-	person.setBankCard(new BankCard("中国银行", "176672673687545097"+i));
 	persons.add(person);
 }
+//第一种方式：
 new BmobObject().insertBatch(this, persons, new SaveListener() {
 	@Override
 	public void onSuccess() {
-		// TODO Auto-generated method stub
 		toast("批量添加成功");
 	}
 	@Override
 	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
 		toast("批量添加失败:"+msg);
 	}
 });
+//第二种方式：v3.5.0开始提供
+new BmobBatch().insertBatch(persons).doBatch(new QueryListListener<BatchResult>() {
+
+			@Override
+			public void done(List<BatchResult> o, BmobException e) {
+				if(e==null){
+					for(int i=0;i<o.size();i++){
+						BatchResult result = o.get(i);
+						BmobException ex =result.getError();
+						if(ex==null){
+							log("第"+i+"个数据批量添加成功："+result.getCreatedAt()+","+result.getObjectId()+","+result.getUpdatedAt());
+						}else{
+							log("第"+i+"个数据批量添加失败："+ex.getMessage()+","+ex.getErrorCode());
+						}
+					}
+				}else{
+					Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+				}
+			}
+		});
 ```
 
- - `updateBatch`的使用方式如下：
+### 批量更新
 
 ```java
 List<BmobObject> persons = new ArrayList<BmobObject>();
@@ -503,23 +506,43 @@ persons.add(p1);
 persons.add(p2);
 persons.add(p3);
 
+//第一种方式：
 new BmobObject().updateBatch(this, persons, new UpdateListener() {
 	@Override
 	public void onSuccess() {
-		// TODO Auto-generated method stub
 		toast("批量更新成功");
 	}
 	@Override
 	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
 		toast("批量更新失败:"+msg);
 	}
 });
+
+//第二种方式：v3.5.0开始提供
+new BmobBatch().updateBatch(persons).doBatch(new QueryListListener<BatchResult>() {
+
+			@Override
+			public void done(List<BatchResult> o, BmobException e) {
+				if(e==null){
+					for(int i=0;i<o.size();i++){
+						BatchResult result = o.get(i);
+						BmobException ex =result.getError();
+						if(ex==null){
+							log("第"+i+"个数据批量更新成功："+result.getUpdatedAt());
+						}else{
+							log("第"+i+"个数据批量更新失败："+ex.getMessage()+","+ex.getErrorCode());
+						}
+					}
+				}else{
+					Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+				}
+			}
+		});
 ```
 
- - `deleteBatch`的使用方式如下：
+### 批量删除
 
-```java
+```
 List<BmobObject> persons = new ArrayList<BmobObject>();
 Person p1 = new Person();
 p1.setObjectId("38ea274d0c");
@@ -531,24 +554,92 @@ p3.setObjectId("d8226c4828");
 persons.add(p1);
 persons.add(p2);
 persons.add(p3);
-
+//第一种方式：
 new BmobObject().deleteBatch(this, persons, new DeleteListener() {
 	@Override
 	public void onSuccess() {
-		// TODO Auto-generated method stub
 		toast("批量删除成功");
 	}
 	@Override
 	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
 		toast("批量删除失败:"+msg);
 	}
 });
+
+//第二种方式：v3.5.0开始提供
+new BmobBatch().deleteBatch(persons).doBatch(new QueryListListener<BatchResult>() {
+
+			@Override
+			public void done(List<BatchResult> o, BmobException e) {
+				if(e==null){
+					for(int i=0;i<o.size();i++){
+						BatchResult result = o.get(i);
+						BmobException ex =result.getError();
+						if(ex==null){
+							log("第"+i+"个数据批量删除成功");
+						}else{
+							log("第"+i+"个数据批量删除失败："+ex.getMessage()+","+ex.getErrorCode());
+						}
+					}
+				}else{
+					Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+				}
+			}
+		});
 ```
 
-注意：
+### 批量添加、批量更新、批量删除同步提交（v3.5.0开始提供）
 
- 1. 任何一种批量操作每次只支持最大50条记录的操作。
+```
+BmobBatch batch =new BmobBatch();
+//批量添加
+List<BmobObject> persons = new ArrayList<BmobObject>();
+Person person = new Person();
+person.setName("张三 ");
+persons.add(person);
+batch.insertBatch(persons);
+
+//批量更新
+List<BmobObject> persons1=new ArrayList<BmobObject>();
+Person p1 = new Person();
+p1.setObjectId("3388eb6caf");
+p1.setAge(35);
+persons1.add(p1);
+batch.updateBatch(persons1);
+
+//批量删除
+List<BmobObject> persons2 = new ArrayList<BmobObject>();
+Person p2 = new Person();
+p2.setObjectId("9af452ebd");
+persons2.add(p2);
+batch.deleteBatch(persons2);
+//执行批量操作
+batch.doBatch(new QueryListListener<BatchResult>(){
+
+	@Override
+	public void done(List<BatchResult> results, BmobException ex) {
+		if(ex==null){
+			//返回结果的results和上面提交的顺序是一样的，请一一对应
+			for(int i=0;i<results.size();i++){
+				BatchResult result= results.get(i);
+				if(result.isSuccess()){//只有批量添加才返回objectId
+					log("第"+i+"个成功："+result.getObjectId()+","+result.getUpdatedAt());
+				}else{
+					BmobException error= result.getError();
+					log("第"+i+"个失败："+error.getErrorCode()+","+error.getMessage());
+				}
+			}
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		}
+	}
+});
+
+```
+
+**注：**
+
+ 1. 批量操作每次只支持最大50条记录的操作。
  2. 批量操作不支持对User表的操作。
 
 ## 查询数据
@@ -561,24 +652,20 @@ new BmobObject().deleteBatch(this, persons, new DeleteListener() {
 
 ```java
 BmobQuery<GameScore> query = new BmobQuery<GameScore>();
-query.getObject(this, "a203eba875", new GetListener<GameScore>() {
+query.getObject("a203eba875", new QueryListener<GameScore>() {
 		
 	@Override
-	public void onSuccess(GameScore object) {
-		// TODO Auto-generated method stub
-		toast("查询成功：");
-		//获得playerName的信息
-		object.getPlayerName();
-		//获得数据的objectId信息
-        object.getObjectId();
-        //获得createdAt数据创建时间（注意是：createdAt，不是createAt）
-		object.getCreatedAt();
-	}
-
-	@Override
-	public void onFailure(int code, String arg0) {
-		// TODO Auto-generated method stub
-		toast("查询失败："+arg0);
+	public void done(GameScore object, BmobException e) {
+		if(e==null){
+			//获得playerName的信息
+			object.getPlayerName();
+			//获得数据的objectId信息
+	        object.getObjectId();
+	        //获得createdAt数据创建时间（注意是：createdAt，不是createAt）
+			object.getCreatedAt();
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		}
 	}
 		
 });
@@ -595,25 +682,23 @@ query.addWhereEqualTo("playerName", "比目");
 //返回50条数据，如果不加上这条语句，默认返回10条数据
 query.setLimit(50);
 //执行查询方法
-query.findObjects(this, new FindListener<GameScore>() {
-		@Override
-		public void onSuccess(List<GameScore> object) {
-			// TODO Auto-generated method stub
+query.findObjects(new FindListener<GameScore>() {
+	@Override
+	public void done(List<GameScore> object, BmobException e) {
+		if(e==null){
 			toast("查询成功：共"+object.size()+"条数据。");
 			for (GameScore gameScore : object) {
-               //获得playerName的信息
+		       //获得playerName的信息
 			   gameScore.getPlayerName();
 			   //获得数据的objectId信息
-               gameScore.getObjectId();
-               //获得createdAt数据创建时间（注意是：createdAt，不是createAt）
+		       gameScore.getObjectId();
+		       //获得createdAt数据创建时间（注意是：createdAt，不是createAt）
 			   gameScore.getCreatedAt();
-        	}
+			}
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
 		}
-		@Override
-		public void onError(int code, String msg) {
-			// TODO Auto-generated method stub
-			toast("查询失败："+msg);
-		}
+	}
 });
 ```
 
@@ -725,19 +810,16 @@ query.and(and);
 BmobQuery<Person> query = new BmobQuery<Person>();
 String [] hobby = {"阅读","唱歌"};
 query.addWhereContainsAll("hobby", Arrays.asList(hobby));
-query.findObjects(this, new FindListener<Person>() {
+query.findObjects(new FindListener<Person>() {
 
     @Override
-    public void onSuccess(List<Person> object) {
-        // TODO Auto-generated method stub
-        toast("查询成功：共" + object.size() + "条数据。");
-    }
-
-    @Override
-    public void onError(int code, String msg) {
-        // TODO Auto-generated method stub
-        toast("查询失败：" + code);
-    }
+	public void done(List<Person> object, BmobException e) {
+		if(e==null){
+			...
+		}else{
+			...
+		}
+	}
 
 });
 ```
@@ -849,17 +931,15 @@ andQuerys.add(or);
 //查询符合整个and条件的人
 BmobQuery<Person> query = new BmobQuery<Person>();
 query.and(andQuerys);
-query.findObjects(this, new FindListener<Person>() {
+query.findObjects(new FindListener<Person>() {
     @Override
-    public void onSuccess(List<Person> object) {
-        // TODO Auto-generated method stub
-    	toast("查询年龄6-29岁之间，姓名以'y'或者'e'结尾的人个数："+object.size());
-    }
-    @Override
-    public void onError(int code, String msg) {
-        // TODO Auto-generated method stub
-    	toast("复合与查询失败："+code+",msg:"+msg);
-    }
+	public void done(List<Person> object, BmobException e) {
+		if(e==null){
+			toast("查询年龄6-29岁之间，姓名以'y'或者'e'结尾的人个数："+object.size());
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		}
+	}
 });
 ```
 
@@ -877,16 +957,14 @@ queries.add(eq1);
 queries.add(eq2);
 BmobQuery<Person> mainQuery = new BmobQuery<Person>();
 mainQuery.or(queries);
-mainQuery.findObjects(this, new FindListener<Person>() {
+mainQuery.findObjects(new FindListener<Person>() {
 	@Override
-	public void onSuccess(List<Person> object) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		
+	public void done(List<Person> object, BmobException e) {
+		if(e==null){
+			toast("查询年龄6-29岁之间，姓名以'y'或者'e'结尾的人个数："+object.size());
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		}
 	}
 });
 ```
@@ -900,16 +978,14 @@ mainQuery.findObjects(this, new FindListener<Person>() {
 ```java
 BmobQuery<GameSauce> query = new BmobQuery<GameSauce>();
 query.addWhereEqualTo("playerName", "Barbie");
-query.count(this, GameSauce.class, new CountListener() {
+query.count(GameSauce.class, new CountListener() {
 	@Override
-	public void onSuccess(int count) {
-		// TODO Auto-generated method stub
-		toast("Barbie has played" + count + "games");
-	}
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("count failure："+msg);
+	public void done(Integer count, BmobException e) {
+		if(e==null){
+			toast("count对象个数为："+count);
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		}
 	}
 });
 ```
@@ -922,17 +998,15 @@ query.count(this, GameSauce.class, new CountListener() {
 //只返回Person表的objectId这列的值
 BmobQuery<Person> bmobQuery = new BmobQuery<Person>();
 bmobQuery.addQueryKeys("objectId");
-bmobQuery.findObjects(this, new FindListener<Person>() {
+bmobQuery.findObjects(new FindListener<Person>() {
 	@Override
-	public void onSuccess(List<Person> object) {
-		// TODO Auto-generated method stub
-		toast("查询成功：共" + object.size() + "条数据。");
-         //注意：这里的Person对象中只有指定列的数据。
-	}
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询失败：" + msg);
+	public void done(List<Person> object, BmobException e) {
+		if(e==null){
+			toast("查询成功：共" + object.size() + "条数据。");
+         	//注意：这里的Person对象中只有指定列的数据。
+		}else{
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		}
 	}
 });
 ```
@@ -968,29 +1042,29 @@ bmobQuery.findObjects(this, new FindListener<Person>() {
 ```java
 BmobQuery<GameScore> query = new BmobQuery<GameScore>();
 query.sum(new String[] { "playScore" });
-query.findStatistics(this, GameScore.class,new FindStatisticsListener() {
+query.findStatistics(GameScore.class,new QueryListener<JSONArray>() {
 
 	@Override
-	public void onSuccess(Object object) {
-		JSONArray ary = (JSONArray) object;
-		if(ary!=null){//
-			try {
-				JSONObject obj = ary.getJSONObject(0);
-				int sum = obj.getInt("_sumPlayScore");//_(关键字)+首字母大写的列名
-				showToast("游戏总得分：" + sum);
-			} catch (JSONException e) {
+	public void done(JSONArray ary, BmobException e) {
+		if(e==null){
+			if(ary!=null){//
+				try {
+					JSONObject obj = ary.getJSONObject(0);
+					int sum = obj.getInt("_sumPlayScore");//_(关键字)+首字母大写的列名
+					showToast("游戏总得分：" + sum);
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				}
+			}else{
+				showToast("查询成功，无数据");
 			}
-		}else{
-			showToast("查询成功，无数据");
+		}else{	
+			Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
 		}
 	}
 
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		showToast("查询出错：code =" + ",msg = " + msg);
-	}
 });
+
 ```
 
 注：`sum方法的参数只能查询Number类型的列名（对应Java的Integer类型）`，即要计算哪个列的值的总和。
@@ -1003,34 +1077,32 @@ BmobQuery<GameScore> query = new BmobQuery<GameScore>();
 query.min(new String[]{"playScore"});//查询最小值
 //query.max(new String[]{"playScore"});//查询最大值
 query.groupby(new String[]{"createdAt"});
-query.findStatistics(this, GameScore.class, new FindStatisticsListener() {
-			
+query.findStatistics(GameScore.class, new QueryListener<JSONArray>() {
+
 	@Override
-	public void onSuccess(Object result) {
-		// TODO Auto-generated method stub
-		JSONArray ary = (JSONArray) result;
-		if (ary!=null) {
-			try {
-				JSONObject obj = ary.getJSONObject(0);
-//				int playscore = obj.getInt("_avgPlayScore");
-				int minscore = obj.getInt("_minPlayScore");
-//				int maxscore = obj.getInt("_maxPlayScore");
-				String createDate = obj.getString("createdAt");
-				showToast("minscore = " + minscore+ ",统计时间 = "+ createDate);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+	public void done(JSONArray ary, BmobException e) {
+		if(e==null){
+			JSONArray ary = (JSONArray) result;
+			if (ary!=null) {
+				try {
+					JSONObject obj = ary.getJSONObject(0);
+	//				int playscore = obj.getInt("_avgPlayScore");
+					int minscore = obj.getInt("_minPlayScore");
+	//				int maxscore = obj.getInt("_maxPlayScore");
+					String createDate = obj.getString("createdAt");
+					showToast("minscore = " + minscore+ ",统计时间 = "+ createDate);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 		} else {
 			showToast("查询成功，无数据");
 		}
-	}
-	
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		showToast("查询出错：code =" + ",msg = " + msg);
+		}else{
+			loge(e);
+		}
 	}
 });
+
 ```
 
 #### 分组统计
@@ -1043,35 +1115,32 @@ BmobQuery<GameScore> query = new BmobQuery<GameScore>();
 query.sum(new String[] { "playScore", "signScore" });//求多个列的总和
 query.groupby(new String[] { "createdAt", "game" });//按照时间和游戏名进行分组
 query.order("-createdAt");//降序排列
-query.findStatistics(this, GameScore.class,new FindStatisticsListener() {
+query.findStatistics(GameScore.class,new QueryListener<JSONArray>() {
 
 	@Override
-	public void onSuccess(Object object) {
-		// TODO Auto-generated method stub
-		JSONArray ary = (JSONArray) object;
-		if(ary!=null){
-			int length = ary.length();
-			try {
-				for (int i = 0; i < length; i++) {
-					JSONObject obj = ary.getJSONObject(i);
-					int playscore = obj.getInt("_sumPlayScore");
-					int signscore = obj.getInt("_sumSignScore");
-					String createDate = obj.getString("createdAt");
-					String game = obj.getString("game");
-					showToast("游戏总得分：" + playscore + ",签到得分："+ signscore + ",时间 = " + createDate+",game = "+game);
+	public void done(JSONArray ary, BmobException e) {
+		if(e==null){
+			if(ary!=null){
+				int length = ary.length();
+				try {
+					for (int i = 0; i < length; i++) {
+						JSONObject obj = ary.getJSONObject(i);
+						int playscore = obj.getInt("_sumPlayScore");
+						int signscore = obj.getInt("_sumSignScore");
+						String createDate = obj.getString("createdAt");
+						String game = obj.getString("game");
+						showToast("游戏总得分：" + playscore + ",签到得分："
+								+ signscore + ",时间:" + createDate+",game:"+game);
+					}
+				} catch (JSONException e1) {
+					e1.printStackTrace();
 				}
-			} catch (JSONException e) {
-				e.printStackTrace();
+			} else {
+				showToast("查询成功，无数据");
 			}
-		} else {
-			showToast("查询成功，无数据");
+		}else{
+			loge(e);
 		}
-	}
-
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		showToast("查询出错：code =" + ",msg = " + msg);
 	}
 });
 ```
@@ -1085,35 +1154,31 @@ query.sum(new String[] { "playScore" });    // 统计总得分
 query.groupby(new String[] { "createdAt" });// 按照时间分组
 query.order("-createdAt");                  // 降序排列
 query.setHasGroupCount(true);              // 统计每一天有多少个玩家的得分记录，默认不返回分组个数
-query.findStatistics(this, GameScore.class,new FindStatisticsListener() {
+query.findStatistics(GameScore.class,new QueryListener<JSONArray>() {
 
 	@Override
-	public void onSuccess(Object object) {
-		// TODO Auto-generated method stub
-		JSONArray ary = (JSONArray) object;
-		if (ary!=null) {
-			int length = ary.length();
-			try {
-				for (int i = 0; i < length; i++) {
-					JSONObject obj = ary.getJSONObject(i);
-					int playscore = obj.getInt("_sumPlayScore");
-					String createDate = obj.getString("createdAt");
-					int count = obj.getInt("_count");//setHasGroupCount设置为true时，返回的结果中含有"_count"字段
-					showToast("游戏总得分：" + playscore + ",总共统计了"
-							+ count + "条记录,统计时间 = "+ createDate);
+	public void done(JSONArray ary, BmobException e) {
+		if(e==null){
+			if (ary!=null) {
+				int length = ary.length();
+				try {
+					for (int i = 0; i < length; i++) {
+						JSONObject obj = ary.getJSONObject(i);
+						int playscore = obj.getInt("_sumPlayScore");
+						String createDate = obj.getString("createdAt");
+						int count = obj.getInt("_count");//setHasGroupCount设置为true时，返回的结果中含有"_count"字段
+						showToast("游戏总得分：" + playscore + ",总共统计了"
+								+ count + "条记录,统计时间 = "+ createDate);
+					}
+				} catch (JSONException e1) {
+					e1.printStackTrace();
 				}
-			} catch (JSONException e) {
-				e.printStackTrace();
+			} else {
+				showToast("查询成功，无数据");
 			}
-		} else {
-			showToast("查询成功，无数据");
+		}else{
+			loge(e);
 		}
-	}
-	
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		showToast("查询出错：code =" + ",msg = " + msg);
 	}
 });
 ```
@@ -1137,34 +1202,31 @@ try {
 map.put("_sumPlayScore", js);//过滤条件：总得分数大于100
 query.having(map);
 query.setLimit(100);
-query.findStatistics(this, GameScore.class,new FindStatisticsListener() {
+query.findStatistics(GameScore.class,new QueryListener<JSONArray>() {
 
 	@Override
-	public void onSuccess(Object object) {
-		// TODO Auto-generated method stub
-		JSONArray ary = (JSONArray) object;
-		if(ary!=null){
-			int length = ary.length();
-			try {
-				for (int i = 0; i < length; i++) {
-					JSONObject obj = ary.getJSONObject(i);
-					int playscore = obj.getInt("_sumPlayScore");//过滤条件的key是什么，返回的数据中就有什么
-					String game = obj.getString("game");        //返回的数据中同样包含groupby里面的列名
-					showToast("游戏得分：" + playscore + ",游戏名 = "+ game);
+	public void done(JSONArray ary, BmobException e) {
+		if(e==null){
+			if(ary!=null){
+				int length = ary.length();
+				try {
+					for (int i = 0; i < length; i++) {
+						JSONObject obj = ary.getJSONObject(i);
+						int playscore = obj.getInt("_sumPlayScore");//过滤条件的key是什么，返回的数据中就有什么
+						String game = obj.getString("game");//返回的数据中同样包含groupby里面的列名
+						showToast("游戏得分：" + playscore + ",游戏名 = "+ game);
+					}
+				} catch (JSONException e1) {
+					e1.printStackTrace();
 				}
-			} catch (JSONException e) {
-				e.printStackTrace();
+			} else {
+				showToast("查询成功，无数据");
 			}
-		} else {
-			showToast("查询成功，无数据");
+		}else{
+			loge(e);
 		}
-    }
-
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		showToast("查询出错：code =" + ",msg = " + msg);
 	}
+
 });
 
 ```
@@ -1180,17 +1242,16 @@ query.findStatistics(this, GameScore.class,new FindStatisticsListener() {
 
 ```java
 bmobQuery.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);	// 先从缓存获取数据，如果没有，再从网络获取。
-bmobQuery.findObjects(this, new FindListener<Person>() {
+bmobQuery.findObjects(new FindListener<Person>() {
 	@Override
-	public void onSuccess(List<Person> object) {
-		// TODO Auto-generated method stub
-		toast("查询成功：共"+object.size()+"条数据。");
+	public void done(List<Person> object,BmobException e) {
+		if(e==null){
+			toast("查询成功：共"+object.size()+"条数据。");
+		}else{
+			toast("查询失败："+msg);
+		}
 	}
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询失败："+msg);
-	}
+	
 });
 ```
 
@@ -1252,18 +1313,15 @@ if(isCache){--此为举个例子，并不一定按这种方式来设置缓存策
 }else{
 	query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);	// 如果没有缓存的话，则设置策略为NETWORK_ELSE_CACHE
 }
-query.findObjects(this, new FindListener<Person>() {
-
+query.findObjects(new FindListener<Person>() {
+	
 	@Override
-	public void onSuccess(List<Person> object) {
-		// TODO Auto-generated method stub
-		Log.i("smile","查询个数："+object.size())
-	}
-
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("smile","查询失败："+object.size())
+	public void done(List<Person> object,BmobException e) {
+		if(e==null){
+			toast("查询成功：共"+object.size()+"条数据。");
+		}else{
+			toast("查询失败："+msg);
+		}
 	}
 });
 ```
@@ -1285,7 +1343,7 @@ query.findObjects(this, new FindListener<Person>() {
 
 ```java
 String bql ="select * from GameScore";//查询所有的游戏得分记录
-new BmobQuery<GameScore>().doSQLQuery(context,bql,new SQLQueryListener<GameScore>(){
+new BmobQuery<GameScore>().doSQLQuery(bql,new SQLQueryListener<GameScore>(){
 			
 	@Override
 	public void done(BmobQueryResult<GameScore> result, BmobException e) {
@@ -1311,7 +1369,7 @@ String bql ="select * from GameScore";
 BmobQuery<GameScore> query=new BmobQuery<GameScore>();
 //设置查询的SQL语句
 query.setSQL(bql);
-query.doSQLQuery(context,new SQLQueryListener<GameScore>(){
+query.doSQLQuery(new SQLQueryListener<GameScore>(){
 			
 	@Override
 	public void done(BmobQueryResult<GameScore> result, BmobException e) {
@@ -1334,11 +1392,10 @@ query.doSQLQuery(context,new SQLQueryListener<GameScore>(){
 
 ```java
 String bql = "select count(*),* from GameScore";//查询GameScore表中总记录数并返回所有记录信息
-new BmobQuery<GameScore>().doSQLQuery(context,bql, new SQLQueryListener<GameScore>(){
+new BmobQuery<GameScore>().doSQLQuery(bql, new SQLQueryListener<GameScore>(){
 			
 	@Override
 	public void done(BmobQueryResult<GameScore> result, BmobException e) {
-		// TODO Auto-generated method stub
 		if(e ==null){
 			int count = result.getCount();//这里得到符合条件的记录数
 			List<GameScore> list = (List<GameScore>) result.getResults();
@@ -1369,11 +1426,10 @@ select * from _User where username = smile
 ```java
 //按照姓名分组求和,并将结果按时间降序排列
 String bql = "select sum(playScore) from GameScore group by name order by -createdAt";
-new BmobQuery<GameScore>().doStatisticQuery(context, bql,new StatisticQueryListener(){
+new BmobQuery<GameScore>().doStatisticQuery(bql,new QueryListener<JSONArray>(){
 	
 	@Override
 	public void done(Object result, BmobException e) {
-		// TODO Auto-generated method stub
 		if(e ==null){
 			JSONArray ary = (JSONArray) result;
 			if(ary!=null){//开发者需要根据返回结果自行解析数据
@@ -1396,11 +1452,10 @@ new BmobQuery<GameScore>().doStatisticQuery(context, bql,new StatisticQueryListe
 
 ```java
 String bql="select * from GameScore where player = ? and game = ?";//查询玩家1的地铁跑酷的GameScore信息
-new BmobQuery<GameScore>().doSQLQuery(context, bql,new SQLQueryListener<GameScore>(){
+new BmobQuery<GameScore>().doSQLQuery(bql,new SQLQueryListener<GameScore>(){
 			
 	@Override
 	public void done(BmobQueryResult<GameScore> result, BmobException e) {
-		// TODO Auto-generated method stub
 		if(e ==null){
 			List<GameScore> list = (List<GameScore>) result.getResults();
 			if(list!=null && list.size()>0){
@@ -1426,11 +1481,10 @@ BmobQuery<GameScore> query=new BmobQuery<GameScore>();
 query.setSQL(bql);
 //设置占位符参数
 query.setPreparedParams(new Object[]{"玩家1","地铁跑酷"});
-query.doSQLQuery(context,new SQLQueryListener<GameScore>(){
+query.doSQLQuery(new SQLQueryListener<GameScore>(){
 			
 	@Override
 	public void done(BmobQueryResult<GameScore> result, BmobException e) {
-		// TODO Auto-generated method stub
 		if(e ==null){
 			List<GameScore> list = (List<GameScore>) result.getResults();
 			if(list!=null && list.size()>0){
@@ -1453,11 +1507,10 @@ query.doSQLQuery(context,new SQLQueryListener<GameScore>(){
 
 ```java 
 String sql = "select * from GameScore where createdAt > date(?) and player = pointer(?,?) and gps near geopoint(?,?)";
-new BmobQuery<GameScore>().doSQLQuery(this, sql,new SQLQueryListener<GameScore>(){
+new BmobQuery<GameScore>().doSQLQuery(sql,new SQLQueryListener<GameScore>(){
 	
 	@Override
 	public void done(BmobQueryResult<GameScore> result, BmobException e) {
-		// TODO Auto-generated method stub
 		if(e ==null){
 			List<GameScore> list = (List<GameScore>) result.getResults();
 			if(list!=null && list.size()>0){
@@ -1484,11 +1537,10 @@ new BmobQuery<GameScore>().doSQLQuery(this, sql,new SQLQueryListener<GameScore>(
 ```java
 //按照游戏名进行分组并获取总得分数大于200的统计信息，同时统计各分组的记录数
 String bql = "select sum(playScore),count(*) from GameScore group by game having _sumPlayScore>200";
-new BmobQuery<GameScore>().doStatisticQuery(this, bql,new StatisticQueryListener(){
+new BmobQuery<GameScore>().doStatisticQuery(bql,new StatisticQueryListener(){
 	
 	@Override
 	public void done(Object result, BmobException e) {
-		// TODO Auto-generated method stub
 		...
 	}
 });
@@ -1498,11 +1550,10 @@ new BmobQuery<GameScore>().doStatisticQuery(this, bql,new StatisticQueryListener
 
 ```java
 String bql = "select sum(playScore),count(*) from GameScore group by ? having ?";
-new BmobQuery<GameScore>().doStatisticQuery(this, bql,new StatisticQueryListener(){
+new BmobQuery<GameScore>().doStatisticQuery(bql,new StatisticQueryListener(){
 	
 	@Override
 	public void done(Object result, BmobException e) {
-		// TODO Auto-generated method stub
 		...
 	}
 },"game","_sumPlayScore>200");
@@ -1524,11 +1575,10 @@ if(isCache){
 }else{
 	query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);	// 如果没有缓存的话，则设置策略为NETWORK_ELSE_CACHE
 }
-query.doSQLQuery(this,new SQLQueryListener<GameScore>(){
+query.doSQLQuery(new SQLQueryListener<GameScore>(){
 	
 	@Override
 	public void done(BmobQueryResult<GameScore> result, BmobException e) {
-		// TODO Auto-generated method stub
 		if(e ==null){
 			Log.i("smile", "查询到："+result.getResults().size()+"符合条件的数据");
 		}else{
@@ -1595,18 +1645,17 @@ for(int i=0;i<2;i++){
 	cards.add(new BankCard("建行卡"+i, "建行卡账号"+i));
 }
 //p.addAll("cards", cards);						    //添加多个Object值
-p.save(this, new SaveListener() {
-	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("bmob","保存成功");
-	}
+p.save(new SaveListener<String>() {
 	
 	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","保存失败："+msg);
+	public void done(String objectId,BmobException e) {
+		if(e==null){
+			Log.i("bmob","保存成功");
+		}else{
+			Log.i("bmob","保存失败："+e.getMessage());
+		}
 	}
+	
 });
 ```
 
@@ -1626,18 +1675,17 @@ for(int i=0;i<2;i++){
 	cards.add(new BankCard("建行卡"+i, "建行卡账号"+i));
 }
 //p.addAllUnique("cards", cards);						    //添加多个Object
-p.update(this, "d32143db92",new UpdateListener() {
-	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("bmob","添加爱好成功");
-	}
+p.update("d32143db92",new UpdateListener() {
 	
 	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","添加爱好失败："+msg);
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
+
 });
 ```
 
@@ -1656,17 +1704,14 @@ p2.setValue("cards.0", new BankCard("中行", "中行卡号"));    //将cards中
 //更新Object类型数组中指定对象的指定字段的值
 //	p2.setValue("cards.0.bankName", "农行卡");				//将cards中第一个位置的银行卡名称修改为农行卡
 //	p2.setValue("cards.1.cardNumber", "农行卡账号");			//将cards中第二个位置的银行卡账号修改为农行卡账号
-p2.update(this, objectId, new UpdateListener() {
+p2.update(objectId, new UpdateListener() {
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("bmob","更新成功：" + p2.getUpdatedAt());
-	}
-
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","更新失败：" + msg);
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 });
 ```
@@ -1678,18 +1723,15 @@ p2.update(this, objectId, new UpdateListener() {
 ```java
 Person p = new Person();
 p.removeAll("hobby", Arrays.asList("阅读","唱歌","游泳"));
-p.update(this, new UpdateListener() {
+p.update(new UpdateListener() {
 	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("bmob","从hobby字段中移除阅读、唱歌、游泳成功");
-	}
-	
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","从hobby字段中移除阅读、唱歌、游泳失败："+msg);
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 });
 ```
@@ -1703,17 +1745,14 @@ BmobQuery<Person> query = new BmobQuery<Person>();
 String [] hobby = {"阅读","唱歌"};
 query.addWhereContainsAll("hobby", Arrays.asList(hobby));
 query.findObjects(this, new FindListener<Person>() {
-
+	
 	@Override
-	public void onSuccess(List<Person> object) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","查询成功：共" + object.size() + "条数据。");
-	}
-
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","查询失败：" + code);
+	public void done(List<Person> object,BmobException e) {
+		if(e==null){
+			Log.i("bmob","查询成功：共" + object.size() + "条数据。");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 	
 });
@@ -1851,18 +1890,15 @@ Post post = new Post();
 post.setContent(content);
 //添加一对一关联
 post.setAuthor(user);
-post.save(this, new SaveListener() {
+post.save(new SaveListener<String>() {
 	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		...
-	}
-	
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		...
+	public void done(String objectId,BmobException e) {
+		if(e==null){
+			Log.i("bmob","保存成功");
+		}else{
+			Log.i("bmob","保存失败："+e.getMessage());
+		}
 	}
 });
 
@@ -1882,17 +1918,16 @@ query.addWhereEqualTo("author", user);	// 查询当前用户的所有帖子
 query.order("-updatedAt");
 query.include("author");// 希望在查询帖子信息的同时也把发布人的信息查询出来
 query.findObjects(this, new FindListener<Post>() {
-	@Override
-	public void onSuccess(List<Post> object) {
-		// TODO Auto-generated method stub
-		...
-	}
 	
 	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询失败:"+msg);
+	public void done(List<Post> object,BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
+	
 });
 
 ```
@@ -1910,18 +1945,16 @@ Post p = new Post();
 MyUser userB =new MyUser();
 userB.setObjectId("aJyG2224");
 p.setAuthor(userB);//重新设置帖子作者
-p.update(WeiboListActivity.this, "ESIt3334", new UpdateListener() {
-	
+p.update("ESIt3334", new UpdateListener() {
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
-	
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		
-	}
+
 });
 
 ```
@@ -1936,18 +1969,15 @@ p.update(WeiboListActivity.this, "ESIt3334", new UpdateListener() {
 ```java
 Post p = new Post();
 p.remove("author");
-p.update(WeiboListActivity.this, "ESIt3334", new UpdateListener() {
+p.update("ESIt3334", new UpdateListener() {
 	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		...
-	}
-	
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 });
 
@@ -1974,19 +2004,17 @@ final Comment comment = new Comment();
 comment.setContent(content);
 comment.setPost(post);
 comment.setUser(user);
-comment.save(this, new SaveListener() {
+comment.save(new SaveListener<String>() {
 	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("life","评论发表成功");
+	public void done(String objectId,BmobException e) {
+		if(e==null){
+			Log.i("bmob","评论发表成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 	
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("life","评论失败");
-	}
 });
 
 ```
@@ -2006,14 +2034,7 @@ query.include("user,post.author");
 query.findObjects(this, new FindListener<Comment>() {
 	
 	@Override
-	public void onSuccess(List<Comment> object) {
-		// TODO Auto-generated method stub
-		...
-	}
-	
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
+	public void done(List<Comment> objects,BmobException e) {
 		...
 	}
 });
@@ -2042,18 +2063,15 @@ relation.add(user);
 //多对多关联指向`post`的`likes`字段
 post.setLikes(relation);
 post.update(this, new UpdateListener() {
-	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("life","多对多关联添加成功");
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","多对多关联添加成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 	
-	@Override
-	public void onFailure(int arg0, String arg1) {
-		// TODO Auto-generated method stub
-		Log.i("life","多对多关联添加失败");
-	}
 });
 
 ```
@@ -2079,19 +2097,17 @@ Post post = new Post();
 post.setObjectId("ESIt3334");
 //likes是Post表中的字段，用来存储所有喜欢该帖子的用户
 query.addWhereRelatedTo("likes", new BmobPointer(post));	
-query.findObjects(this, new FindListener<MyUser>() {
+query.findObjects(new FindListener<MyUser>() {
 	
 	@Override
-	public void onSuccess(List<MyUser> object) {
-		// TODO Auto-generated method stub
-		Log.i("life", "查询个数："+object.size());
+	public void done(List<MyUser> object,BmobException e) {
+		if(e==null){
+			Log.i("bmob","查询个数："+object.size());
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
-	
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("life", "查询失败："+code+"-"+msg);
-	}
+
 });
 
 ```
@@ -2112,19 +2128,17 @@ user.setObjectId("aJyG2224");
 relation.add(user);
 //多对多关联指向`post`的`likes`字段
 post.setLikes(relation);
-post.update(this, new UpdateListener() {
+post.update( new UpdateListener() {
 	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("life","用户B和该帖子关联成功");
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","用户B和该帖子关联成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 	
-	@Override
-	public void onFailure(int arg0, String arg1) {
-		// TODO Auto-generated method stub
-		Log.i("life","用户B和该帖子关联失败");
-	}
 });
 
 ```
@@ -2146,19 +2160,17 @@ MyUser user = BmobUser.getCurrentUser(this, MyUser.class);
 BmobRelation relation = new BmobRelation();
 relation.remove(user);
 post.setLikes(relation);
-post.update(this, new UpdateListener() {
+post.update(new UpdateListener() {
 	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("life", "关联关系删除成功");
+	public void done(BmobException e) {
+		if(e==null){
+			Log.i("bmob","关联关系删除成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 	
-	@Override
-	public void onFailure(int arg0, String arg1) {
-		// TODO Auto-generated method stub
-		Log.i("life", "关联关系删除失败："+arg0+"-"+arg1);
-	}
 });
 
 ```
@@ -2226,16 +2238,15 @@ innerQuery.addWhereExists("image", true);
 // 第二个参数为Post字段的表名，也可以直接用"Post"字符串的形式
 // 第三个参数为内部查询条件
 query.addWhereMatchesQuery("post", "Post", innerQuery);
-query.findObjects(this, new FindListener<Comment>() {
+query.findObjects(new FindListener<Comment>() {
+	
 	@Override
-	public void onSuccess(List<Comment> object) {
-		// TODO Auto-generated method stub
-		toast("查询成功:");
-	}
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询失败:"+msg);
+	public void done(List<Comment> object,BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 });
 ```
@@ -2252,16 +2263,14 @@ innerQuery.addWhereExists("image", true);
 // 第二个参数为Post字段的表名，也可以直接用"Post"字符串的形式
 // 第三个参数为内部查询条件
 query.addWhereDoesNotMatchQuery("post", "Post", innerQuery);
-query.findObjects(this, new FindListener<Comment>() {
+query.findObjects(new FindListener<Comment>() {
 	@Override
-	public void onSuccess(List<Comment> object) {
-		// TODO Auto-generated method stub
-		toast("查询成功:");
-	}
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询失败:"+msg);
+	public void done(List<Comment> object,BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 });
 ```
@@ -2280,16 +2289,14 @@ innerQuery.addWhereContainedIn("objectId", Arrays.asList(friendIds));
 //查询帖子
 BmobQuery<Post> query = new BmobQuery<Post>();
 `query.addWhereMatchesQuery("author", "_User", innerQuery);`
-query.findObjects(this, new FindListener<Post>() {
+query.findObjects(new FindListener<Post>() {
 	@Override
-	public void onSuccess(List<Post> object) {
-		// TODO Auto-generated method stub
-		toast("查询成功:");
-	}
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询失败:"+msg);
+	public void done(List<Post> object,BmobException e) {
+		if(e==null){
+			Log.i("bmob","成功");
+		}else{
+			Log.i("bmob","失败："+e.getMessage());
+		}
 	}
 });
 ```
@@ -2366,16 +2373,14 @@ bu.setUsername("sendi");
 bu.setPassword("123456");
 bu.setEmail("sendi@163.com");
 //注意：不能用save方法进行注册
-bu.signUp(context, new SaveListener() {
+bu.signUp(new SaveListener<MyUser>() {
 	@Override
-	public void onSuccess() {
-		toast("注册成功:");
-		//通过BmobUser.getCurrentUser(context)方法获取登录成功后的本地用户信息
-	}
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("注册失败:"+msg);
+	public void done(MyUser s, BmobException e) {
+		if(e==null){
+			toast("注册成功:" +s.toString());
+		}else{
+			loge(e);
+		}
 	}
 });
 ```
@@ -2401,16 +2406,17 @@ bu.signUp(context, new SaveListener() {
 BmobUser bu2 = new BmobUser();
 bu2.setUsername("lucky");
 bu2.setPassword("123456");
-bu2.login(context, new SaveListener() {
+bu2.login(new SaveListener<BmobUser>() {
+
 	@Override
-	public void onSuccess() {
-		toast("登录成功:");
-		//通过BmobUser user = BmobUser.getCurrentUser(context)获取登录成功后的本地用户信息
-		//如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(context,MyUser.class)获取自定义用户信息
-	}
-	@Override
-	public void onFailure(int code, String msg) {
-		toast("登录失败:"+msg);
+	public void done(BmobUser bmobUser, BmobException e) {
+		if(e==null){
+			toast("登录成功:");
+			//通过BmobUser user = BmobUser.getCurrentUser(context)获取登录成功后的本地用户信息
+			//如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(context,MyUser.class)获取自定义用户信息
+		}else{
+			loge(e);
+		}
 	}
 });
 ```
@@ -2418,7 +2424,7 @@ bu2.login(context, new SaveListener() {
 也可使用如下方式完成`用户名+密码`的登录：
 
 ```java
-BmobUser.loginByAccount(context, "username", "用户密码", new LogInListener<MyUser>() {
+BmobUser.loginByAccount("username", "用户密码", new LogInListener<MyUser>() {
 			
 			@Override
 			public void done(MyUser user, BmobException e) {
@@ -2471,16 +2477,14 @@ Boolean sex = (Boolean) BmobUser.getObjectByKey(context, "sex");
 BmobUser newUser = new BmobUser();
 newUser.setEmail("xxx@163.com");
 BmobUser bmobUser = BmobUser.getCurrentUser(context);
-newUser.update(context,bmobUser.getObjectId(),new UpdateListener() {
+newUser.update(bmobUser.getObjectId(),new UpdateListener() {
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		toast("更新用户信息成功:");
-	}
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("更新用户信息失败:" + msg);
+	public void done(BmobException e) {
+		if(e==null){
+			toast("更新用户信息成功");
+		}else{
+			toast("更新用户信息失败:" + e.getMessage());
+		}
 	}
 });
 ```
@@ -2491,16 +2495,14 @@ newUser.update(context,bmobUser.getObjectId(),new UpdateListener() {
 BmobUser bmobUser = BmobUser.getCurrentUser(context);
 // 修改用户的邮箱为xxx@163.com
 bmobUser.setEmail("xxx@163.com");
-bmobUser.update(context,new UpdateListener() {
+bmobUser.update(new UpdateListener() {
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		toast("更新用户信息成功:");
-	}
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("更新用户信息失败:" + msg);
+	public void done(BmobException e) {
+		if(e==null){
+			toast("更新用户信息成功");
+		}else{
+			toast("更新用户信息失败:" + e.getMessage());
+		}
 	}
 });
 ```
@@ -2515,16 +2517,14 @@ bmobUser.update(context,new UpdateListener() {
 ```java
 BmobQuery<BmobUser> query = new BmobQuery<BmobUser>();
 query.addWhereEqualTo("username", "lucky");
-query.findObjects(context, new FindListener<BmobUser>() {
+query.findObjects(new FindListener<BmobUser>() {
 	@Override
-	public void onSuccess(List<BmobUser> object) {
-		// TODO Auto-generated method stub
-		toast("查询用户成功："+object.size());
-	}
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询用户失败："+msg);
+	public void done(List<BmobUser> object,BmobException e) {
+		if(e==null){
+			toast("查询用户成功:"+object.size());
+		}else{
+			toast("更新用户信息失败:" + e.getMessage());
+		}
 	}
 });
 ```
@@ -2546,20 +2546,18 @@ BmobUser currentUser = BmobUser.getCurrentUser(context); // 现在的currentUser
 自`V3.4.3`版本开始，SDK为开发者提供了直接修改当前用户登录密码的方法，只需要传入旧密码和新密码，然后调用`BmobUser`提供的静态方法`updateCurrentUserPassword`即可，以下是示例：
 
 ```java
-BmobUser.updateCurrentUserPassword(context, "旧密码", "新密码", new UpdateListener() {
-			
-			@Override
-			public void onSuccess() {
-				// TODO Auto-generated method stub
-				Log.i("smile", "密码修改成功，可以用新密码进行登录啦");
-			}
-			
-			@Override
-			public void onFailure(int code, String msg) {
-				// TODO Auto-generated method stub
-				Log.i("smile", "密码修改失败："+msg+"("+code+")");
-			}
-		});
+BmobUser.updateCurrentUserPassword("旧密码", "新密码", new UpdateListener() {
+				
+	@Override
+	public void done(BmobException e) {
+		if(e==null){
+			toast("密码修改成功，可以用新密码进行登录啦");
+		}else{
+			toast("失败:" + e.getMessage());
+		}
+	}
+	
+});
 
 ```
 
@@ -2573,7 +2571,6 @@ BmobUser.loginByAccount(context, account, password, new LogInListener<MyUser>() 
 			
 			@Override
 			public void done(MyUser user, BmobException e) {
-				// TODO Auto-generated method stub
 				if(user!=null){
 					Log.i("smile","用户登陆成功");
 				}
@@ -2595,16 +2592,14 @@ emailVerified 字段有 3 种状态可以考虑：
 发送给用户的邮箱验证邮件会在一周内失效，可以通过调用 `requestEmailVerify` 来强制重新发送：
 ```java
 final String email = "xxx@qq.com";
-BmobUser.requestEmailVerify(context, email, new EmailVerifyListener() {
+BmobUser.requestEmailVerify(email, new UpdateListener() {
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		toast("请求验证邮件成功，请到" + email + "邮箱中进行激活。");
-	}
-	@Override
-	public void onFailure(int code, String e) {
-		// TODO Auto-generated method stub
-		toast("请求验证邮件失败:" + e);
+	public void done(BmobException e) {
+		if(e==null){
+			toast("请求验证邮件成功，请到" + email + "邮箱中进行激活。");
+		}else{
+			toast("失败:" + e.getMessage());
+		}
 	}
 });
 ```
@@ -2613,16 +2608,15 @@ BmobUser.requestEmailVerify(context, email, new EmailVerifyListener() {
 开发者只需要求用户输入注册时的电子邮件地址即可：
 ```java
 final String email = "xxx@163.com";
-BmobUser.resetPasswordByEmail(context, email, new ResetPasswordListener() {
+BmobUser.resetPasswordByEmail(email, new UpdateListener() {
+	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		toast("重置密码请求成功，请到" + email + "邮箱进行密码重置操作");
-	}
-	@Override
-	public void onFailure(int code, String e) {
-		// TODO Auto-generated method stub
-		toast("重置密码失败:" + e);
+	public void done(BmobException e) {
+		if(e==null){
+			toast("重置密码请求成功，请到" + email + "邮箱进行密码重置操作");
+		}else{
+			toast("失败:" + e.getMessage());
+		}
 	}
 });
 ```
@@ -2646,11 +2640,10 @@ BmobUser.resetPasswordByEmail(context, email, new ResetPasswordListener() {
 ##### 手机号码+密码
 
 ```java 
-BmobUser.loginByAccount(context, "11位手机号码", "用户密码", new LogInListener<MyUser>() {
+BmobUser.loginByAccount("11位手机号码", "用户密码", new LogInListener<MyUser>() {
 			
 	@Override
 	public void done(MyUser user, BmobException e) {
-		// TODO Auto-generated method stub
 		if(user!=null){
 			Log.i("smile","用户登陆成功");
 		}
@@ -2665,11 +2658,10 @@ BmobUser.loginByAccount(context, "11位手机号码", "用户密码", new LogInL
 先请求登录的短信验证码：
 
 ```java
-BmobSMS.requestSMSCode(context, "11位手机号码","模板名称", new RequestSMSCodeListener() {
+BmobSMS.requestSMSCode("11位手机号码","模板名称", new QueryListener<Integer>() {
 			
 	@Override
 	public void done(Integer smsId,BmobException ex) {
-		// TODO Auto-generated method stub
 		if(ex==null){//验证码发送成功
 			Log.i("smile", "短信id："+smsId);//用于后续的查询本次短信发送状态
 		}
@@ -2681,11 +2673,10 @@ BmobSMS.requestSMSCode(context, "11位手机号码","模板名称", new RequestS
 最后调用`loginBySMSCode`方法进行手机号码登录:
 
 ```java
-BmobUser.loginBySMSCode(context, "11位手机号码", code, new LogInListener<MyUser>() {
+BmobUser.loginBySMSCode("11位手机号码", code, new LogInListener<MyUser>() {
 				
 		@Override
 		public void done(MyUser user, BmobException e) {
-			// TODO Auto-generated method stub
 			if(user!=null){
 				Log.i("smile","用户登陆成功");
 			}
@@ -2703,11 +2694,10 @@ Bmob同样支持手机号码一键注册或登录，以下是一键登录的流�
 1、请求登录操作的短信验证码：
 
 ```java
-BmobSMS.requestSMSCode(context, "11位手机号码","模板名称", new RequestSMSCodeListener() {
+BmobSMS.requestSMSCode("11位手机号码","模板名称", new QueryListener<Integer>() {
 			
 	@Override
 	public void done(Integer smsId,BmobException ex) {
-		// TODO Auto-generated method stub
 		if(ex==null){//验证码发送成功
 			Log.i("smile", "短信id："+smsId);//用于查询本次短信发送详情
 		}
@@ -2719,11 +2709,10 @@ BmobSMS.requestSMSCode(context, "11位手机号码","模板名称", new RequestS
 2、用户收到短信验证码之后，就可以调用`signOrLoginByMobilePhone`方法来实现一键登录:
 
 ```java
-BmobUser.signOrLoginByMobilePhone(context, "11位手机号码", "验证码", new LogInListener<MyUser>() {
+BmobUser.signOrLoginByMobilePhone("11位手机号码", "验证码", new LogInListener<MyUser>() {
 				
 	@Override
 	public void done(MyUser user, BmobException e) {
-		// TODO Auto-generated method stub
 		if(user!=null){
 			Log.i("smile","用户登陆成功");
 		}
@@ -2743,20 +2732,19 @@ user.setMobilePhoneNumber("11位手机号码");//设置手机号码（必填）
 user.setUsername(xxx);                  //设置用户名，如果没有传用户名，则默认为手机号码
 user.setPassword(xxx);                  //设置用户密码
 user.setAge(18);	                    //设置额外信息：此处为年龄
-user.signOrLogin(context, "验证码", new SaveListener() {
+user.signOrLogin("验证码", new SaveListener<MyUser>() {
 	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		toast("注册或登录成功");
-		Log.i("smile", ""+user.getUsername()+"-"+user.getAge()+"-"+user.getObjectId());
+	public void done(MyUser user,BmobException e) {
+		if(e==null){
+			toast("注册或登录成功");
+			Log.i("smile", ""+user.getUsername()+"-"+user.getAge()+"-"+user.getObjectId());
+		}else{
+			toast("失败:" + e.getMessage());
+		}
+		
 	}
 	
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("错误码："+code+",错误原因："+msg);
-	}
 });
 
 ```
@@ -2773,18 +2761,15 @@ User user =new User();
 user.setMobilePhoneNumber(phone);
 user.setMobilePhoneNumberVerified(true);
 User cur = BmobUser.getCurrentUser(context,User.class);
-user.update(context, cur.getObjectId(),new UpdateListener() {
-	
+user.update(cur.getObjectId(),new UpdateListener() {
+		
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		Log.i("smile","手机号码绑定成功");
-	}
-	
-	@Override
-	public void onFailure(int arg0, String arg1) {
-		// TODO Auto-generated method stub
-		Log.i("smile","手机号码绑定失败："+arg0+"-"+arg1);
+	public void done(BmobException e) {
+		if(e==null){
+			toast("手机号码绑定成功");
+		}else{
+			toast("失败:" + e.getMessage());
+		}
 	}
 });
 
@@ -2796,11 +2781,10 @@ Bmob自`V3.3.9`版本开始引入了短信验证系统，如果用户已经验�
 1、请求重置密码操作的短信验证码：
 
 ```java
-BmobSMS.requestSMSCode(context, "11位手机号码","模板名称", new RequestSMSCodeListener() {
+BmobSMS.requestSMSCode("11位手机号码","模板名称", new QueryListener<Integer>() {
 			
 	@Override
 	public void done(Integer smsId,BmobException ex) {
-		// TODO Auto-generated method stub
 		if(ex==null){//验证码发送成功
 			Log.i("smile", "短信id："+smsId);//用于查询本次短信发送详情
 		}
@@ -2812,11 +2796,10 @@ BmobSMS.requestSMSCode(context, "11位手机号码","模板名称", new RequestS
 2、用户收到重置密码的验证码之后，就可以调用`resetPasswordBySMSCode`方法来实现密码重置:
 
 ```java
-BmobUser.resetPasswordBySMSCode(context, code,"1234567", new ResetPasswordByCodeListener() {
+BmobUser.resetPasswordBySMSCode(code,"1234567", new UpdateListener() {
 				
 	@Override
 	public void done(BmobException ex) {
-		// TODO Auto-generated method stub
 		if(ex==null){
 			Log.i("smile", "密码重置成功");
 		}else{
@@ -2842,11 +2825,10 @@ BmobUser.resetPasswordBySMSCode(context, code,"1234567", new ResetPasswordByCode
 Bmob自`V3.3.9`版本开始引入了短信验证系统，可通过`requestSMSCode`方式请求发送短信验证码：
 
 ```java
-BmobSMS.requestSMSCode(context, "11位手机号码", "模板名称",new RequestSMSCodeListener() {
+BmobSMS.requestSMSCode("11位手机号码", "模板名称",new QueryListener<Integer>() {
 			
 	@Override
 	public void done(Integer smsId,BmobException ex) {
-		// TODO Auto-generated method stub
 		if(ex==null){//验证码发送成功
 			Log.i("smile", "短信id："+smsId);//用于查询本次短信发送详情
 		}
@@ -2890,11 +2872,10 @@ BmobSMS.requestSMSCode(context, "11位手机号码", "模板名称",new RequestS
 通过`verifySmsCode`方式可验证该短信验证码：
 
 ```java
-BmobSMS.verifySmsCode(context,"11位手机号码", "验证码", new VerifySMSCodeListener() {
+BmobSMS.verifySmsCode("11位手机号码", "验证码", new UpdateListener() {
 			
 	@Override
 	public void done(BmobException ex) {
-		// TODO Auto-generated method stub
 		if(ex==null){//短信验证码已验证成功
 			Log.i("smile", "验证通过");
 		}else{
@@ -2913,11 +2894,10 @@ BmobSMS.verifySmsCode(context,"11位手机号码", "验证码", new VerifySMSCod
 
 ```java
 
-BmobSMS.querySmsState(context, smsId, new QuerySMSStateListener() {
+BmobSMS.querySmsState(smsId, new QueryListener<BmobSmsState>() {
 			
 			@Override
 			public void done(SmsState state, BmobException ex) {
-				// TODO Auto-generated method stub
 				if(ex==null){
 					Log.i("smile","短信状态："+state.getSmsState()+",验证状态："+state.getVerifyState());
 				}
@@ -3042,13 +3022,11 @@ Bmob提供了非常简单的方法来实现第三方账号登陆的功能，目�
 	
 		@Override
 		public void onSuccess(JSONObject userAuth) {
-			// TODO Auto-generated method stub
 			...
 		}
 		
 		@Override
 		public void onFailure(int code, String msg) {
-			// TODO Auto-generated method stub
 			Log.i("smile","第三方登陆失败："+msg);
 		}
 	
@@ -3848,7 +3826,6 @@ Bmob.getTableSchema(context,"待查询的表名", new GetTableSchemaListener() {
 			
 	@Override
 	public void done(BmobTableSchema schema, BmobException ex) {
-		// TODO Auto-generated method stub
 		if(ex==null){
 			Log.i("bmob", "获取指定表的表结构信息成功："+schema.getClassName()+"-"+schema.getFields().toString());
 		}else{
@@ -3866,7 +3843,6 @@ Bmob.getAllTableSchema(context, new GetAllTableSchemaListener() {
 			
 	@Override
 	public void done(List<BmobTableSchema> schemas, BmobException ex) {
-		// TODO Auto-generated method stub
 		if(ex==null && schemas!=null && schemas.size()>0){
 			Log.i("bmob", "获取所有表结构信息成功");
 		}else{
@@ -4040,11 +4016,11 @@ Bmob.getAllTableSchema(context, new GetAllTableSchemaListener() {
 
 使用了BmobSDK的应用在混淆过程中，需注意以下几点：
 
-1、`不要混淆BmobSDK的代码`。因为Bmob Android SDK本身进行了代码混淆；
+1、`不要混淆BmobSDK的代码`，Bmob Android SDK本身进行了代码混淆；
 
-2、任何继承自`BmobObject、BmobUser`的JavaBean及`在上述JavaBean中定义的Object属性类`都不要混淆
+2、任何继承自`BmobObject、BmobUser`的JavaBean及`在上述JavaBean中定义的Object属性类`都不要混淆，否则gson将无法将数据解析成具体对象；
 
-3、如果使用了`support-v4`、`okhttp相关包`及`org.apache.http.legacy.jar`包均不要混淆。
+3、确保`rx`、`okhttp3 okio`、`gson`及`org.apache.http.legacy.jar`包均不要混淆。
 
 具体可参考BmobExample中proguard-project.txt的代码：
 
@@ -4052,54 +4028,59 @@ Bmob.getAllTableSchema(context, new GetAllTableSchemaListener() {
 
 -ignorewarnings
 
-# 这里根据具体的SDK版本修改
--libraryjars libs/bmob_v3.0.9beta.jar
+-keepattributes Signature,*Annotation*
 
--keepattributes Signature
-
-# 不混淆BmobSDK
+# keep BmobSDK
+-dontwarn cn.bmob.v3.**
 -keep class cn.bmob.v3.** {*;}
 
-# 保证继承自BmobObject、BmobUser类的JavaBean不被混淆
+# 确保JavaBean不被混淆-否则gson将无法将数据解析成具体对象
 -keep class * extends cn.bmob.v3.BmobObject {
     *;
 }
-# 也可逐个填写
 -keep class com.example.bmobexample.bean.BankCard{*;}
 -keep class com.example.bmobexample.bean.GameScore{*;}
 -keep class com.example.bmobexample.bean.MyUser{*;}
 -keep class com.example.bmobexample.bean.Person{*;}
-
 -keep class com.example.bmobexample.file.Movie{*;}
 -keep class com.example.bmobexample.file.Song{*;}
-
 -keep class com.example.bmobexample.relation.Post{*;}
 -keep class com.example.bmobexample.relation.Comment{*;}
 
-# 如果你使用了okhttp、okio的包，请添加以下混淆代码
--dontwarn com.squareup.okhttp.**
--keep class com.squareup.okhttp.** { *;}
--keep interface com.squareup.okhttp.** { *; }
+# keep BmobPush
+-dontwarn  cn.bmob.push.**
+-keep class cn.bmob.push.** {*;}
+
+# keep okhttp3、okio
+-dontwarn okhttp3.**
+-keep class okhttp3.** { *;}
+-keep interface okhttp3.** { *; }
 -dontwarn okio.**
 
-# 如果你使用了support v4包，请添加如下混淆代码
--dontwarn android.support.v4.** 
--keep class android.support.v4.** { *; }
--keep interface android.support.v4.app.** { *; }
--keep public class * extends android.support.v4.**
--keep public class * extends android.app.Fragment
+# keep rx
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+ long producerIndex;
+ long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
 
 # 如果你需要兼容6.0系统，请不要混淆org.apache.http.legacy.jar 
- -dontwarn android.net.compatibility.**
- -dontwarn android.net.http.**
- -dontwarn com.android.internal.http.multipart.**
- -dontwarn org.apache.commons.**
- -dontwarn org.apache.http.**
- -keep class android.net.compatibility.**{*;}
- -keep class android.net.http.**{*;}
- -keep class com.android.internal.http.multipart.**{*;}
- -keep class org.apache.commons.**{*;}
- -keep class org.apache.http.**{*;}
+-dontwarn android.net.compatibility.**
+-dontwarn android.net.http.**
+-dontwarn com.android.internal.http.multipart.**
+-dontwarn org.apache.commons.**
+-dontwarn org.apache.http.**
+-keep class android.net.compatibility.**{*;}
+-keep class android.net.http.**{*;}
+-keep class com.android.internal.http.multipart.**{*;}
+-keep class org.apache.commons.**{*;}
+-keep class org.apache.http.**{*;}
 
 ```
 
