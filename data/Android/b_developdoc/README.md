@@ -3018,18 +3018,12 @@ Bmob提供了非常简单的方法来实现第三方账号登陆的功能，目�
 
 ```java
 	BmobThirdUserAuth authInfo = new BmobThirdUserAuth(snsType,accessToken, expiresIn,userId);
-	BmobUser.loginWithAuthData(context, authInfo, new OtherLoginListener() {
+	BmobUser.loginWithAuthData(authInfo, new LogInListener<JSONObject>() {
 	
 		@Override
-		public void onSuccess(JSONObject userAuth) {
+		public void done(JSONObject userAuth,BmobException e) {
 			...
 		}
-		
-		@Override
-		public void onFailure(int code, String msg) {
-			Log.i("smile","第三方登陆失败："+msg);
-		}
-	
 	});			
 
 ```
@@ -3053,16 +3047,16 @@ Bmob提供了非常简单的方法来实现第三方账号登陆的功能，目�
 
 ```java
 	BmobThirdUserAuth authInfo = new BmobThirdUserAuth(snsType,accessToken, expiresIn, userId);
-	BmobUser.associateWithAuthData(context, authInfo, new UpdateListener() {
+	BmobUser.associateWithAuthData(authInfo, new UpdateListener() {
 		
 		@Override
-		public void onSuccess() {
-			Log.i("smile","关联成功");
-		}
-		
-		@Override
-		public void onFailure(int code, String msg) {
-			Log.i("smile","关联失败：code =" + code + ",msg = " + msg);
+		public void done(BmobException e) {
+			if(e==null){
+				Log.i("bmob","关联成功");
+			}else{
+				Log.i("bmob","关联失败：code =" + e.getErrorCode() + ",msg = " + e.getMessage());
+			}
+			
 		}
 	});
 
@@ -3071,21 +3065,19 @@ Bmob提供了非常简单的方法来实现第三方账号登陆的功能，目�
 ##### 解除关联
 
 ```java
-	BmobUser.dissociateAuthData(context,snsType,new UpdateListener() {
-
+	BmobUser.dissociateAuthData(snsType,new UpdateListener() {
+		
 		@Override
-		public void onSuccess() {
-			// TODO Auto-generated method stub
-			Log.i("smile","取消"+type+"关联成功");
-		}
-	
-		@Override
-		public void onFailure(int code, String msg) {
-			// TODO Auto-generated method stub
-			if (code == 208) {// 208错误指的是没有绑定相应账户的授权信息
-				Log.i("smile","你没有关联该账号");
-			} else {
-				Log.i("smile","取消"+type+"关联失败：code =" + code + ",msg = " + msg);
+		public void done(BmobException e) {
+			if(e==null){
+				Log.i("bmob","取消"+snsType+"关联成功");
+			}else{
+				int code =e.getErrorCode();	
+				if (code == 208) {// 208错误指的是没有绑定相应账户的授权信息
+					Log.i("smile","你没有关联该账号");
+				} else {
+					Log.i("smile","取消"+snsType+"关联失败：code =" + code + ",msg = " + e.getMessage());
+				}
 			}
 		}
 });
@@ -3149,22 +3141,22 @@ BmobFile bmobFile = new BmobFile(new File(picPath));
 ```java
 String picPath = "sdcard/temp.jpg";
 BmobFile bmobFile = new BmobFile(new File(picPath));
-bmobFile.uploadblock(context, new UploadFileListener() {
+bmobFile.uploadblock(new UploadFileListener() {
 	
 	@Override
-	public void onSuccess() {
-		//bmobFile.getFileUrl(context)--返回的上传文件的完整地址
-		toast("上传文件成功:" + bmobFile.getFileUrl(context));
+	public void done(BmobException e) {
+		if(e==null){
+			//bmobFile.getFileUrl(context)--返回的上传文件的完整地址
+			toast("上传文件成功:" + bmobFile.getFileUrl(context));
+		}else{
+			toast("上传文件失败：" + e.getMessage());
+		}
+		
 	}
 	
 	@Override
 	public void onProgress(Integer value) {
 		// 返回的上传进度（百分比）
-	}
-	
-	@Override
-	public void onFailure(int code, String msg) {
-		toast("上传文件失败：" + msg);
 	}
 });
 ```
@@ -3211,7 +3203,7 @@ String filePath_lrc = "/mnt/sdcard/testbmob/test2.png";
 final String[] filePaths = new String[2];
 filePaths[0] = filePath_mp3;
 filePaths[1] = filePath_lrc;
-BmobFile.uploadBatch(context, filePaths, new UploadBatchListener() {
+BmobFile.uploadBatch(filePaths, new UploadBatchListener() {
 			
 	@Override
 	public void onSuccess(List<BmobFile> files,List<String> urls) {
@@ -3258,20 +3250,19 @@ BmobFile.uploadBatch(context, filePaths, new UploadBatchListener() {
 
 ```java
 
-bmobQuery.findObjects(context, new FindListener<GameScore>() {
+bmobQuery.findObjects(new FindListener<GameScore>() {
 	@Override
-	public void onSuccess(List<GameScore> object) {
-		for (GameScore gameScore : object) {
+	public void done(List<GameScore> object,BmobException e) {
+		if(e==null){
+			for (GameScore gameScore : object) {
 				BmobFile bmobfile = gameScore.getPic();
 		       if(file!= null){
 					//调用bmobfile.download方法
 	           }
 			}
+		}else{
+			toast("查询失败："+e.getMessage());
 		}
-	}
-	@Override
-	public void onError(int code, String msg) {
-		toast("查询失败："+msg);
 	}
 });
 
@@ -3308,9 +3299,9 @@ BmobFile bmobfile =new BmobFile("xxx.png","","http://bmob-cdn-2.b0.upaiyun.com/2
 
 有两种下载方法：
 
- - `download(Context context,DownloadFileListener listener)`：此方法会将文件下载到当前应用的默认缓存目录中，以getFilename()得到的值为文件名
+ - `download(DownloadFileListener listener)`：此方法会将文件下载到当前应用的默认缓存目录中，以getFilename()得到的值为文件名
 
- - `download(Context context,File savePath, DownloadFileListener listener)`：此方法允许开发者指定文件存储目录和文件名
+ - `download(File savePath, DownloadFileListener listener)`：此方法允许开发者指定文件存储目录和文件名
 
 
 示例代码如下：
@@ -3319,7 +3310,7 @@ BmobFile bmobfile =new BmobFile("xxx.png","","http://bmob-cdn-2.b0.upaiyun.com/2
 private void downloadFile(BmobFile file){
 	//允许设置下载文件的存储路径，默认下载文件的目录为：context.getApplicationContext().getCacheDir()+"/bmob/"
 	File saveFile = new File(Environment.getExternalStorageDirectory(), file.getFilename());
-	file.download(context,saveFile, new DownloadFileListener() {
+	file.download(saveFile, new DownloadFileListener() {
 		
 		@Override
 		public void onStart() {
@@ -3327,8 +3318,12 @@ private void downloadFile(BmobFile file){
 		}
 		
 		@Override
-		public void onSuccess(String savePath) {
-			toast("下载成功,保存路径:"+savePath);
+		public void done(String savePath,BmobException e) {
+			if(e==null){
+				toast("下载成功,保存路径:"+savePath);
+			}else{
+				toast("下载失败："+e.getErrorCode()+","+e.getMessage());
+			}
 		}
 		
 		@Override
@@ -3336,10 +3331,6 @@ private void downloadFile(BmobFile file){
 			Log.i("bmob","下载进度："+value+","+newworkSpeed);
 		}
 		
-		@Override
-		public void onFailure(int code, String msg) {
-			toast("下载失败："+code+","+msg);
-		}
 	});
 }
 
@@ -3354,18 +3345,15 @@ private void downloadFile(BmobFile file){
 ```java
 BmobFile file = new BmobFile();
 file.setUrl(url);//此url是上传文件成功之后通过bmobFile.getUrl()方法获取的。
-file.delete(context, new DeleteListener() {
+file.delete(new UpdateListener() {
 	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		showToast("文件删除成功");
-	}
-	
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		showToast("文件删除失败："+code+",msg = "+msg);
+	public void done(BmobException e) {
+		if(e==null){
+			toast("文件删除成功");
+		}else{
+			toast("文件删除失败："+e.getErrorCode()+","+e.getMessage());
+		}
 	}
 });
 
@@ -3380,7 +3368,7 @@ file.delete(context, new DeleteListener() {
 ```java
 //此url必须是上传文件成功之后通过bmobFile.getUrl()方法获取的。
 String[] urls =new String[]{url};
-BmobFile.deleteBatch(this, urls, new DeleteBatchListener() {
+BmobFile.deleteBatch(urls, new DeleteBatchListener() {
 	
 	@Override
 	public void done(String[] failUrls, BmobException e) {
@@ -3417,16 +3405,14 @@ SDK可以实现对数据表或行的监听，当这个表或者行的数据发�
 使用数据实时功能，首先需要创建`BmobRealTimeData`对象,然后调用`start`方法连接服务器。
 ```java
 BmobRealTimeData rtd = new BmobRealTimeData();
-rtd.start(this, new ValueEventListener() {
+rtd.start(new ValueEventListener() {
 	@Override
 	public void onDataChange(JSONObject data) {
-		// TODO Auto-generated method stub
 		Log.d("bmob", "("+data.optString("action")+")"+"数据："+data);
 	}
 	
 	@Override
 	public void onConnectCompleted() {
-		// TODO Auto-generated method stub
 		Log.d("bmob", "连接成功:"+rtd.isConnected());
 	}
 });
@@ -3518,16 +3504,13 @@ acl.setPublicReadAccess(true);	// 设置所有人可读的权限
 acl.setWriteAccess(BmobUser.getCurrentUser(this), true);   // 设置当前用户可写的权限
 
 blog.setACL(acl);    //设置这条数据的ACL信息
-blog.save(this, new SaveListener() {
+blog.save(new SaveListener<String>() {
+
 	@Override
-	public void onSuccess() {
-		//添加成功
+	public void done(String objectId, BmobException e) {
+		...
 	}
 	
-	@Override
-	public void onFailure(int code, String msg) {
-		//添加失败
-	}
 });
 ```
 有时，用户想发表一篇不公开的日志，这种情况只有发布者才对这篇日志拥有读写权限，相应的代码如下：
@@ -3541,15 +3524,11 @@ acl.setReadAccess(BmobUser.getCurrentUser(this), true); // 设置当前用户可
 acl.setWriteAccess(BmobUser.getCurrentUser(this), true); // 设置当前用户可写的权限
 
 blog.setACL(acl);    //设置这条数据的ACL信息
-blog.save(this, new SaveListener() {
-	@Override
-	public void onSuccess() {
-		//添加成功
-	}
+blog.save(new SaveListener<String>() {
 	
 	@Override
-	public void onFailure(int code, String msg) {
-		//添加失败
+	public void done(String objectId, BmobException e) {
+		...
 	}
 });
 ```
@@ -3583,15 +3562,11 @@ acl.setWriteAccess(hr_zhang, true);
 
 //设置工资对象的ACL
 wageinfo.setACL(acl);
-wageinfo.save(this, new SaveListener() {
+wageinfo.save(new SaveListener<String>() {
+
 	@Override
-	public void onSuccess() {
-		//保存成功
-	}
-	
-	@Override
-	public void onFailure(int code, String msg) {
-		//保存失败
+	public void done(String objectId, BmobException e) {
+		...
 	}
 });
 ```
@@ -3636,7 +3611,7 @@ acl.setRoleWriteAccess(hr, true); // 设置ht角色拥有写权限
 
 //设置工资对象的ACL
 wageinfo.setACL(acl);
-wageinfo.save(this);
+wageinfo.save();
 ```
 
 需要说明一点的是，Web端的Role表也具有ACL的列，你可以将角色管理的权限赋予某些用户。
@@ -3666,9 +3641,9 @@ Code iosCode = new Code();
 
 //......此处省略一些具体的属性设定
 
-coreCode.save(this);
-androidCode.save(this);
-iosCode.save(this);
+coreCode.save();
+androidCode.save();
+iosCode.save();
 
 //设置androidTeam角色对androidCode对象的读和写的权限
 androidCode.setRoleReadAccess(androidTeam, true);
@@ -3721,16 +3696,14 @@ BmobGeoPoint point = new BmobGeoPoint(116.39727786183357, 39.913768382429105);
 BmobQuery<Person> bmobQuery = new BmobQuery<Person>();
 bmobQuery.addWhereNear("gpsAdd", new BmobGeoPoint(112.934755, 24.52065));
 bmobQuery.setLimit(10);    //获取最接近用户地点的10条数据
-bmobQuery.findObjects(this, new FindListener<Person>() {
+bmobQuery.findObjects(new FindListener<Person>() {
 	@Override
-	public void onSuccess(List<Person> object) {
-		// TODO Auto-generated method stub
-		toast("查询成功：共" + object.size() + "条数据。");
-	}
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询失败：" + msg);
+	public void done(List<Person> object,BmobException e) {
+		if(e==null){
+			toast("查询成功：共" + object.size() + "条数据。");
+		}else{
+			toast("查询失败：" + e.getMessage());
+		}
 	}
 });
 ```
@@ -3743,16 +3716,15 @@ BmobGeoPoint southwestOfSF = new BmobGeoPoint(116.10675, 39.711669);
 BmobGeoPoint northeastOfSF = new BmobGeoPoint(116.627623, 40.143687);
 BmobQuery<Person> query = new BmobQuery<Person>();
 query.addWhereWithinGeoBox("gpsAdd", southwestOfSF, northeastOfSF);
-query.findObjects(this, new FindListener<Person>() {
+query.findObjects(new FindListener<Person>() {
+
 	@Override
-	public void onSuccess(List<Person> object) {
-		// TODO Auto-generated method stub
-		toast("查询成功：共" + object.size() + "条数据。");
-	}
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询失败：" + msg);
+	public void done(List<Person> object,BmobException e) {
+		if(e==null){
+			toast("查询成功：共" + object.size() + "条数据。");
+		}else{
+			toast("查询失败：" + e.getMessage());
+		}
 	}
 });
 ```
@@ -3762,9 +3734,6 @@ query.findObjects(this, new FindListener<Person>() {
 1. **每个BmobObject数据对象中`只能`有一个BmobGeoPoint对象**。
 
 2. 地理位置的点不能超过规定的范围。`纬度的范围`应该是在`-90.0到90.0`之间。`经度的范围`应该是在`-180.0到180.0`之间。如果您添加的经纬度超出了以上范围，将导致程序错误。
-
-
-
 
 ## 应用安全
 
@@ -3793,20 +3762,19 @@ query.findObjects(this, new FindListener<Person>() {
 
 在Bmob对象中提供了一个静态方法，用于获取服务器时间。
 ```java
-Bmob.getServerTime(context, new GetServerTimeListener() {
+Bmob.getServerTime(new QueryListener<Long>() {
+		
 	@Override
-	public void onSuccess(long time) {
-		// TODO Auto-generated method stub
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		String times = formatter.format(new Date(time * 1000L));
-		Log.i("bmob","当前服务器时间为:" + times);
+	public void done(long time,BmobException e) {
+		if(e==null){
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String times = formatter.format(new Date(time * 1000L));
+			Log.i("bmob","当前服务器时间为:" + times);
+		}else{
+			Log.i("bmob","获取服务器时间失败:" + e.getMessage());
+		}
 	}
 
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		Log.i("bmob","获取服务器时间失败:" + msg);
-	}
 });
 ```
 
@@ -3822,7 +3790,7 @@ Bmob为大家提供了应用的自动更新组件，使用这个组件可以快�
 #### 获取特定表的结构
 
 ```java
-Bmob.getTableSchema(context,"待查询的表名", new GetTableSchemaListener() {
+Bmob.getTableSchema("待查询的表名", new QueryListener<BmobTableSchema>() {
 			
 	@Override
 	public void done(BmobTableSchema schema, BmobException ex) {
@@ -3839,7 +3807,7 @@ Bmob.getTableSchema(context,"待查询的表名", new GetTableSchemaListener() {
 #### 获取所有表的结构
 ```java 
 
-Bmob.getAllTableSchema(context, new GetAllTableSchemaListener() {
+Bmob.getAllTableSchema(context, new QueryListListener<BmobTableSchema>() {
 			
 	@Override
 	public void done(List<BmobTableSchema> schemas, BmobException ex) {

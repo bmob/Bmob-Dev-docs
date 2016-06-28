@@ -1,21 +1,23 @@
 v3.5.0 2016年06月27日
 1、使用`Rx+okhttp3`全面重构BmobSDK，所有方法均额外提供Observable形式调用；
-	1)、Context参数变化：除初始化方法外，其余方法均不再需要传递Context参数
-	2)、回调函数变化：
-		a、所有回调函数的onSuccess、onFailure方法统一调整为done(T t,BmobException e)形式；
-		b、合并以下回调函数：
-			GetListener<T>->QueryListener<T>
-			GetCallbackGetCallback->QueryListener<JSONObject>
-			FindCallback->QueryListener<JSONArray>
-			DeleteListener、EmailVerifyListener、ResetPasswordByCodeListener、ResetPasswordByEmailListener、VerifySMSCodeListener->UpdateListener
-			GetServerTimeListener->QueryListener<Long>
-			OtherLoginListener-->LogInListener<JSONObject>
-			StatisticQueryListener、FindStatisticsListener->QueryListener<JSONArray>
-			GetTableSchemaListener->>QueryListener<BmobTableSchema>
-			GetAllTableSchemaListener->QueryListListener<BmobTableSchema>
-			QuerySMSStateListener->QueryListener<BmobSmsState>
-			RequestSMSCodeListener->QueryListener<Integer>
-2、新增`BmobBatch`批量操作类，支持批量添加、批量更新、批量删除的同步提交，且批量添加的请求返回objectId字段；
+1)、Context参数变化：除初始化方法外，其余方法均不再需要传递Context参数
+2)、回调函数变化：
+	
+	a、所有回调函数的onSuccess、onFailure方法统一调整为done(T t,BmobException e)形式；
+	b、合并以下回调函数：
+		GetListener<T>->QueryListener<T>
+		GetCallbackGetCallback->QueryListener<JSONObject>
+		FindCallback->QueryListener<JSONArray>
+		DeleteListener、EmailVerifyListener、ResetPasswordByCodeListener、ResetPasswordByEmailListener、VerifySMSCodeListener->UpdateListener
+		GetServerTimeListener->QueryListener<Long>
+		OtherLoginListener-->LogInListener<JSONObject>
+		StatisticQueryListener、FindStatisticsListener->QueryListener<JSONArray>
+		GetTableSchemaListener->QueryListener<BmobTableSchema>
+		GetAllTableSchemaListener->QueryListListener<BmobTableSchema>
+		QuerySMSStateListener->QueryListener<BmobSmsState>
+		RequestSMSCodeListener->QueryListener<Integer>
+
+2、新增`BmobBatch`批量操作类，`支持批量添加、批量更新、批量删除的同步提交`，且批量添加的请求返回objectId字段；
 3、修复由于手机时间与服务器时间相差较大引起的调用文件的upload方法返回`401 signature error`错误；
 4、解决`AndroidStudio`运行BmobSDK后出现`Ignoring InnerClasses attribute for an anonymous inner class`的警告；
 5、同步更新`BmobPush_v1.0.0`推送SDK。
