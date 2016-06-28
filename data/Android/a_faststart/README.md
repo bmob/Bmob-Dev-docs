@@ -293,17 +293,14 @@ public class Person extends BmobObject {
 Person p2 = new Person();
 p2.setName("lucky");
 p2.setAddress("北京海淀");
-p2.save(this, new SaveListener() {
+p2.save(new SaveListener<String>() {
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		toast("添加数据成功，返回objectId为："+p2.getObjectId());
-	}
-
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("创建数据失败：" + msg);
+	public void done(String objectId,BmobException e) {
+		if(e==null){
+			toast("添加数据成功，返回objectId为："+objectId);
+		}else{
+			toast("创建数据失败：" + e.getMessage());
+		}
 	}
 });
 ```
@@ -317,17 +314,14 @@ p2.save(this, new SaveListener() {
 ```java
 //查找Person表里面id为6b6c11c537的数据
 BmobQuery<Person> bmobQuery = new BmobQuery<Person>();
-bmobQuery.getObject(this, "6b6c11c537", new GetListener<Person>() {
+bmobQuery.getObject("6b6c11c537", new >QueryListener<Person>() {
 	@Override
-	public void onSuccess(Person object) {
-		// TODO Auto-generated method stub
-		toast("查询成功");
-	}
-
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("查询失败：" + msg);
+	public void done(Person object,BmobException e) {
+		if(e==null){
+			toast("查询成功");
+		}else{
+			toast("查询失败：" + e.getMessage());
+		}
 	}
 });
 ```
@@ -338,17 +332,17 @@ bmobQuery.getObject(this, "6b6c11c537", new GetListener<Person>() {
 //更新Person表里面id为6b6c11c537的数据，address内容更新为“北京朝阳”
 Person p2 = new Person();
 p2.setAddress("北京朝阳");
-p2.update(this, "6b6c11c537", new UpdateListener() {
+p2.update("6b6c11c537", new UpdateListener() {
+	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		toast("更新成功：" + p2.getUpdatedAt());
+	public void done(BmobException e) {
+		if(e==null){
+			toast("更新成功:"+p2.getUpdatedAt());
+		}else{
+			toast("更新失败：" + e.getMessage());
+		}
 	}
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("更新失败：" + msg);
-	}
+
 });
 ```
 
@@ -356,18 +350,17 @@ p2.update(this, "6b6c11c537", new UpdateListener() {
 ```
 Person p2 = new Person();
 p2.setObjectId("6b6c11c537");
-p2.delete(this, new DeleteListener() {
+p2.delete(new UpdateListener() {
+	
 	@Override
-	public void onSuccess() {
-		// TODO Auto-generated method stub
-		toast("删除成功");
+	public void done(BmobException e) {
+		if(e==null){
+			toast("删除成功:"+p2.getUpdatedAt());
+		}else{
+			toast("删除失败：" + e.getMessage());
+		}
 	}
 
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("删除失败：" + msg);
-	}
 });
 ```
 
