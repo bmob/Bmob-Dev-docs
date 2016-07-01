@@ -144,3 +144,12 @@ A:
 Q:c# sdk 只可以用Unity开发吗？visual c#可以用这SDK么？
 A:C# SDK可以用来开发Unity、visual c#，wp8这几类的程序。
 
+---
+
+Q:unity中调用restapi方法分享
+A:
+
+![](image/14673655321255.jpg)
+![](image/14673657074024.jpg)
+
+
