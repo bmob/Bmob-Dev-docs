@@ -32,7 +32,7 @@
 
 注：
 
-1、新版IMDemo只提供Android Studio版本。
+1、新版IMDemo只提供`Android Studio`版本。
 
 2、解压之后的文件夹内容如下：
 
@@ -87,8 +87,6 @@
 		compile 'cn.bmob.android:bmob-im:2.0.5@aar'
 		compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
 	}
-
-
 
 **注：**
 
@@ -434,52 +432,75 @@ BmobIM.getInstance().clearAllConversation();
 
 ```
 
-### 更新会话标题、会话图标及用户信息
+### 更新会话信息(会话标题及会话头像)
 
-由于新版IM并不包含与用户有关的逻辑，只负责存储用户信息并对外提供更新等方法,用来操作本地的用户信息。
+因为目前NewIM的会话只支持单聊，所以，会话界面显示的均是`和当前登录账号聊天的用户信息(包含objectId,姓名及头像)`。
 
-在与人单聊时，需要更新会话标题和会话图标及用户信息，可调用如下方法在`DemoMessageHandler`的全局消息接收器中进行统一更新。
+`NewIM`并不包含与用户有关的逻辑，SDK内部会`自动创建本地用户表`,只负责存储用户信息并对外提供方法，供开发者调用来操作本地用户表。
 
-```java
-/**更新用户资料和会话资料
- * @param event
- * @param listener
- */
-public void updateUserInfo(MessageEvent event,final UpdateCacheListener listener){
-    final BmobIMConversation conversation=event.getConversation();
-    final BmobIMUserInfo info =event.getFromUserInfo();
-	final BmobIMMessage msg =event.getMessage();
-    String username =info.getName();
-    String title =conversation.getConversationTitle();
-    //sdk内部，将新会话的会话标题用objectId表示，因此需要比对用户名和会话标题--单聊，后续会根据会话类型进行判断
-    if(!username.equals(title)) {
-        UserModel.getInstance().queryUserInfo(info.getUserId(), new QueryUserListener() {
-            @Override
-            public void done(User s, BmobException e) {
-                if(e==null){
-                    String name =s.getUsername();
-                    String avatar = s.getAvatar();
-                    conversation.setConversationIcon(avatar);
-                    conversation.setConversationTitle(name);
-                    info.setName(name);
-                    info.setAvatar(avatar);
-                    //更新用户资料
-                    BmobIM.getInstance().updateUserInfo(info);
-                   //更新会话资料-如果消息是暂态消息，则不更新会话资料
-                    if(!msg.isTransient()){
-                        BmobIM.getInstance().updateConversation(conversation);
-                    }
-                }else{
-                    Logger.e(e);
-                }
-                listener.done(null);
-            }
-        });
-    }else{
-        listener.internalDone(null);
-    }
-}
-```
+**假设：有两个聊天对象`A，B`，A 发消息给 B，那么,A就是发送方，B就是接收方。**
+
+这里涉及到两个部分：下面分别介绍如何`更新发送方和接收方的会话信息(会话标题及会话头像)`：
+
+#### 更新发送方A的会话界面的信息(会话标题及会话头像)
+
+还记得如何创建`A与B`之间的会话吗？
+	
+	//如果你想更新B的头像，那么BmobIMUserInfo应该填接收方B的用户信息(包含objectId,姓名及头像)，这样就可以更新B的头像啦
+	BmobIM.getInstance().startPrivateConversation(BmobIMUserInfo info, new ConversationListener() {
+	    @Override
+	    public void done(BmobIMConversation c, BmobException e) {
+	        ...
+	    }
+	});
+
+#### 更新接收方B的会话界面的信息(会话标题及会话头像)
+
+接收方B来说，如何更新A的用户信息呢？
+
+`开发者只需要在接收消息时，先判断下是否需要更新，如果需要更新，则查询下该消息发送方A的用户信息，再调用BmobIM.getInstance().updateUserInfo(info)方法更新A的用户信息到本地用户表中即可。`
+
+在Demo中是调用如下方法在`DemoMessageHandler`的全局消息接收器中更新用户信息的：
+
+	/**更新消息发送方A的用户信息
+	 * @param event
+	 * @param listener
+	 */
+	public void updateUserInfo(MessageEvent event,final UpdateCacheListener listener){
+	    final BmobIMConversation conversation=event.getConversation();
+	    final BmobIMUserInfo info =event.getFromUserInfo();
+		final BmobIMMessage msg =event.getMessage();
+	    String username =info.getName();
+	    String title =conversation.getConversationTitle();
+	    //第一步：判断是否需要更新。判断依据：sdk内部，对于单聊会话来说，是用objectId来表示新会话的会话标题的，因此需要比对用户名和会话标题，两者不一样，则需要更新用户信息。
+	    if(!username.equals(title)) {
+			//第二步：查询用户信息
+	        UserModel.getInstance().queryUserInfo(info.getUserId(), new QueryUserListener() {
+	            @Override
+	            public void done(User s, BmobException e) {
+	                if(e==null){
+	                    String name =s.getUsername();
+	                    String avatar = s.getAvatar();
+	                    conversation.setConversationIcon(avatar);
+	                    conversation.setConversationTitle(name);
+	                    info.setName(name);
+	                    info.setAvatar(avatar);
+	                    //第三步：调用updateUserInfo方法更新用户资料
+	                    BmobIM.getInstance().updateUserInfo(info);
+	                   //更新会话资料-如果消息是暂态消息，则不更新会话资料
+	                    if(!msg.isTransient()){
+	                        BmobIM.getInstance().updateConversation(conversation);
+	                    }
+	                }else{
+	                    Logger.e(e);
+	                }
+	                listener.done(null);
+	            }
+	        });
+	    }else{
+	        listener.internalDone(null);
+	    }
+	}
 
 ## 消息
 
