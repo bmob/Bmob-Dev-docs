@@ -565,7 +565,7 @@ function onRequest(request, response, modules) {
 }
 ```
 
-为了限定搜素的最大举例，需要加入$maxDistanceInMiles和$maxDistanceInKilometers或者$maxDistanceInRadians参数来限定。如，要找半径在10公里内的数据的实现代码如下：
+为了限定搜素的最大举例，需要加入$maxDistanceInMiles和$maxDistanceInKilometers或者$maxDistanceInRadians参数来限定。如果不加，则默认是100KM的半径。如，要找半径在10公里内的数据的实现代码如下：
 
 ```
   location.query({
