@@ -388,7 +388,7 @@ p2.update(objectId, new UpdateListener() {
 
 ```java
 gameScore.increment("score"); // 分数递增1
-gameScore.update(this, updateListener);
+gameScore.update(updateListener);
 ```
 
 您还可以通过`increment(key, amount)`方法来递增或递减任意幅度的数字
@@ -396,7 +396,7 @@ gameScore.update(this, updateListener);
 ```java
 gameScore.increment("score", 5); // 分数递增5
 //gameScore.increment("score", -5); // 分数递减5
-gameScore.update(this, updateListener);
+gameScore.update(updateListener);
 ```
 
 ## 删除数据
@@ -456,7 +456,7 @@ for (int i = 0; i < 3; i++) {
 	person.setName("张三 "+i);
 	persons.add(person);
 }
-//第一种方式：
+//第一种方式:v3.5.0之前的版本
 new BmobObject().insertBatch(this, persons, new SaveListener() {
 	@Override
 	public void onSuccess() {
@@ -508,7 +508,7 @@ persons.add(p1);
 persons.add(p2);
 persons.add(p3);
 
-//第一种方式：
+//第一种方式：v3.5.0之前的版本
 new BmobObject().updateBatch(this, persons, new UpdateListener() {
 	@Override
 	public void onSuccess() {
@@ -556,7 +556,7 @@ p3.setObjectId("d8226c4828");
 persons.add(p1);
 persons.add(p2);
 persons.add(p3);
-//第一种方式：
+//第一种方式：v3.5.0之前的版本
 new BmobObject().deleteBatch(this, persons, new DeleteListener() {
 	@Override
 	public void onSuccess() {
@@ -1278,7 +1278,7 @@ Bmob SDK提供了几种不同的缓存策略，以适应不同应用场景的需
 - 检查是否存在当前查询条件的缓存数据
 
 ```java
-boolean isInCache = query.hasCachedResult(context,Class<?> clazz);
+boolean isInCache = query.hasCachedResult(Class<?> clazz);
 ```
 
 **注：缓存和查询条件有关，此方法必须放在所有的查询条件（where、limit、order、skip、include等）都设置完之后，否则会得不到缓存数据。**
@@ -1286,13 +1286,13 @@ boolean isInCache = query.hasCachedResult(context,Class<?> clazz);
 - 清除当前查询的缓存数据
 
 ```java
-query.clearCachedResult(context,Class<?> clazz);
+query.clearCachedResult(Class<?> clazz);
 ```
 
 - 清除所有查询结果的缓存数据
 
 ```java
-BmobQuery.clearAllCachedResults(this);
+BmobQuery.clearAllCachedResults(Class<?> clazz);
 ```
 
 - 设置缓存的最长时间（以毫秒为单位）
@@ -1309,7 +1309,7 @@ query.addWhereEqualTo("age", 25);
 query.setLimit(10);
 query.order("createdAt");
 //判断是否有缓存，该方法必须放在查询条件（如果有的话）都设置完之后再来调用才有效，就像这里一样。
-boolean isCache = query.hasCachedResult(context,Person.class);
+boolean isCache = query.hasCachedResult(Person.class);
 if(isCache){--此为举个例子，并不一定按这种方式来设置缓存策略
 	query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);	// 如果有缓存的话，则设置策略为CACHE_ELSE_NETWORK
 }else{
@@ -1571,7 +1571,7 @@ BmobQuery<GameScore> query = new BmobQuery<GameScore>();
 //设置sql语句
 query.setSQL(sql);
 //判断此查询本地是否存在缓存数据
-boolean isCache = query.hasCachedResult(this,GameScore.class);
+boolean isCache = query.hasCachedResult(GameScore.class);
 if(isCache){
 	query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);	// 如果有缓存的话，则设置策略为CACHE_ELSE_NETWORK
 }else{
@@ -1746,7 +1746,7 @@ p.update(new UpdateListener() {
 BmobQuery<Person> query = new BmobQuery<Person>();
 String [] hobby = {"阅读","唱歌"};
 query.addWhereContainsAll("hobby", Arrays.asList(hobby));
-query.findObjects(this, new FindListener<Person>() {
+query.findObjects(new FindListener<Person>() {
 	
 	@Override
 	public void done(List<Person> object,BmobException e) {
@@ -1919,7 +1919,7 @@ BmobQuery<Post> query = new BmobQuery<Post>();
 query.addWhereEqualTo("author", user);	// 查询当前用户的所有帖子
 query.order("-updatedAt");
 query.include("author");// 希望在查询帖子信息的同时也把发布人的信息查询出来
-query.findObjects(this, new FindListener<Post>() {
+query.findObjects(new FindListener<Post>() {
 	
 	@Override
 	public void done(List<Post> object,BmobException e) {
@@ -2033,7 +2033,7 @@ post.setObjectId("ESIt3334");
 query.addWhereEqualTo("post",new BmobPointer(post));		
 //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
 query.include("user,post.author");
-query.findObjects(this, new FindListener<Comment>() {
+query.findObjects(new FindListener<Comment>() {
 	
 	@Override
 	public void done(List<Comment> objects,BmobException e) {
@@ -2064,7 +2064,7 @@ BmobRelation relation = new BmobRelation();
 relation.add(user);
 //多对多关联指向`post`的`likes`字段
 post.setLikes(relation);
-post.update(this, new UpdateListener() {
+post.update(new UpdateListener() {
 	@Override
 	public void done(BmobException e) {
 		if(e==null){
@@ -2130,7 +2130,7 @@ user.setObjectId("aJyG2224");
 relation.add(user);
 //多对多关联指向`post`的`likes`字段
 post.setLikes(relation);
-post.update( new UpdateListener() {
+post.update(new UpdateListener() {
 	
 	@Override
 	public void done(BmobException e) {
@@ -2414,8 +2414,8 @@ bu2.login(new SaveListener<BmobUser>() {
 	public void done(BmobUser bmobUser, BmobException e) {
 		if(e==null){
 			toast("登录成功:");
-			//通过BmobUser user = BmobUser.getCurrentUser(context)获取登录成功后的本地用户信息
-			//如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(context,MyUser.class)获取自定义用户信息
+			//通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
+			//如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
 		}else{
 			loge(e);
 		}
@@ -2444,7 +2444,7 @@ BmobUser.loginByAccount("username", "用户密码", new LogInListener<MyUser>() 
 
 每当你应用的用户注册成功或是第一次登录成功，都会在本地磁盘中有一个缓存的用户对象，这样，你可以通过获取这个缓存的用户对象来进行登录：
 ```java
-BmobUser bmobUser = BmobUser.getCurrentUser(context);
+BmobUser bmobUser = BmobUser.getCurrentUser();
 if(bmobUser != null){
 	// 允许用户使用应用
 }else{
@@ -2455,7 +2455,7 @@ if(bmobUser != null){
 在扩展了用户类的情况下获取当前登录用户，可以使用如下的示例代码（`MyUser`类可参看上面）：
 
 ```java
-MyUser userInfo = BmobUser.getCurrentUser(context,MyUser.class);
+MyUser userInfo = BmobUser.getCurrentUser(MyUser.class);
 
 ```
 
@@ -2463,17 +2463,17 @@ MyUser userInfo = BmobUser.getCurrentUser(context,MyUser.class);
 
 ```java 
 //BmobUser中的特定属性
-String username = (String) BmobUser.getObjectByKey(context, "username");
+String username = (String) BmobUser.getObjectByKey("username");
 //MyUser中的扩展属性
-Integer age = (Integer) BmobUser.getObjectByKey(context, "age");
-Boolean sex = (Boolean) BmobUser.getObjectByKey(context, "sex");
+Integer age = (Integer) BmobUser.getObjectByKey("age");
+Boolean sex = (Boolean) BmobUser.getObjectByKey("sex");
 ```
 
 ### 更新用户
 
 很多情况下你可能需要修改用户信息，比如你的应用具备修改个人资料的功能，Bmob提供的用户更新方式有两种写法：
 
-第一种：`新建一个用户对象，并调用update(context,objectId,updateListener)方法来更新（推荐使用）`，示例：
+第一种：`新建一个用户对象，并调用update(objectId,updateListener)方法来更新（推荐使用）`，示例：
 
 ```java
 BmobUser newUser = new BmobUser();
@@ -2491,10 +2491,10 @@ newUser.update(bmobUser.getObjectId(),new UpdateListener() {
 });
 ```
 
-第二种：获取本地的用户对象，并调用update（context,updateListener）方法来更新（`不推荐使用`），示例：
+第二种：获取本地的用户对象，并调用update（updateListener）方法来更新（`不推荐使用`），示例：
 
 ```java
-BmobUser bmobUser = BmobUser.getCurrentUser(context);
+BmobUser bmobUser = BmobUser.getCurrentUser();
 // 修改用户的邮箱为xxx@163.com
 bmobUser.setEmail("xxx@163.com");
 bmobUser.update(new UpdateListener() {
@@ -2540,8 +2540,8 @@ User表是一个特殊的表，专门存储BmobUser对象。在浏览器端，�
 退出登录非常简单，可以使用如下的代码：
 
 ```java
-BmobUser.logOut(context);   //清除缓存用户对象
-BmobUser currentUser = BmobUser.getCurrentUser(context); // 现在的currentUser是null了
+BmobUser.logOut();   //清除缓存用户对象
+BmobUser currentUser = BmobUser.getCurrentUser(); // 现在的currentUser是null了
 ```
 
 ### 密码修改
@@ -2569,7 +2569,7 @@ BmobUser.updateCurrentUserPassword("旧密码", "新密码", new UpdateListener(
 新增`邮箱+密码`登录方式,可以通过`loginByAccount`方法来操作：
 
 ```java 
-BmobUser.loginByAccount(context, account, password, new LogInListener<MyUser>() {
+BmobUser.loginByAccount(account, password, new LogInListener<MyUser>() {
 			
 			@Override
 			public void done(MyUser user, BmobException e) {
@@ -2762,7 +2762,7 @@ user.signOrLogin("验证码", new SaveListener<MyUser>() {
 User user =new User();
 user.setMobilePhoneNumber(phone);
 user.setMobilePhoneNumberVerified(true);
-User cur = BmobUser.getCurrentUser(context,User.class);
+User cur = BmobUser.getCurrentUser(User.class);
 user.update(cur.getObjectId(),new UpdateListener() {
 		
 	@Override
@@ -3148,8 +3148,8 @@ bmobFile.uploadblock(new UploadFileListener() {
 	@Override
 	public void done(BmobException e) {
 		if(e==null){
-			//bmobFile.getFileUrl(context)--返回的上传文件的完整地址
-			toast("上传文件成功:" + bmobFile.getFileUrl(context));
+			//bmobFile.getFileUrl()--返回的上传文件的完整地址
+			toast("上传文件成功:" + bmobFile.getFileUrl());
 		}else{
 			toast("上传文件失败：" + e.getMessage());
 		}
@@ -3522,8 +3522,8 @@ blog.setTitle("一个人的秘密");
 blog.setContent("这是blog的具体内容");
 
 BmobACL acl = new BmobACL();  //创建ACL对象
-acl.setReadAccess(BmobUser.getCurrentUser(this), true); // 设置当前用户可写的权限
-acl.setWriteAccess(BmobUser.getCurrentUser(this), true); // 设置当前用户可写的权限
+acl.setReadAccess(BmobUser.getCurrentUser(), true); // 设置当前用户可写的权限
+acl.setWriteAccess(BmobUser.getCurrentUser(), true); // 设置当前用户可写的权限
 
 blog.setACL(acl);    //设置这条数据的ACL信息
 blog.save(new SaveListener<String>() {
@@ -3599,7 +3599,7 @@ hr.save(this);
 //将cashier_xie归属到cashier角色中
 cashier.getUsers().add(cashier_xie);
 //保存到云端角色表中（web端可以查看Role表）
-cashier.save(this);
+cashier.save();
 
 //创建ACL对象
 BmobACL acl = new BmobACL();
@@ -3628,13 +3628,13 @@ BmobRole androidTeam = new BmobRole("AndroidTeam");
 BmobRole iosTeam = new BmobRole("iOSTeam");
 
 //保存AndroidTeam和iosTeam角色到云端
-androidTeam.save(this);
-iosTeam.save(this);
+androidTeam.save();
+iosTeam.save();
 
 //将androidTeam和iosTeam两种角色添加到移动部门角色中
 mobileDep.getRoles().add(androidTeam);
 mobileDep.getRoles().add(iosTeam);
-mobileDep.save(this);
+mobileDep.save();
 
 // 假设创建三个代码数据对象
 Code coreCode = new Code();
