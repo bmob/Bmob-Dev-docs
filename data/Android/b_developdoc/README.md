@@ -24,11 +24,11 @@ Android6.0版本移除了对Appache的HTTP client的支持，因此，需要添�
 
     你需要在`app`的`build.gradle`文件添加配置信息useLibrary 'org.apache.http.legacy'声明编译时依赖
 
-	android {
-		compileSdkVersion 23
-		buildToolsVersion "23.0.2"
-		useLibrary 'org.apache.http.legacy'
-	}
+		android {
+			compileSdkVersion 23
+			buildToolsVersion "23.0.2"
+			useLibrary 'org.apache.http.legacy'
+		}
 
 **注：如果在build.gradle文件中`useLibrary 'org.apache.http.legacy'`这句话报错，可将该jar直接放到libs目录下即可。**
 
