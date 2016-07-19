@@ -1713,6 +1713,8 @@ if (bUser) {
 
 3.由于是缓存的数据，所以web端的修改，本地是不会更新的!!!需要重新登录才会更新本地缓存数据
 
+4.缓存用户的有效期为1年
+
 ### 更新用户
 
 当用户登录成功后，在本地有个缓存的用户对象，如果开发者希望更改当前用户的某个属性可按如下代码操作:
@@ -2124,6 +2126,7 @@ BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
 	 //如果文件保存成功，则把文件添加到filetype列
 	 if (isSuccessful) {
 	     [obj setObject:file1  forKey:@"filetype"];
+	     //此处相当于新建一条记录,	     //关联至已有的记录请使用 [obj updateInBackground];
 	     [obj saveInBackground];
 	     //打印file文件的url地址
 	     NSLog(@"file1 url %@",file1.url);
@@ -2132,6 +2135,7 @@ BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
 	 }
 }];
 ```
+
 
 #### 上传文件进度
 
