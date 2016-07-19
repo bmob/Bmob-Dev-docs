@@ -1,3 +1,15 @@
+v1.7.2  2016年07月18日
+1.替换BmobProFile 内部下载的方法，减少SDK的体积
+2.修复BmobFile上传后可能name为空的问题
+3.修复文件上传内存泄漏的问题
+
+v1.7.1 2016年06月08日
+1.修改BmobQuery 取消方法错误拼写
+2.修改BmobObject objectWithoutDatatWithClassName方法拼写错误
+3.BmobObject+subclass 增加+(instancetype)covertWithObject:(BmobObject *)obj; 方便在swift调用
+4.修复更新个人资料可能会报用户名已存在的问题
+5.修复有ACL导致的更新不成功的问题
+
 v1.7.0   2016年4月22日
 1.恢复BmobProFile文件下载的功能
 2.恢复云端代码同步接口（请在子线程使用），新增+(id)callFunction:(NSString *)function withParameters:(NSDictionary *)parameters error:(NSError **)error;返回错误信息
