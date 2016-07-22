@@ -1811,7 +1811,21 @@ post 指向的帖子表只返回likes字段，而author指向的用户表只返�
 
 #### 约束Pointer值查询
 
-在查询当中，我们可以对字符串、数组、数字等进行约束，比如查询Post表时，我们可以指定只返回title以“a”开头的Post对象。那么Pointer能不能也进行约束呢？比如我想要返回所有指向的author指向的对象，其username都为Lily的Post对象，该如何做呢？我们可以使用 "$inQUery" 来完成，具体如下：
+在查询当中，我们可以对字符串、数组、数字等进行约束，比如查询Post表时，我们可以指定只返回title以“a”开头的Post对象。那么Pointer能不能也进行约束呢？如下：
+
+1.如果约束的是某个特定对象，即知道该对象的objectId，您可以用一个 `where` 参数查询, 自己使用 `__type` 构造一个 `Pointer`, 就像你构造其他数据类型一样。举例说, 如果每一条评论(Comment对象)有一个Key叫post，类型是Pointer，并且指向了一个具体的帖子(Post对象，用objectId表示一个帖子)，那么您可以使用下面的请求获取一个帖子的所有评论
+
+
+```
+curl -X GET \
+  -H "X-Bmob-Application-Id: Your Application ID" \
+  -H "X-Bmob-REST-API-Key: Your REST API Key" \
+  -G \
+  --data-urlencode 'where={"post":{"__type":"Pointer","className":"Post","objectId":"1dafb9ed9b"}}' \
+  https://api.bmob.cn/1/classes/Comment
+```
+
+2.如果想要约束关联对象除objectId外的其它值，比如我想要返回所有指向的author指向的对象，其username都为Lily的Post对象，该如何做呢？我们可以使用 "$inQuery" 来完成，具体如下：
 
 ```
 curl -X GET \
