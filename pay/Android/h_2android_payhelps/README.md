@@ -62,3 +62,20 @@ A:你在后台开启了应用安全验证并填写了签名，可以在调试时
 Q:bmob plugin isn't installed 支付这个是什么问题
 A:支付功能需要先安装支付插件才能使用
 
+---
+
+Q:为什么一直提示支付中断，必须使用支付宝先发起一次支付请求后，然后切换为微信支付，点击支付后才可提示获取订单成功，并跳转至微信支付页面
+A:这个问题是因为部分手机（小米手机）不允许未打开过Activity的App访问网络的权限，而支付宝需要先打开Activity，所以可以成功，但微信支付首先是在Service中调用，所以网络请求被拒绝。解决的办法是在BP.pay方法调用之前加上如下代码：
+```java
+try {
+	Intent intent = new Intent(Intent.ACTION_MAIN);
+	intent.addCategory(Intent.CATEGORY_LAUNCHER);
+	ComponentName cn = new ComponentName("com.bmob.app.sport",
+			"com.bmob.app.sport.wxapi.BmobActivity");
+	intent.setComponent(cn);
+	this.startActivity(intent);
+} catch (Throwable e) {
+	e.printStackTrace();
+}
+这段代码加在BP.pay方法调用之前
+```
