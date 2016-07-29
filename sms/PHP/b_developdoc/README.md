@@ -1,3 +1,5 @@
+短信服务的API集成在BmobSDK中，因此不熟悉的朋友在使用前先可以了解一下BmobSDK的集成[PHP 快速入门](http://docs.bmob.cn/data/PHP/a_faststart/doc/index.html)
+
 在一些应用场景下，你可能希望用户验证手机号码后才能进行一些操作，例如充值等。这些操作跟用户系统没有关系，可以通过我们提供的的短信验证API来实现。
 
 每个 [Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 帐户有 10 个免费额度的短信数量，超过需要购买短信条数才能继续使用。
