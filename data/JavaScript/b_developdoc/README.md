@@ -700,7 +700,7 @@ gameScore.save();
 
 ### 整个文件上传
 
-注意：旧版的Bmob.File类将于2016.07.13停用，请各位用户尽快升级js sdk并使用Bmob.File2。
+注意：Bmob.File2类已合并到Bmob.File。
 
 上传文件有两种方法：
 
@@ -708,7 +708,7 @@ gameScore.save();
 
 ```
 var bytes = "Hello, World!";
-var file = new Bmob.File2("hello.txt", bytes);
+var file = new Bmob.File("hello.txt", bytes);
 file.save().then(function(obj) {
   //alert(obj.url());
 }, function(error) {
@@ -729,7 +729,7 @@ file.save().then(function(obj) {
         if (fileUploadControl.files.length > 0) {
         var file = fileUploadControl.files[0];
         var name = "logo.jpg";
-        var file = new Bmob.File2(name, file);     
+        var file = new Bmob.File(name, file);     
         file.save();
 ```
 
