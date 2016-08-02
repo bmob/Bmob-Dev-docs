@@ -700,8 +700,6 @@ gameScore.save();
 
 ### 整个文件上传
 
-注意：Bmob.File2类已合并到Bmob.File。
-
 上传文件有两种方法：
 
 直接上传文件，例如，我们上传一个内容为"Hello, World!"，名称为"hello.txt"的文件，可用如下的代码：
