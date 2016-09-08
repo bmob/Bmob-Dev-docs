@@ -617,4 +617,15 @@ java.lang.UnsatisfiedLinkError: com.android.tools.fd.runtime.IncrementalClassLoa
 A:使用aar格式的SDK，这样就不用导入so库
 
 ---
+Q:sdk怎么和Retrofit这些库一起使用呢
 
+A:出现这个问题的原因是retrofit依赖的okhttp和sdk的远程aar包中的okhttp重复导致的，将会导致编译不过，解决方式有：<br>
+1 下载Retrofit的jar包，采用本地依赖的方式；<br>
+2 compile Retrofit的配置加下exclude，把重复的okhttp除去，如下：<br>
+```
+compile ('com.squareup.retrofit2:retrofit:2.1.0'){
+        exclude group : 'com.squareup.okhttp3'
+    }
+```
+
+---
