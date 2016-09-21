@@ -1605,7 +1605,7 @@ function onRequest(request, response, modules) {
 BQL 还支持占位符查询，where 和 limit 子句的条件参数可以使用问号替换，然后通过 values 数组传入：
 ```
 function onRequest(request, response, modules) {
-    //获得发送邮件的对象 
+    //获得bql的对象 
     var Bql = modules.oBql; 
     
     Bql.exec({

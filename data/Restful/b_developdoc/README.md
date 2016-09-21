@@ -1325,7 +1325,7 @@ curl -X GET \
   https://api.bmob.cn/1/cloudQuery
 ```
 
-更多请参考 [BQL 详细指南](/bql/index.html?menukey=otherdoc&key=bql "BQL 详细指南") 。
+更多请参考 [BQL 详细指南](/other/Other/m_bql/doc/index.html "BQL 详细指南") 。
 
 BQL 还支持占位符查询，where 和 limit 子句的条件参数可以使用问号替换，然后通过 `values` 数组传入：
 
