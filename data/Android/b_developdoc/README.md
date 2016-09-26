@@ -3414,7 +3414,7 @@ rtd.start(new ValueEventListener() {
 	}
 	
 	@Override
-	public void onConnectCompleted() {
+	public void onConnectCompleted(Exception ex) {
 		Log.d("bmob", "连接成功:"+rtd.isConnected());
 	}
 });
