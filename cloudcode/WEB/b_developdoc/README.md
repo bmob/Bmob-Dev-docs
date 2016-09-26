@@ -55,6 +55,8 @@ name=jeff: 传入一个参数，名称是name，值是jeff
 
 ## 转为套餐后调用云端逻辑的方式
 
+**注意：升级云端代码套餐后就没法在微信公众号中调用云端代码**
+
 bmob允许以http的方式直接调用云端逻辑。
 
 ### 获取应用的id值
@@ -1603,7 +1605,7 @@ function onRequest(request, response, modules) {
 BQL 还支持占位符查询，where 和 limit 子句的条件参数可以使用问号替换，然后通过 values 数组传入：
 ```
 function onRequest(request, response, modules) {
-    //获得发送邮件的对象 
+    //获得bql的对象 
     var Bql = modules.oBql; 
     
     Bql.exec({

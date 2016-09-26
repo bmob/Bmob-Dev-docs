@@ -2,6 +2,8 @@
 
 在这篇微信公众平台开发教程中，将会带领你一步步领略使用云后端服务bmob的方便性，同时使用bmob进行微信公众号平台开发。
 
+**注意：升级云端代码套餐后就没法在微信公众号中调用云端代码**
+
 使用bmob有什么好处，下面一一为你道来：
 
  - 不需要购买服务器，不需要懂linux，不需要懂运维知识，零成本地拥有属于自己的后台系统。
@@ -187,7 +189,7 @@ function onRequest(request, response, modules) {
 下面展示了以Get的方式调用云端逻辑，在浏览器中输入下面的url：
 
 ```
-http://cloud.bmob.cn/a12af19a1b8bf434/helloworld
+http://cloudweixinopen.bmob.cn/a12af19a1b8bf434/helloworld
 ```
 
 其中：
@@ -206,7 +208,7 @@ http://cloud.bmob.cn/a12af19a1b8bf434/helloworld
 
 ```
 curl -X POST \
-    http://cloud.bmob.cn/a12af19a1b8bf434/helloworld
+    http://cloudweixinopen.bmob.cn/a12af19a1b8bf434/helloworld
 ```
 
 其中：
@@ -380,15 +382,11 @@ function onRequest(request, response, modules) {
 
 ![](image/21.png)
 
-此处的URL（http://cloud.bmob.cn/a12af19a1b8bf434/feedback）为上节中生成的云端逻辑“feedback”的调用，按照云端逻辑的调用规格，a12af19a1b8bf434为该应用的Secret Key，标明调用的是哪个应用，feedback为云端逻辑的名称。Token定义为weixin。EncodingAESKey则不用填，点击“随机生成”让自动生成一个，消息加解密方式选择“明文模式”，然后点击“提交”按钮，如图22所示：
+此处的URL（http://cloudweixinopen.bmob.cn/a12af19a1b8bf434/feedback）为上节中生成的云端逻辑“feedback”的调用，按照云端逻辑的调用规格，a12af19a1b8bf434为该应用的Secret Key，标明调用的是哪个应用，feedback为云端逻辑的名称。Token定义为weixin。EncodingAESKey则不用填，点击“随机生成”让自动生成一个，消息加解密方式选择“明文模式”，然后点击“提交”按钮，如图22所示：
 
 
 ![](image/22.jpg)
 
-点击“启用”，如图23所示：
-
-
-![](image/23.png)
 
 在弹出框中点击确定，如图24所示：
 
