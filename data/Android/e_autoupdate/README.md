@@ -49,7 +49,7 @@ res文件夹下载地址：[http://www.bmob.cn/static/res.zip](http://www.bmob.c
 SDK提供了初始化自动创建`AppVersion`表的方法，不再需要开发者手动在web端创建。只需要在你使用自动更新功能的地方调用如下代码：
 
 ```java
-	BmobUpdateAgent.initAppVersion(this);
+	BmobUpdateAgent.initAppVersion();
 ```
 
 **注：**
