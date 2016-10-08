@@ -36,7 +36,7 @@ select一个完整的语法形式类似这样：
 ```sql
 select [查询字段列表，多个以逗号隔开] from [class 名称]
    [where [条件列表]
-   [limit [skip],limit
+   [limit skip,limit
    [order by [排序字段列表] [asc |desc]]]]
 ```
 

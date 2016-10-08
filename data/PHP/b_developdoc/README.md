@@ -241,6 +241,8 @@ $res=$bmobObj->get("",array('where={"score":{"$exists":false}}'));
 $res=$bmobObj->get("",array('where={"playerName":{"$regex":"smile.*"}}'));
 ```
 
+**注:模糊查询只对付费用户开放，使用前请先在工单上联系工作人员进行开通。**
+
 如果您的查询条件某个列值要匹配另一个查询的返回值，举例有一个队伍(Team)保存了每个城市的得分情况且用户表中有一列为用户家乡(hometown), 您可以创建一个查询来寻找用户的家乡是得分大于0.5的城市的所有运动员， 就像这样查询:
 
 ```php
