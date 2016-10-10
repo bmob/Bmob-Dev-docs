@@ -849,7 +849,7 @@ query.whereStartsWith("username", "sm");
 query.whereEndsWith("username", "ile");
 ```
 
-**注:模糊查询只对付费用户开放，使用前请先在工单上联系工作人员进行开通。**
+**注:模糊查询只对付费用户开放，付费后可直接使用。**
 
 #### 列值是否存在
 
