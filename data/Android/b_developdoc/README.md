@@ -849,6 +849,8 @@ query.whereStartsWith("username", "sm");
 query.whereEndsWith("username", "ile");
 ```
 
+**注:模糊查询只对付费用户开放，付费后可直接使用。**
+
 #### 列值是否存在
 
 如果你想查询某个列的值存在，那么可以使用`addWhereExists`方法：
