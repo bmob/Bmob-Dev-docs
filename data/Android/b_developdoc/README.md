@@ -2516,6 +2516,7 @@ bmobUser.update(new UpdateListener() {
 
 **2、在更新用户信息时，如果用户邮箱有变更并且在管理后台打开了邮箱验证选项的话，Bmob云后端同样会自动发一封邮件验证信息给用户。**
 
+**3、需要先登录后才能更新用户信息 否则会返回206 User cannot be altered without sessionToken Error错误。**
 ### 查询用户
 查询用户和查询普通对象一样，只需指定BmobUser类即可，如下：
 ```java
