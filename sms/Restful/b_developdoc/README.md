@@ -307,11 +307,11 @@ curl -X GET \
 
 短信条数只能输入整数，且不能少于1000条
 
-![](image/14703632057048.jpg)
+![](https://github.com/bmob/Bmob-Dev-docs/blob/master/sms/Android/b_developdoc/image/14703632057048.jpg)
 
 进入账号控制台，财务/财务统计点击购买短信即可。
 
-![](image/14703632600603.jpg)
+![](https://github.com/bmob/Bmob-Dev-docs/blob/master/sms/Android/b_developdoc/image/14703632600603.jpg)
 
 ### 发票事宜
 
@@ -319,7 +319,7 @@ curl -X GET \
 
 先在官网下方联系营销客服
 
-![](image/14703636881200.jpg)
+![](https://github.com/bmob/Bmob-Dev-docs/blob/master/sms/Android/b_developdoc/image/14703636881200.jpg)
 
 提供账号邮寄地址等信息，审核后进行邮寄。
 
