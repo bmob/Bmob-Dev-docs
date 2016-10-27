@@ -7,7 +7,24 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 建议您在阅读本开发文档之前，先阅读我们提供的 [Android快速入门文档](http://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，便于您后续的开发。<br>
 如果开发者想使用不同历史版本的SDK，可以移步[历史版本的github仓库](https://github.com/bmob/bmob-android-sdk-release/releases),选择使用各个历史版本。
 
+## 统计SDK
+从v3.5.2开始，把统计SDK集成到了数据服务SDK，上传应用不再需要额外集成统计SDK，低于此版本的可以去控制台的应用官网下载。
+### 添加方法
 
+
+- 确保项目有`INTERNET`和`READ_PHONE_STATE`权限
+		
+		往AndroidManifest.xml文件内添加:
+		
+		<uses-permission android:name="android.permission.INTERNET" />
+		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+- 在初始化方法中传一个渠道参数(不传默认没开启统计功能)
+
+		Bmob.initialize(this,APPID,"Bmob");
+- 将libs文件夹内的BmobStat.jar文件添加进项目（AS选择远程依赖可以忽略，本地依赖需要指定libs文件夹，Eclipse中放进libs即可）；
+
+	
 ## 兼容Android6.0系统
 
 自`v3.4.6`版本开始，Bmob提供了一些新的方法和工具类来帮助开发者为自己的应用兼容Android6.0系统。
@@ -707,7 +724,22 @@ query.findObjects(new FindListener<GameScore>() {
 查询的结果不需要进行任何处理，BmobSDK已经为你封装成相应的JavaBean集合了，你直接使用即可。
 
 **注：**
-通过setLimit方法设置返回的记录数量。更多细节可查看下一节(查询条件)中的分页查询。
+1 通过setLimit方法设置返回的记录数量。更多细节可查看下一节(查询条件)中的分页查询。</br>
+2 v3.5.2开始可以对查询条件等提供链式调用的写法，如下：</br>
+```java
+BmobQuery<Book> query = new BmobQuery<>();
+        query.setLimit(8).setSkip(1).order("-createdAt")
+                .findObjects(new FindListener<Book>() {
+                    @Override
+                    public void done(List<Book> object, BmobException e) {
+                        if (e == null) {
+                            // ...
+                        } else {
+                            // ...
+                        }
+                    }
+                });	
+```
 
 ### 查询条件
 
