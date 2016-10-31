@@ -6,15 +6,16 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 建议您在阅读本开发文档之前，先阅读我们提供的 [Android快速入门文档](http://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，便于您后续的开发。<br>
 如果开发者想使用不同历史版本的SDK，可以移步[历史版本的github仓库](https://github.com/bmob/bmob-android-sdk-release/releases),选择使用各个历史版本。
+## 模板代码
+在使用SDK过程中，如果一些Api如查询是高频代码，可以把一些重复的样板代码抽出来，并在AndroidStudio中设置模板，即可实现快速输入，能提高编码效率，效果如下：
 
+![](http://i.imgur.com/zjm4Avx.gif)
 ## 统计SDK
 从v3.5.2开始，把统计SDK集成到了数据服务SDK，上传应用不再需要额外集成统计SDK，低于此版本的可以去控制台的应用官网下载。
 ### 添加方法
 
 
 - 确保项目有`INTERNET`和`READ_PHONE_STATE`权限
-		
-		往AndroidManifest.xml文件内添加:
 		
 		<uses-permission android:name="android.permission.INTERNET" />
 		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -33,11 +34,11 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 Android6.0版本移除了对Appache的HTTP client的支持，因此，需要添加`org.apache.http.legacy.jar`包，请参照如下方式添加：
 
-1. Eclipse
+  1. Eclipse
 
 	你需要在Eclipse工程的项目根目录中新建libs文件夹，将org.apache.http.legacy.jar包，添加到libs文件夹中
 
-2. AndroidStudio
+  2. AndroidStudio
 
     你需要在`app`的`build.gradle`文件添加配置信息useLibrary 'org.apache.http.legacy'声明编译时依赖
 
