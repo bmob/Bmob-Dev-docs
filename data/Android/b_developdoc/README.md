@@ -34,13 +34,13 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 Android6.0版本移除了对Appache的HTTP client的支持，因此，需要添加`org.apache.http.legacy.jar`包，请参照如下方式添加：
 
-  1. Eclipse
+  1.Eclipse
 
 	你需要在Eclipse工程的项目根目录中新建libs文件夹，将org.apache.http.legacy.jar包，添加到libs文件夹中
 
-  2. AndroidStudio
-
-    你需要在`app`的`build.gradle`文件添加配置信息useLibrary 'org.apache.http.legacy'声明编译时依赖
+  2.AndroidStudio
+	
+   你需要在`app`的`build.gradle`文件添加配置信息useLibrary 'org.apache.http.legacy'声明编译时依赖
 
 		android {
 			compileSdkVersion 23
