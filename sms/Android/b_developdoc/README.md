@@ -13,7 +13,7 @@
 
 ```java
 
-BmobSMS.initialize(context,Bmob Application ID);
+BmobSMS.initialize(context,Bmob_Application_ID);
 
 ```
 
@@ -49,7 +49,7 @@ String sendTime = format.format(new Date());
 BmobSMS.requestSMS(context, number, "审核通过后的短信内容",sendTime,new RequestSMSCodeListener() {
 	
 	@Override
-	public void done(Integer smsId,BmobException ex) {
+	public void done(String smsId,BmobException ex) {
 		// TODO Auto-generated method stub
 		if(ex==null){//
 			Log.i("bmob","短信发送成功，短信id："+smsId);//用于查询本次短信发送详情
@@ -79,7 +79,7 @@ BmobSMS.requestSMS(context, number, "审核通过后的短信内容",sendTime,ne
 BmobSMS.requestSMSCode(context, "11位手机号码", "模板名称",new RequestSMSCodeListener() {
 			
 	@Override
-	public void done(Integer smsId,BmobException ex) {
+	public void done(String smsId,BmobException ex) {
 		// TODO Auto-generated method stub
 		if(ex==null){//验证码发送成功
 			Log.i("bmob", "短信id："+smsId);//用于查询本次短信发送详情
@@ -191,9 +191,13 @@ BmobSMS.querySmsState(context, smsId, new QuerySMSStateListener() {
 
 购买金额满100可提供发票，1000元以内的到付，1000以上（含1000）包邮。
 
-先在官网下方联系营销客服
+登录后台提交工单，提供购买服务的订单号和开票信息。
 
-![](image/14703636881200.jpg)
+**个人**
 
-提供账号邮寄地址等信息，审核后进行邮寄。
+发票抬头、邮寄地址、联系人及电话
+
+**企业**
+
+公司名称、统一社会信用代码、开户行及账号、邮寄地址、联系人及电话
 
