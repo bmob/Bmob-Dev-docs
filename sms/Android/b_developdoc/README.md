@@ -49,7 +49,7 @@ String sendTime = format.format(new Date());
 BmobSMS.requestSMS(context, number, "审核通过后的短信内容",sendTime,new RequestSMSCodeListener() {
 	
 	@Override
-	public void done(String smsId,BmobException ex) {
+	public void done(Integer smsId,BmobException ex) {
 		// TODO Auto-generated method stub
 		if(ex==null){//
 			Log.i("bmob","短信发送成功，短信id："+smsId);//用于查询本次短信发送详情
@@ -79,7 +79,7 @@ BmobSMS.requestSMS(context, number, "审核通过后的短信内容",sendTime,ne
 BmobSMS.requestSMSCode(context, "11位手机号码", "模板名称",new RequestSMSCodeListener() {
 			
 	@Override
-	public void done(String smsId,BmobException ex) {
+	public void done(Integer smsId,BmobException ex) {
 		// TODO Auto-generated method stub
 		if(ex==null){//验证码发送成功
 			Log.i("bmob", "短信id："+smsId);//用于查询本次短信发送详情

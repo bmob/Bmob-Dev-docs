@@ -4,7 +4,7 @@
 
 默认使用 【比目科技】 作为签名，可以在控制台进行修改。
 
-短信服务除了集成成进原来的BmobSDK包外，还另外拆分了一个独立的SDK包，使用前请先导入 `SystemConfiguration.framework` 和 `CoreLocation.framework`，注册方法还是 `[Bmob registerWithAppKey:@""];`。
+短信服务除了集成成进原来的BmobSDK包外，还另外拆分了一个独立的SDK包，使用前请先导入 `SystemConfiguration.framework`，  `JavaScriptCore.framework` 和 `CoreLocation.framework`，注册方法还是 `[Bmob registerWithAppKey:@""];`。
 
 
 ## 请求发送自定义短信内容
@@ -38,11 +38,11 @@
 样例代码如下：
 
 ```
-    [BmobSMS requestSMSInbackgroundWithPhoneNumber:@"phoneNumber" Content:@"您的XX服务还有XX时间到期，请及时续费。" andSendTime:@"2015-07-01 10:59:00" resultBlock:^(int number, NSError *error) {
+    [BmobSMS requestSMSInbackgroundWithPhoneNumber:@"phoneNumber" Content:@"您的XX服务还有XX时间到期，请及时续费。" andSendTime:@"2015-07-01 10:59:00" resultBlock:^(int msgId, NSError *error) {
         if (error) {
             NSLog(@"%@",error);
         } else {
-            NSLog(@"smsId:%d",number);
+            NSLog(@"smsId:%d",msgId);
         }
     }];
 ```
@@ -65,12 +65,12 @@
 
 ```
     //请求验证码
-    [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:mobilePhoneNumber andTemplate:@"test" resultBlock:^(int number, NSError *error) {
+    [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:mobilePhoneNumber andTemplate:@"test" resultBlock:^(int msgId, NSError *error) {
         if (error) {
             NSLog(@"%@",error);
         } else {
             //获得smsID
-            NSLog(@"sms ID：%d",number);
+            NSLog(@"sms ID：%d",msgId);
         }
     }];
 ```
@@ -142,19 +142,26 @@
 
 短信条数只能输入整数，且不能少于1000条
 
-![](image/14703632057048.jpg)
+![短信计费模式][1]
 
 进入账号控制台，财务/财务统计点击购买短信即可。
 
-![](image/14703632600603.jpg)
+![购买短信][2]
 
 ### 发票事宜
 
 购买金额满100可提供发票，1000元以内的到付，1000以上（含1000）包邮。
 
-先在官网下方联系营销客服
+登录后台提交工单，提供购买服务的订单号和开票信息。
 
-![](image/14703636881200.jpg)
+**个人**
 
-提供账号邮寄地址等信息，审核后进行邮寄。
+发票抬头、邮寄地址、联系人及电话
 
+**企业**
+
+公司名称、统一社会信用代码、开户行及账号、邮寄地址、联系人及电话
+
+
+  [1]: http://bmob-file-service-t.b0.upaiyun.com/Doc_File/14703632057048.jpg
+  [2]: http://bmob-file-service-t.b0.upaiyun.com/Doc_File/14703632600603.jpg
