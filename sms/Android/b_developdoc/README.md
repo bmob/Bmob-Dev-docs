@@ -63,7 +63,7 @@ BmobSMS.requestSMS(context, number, "审核通过后的短信内容",sendTime,ne
 
 注：
 
-1、如果需要立即发送，sendTime设置为null;
+1、如果需要立即发送，sendTime设置为null(不是空字符串"");
 
 2、sendTime的格式为 `yyyy-MM-dd HH:mm:ss`,如果sendTime的格式不正确或者是这个时间是过去的时间，那么短信会立即发送;
 
