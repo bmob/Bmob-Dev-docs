@@ -4,7 +4,7 @@
 
 默认使用 【比目科技】 作为签名，可以在控制台进行修改。
 
-短信服务除了集成成进原来的BmobSDK包外，还另外拆分了一个独立的SDK包，使用前请先导入 `SystemConfiguration.framework` 和 `CoreLocation.framework`，注册方法还是 `[Bmob registerWithAppKey:@""];`。
+短信服务除了集成成进原来的BmobSDK包外，还另外拆分了一个独立的SDK包，使用前请先导入 `SystemConfiguration.framework`，  `JavaScriptCore.framework` 和 `CoreLocation.framework`，注册方法还是 `[Bmob registerWithAppKey:@""];`。
 
 
 ## 请求发送自定义短信内容
@@ -38,11 +38,11 @@
 样例代码如下：
 
 ```
-    [BmobSMS requestSMSInbackgroundWithPhoneNumber:@"phoneNumber" Content:@"您的XX服务还有XX时间到期，请及时续费。" andSendTime:@"2015-07-01 10:59:00" resultBlock:^(int number, NSError *error) {
+    [BmobSMS requestSMSInbackgroundWithPhoneNumber:@"phoneNumber" Content:@"您的XX服务还有XX时间到期，请及时续费。" andSendTime:@"2015-07-01 10:59:00" resultBlock:^(int msgId, NSError *error) {
         if (error) {
             NSLog(@"%@",error);
         } else {
-            NSLog(@"smsId:%d",number);
+            NSLog(@"smsId:%d",msgId);
         }
     }];
 ```
@@ -65,12 +65,12 @@
 
 ```
     //请求验证码
-    [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:mobilePhoneNumber andTemplate:@"test" resultBlock:^(int number, NSError *error) {
+    [BmobSMS requestSMSCodeInBackgroundWithPhoneNumber:mobilePhoneNumber andTemplate:@"test" resultBlock:^(int msgId, NSError *error) {
         if (error) {
             NSLog(@"%@",error);
         } else {
             //获得smsID
-            NSLog(@"sms ID：%d",number);
+            NSLog(@"sms ID：%d",msgId);
         }
     }];
 ```
@@ -142,7 +142,7 @@
 
 短信条数只能输入整数，且不能少于1000条
 
-![](../../../Android/b_developdoc/image/14703632057048.jpg)
+![](../../Android/b_developdoc/image/14703632057048.jpg)
 
 进入账号控制台，财务/财务统计点击购买短信即可。
 
