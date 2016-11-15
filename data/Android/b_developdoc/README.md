@@ -5,7 +5,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 ## 快速入门
 
 建议您在阅读本开发文档之前，先阅读我们提供的 [Android快速入门文档](http://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，便于您后续的开发。<br>
-如果开发者想使用不同历史版本的SDK，可以移步[历史版本的github仓库](https://github.com/bmob/bmob-android-sdk-release/releases),选择使用各个历史版本。
+如果开发者想使用不同历史版本的SDK，可以移步[历史版本的github仓库](https://github.com/bmob/bmob-android-sdk-release/releases)，选择使用各个历史版本。
 ## 模板代码
 在使用SDK过程中，如果一些Api如查询是高频代码，可以把一些重复的样板代码抽出来，并在AndroidStudio中设置模板，即可实现快速输入，能提高编码效率，效果如下：
 
@@ -1921,7 +1921,7 @@ public class Comment extends BmobObject {
 #### 添加一对一关联
 
 ```java
-MyUser user = BmobUser.getCurrentUser(this, MyUser.class);
+MyUser user = BmobUser.getCurrentUser(MyUser.class);
 // 创建帖子信息
 Post post = new Post();
 post.setContent(content);
@@ -1949,7 +1949,7 @@ post.save(new SaveListener<String>() {
 如果想查询`用户A`(当前用户)所发表的所有帖子，那么可以这样：
 
 ```java
-MyUser user = BmobUser.getCurrentUser(this, MyUser.class);
+MyUser user = BmobUser.getCurrentUser(MyUser.class);
 BmobQuery<Post> query = new BmobQuery<Post>();
 query.addWhereEqualTo("author", user);	// 查询当前用户的所有帖子
 query.order("-updatedAt");
@@ -2034,7 +2034,7 @@ p.update("ESIt3334", new UpdateListener() {
 将评论和微博进行关联，并同时和当前用户进行关联，表明是当前用户对该帖子进行评论，示例如下：
 
 ```java
-MyUser user = BmobUser.getCurrentUser(this, MyUser.class);
+MyUser user = BmobUser.getCurrentUser(MyUser.class);
 Post post = new Post();
 post.setObjectId("ESIt3334");
 final Comment comment = new Comment();
@@ -2090,7 +2090,7 @@ query.findObjects(new FindListener<Comment>() {
 #### 添加多对多关联
 
 ```java
-MyUser user = BmobUser.getCurrentUser(this, MyUser.class);
+MyUser user = BmobUser.getCurrentUser(MyUser.class);
 Post post = new Post();
 post.setObjectId("ESIt3334");
 //将当前用户添加到Post表中的likes字段值中，表明当前用户喜欢该帖子
@@ -2193,7 +2193,7 @@ post.update(new UpdateListener() {
 ```java
 Post post = new Post();
 post.setObjectId("83ce274594");
-MyUser user = BmobUser.getCurrentUser(this, MyUser.class);
+MyUser user = BmobUser.getCurrentUser(MyUser.class);
 BmobRelation relation = new BmobRelation();
 relation.remove(user);
 post.setLikes(relation);
@@ -2212,6 +2212,10 @@ post.update(new UpdateListener() {
 
 ```
 
+**1 例子中的Comment和Post表请大家注意下在后端控制台建表的数据类型是Pointer还是Relation 否则返回类型不匹配的111错误，表的结构和字段类型如下：**
+![Post](http://i.imgur.com/o4giGoy.png)
+![Comment](http://i.imgur.com/RmsP7m8.png)
+**2 为方便大家了解学习，我们提供了一个关于数据关联的Demo，下载地址是：https://github.com/bmob/RelationDemo**
 ### include用法
 
 
