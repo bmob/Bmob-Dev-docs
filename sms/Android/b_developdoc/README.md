@@ -11,12 +11,31 @@
 
 此短信SDK可单独使用，调用如下方法完成应用的初始化：
 
+1.默认的初始化
 ```java
 
 BmobSMS.initialize(context,Bmob_Application_ID);
 
 ```
+2.从v1.2.0开始，提供了对应的接口回调，收到短信验证码能读取到验证码，读取后能自动填入EditText，能提高用户体验，你需要传对应的接口参数：
 
+```java
+
+BmobSMS.initialize(context,Bmob_Application_ID，new MySMSCodeListener());
+
+class MySMSCodeListener implements SMSCodeListener{
+
+		@Override
+		public void onReceive(String content) {
+			if(et_smscode != null){
+				et_smscode.setText(content);
+			}
+		}
+		
+	}
+
+```
+注: 如果用第二种方式初始化，需要相应的广播和短信权限，详见BmobSMSDemo。
 ## 请求发送自定义的短信内容
 
 **使用场景**
