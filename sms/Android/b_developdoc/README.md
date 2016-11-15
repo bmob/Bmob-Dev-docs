@@ -200,11 +200,11 @@ BmobSMS.querySmsState(context, smsId, new QuerySMSStateListener() {
 
 短信条数只能输入整数，且不能少于1000条
 
-![](image/14703632057048.jpg)
+![短信计费模式][1]
 
 进入账号控制台，财务/财务统计点击购买短信即可。
 
-![](image/14703632600603.jpg)
+![购买短信][2]
 
 ### 发票事宜
 
@@ -220,3 +220,6 @@ BmobSMS.querySmsState(context, smsId, new QuerySMSStateListener() {
 
 公司名称、统一社会信用代码、开户行及账号、邮寄地址、联系人及电话
 
+
+  [1]: http://bmob-file-service-t.b0.upaiyun.com/Doc_File/jfms.png
+  [2]: http://bmob-file-service-t.b0.upaiyun.com/Doc_File/14703632600603.jpg

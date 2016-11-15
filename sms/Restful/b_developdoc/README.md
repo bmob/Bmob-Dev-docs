@@ -328,5 +328,5 @@ curl -X GET \
 公司名称、统一社会信用代码、开户行及账号、邮寄地址、联系人及电话
 
 
-  [1]: http://bmob-file-service-t.b0.upaiyun.com/Doc_File/14703632057048.jpg
+  [1]: http://bmob-file-service-t.b0.upaiyun.com/Doc_File/jfms.png
   [2]: http://bmob-file-service-t.b0.upaiyun.com/Doc_File/14703632600603.jpg
