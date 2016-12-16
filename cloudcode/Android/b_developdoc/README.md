@@ -16,15 +16,13 @@ AsyncCustomEndpoints ace = new AsyncCustomEndpoints();
 //第一个参数是上下文对象，第二个参数是云端逻辑的方法名称，第三个参数是上传到云端逻辑的参数列表（JSONObject cloudCodeParams），第四个参数是回调类
 ace.callEndpoint(context, cloudCodeName, params, new CloudCodeListener() {
 	@Override
-	public void onSuccess(Object object) {
-		// TODO Auto-generated method stub
-		toast("云端usertest方法返回:" + object.toString());
-	}
-	@Override
-	public void onFailure(int code, String msg) {
-		// TODO Auto-generated method stub
-		toast("访问云端usertest方法失败:" + msg);
-	}
+    public void done(Object object, BmobException e) {
+        if (e == null) {
+            String result = object.toString();
+            } else {
+            Log.e(TAG, " " + e.getMessage());
+            }
+         }
 });
 ```
 
