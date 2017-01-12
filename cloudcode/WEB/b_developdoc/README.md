@@ -375,7 +375,7 @@ function onRequest(request, response, modules) {
 	  var dataObject = JSON.parse(data);
 	  if(dataObject.error == null){
 		//需要设置登录之后获取的sessionToken头信息
-		db.setHeader({"x-bmob-session-token":dataObject.sessionToken});
+		db.setHeader({"X-Bmob-Session-Token":dataObject.sessionToken});
 		db.updateUserByObjectId({"objectId":dataObject.objectId ,data:{"username":"123"}},function(err,data){
 		  response.send("更新成功");
 	  })
