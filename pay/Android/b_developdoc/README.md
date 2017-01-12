@@ -67,8 +67,8 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 
 	    <activity android:name="cn.bmob.pay.v3.act.PayAct" /> 
 
-- 在您的应用程序主Activity的onCreate中调用如下方法：
-  （Application ID在后台应用管理的 数据浏览->应用信息->应用密钥->Application ID，如果appKey为空或者混淆规则不正确，会抛出IllegalArgumentException异常）
+- 在您的应用程序主Application的onCreate中调用如下方法：
+  （Application ID在后台应用管理的 数据浏览->应用信息->应用密钥->Application ID，如果appKey为空或者混淆规则不正确，会抛出IllegalArgumentException异常,因为init是异步的，越早初始化越好）
 
     	BP.init("你的Application ID");
 **注意：新版的支付SDK不能被数据服务SDK的初始化方法取代了，无论您是否使用了Bmob数据服务SDK，都要进行支付SDK的初始化**
