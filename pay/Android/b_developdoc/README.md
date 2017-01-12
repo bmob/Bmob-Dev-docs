@@ -19,7 +19,7 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 
 2.应用遇到过多的用户投诉，如应用的使用者支付了相关款项，但是该应用却没有提供相应的服务。本平台有权限制或冻结该应用支付收入的所有款项，并保留追究法律责任的权利。
 
-3.**Bmob将在每笔交易中收取5%服务费。**
+3.**Bmob将在每笔交易中收取8%服务费。**
 
 ##  打款需知
 
@@ -38,24 +38,39 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 ## 启用须知
 
  - 在Bmob财务管理平台进行身份认证，以保证资金安全
- 
- - 建立的支付界面必须包含类似于以下界面的声明，即”收款方为第三方支付服务商，(内容自定，如付款后您的vip将在当天开通等)。如有问题，请联系（你产品的客服联系方式）“，这里的收款方必须注明为（第三方支付服务商）"，并且必须有留下开发者的客服联系方式。针对每一款支付应用我们都会进行审核，如果不满足要求，Bmob有权停用支付功能。
+ - 提交申请时，开发者的联系方式至少要有两种(邮箱，电话，QQ)，方便后续支付弹出的订单页面展示，如下
+![](http://i.imgur.com/TmoXagK.png)
 
-![](image/C200B86F2D3E.png)
 
- - 如有任何疑问或者建议，欢迎加入Bmob支付的技术支持QQ群：273080081
+ - 如有任何疑问或者建议，欢迎加入Bmob支付的技术支持QQ群：273080081(1群)，521591577(2群)
 
 ## 支付接口快速入门
 
-- 将名为libs的文件夹放在您项目根目录下（里面有 BmobPay_版本号.jar文件）
+- 添加相关文件
+
+  	1 将下载的支付sdk的libs目录添加到项目下，包括<BmobPay_v3.x.x_xxxxxx.jar>和<xxx/libbmobwpay.so>，so文件按项目需求添加(这个版本不需要支付宝jar包)
+
+  	2 将下载的支付sdk的assets目录添加到项目下，包括<payassets.db>和<bp.db>，其中bp.db其实是apk文件，是微信支付插件
+
 - 在您项目的AndroidManifest.xml中添加以下权限:
 
 		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-- 在您的应用程序主Activity的onCreate中调用如下方法：
-  （Application ID在后台应用管理的 数据浏览->应用信息->应用密钥->Application ID）
+- 修改混淆规则
 
-    	BP.init(context,"你的Application ID");
+	    -libraryjars libs/BmobPay_v3.x.x_xxxxxx.jar
+		-keepclasseswithmembers class c.b.** { *; }
+		-keep interface c.b.PListener{ *; }
+		-keep interface c.b.QListener{ *; }
+
+- 添加下免责Activity(注意这个是在运行时加载的类,可以忽略IDE给出的红色标识)
+
+	    <activity android:name="cn.bmob.pay.v3.act.PayAct" /> 
+
+- 在您的应用程序主Activity的onCreate中调用如下方法：
+  （Application ID在后台应用管理的 数据浏览->应用信息->应用密钥->Application ID，如果appKey为空或者混淆规则不正确，会抛出IllegalArgumentException异常）
+
+    	BP.init("你的Application ID");
 **注意：新版的支付sdk不能被数据服务sdk的初始化方法取代了，无论您是否使用了Bmob数据服务SDK，都要进行支付SDK的初始化**
 
 - 发起支付调用，请使用如下方法：
@@ -96,7 +111,8 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 |String|orderId|支付订单号,不可为空|
 |OrderQueryListener|listener|查询结果监听类c.b.QListener<p>有成功、失败等方法|
 
-- ForceFree()
+- ！！！ForceFree方法已经弃用(开发者需自己控制用户多次点击支付产生多个订单的问题)
+- ForceFree() 
 
 	当上一次支付操作尚未完成时,如果BmobPay对象发起再次请求,PayListener会回调fail方法返回并10777错误码,以免生成多个订单<p>
 	如果使用过程中出现了阻塞(比如异常强制关闭支付插件页面,会导致一直不能再发起请求，这是小概率事件),则调用此方法进行BmobPay的重置<p>
@@ -186,9 +202,22 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 trade_status：表示支付状态，目前只有支付成功才产生回调，值恒为1.
 out_trade_no：Bmob返回的订单号
 trade_no：支付宝或微信返回的订单号
-
+## 新版支付v3.1.1(20170111)的更新提示
+- ForceFree方法已经弃用，开发者需自己控制用户多次点击支付产生多个订单的问题
+- 这一版本的sdk将会在支付的过程中呈现一个中间页面，这个页面负责引导用户的支付流程，带来的影响是：
+	1)可以不用在pay的回调里调用BP.query进行查询，因为这个页面会确定用户的支付结果(试用demo.apk进行体验)
+	2)可以不用在你自己的app内提供责任说明的页面
+- 支付宝支付需要用户手机已经安装支付宝，微信支付仍然需要安装插件
+- 市面上还流传小部分内存很吃紧的老款手机，在打开支付宝或者微信的时候可能导致你自己的app被系统杀掉，这种情况可以通过在后台填写<支付结果的异步通知URL>解决，结合云端代码来使用(详情见云端代码文档)
+- 不用再针对小米手机获取订单时9015的问题添加额外的代码，微信支付插件不用网络权限，但在部分手机可能还是需要用户手动开启<允许微信支付插件被其它app调起>的权限
 ## 其他
-- 混淆规则如下: -keep class c.b.BP -keep class c.b.PListener -keep class c.b.QListener -keepclasseswithmembers class c.b.BP{ *; } keepclasseswithmembers class * implements c.b.PListener{ *; } -keepclasseswithmembers class * implements c.b.QListener{ *; }
+- 混淆规则如下: 
+
+		-libraryjars libs/BmobPay_v3.x.x_xxxxxx.jar
+		-keepclasseswithmembers class c.b.** { *; }
+		-keep interface c.b.PListener{ *; }
+		-keep interface c.b.QListener{ *; }
+
 - 在[Bmob财务管理平台](http://www.bmob.cn/finance/info "Bmob财务管理平台")订单管理处，金额从小数点后第三位开始不显示，比如支付了0.01元实收0.00，其实是0.0095
 - 如果用户的手机有“应用锁”功能（即点击应用后跳出系统设定的解锁界面，如小米、360、腾讯管家都可能有该功能），则可能会导致支付中断（支付宝返回6001，微信返回-2），这是微信和支付宝sdk出于安全考虑设置的，请建议用户出现该问题时先关掉支付宝钱包或微信的应用锁
 - 由于微信Sdk的限制，无法判断微信是否已登陆用户，**如果未登陆用户，监听器的fail方法可能不被调用**，请开发者们提醒自己的用户确保微信已登陆
