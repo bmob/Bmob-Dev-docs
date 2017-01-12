@@ -188,7 +188,8 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 
 如图，可以在支付-配置信息处填入通知url。
 
-![](image/configinfo.jpg)
+![](http://i.imgur.com/40aAkKh.png)
+
 
 这样在支付成功后会向该url（SDK使用异步通知URL，PHP等调用网页支付的使用同步返回URL）发送post请求，结构如下：
 
