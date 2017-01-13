@@ -25,6 +25,11 @@
 
 获取Application ID和REST API Key后，下载SDK。
 
+## 配置安全域名
+
+在你的微信小程序后台配置你的服务器域名
+
+![](image/1.png)
 
 ## 下载和安装BmobSDK
 
@@ -134,7 +139,7 @@ Bmob.initialize("你的Application ID", "你的REST API Key");
 
 ## 源码下载
 
-[快速入门相关源码下载](http://www.bmob.cn/static/ "快速入门相关源码下载")
+[快速入门相关源码下载](http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip "快速入门相关源码下载")
 
 
 

@@ -5,7 +5,7 @@
 
 ## 典型案例
 
-日记本：[http://](http://) （采用实时数据同步SDK开发，右击可直接查看源码）
+日记本：[http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip](http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip) （采用实时数据同步SDK开发，右击可直接查看源码）
 
 ## 应用程序
 在Bmob平台注册后，每个账户可创建多个应用程序，创建的每个应用程序都有其独自的应用程序ID，此后所有的应用程序将凭其ID进行Bmob SDK的使用。即使只有一个应用程序，也可以以不同的版本进行测试和生产。
