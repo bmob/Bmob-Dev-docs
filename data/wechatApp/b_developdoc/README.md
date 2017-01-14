@@ -1102,7 +1102,7 @@ wx.login({
 
 					var user = new Bmob.User();//开始注册用户
             		user.set("username", nickName);
-            		user.set("password", openId);//因为密码必须提供，但是微信直接登录小程序是没有密码的，所以用openId作为唯一密码
+            		user.set("password", userData.openid);//因为密码必须提供，但是微信直接登录小程序是没有密码的，所以用openId作为唯一密码
 					user.set("userData", userData);
             		user.signUp(null, {
                 		success: function(res) {
