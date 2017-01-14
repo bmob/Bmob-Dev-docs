@@ -25,8 +25,7 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 
 1.打款前请先在控制台填写以下信息
 
-![](image/14579272227324.jpg)
-
+![](image/IMG_0262.jpg)
 
 
 2.每月的1、2、16、17号为申请打款时间，15号、月尾日为打款时间，确保用户有半个月的追诉期。
@@ -79,7 +78,14 @@ B. `LSApplicationQueriesSchemes`，类型为 `Array`，添加一个字符串元�
 [Bmob registerWithAppKey:@"xxxxxxxx"]; 
 
 ```
-函数调用代码示例如下：
+
+在对应页面：
+
+```
+#import <BmobPaySDK/BmobPay.h>
+```
+
+然后进行关键函数调用：
 
 > 注意，支付类型应该填写 `BmobAlipay `，类型预留。
 
