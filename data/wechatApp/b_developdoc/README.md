@@ -1087,12 +1087,14 @@ collection.reset([
 
 通常你的app第一件要做的事情就是让用户进行注册，下面的代码展示了怎样进行微信注册的过程（包括获取用户的唯一标识）：
 
+首先要在_User表新建一个用来存用户唯一标识的字段，例如：userData(Object类型)，然后在js中插入以下代码：
+
 ```
 wx.login({
   success: function(res) {
     if (res.code) {
 		Bmob.User.requestOpenId(res.code, {//获取authData(根据个人的需要，如果需要获取authData的需要在应用密钥中配置你的微信小程序AppId和AppSecret，且在你的项目中要填写你的appId)
-          success: function(authData) { 
+          success: function(userData) { 
 			  wx.getUserInfo({
 				  success: function(result) {
 				    var userInfo = result.userInfo
@@ -1101,7 +1103,7 @@ wx.login({
 					var user = new Bmob.User();//开始注册用户
             		user.set("username", nickName);
             		user.set("password", openId);//因为密码必须提供，但是微信直接登录小程序是没有密码的，所以用openId作为唯一密码
-					user.set("authData", authData);
+					user.set("userData", userData);
             		user.signUp(null, {
                 		success: function(res) {
 	                      console.log("注册成功!");
@@ -1136,6 +1138,8 @@ wx.login({
 
 ### 注册二（普通）
 
+首先要在_User表新建一个用来存用户唯一标识的字段，例如：userData(Object类型)，然后在js中插入以下代码：
+
 ```
 	var user = new Bmob.User();//开始注册用户
 	user.set("username", "bmob");
@@ -1144,8 +1148,8 @@ wx.login({
 	  success: function(res) {
 	    if (res.code) {
 			Bmob.User.requestOpenId(res.code, {//获取authData(根据个人的需要，如果需要获取authData的需要在应用密钥中配置你的微信小程序AppId和AppSecret，且在你的项目中要填写你的appId)
-	          success: function(authData) { 
-					user.set("authData", authData);
+	          success: function(userData) { 
+					user.set("userData", userData);
 					user.signUp(null, {
 						success: function(res) {
 				          console.log("注册成功!");
