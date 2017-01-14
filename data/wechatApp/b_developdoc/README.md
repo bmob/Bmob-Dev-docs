@@ -1080,7 +1080,7 @@ collection.reset([
 `username`：用户的用户名（必须提供）
 `password`：用户的密码（在注册的时候必须提供）
 `email`：用户的 email（可选）
-`authData`：每个微信用户的唯一标识，包括用户openId、expires_in、session_key（可选）
+`userData`：每个微信用户的唯一标识，包括用户openId、expires_in、session_key（可选,自行创建，Object类型）
 我们会在下面的用例中详细介绍细节
 
 ### 注册一（使用用户的微信信息进行注册）
@@ -1093,7 +1093,7 @@ collection.reset([
 wx.login({
   success: function(res) {
     if (res.code) {
-		Bmob.User.requestOpenId(res.code, {//获取authData(根据个人的需要，如果需要获取authData的需要在应用密钥中配置你的微信小程序AppId和AppSecret，且在你的项目中要填写你的appId)
+		Bmob.User.requestOpenId(res.code, {//获取userData(根据个人的需要，如果需要获取userData的需要在应用密钥中配置你的微信小程序AppId和AppSecret，且在你的项目中要填写你的appId)
           success: function(userData) { 
 			  wx.getUserInfo({
 				  success: function(result) {
@@ -1147,7 +1147,7 @@ wx.login({
 	wx.login({
 	  success: function(res) {
 	    if (res.code) {
-			Bmob.User.requestOpenId(res.code, {//获取authData(根据个人的需要，如果需要获取authData的需要在应用密钥中配置你的微信小程序AppId和AppSecret，且在你的项目中要填写你的appId)
+			Bmob.User.requestOpenId(res.code, {//获取userData(根据个人的需要，如果需要获取userData的需要在应用密钥中配置你的微信小程序AppId和AppSecret，且在你的项目中要填写你的appId)
 	          success: function(userData) { 
 					user.set("userData", userData);
 					user.signUp(null, {
