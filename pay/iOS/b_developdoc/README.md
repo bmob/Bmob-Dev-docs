@@ -47,11 +47,7 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 
 ![](image/1C61E5DA-F4BE-4800-AC54-A3D011D1FC8C.png)
 
-- 2. `TARGETS` -> `General` -> `Embedded Binaries` 点击 `+` 号 选择 `BmobPaySDK.framework`，如下所示：
-
-![](image/3A9B2ADA-9B4E-4C8C-8663-0E1A91D17ADC.png)
-
-- 3. 在 info.plist 添加以下两个字端：  
+- 2. 在 info.plist 添加以下两个字端：  
 A. `View controller-based status bar appearance`，类型为 `BOOL`，值为 `NO`  
 B. `LSApplicationQueriesSchemes`，类型为 `Array`，添加一个字符串元素 `alipays` 
 
@@ -79,11 +75,7 @@ B. `LSApplicationQueriesSchemes`，类型为 `Array`，添加一个字符串元�
 
 ```
 
-在对应页面：
-
-```
-#import <BmobPaySDK/BmobPay.h>
-```
+> 注意，如果没有注册 AppKey ，则不会有任何反应，也不会有回调。
 
 然后进行关键函数调用：
 
