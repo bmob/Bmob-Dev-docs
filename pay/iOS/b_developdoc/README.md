@@ -49,7 +49,7 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 
 - 2. 在 info.plist 添加以下两个字端：  
 A. `View controller-based status bar appearance`，类型为 `BOOL`，值为 `NO`  
-B. `LSApplicationQueriesSchemes`，类型为 `Array`，添加一个字符串元素 `alipays` 
+B. `LSApplicationQueriesSchemes`，类型为 `Array`，字符串元素 `alipays` 和 `weixin`
 
 ![](image/D4381805-2C25-49B8-B7AA-A6DBC085C9B5.png)
 
@@ -61,6 +61,12 @@ B. `LSApplicationQueriesSchemes`，类型为 `Array`，添加一个字符串元�
  	<string>alipays</string>
 </array>
 ```
+
+- 3. 添加使用的系统framework:   
+A. CoreTelephony.framework  
+B. libz.1.2.5.tbd  
+C. libsqlite3.tbd  
+D. libc++.tbd  
 
 ## 支付调用
 
@@ -79,10 +85,8 @@ B. `LSApplicationQueriesSchemes`，类型为 `Array`，添加一个字符串元�
 
 然后进行关键函数调用：
 
-> 注意，支付类型应该填写 `BmobAlipay `，类型预留。
-
 ```
-[BmobPay payWithPayType:BmobAlipay //支付类型选择，暂时只支持支付宝
+[BmobPay payWithPayType:BmobAlipay //支付类型选择
                   price:@888 //订单价格，0 - 5000
               orderName:@"订单名称" //不为空
                describe:@"订单描述" //不为空
