@@ -51,7 +51,7 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 A. `View controller-based status bar appearance`，类型为 `BOOL`，值为 `NO`  
 B. `LSApplicationQueriesSchemes`，类型为 `Array`，字符串元素 `alipays` 和 `weixin`
 
-![](image/D4381805-2C25-49B8-B7AA-A6DBC085C9B5.png)
+![](https://ww1.sinaimg.cn/large/006tNc79gy1fbw2e24ep5j30u0036aah.jpg)
 
 ```
 <key>UIViewControllerBasedStatusBarAppearance</key>
@@ -59,6 +59,7 @@ B. `LSApplicationQueriesSchemes`，类型为 `Array`，字符串元素 `alipays`
 <key>LSApplicationQueriesSchemes</key>
 <array>
  	<string>alipays</string>
+ 	<string>weixin</string>
 </array>
 ```
 
