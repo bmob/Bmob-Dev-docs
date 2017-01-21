@@ -6,7 +6,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 ### 使用CocoaPods安装BmobSDK
 
-如何使用CocoaPods安装BmobSDK可查看我们提供的文档: [https://github.com/bmob/bmob-ios-sdk/blob/master/InstallCocoaPods.md](https://github.com/bmob/bmob-ios-sdk/blob/master/InstallCocoaPods.md)
+如何使用CocoaPods安装BmobSDK可查看 [我们提供的文档](https://github.com/bmob/Bmob-iOS-SDK)
 
 ### 兼容iOS9
 
@@ -43,7 +43,7 @@ iOS9默认不允许进行http请求，所以在使用SDK的过程中需要往Inf
 
 另外，最新版的sdk已支持bitcode。
 
-其他一些需要注意兼容iOS9的地方可以参照这里：https://github.com/ChenYilong/iOS9AdaptationTips
+其他一些需要注意兼容iOS9的地方可以 [参照这里](https://github.com/ChenYilong/iOS9AdaptationTips)
 
 ### 应用程序
 
@@ -51,7 +51,7 @@ iOS9默认不允许进行http请求，所以在使用SDK的过程中需要往Inf
 
 ### 应用安全
 
-请大家在使用Bmob开发应用程序之前，认真阅读我们给大家提供的“数据与安全”的文档，确保你的应用在发布时安全。文档的链接地址是：[http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)
+请大家在使用Bmob开发应用程序之前，认真阅读我们给大家提供的“数据与安全”的文档，确保你的应用在发布时安全。文档 [请点击](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html);
 
 ## 对象
 
