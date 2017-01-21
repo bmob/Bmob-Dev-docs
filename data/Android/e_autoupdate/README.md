@@ -31,7 +31,7 @@ res文件夹下载地址：[http://www.bmob.cn/static/res.zip](http://www.bmob.c
 <meta-data android:value="Channel ID" android:name="BMOB_CHANNEL"/>
 ```
 
-说明：`BMOB_CHANNEL`用来标注应用推广渠道，不同渠道可以上传不同更新包，您可以使用20位以内的英文和数字为渠道定名，替换value中的`Channel ID`。如果不添加，将不区分渠道。
+说明：`BMOB_CHANNEL`用来标注应用推广渠道，不同渠道可以上传不同更新包，您可以使用20位以内的英文和数字为渠道定名，替换value中的`Channel ID`。如果不添加，将不区分渠道。(注意不要出现在manifest中标识了渠道但后端控制台没写渠道值，这样是无法自动更新的，因为没匹配上)
 
 3.添加Activity到<application>标签下：
 
