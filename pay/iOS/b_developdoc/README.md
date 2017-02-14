@@ -63,11 +63,14 @@ B. `LSApplicationQueriesSchemes`，类型为 `Array`，字符串元素 `alipays`
 </array>
 ```
 
-- 3. 添加使用的系统framework:   
+- 3. 添加使用的framework:   
 A. CoreTelephony.framework  
 B. libz.1.2.5.tbd  
 C. libsqlite3.tbd  
 D. libc++.tbd  
+E. [libWeChatSDK.a](https://raw.githubusercontent.com/bmob/Bmob-iOS-SDK/master/libWeChatSDK.a) -> 可以直接点击下载，使用微信支付需要导入此模块（pods安装不需要）
+
+> 注意，如果使用微信支付的话，导入 `libWeChatSDK.a` 文件可能会产生模块重复。发生重复模块时，删除其中一个 `libWeChatSDK.a` 文件即可。
 
 ## 支付调用
 
