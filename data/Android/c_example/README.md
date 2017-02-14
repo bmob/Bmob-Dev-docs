@@ -640,6 +640,8 @@ query.findObjects(this, new FindListener<Feedback>() {
 
 图文社区案例源码：[https://git.oschina.net/v7/Wonderful](https://git.oschina.net/v7/Wonderful)  这个案例是猿圈媛圈开发团队提供的。
 
+图文分享案例源码：[https://github.com/smartbetter/AndroidWonderful](https://github.com/smartbetter/AndroidWonderful) 这个案例是一个叫郭朝的开发者提供的。
+
 校园小菜案例源码：[https://github.com/bmob/Shop](https://github.com/bmob/Shop) 这个案例是湖工大的朋友提供的。
 
 社交分享案例源码：[https://github.com/bmob/bmob-android-social-share](https://github.com/bmob/bmob-android-social-share) 这个是金刚锁开发者提供的
