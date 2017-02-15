@@ -32,7 +32,7 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 
 ## 支持平台
 
-目前 iOS 端仅提供支付宝支付支持。
+目前 iOS 端仅提供支付宝和微信支付支持。
 
 ## 启用须知
 
@@ -68,7 +68,7 @@ A. CoreTelephony.framework
 B. libz.1.2.5.tbd  
 C. libsqlite3.tbd  
 D. libc++.tbd  
-E. [libWeChatSDK.a](https://raw.githubusercontent.com/bmob/Bmob-iOS-SDK/master/libWeChatSDK.a) -> 可以直接点击下载，使用微信支付需要导入此模块（pods安装不需要）
+E. [libWeChatSDK.a](https://raw.githubusercontent.com/bmob/Bmob-iOS-SDK/master/libWeChatSDK.a) -> 可以直接点击下载，使用微信支付需要导入此模块
 
 > 注意，如果使用微信支付的话，导入 `libWeChatSDK.a` 文件可能会产生模块重复。发生重复模块时，删除其中一个 `libWeChatSDK.a` 文件即可。
 
