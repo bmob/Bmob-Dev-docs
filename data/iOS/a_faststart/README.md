@@ -38,7 +38,7 @@
 
 ### 使用CocoaPods安装BmobSDK
 
-如何使用CocoaPods安装BmobSDK可查看我们提供的文档: [https://github.com/bmob/bmob-ios-sdk/blob/master/InstallCocoaPods.md](https://github.com/bmob/bmob-ios-sdk/blob/master/InstallCocoaPods.md)
+如何使用CocoaPods安装BmobSDK可查看 [我们提供的文档](https://github.com/bmob/Bmob-iOS-SDK)
 
 
 ## 设置应用的BmobKey
