@@ -662,10 +662,6 @@ query.find({
 });
 ```
 
-可以这样获取include对象的属性:
-```
-obj.get("inloudeObj").get("attribue")
-```
 
 ### 删除关联关系
 
