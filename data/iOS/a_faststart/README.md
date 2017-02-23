@@ -34,7 +34,7 @@
 
 2)添加使用的系统framework:
 
-在你的XCode工程中Project ->TARGETS -> Build Phases->Link Binary With Libraries引入CoreLocation.framework、Security.framework、CoreGraphics.framework、MobileCoreServices.framework、CFNetwork.framework、CoreTelephony.framework、SystemConfiguration.framework、libz.1.2.5.tbd、libicucore.tbd、libsqlite3.tbd、libc++.tbd
+在你的XCode工程中Project ->TARGETS -> Build Phases->Link Binary With Libraries引入CoreLocation.framework、Security.framework、CoreGraphics.framework、MobileCoreServices.framework、CFNetwork.framework、CoreTelephony.framework、SystemConfiguration.framework、libz.1.2.5.tbd、libicucore.tbd、libsqlite3.tbd、libc++.tbd 、[libWeChatSDK.a](https://raw.githubusercontent.com/bmob/Bmob-iOS-SDK/master/libWeChatSDK.a) (可以直接点击下载)
 
 ### 使用CocoaPods安装BmobSDK
 
