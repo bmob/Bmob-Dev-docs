@@ -10,6 +10,7 @@ res文件夹下载地址：[http://www.bmob.cn/static/res.zip](http://www.bmob.c
 
 1. 请不要随便删除其中的文件。
 2. BmobSDK提供的资源文件都以bmob_开头。
+3. 如果是在AndroidStudio中用远程依赖的方式就可以跳过这个步骤，因为这些资源都在下载到本地的aar包中。
 
 ### 2、配置AndroidManifest.xml
 
