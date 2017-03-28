@@ -97,7 +97,7 @@ public class MyPushMessageReceiver extends BroadcastReceiver{
     // 初始化BmobSDK
     Bmob.initialize(this, "你的AppKey");
 	// 使用推送服务时的初始化操作
-	BmobInstallation.getCurrentInstallation(this).save();
+	BmobInstallation.getCurrentInstallation().save();
 	// 启动推送服务
 	BmobPush.startWork(this);
 ```
@@ -186,7 +186,7 @@ BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设�
 使用消息推送前，首先需要保存设备信息。
 
 ```java
-BmobInstallation.getCurrentInstallation(this).save();
+BmobInstallation.getCurrentInstallation().save();
 ```
 
 #### 自定义Installation表
@@ -272,7 +272,7 @@ query.findObjects(this, new FindListener<MyBmobInstallation>() {
 订阅频道可使用 **subscribe** 方法
 
 ```java
-BmobInstallation installation = BmobInstallation.getCurrentInstallation(this);
+BmobInstallation installation = BmobInstallation.getCurrentInstallation();
 installation.subscribe("Giants");
 installation.subscribe("Mets");
 installation.save();
@@ -286,7 +286,7 @@ installation.save();
 退订频道可使用 **unsubscribe** 方法
 
 ```java
-BmobInstallation installation = BmobInstallation.getCurrentInstallation(this);
+BmobInstallation installation = BmobInstallation.getCurrentInstallation();
 installation.unsubscribe("Giants");
 installation.save();
 ```
@@ -294,14 +294,14 @@ installation.save();
 ### 广播推送消息
 在客户端实现推送消息的功能，通过 **BmobPushManager** 对象来完成，比如给所有设备推送一条消息，如下：
 ```java
-BmobPushManager bmobPush = new BmobPushManager(this);
+BmobPushManager bmobPush = new BmobPushManager();
 bmobPush.pushMessageAll("Hello Bmob.");
 ```
 
 ### 组播推送消息
 发送消息给订阅了Giants频道的用户
 ```java
-BmobPushManager bmobPush = new BmobPushManager(this);
+BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
 List<String> channels = new ArrayList<String>();
 channels.add("Giants");
@@ -315,7 +315,7 @@ bmobPush.pushMessage("消息内容");
 ### 多播推送消息
 #### 推送给不活跃的用户
 ```java
-BmobPushManager bmobPush = new BmobPushManager(this);
+BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
 query.addWhereLessThan("updatedAt", new BmobDate(new Date()));
 bmobPush.setQuery(query);
@@ -324,7 +324,7 @@ bmobPush.pushMessage("消息内容");
 
 #### 根据查询条件做推送
 ```java
-BmobPushManager bmobPush = new BmobPushManager(this);
+BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
 query.addWhereEqualTo("score", 80);
 bmobPush.setQuery(query);
@@ -335,7 +335,7 @@ bmobPush.pushMessage("消息内容");
 #### 根据平台做推送
 给Android平台的终端推送
 ```java
-BmobPushManager bmobPush = new BmobPushManager(this);
+BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
 query.addWhereEqualTo("deviceType", "android");
 bmobPush.setQuery(query);
@@ -343,7 +343,7 @@ bmobPush.pushMessage("消息内容");
 ```
 给IOS平台的终端推送
 ```java
-BmobPushManager bmobPush = new BmobPushManager(this);
+BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
 query.addWhereEqualTo("deviceType", "ios");
 bmobPush.setQuery(query);
@@ -352,7 +352,7 @@ bmobPush.pushMessage("消息内容");
 
 #### 根据地理位置信息做推送
 ```java
-BmobPushManager bmobPush = new BmobPushManager(this);
+BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
 query.addWhereWithinRadians("location", new BmobGeoPoint(112.934755, 24.52065), 1.0);
 bmobPush.setQuery(query);
@@ -364,7 +364,7 @@ bmobPush.pushMessage("消息内容");
 发送给Android单个客户端
 ```java
 String installationId = "客户端installationId";
-BmobPushManager bmobPush = new BmobPushManager(this);
+BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
 query.addWhereEqualTo("installationId", installationId);
 bmobPush.setQuery(query);
@@ -373,7 +373,7 @@ bmobPush.pushMessage("消息内容");
 发送给iOS单个客户端
 ```java
 String deviceToken = "客户端deviceToken";
-BmobPushManager bmobPush = new BmobPushManager(this);
+BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
 query.addWhereEqualTo("deviceToken", deviceToken);
 bmobPush.setQuery(query);
