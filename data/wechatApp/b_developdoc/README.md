@@ -699,15 +699,6 @@ post.id = '520c7e1ae4b0a3ac9ebe326a';
 myComment.set("parent", post);
 ```
 
-默认情况下，当获取一个对象时，关联的`Bmob.Object`不会被获取到，这些对象的值不能访问，除非像下面这样获取它们：
-```
-var post = fetchedComment.get("parent");
-post.fetch({
-  success: function(post) {
-    var title = post.get("title");
-  }
-});
-```
 
 
 
