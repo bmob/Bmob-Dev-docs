@@ -386,6 +386,7 @@ p2.delete(new UpdateListener() {
 
 ## 阅读更多的文档
 
-快速入门只是提供了最最基本的介绍，如果你想了解更多的功能，请查看我们的详细开发文档：[http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html)
+1. 快速入门只是提供了最最基本的介绍，如果你想了解更多的功能，请查看我们的详细开发文档：[http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html)
+2. 如果想看下SDK的类库文档，可以移步[这里](http://docs.bmob.cn/data/Android/i_doc/doc/index.html)
 
 
