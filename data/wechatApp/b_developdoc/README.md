@@ -5,7 +5,29 @@
 
 ## 典型案例
 
-日记本：[http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip](http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip) （采用实时数据同步SDK开发，右击可直接查看源码）
+日记本等接口（学习示例）：[http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip](http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip) （采用实时数据同步SDK开发，右击可直接查看源码）
+![](image/ui2.1.gif)
+![](image/ui2.2.gif)
+
+心邮（官方线上项目）：[https://github.com/bmob/Bmob-wechatapp-xinyou](https://github.com/bmob/Bmob-wechatapp-xinyou) （采用实时数据同步SDK开发，右击可直接查看源码）
+
+-------
+
+
+- 1.生日工具                    -------工具类
+- 2.足迹地图
+- 3.接力喵视频                -------视频类
+- 4.像素涂鸦
+- 5.地道美食地图           -------LBS
+- 6.胖熊圈
+- 7.有货Hk
+- 8.厦漳泉生活通               -------本地生活
+- 9.极简笔记
+- 10.衣在线                  -------商城
+- 11.活动报名表                -------工具类
+- 12.味蕾点餐               -------点餐
+- 13.烟台微拼               -------本地生活
+>官方交流QQ群：118541934 。欢迎提交给我们
 
 ## 应用程序
 在Bmob平台注册后，每个账户可创建多个应用程序，创建的每个应用程序都有其独自的应用程序ID，此后所有的应用程序将凭其ID进行Bmob SDK的使用。即使只有一个应用程序，也可以以不同的版本进行测试和生产。
@@ -19,7 +41,7 @@ Bmob数据存储是建立在`Bmob.Object`基础上的。如写日记的`Bmob.Obj
 title: "I am title", content: "I am content"
 ```
 
-这里需要注意的是：
+这里需要注意的是：anchor
 
 - 键必须是字母或者数字的字符串，值可以是字符串、数字、布尔值或者数组和字典。
 - 每一个`Bmob.Object`都是一个特定子类的实例，子类名可以来区分各种数据，如我们可以把写日记的类称之为`diary`。
@@ -60,6 +82,86 @@ title: "I am title", content: "I am content"
 	var diary = Diary.spawn("hello world");
 	console.log(diary.gleaterThanOneHundred()); 
 ```
+
+
+
+## 生成小程序二维码
+生成推广二维码非常简单，比如你是传统企业，你可以为你店里每件衣服生成一个二维码，用户扫描直接可以付款定位到那件衣服，如果你是餐厅老板，客户在桌子上扫描二维码可以定位那张桌子。如果你是互联网企业，你可以发布二维码到朋友圈，可以定位到是谁推荐了这个用户，这个用户上级是谁，等等，比目封装了生成二维码函数，使用非常简单，一下示例代码。
+
+```
+
+formSubmit: function (event) {
+        var path = event.detail.value.path; //路径 
+        var width = event.detail.value.width; //宽度
+        var that = this;
+        Bmob.generateCode({ "path": path, "width": width }).then(function (obj) {
+            console.log(obj);
+            that.setData({
+                imageBytes: obj.imageBytes  //二维码示例
+            })
+
+        }, function (err) {
+
+            //失败
+        });
+    }
+
+```
+
+
+## 小程序支付
+小程序支付只需发起请求获取微信需要的字段，这里用Bmob.Pay.wechatPay获取`nonceStr`,`packages`,`orderId`等相关信息。然后 wx.requestPayment弹窗支付页面，里面处理成功失败。 （比目的接口都是独立的，支付任何小程序都可以使用。目前小程序支付跟其他有区别比目平台不收取任何手续费，只要是比目平台付费会员都可使用。）
+
+```
+
+//传参数金额，名称，描述,openid
+    Bmob.Pay.wechatPay(0.01, '名称1', '描述', openId).then(function (resp) {
+      console.log('resp');
+      console.log(resp);
+
+      that.setData({
+        loading: true,
+        dataInfo: resp
+      })
+
+      //服务端返回成功
+      var timeStamp = resp.timestamp,
+        nonceStr = resp.noncestr,
+        packages = resp.package,
+        orderId = resp.out_trade_no,//订单号，如需保存请建表保存。
+        sign = resp.sign;
+
+      //打印订单号
+      console.log(orderId);
+
+      //发起支付
+      wx.requestPayment({
+        'timeStamp': timeStamp,
+        'nonceStr': nonceStr,
+        'package': packages,
+        'signType': 'MD5',
+        'paySign': sign,
+        'success': function (res) {
+          //付款成功,这里可以写你的业务代码
+          console.log(res);
+        },
+        'fail': function (res) {
+          //付款失败
+          console.log('付款失败');
+          console.log(res);
+        }
+      })
+
+    }, function (err) {
+      console.log('服务端返回失败');
+      common.showTip(err.message, 'loading',{},6000);
+      console.log(err);
+    });
+
+
+
+```
+
 
 ## 添加数据
 
@@ -259,7 +361,7 @@ query.skip(10); // skip the first 10 results
 
 ### 结果排序
 
-我们可以对返回的结果进行排序（只支持`number`和`string`类型的排序），示例代码如下：
+我们可以对返回的结果进行排序（只支持`number`，`date`，`string`类型的排序），示例代码如下：
 ```
 // 对score字段升序排列
 query.ascending(列名称);
@@ -394,7 +496,8 @@ mainQuery.find({
 var Diary = Bmob.Object.extend("diary");
 var query = new Bmob.Query(Diary);
 
-// 这个 id 是要修改条目的 id，你在生成这个存储并成功时可以获取到，请看前面的文档
+// 这个 id 是要修改条目的 id，你在
+ 这个存储并成功时可以获取到，请看前面的文档
 query.get('3453453453fdsdf', {
     success: function(result) {
       // 回调中可以取得这个 GameScore 对象的一个实例，然后就可以修改它了
@@ -557,6 +660,7 @@ query.get("bc5da708dc",{
 一对一关系和一对多关系都可以通过在一个`Bmob.Object`内保存另一个对象来实现。比如，每一个 Comment都对应了一个Post，创建一个有一个Comment的Post，你可以这样写：
 
 ```
+
 // Declare the types.
 var Post = Bmob.Object.extend("Post");
 var Comment = Bmob.Object.extend("Comment");
@@ -575,6 +679,7 @@ myComment.set("parent", myPost);
 
 // This will save both myPost and myComment
 myComment.save();
+
 ```
 
 Bmob内部会自动处理，调用Comment的`save`方法就可以同时保存两个新对象。
@@ -594,96 +699,28 @@ post.id = '520c7e1ae4b0a3ac9ebe326a';
 myComment.set("parent", post);
 ```
 
-默认情况下，当获取一个对象时，关联的`Bmob.Object`不会被获取到，这些对象的值不能访问，除非像下面这样获取它们：
-```
-var post = fetchedComment.get("parent");
-post.fetch({
-  success: function(post) {
-    var title = post.get("title");
-  }
-});
-```
 
-#### 多对多关系
 
-多对多关系是通过`Bmob.Relation`来建模的，这样很像在一个key中存储一个`Bmob.Object`数组，但是你不需要一次性下载关系中的所有对象。这使得`Bmob.Relation`比数组可以更好地扩展到更多对象。例如，一个User可能喜欢很多Post，在这种情况下，你可以把一个用户喜欢的所有Post存为一个Relation，为了将一个Post加入一个User的like列表，你可以：
 
-```
-var user = Bmob.User.current();
-var relation = user.relation("likes");
-relation.add(post);
-user.save();
-```
 
-你还可以传入一个`Bmob.Object`数组来做`add`和`remove`：
-```
-relation.add([post1, post2, post3]);
-user.save();
-```
-
-### 查询关联关系
-
-默认情况下，`relation`关联的对象并不会被下载，你可以通过使用`query`方法返回的`Bmob.Query`对象来获取`Bmob.Object`的列表，例如：
-```
-relation.query().find({
-  success: function(list) {
-    // list contains the posts that the current user likes.
-  }
-});
-```
-
-如果你仅仅要一个Post的子集，你可以在`Bmob.Query`中加入更多的条件：
-```
-var query = relation.query();
-query.equalTo("title", "I'm Hungry");
-query.find({
-  success:function(list) {
-    // list contains post liked by the current user which have the title "I'm Hungry".
-  }
-});
-```
 
 如果希望查询结果中包含多个相关联的其他数据类型。你可以使用 include 方 法。例如有个comments，你可能想同时获取它们相关的 post 数据:
+
 ```
 var query = new Bmob.Query(Comment);
 
 query.include("post");
-```
-
-你可以在接下来关于`Bmob.Query`的章节中看到更详细的内容。一个`Bmob.Relation`的行为很像一个`Bmob.Object`数组，所以任何在数组可做的查询操作，也都可以作用在`Bmob.Relation`上。
-
-如果你知道post，想反向查询user，可以通过`Bmob.Relation.reverseQuery`方法：
 
 ```
-var query = Bmob.Relation.reverseQuery('_User', 'likes', post);
-query.find({
-  success:function(users) {
-   //users是表示喜欢这个post的用户列表。
-  }
-});
-```
+
+
 
 可以这样获取include对象的属性:
 ```
 obj.get("inloudeObj").get("attribue")
 ```
 
-### 删除关联关系
 
-你可以从一个`Bmob.Relation`中删除一个post：
-
-```
-relation.remove(post);
-user.save();
-```
-
-你可以在用`save`方法保存前多次调用`add`和`remove`方法：
-
-```
-relation.remove(post1);
-relation.remove(post2);
-user.save();
-```
 
 ## 原子计数器
 
@@ -712,7 +749,7 @@ wx.chooseImage({
   success: function (res) {
       var tempFilePaths = res.tempFilePaths;
       if(tempFilePaths.length>0){
-          var name="1.jpg";//上传的图片的别名
+          var name="1.jpg";//上传的图片的别名，建议可以用日期命名
           var file=new Bmob.File(name,tempFilePaths);
           file.save().then(function(res){
             console.log(res.url());
@@ -724,6 +761,88 @@ wx.chooseImage({
   }
 })
 ```
+### 图片批量上传
+图片批量上传，我们只需要for循环一下上面的就好，一下示例代码。
+```
+upImg: function () {
+    var that = this;
+    wx.chooseImage({
+      count: 9, // 默认9
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        wx.showNavigationBarLoading()
+        that.setData({
+          loading: false
+        })
+        var urlArr = new Array();
+        // var urlArr={};
+        var tempFilePaths = res.tempFilePaths;
+        console.log(tempFilePaths)
+        var imgLength = tempFilePaths.length;
+        if (imgLength > 0) {
+          var newDate = new Date();
+          var newDateStr = newDate.toLocaleDateString();
+
+          var j = 0;
+		  //如果想顺序变更，可以for (var i = imgLength; i > 0; i--)
+          for (var i = 0; i < imgLength; i++) {
+            var tempFilePath = [tempFilePaths[i]];
+            var extension = /\.([^.]*)$/.exec(tempFilePath[0]);
+            if (extension) {
+              extension = extension[1].toLowerCase();
+            }
+            var name = newDateStr + "." + extension;//上传的图片的别名      
+
+            var file = new Bmob.File(name, tempFilePath);
+            file.save().then(function (res) {
+              wx.hideNavigationBarLoading()
+              var url = res.url();
+              console.log("第" + i + "张Url" + url);
+
+              urlArr.push({ "url": url });
+              j++;
+              console.log(j, imgLength);
+              // if (imgLength == j) {
+              //   console.log(imgLength, urlArr);
+              //如果担心网络延时问题，可以去掉这几行注释，就是全部上传完成后显示。
+                showPic(urlArr, that)
+              // }
+
+            }, function (error) {
+              console.log(error)
+            });
+
+          }
+
+
+
+
+
+
+
+          //如果你突然发现这个文件传了又想立即删了，可以直接执行
+          // file.destroy();
+        }
+
+      }
+    })
+  }
+})
+
+
+
+//上传完成后显示图片
+function showPic(urlArr, t) {
+  t.setData({
+    loading: true,
+    urlArr: urlArr
+  })
+}
+
+```
+
+
 
 ## 图片处理
 
@@ -1083,9 +1202,9 @@ collection.reset([
 `userData`：每个微信用户的唯一标识，包括用户openId、expires_in、session_key（可选,自行创建，Object类型）
 我们会在下面的用例中详细介绍细节
 
-### 注册一（使用用户的微信信息进行注册）
+### 注册一（使用用户账号密码进行注册）
 
-通常你的app第一件要做的事情就是让用户进行注册，下面的代码展示了怎样进行微信注册的过程（包括获取用户的唯一标识）：
+通常你的app第一件要做的事情就是让用户进行注册，这里把用户密码设置为`Openid`，下面的代码展示了怎样进行微信注册的过程（包括获取用户的唯一标识）：
 
 首先要在_User表新建一个用来存用户唯一标识的字段，例如：userData(Object类型)，然后在js中插入以下代码：
 
@@ -1136,44 +1255,80 @@ wx.login({
 
 你也可以使用`email`来作为用户名，只要求你的用户输入他们的`email`但是同时自动填充好`username`属性就可以了，`Bmob.User`会跟原来一样工作，我们会在下面的重设密码环节再次说明这个细节。
 
-### 注册二（普通）
+### 注册二（登录注册集合类，接口默认第一次注册，否则返回用户信息）
 
 首先要在_User表新建一个用来存用户唯一标识的字段，例如：userData(Object类型)，然后在js中插入以下代码：
 
 ```
-	var user = new Bmob.User();//开始注册用户
-	user.set("username", "bmob");
-	user.set("password", "bmob";//因为密码必须提供，但是微信直接登录小程序是没有密码的，所以用openId作为唯一密码
-	wx.login({
-	  success: function(res) {
-	    if (res.code) {
-			Bmob.User.requestOpenId(res.code, {//获取userData(根据个人的需要，如果需要获取userData的需要在应用密钥中配置你的微信小程序AppId和AppSecret，且在你的项目中要填写你的appId)
-	          success: function(userData) { 
-					user.set("userData", userData);
-					user.signUp(null, {
-						success: function(res) {
-				          console.log("注册成功!");
-				        },
-				        error: function(userData, error) {
-				          console.log(error)
-				        }
-	    			});         
-	          },
-	          error: function(error) {
-	              // Show the error message somewhere
-	              console.log("Error: " + error.code + " " + error.message);
-	          }
-	      });
-	      
-	    } else {
-	      console.log('获取用户登录态失败！' + res.errMsg)
-	    }
-	  }
-	});
+
+wx.login({
+
+        success: function (res) {
+          user.loginWithWeapp(res.code).then(function (user) {
+            var openid = user.get("authData").weapp.openid;
+            console.log(user, 'user', user.id, res);
+            if (user.get("nickName")) {
+
+              // 第二次登录，打印用户之前保存的昵称
+              console.log(user.get("nickName"), 'res.get("nickName")');
+
+			  //更新openid
+              wx.setStorageSync('openid', openid)
+            } else {//注册成功的情况
+
+              var u = Bmob.Object.extend("_User");
+              var query = new Bmob.Query(u);
+              query.get(user.id, {
+                success: function (result) {
+                  wx.setStorageSync('own', result.get("uid"));
+                },
+                error: function (result, error) {
+                  console.log("查询失败");
+                }
+              });
+
+
+              //保存用户其他信息，比如昵称头像之类的
+              wx.getUserInfo({
+                success: function (result) {
+
+                  var userInfo = result.userInfo;
+                  var nickName = userInfo.nickName;
+                  var avatarUrl = userInfo.avatarUrl;
+
+                  var u = Bmob.Object.extend("_User");
+                  var query = new Bmob.Query(u);
+                  // 这个 id 是要修改条目的 id，你在生成这个存储并成功时可以获取到，请看前面的文档
+                  query.get(user.id, {
+                    success: function (result) {
+                      // 自动绑定之前的账号
+
+                      result.set('nickName', nickName);
+                      result.set("userPic", avatarUrl);
+                      result.set("openid", openid);
+                      result.save();
+
+                    }
+                  });
+
+                }
+              });
+
+
+            }
+
+          }, function (err) {
+            console.log(err, 'errr');
+          });
+
+        }
+      });
+    }
+
 
 ```
 
-### 登录
+### 登录（自有账户密码登录，适合APP迁移过来的用户）
 
 如果你要求你的用户用你自己设计的注册页面注册后，当然应该让他们在以后用自己的账户登录进来，你可以使用`logIn`方法来进行登陆：
 
