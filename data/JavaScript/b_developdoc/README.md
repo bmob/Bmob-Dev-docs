@@ -451,25 +451,6 @@ myObject.destroy({
 
 ```
 
-批量删除对象的示例代码如下：
-
-```
-//objects为要删除的对象列表
-Bmob.Object.destroyAll(objects);
-```
-
-如果你想将查询出来的对象都删除，或者删除符合查询条件的所有对象，可以调用`destroyAll`方法，示例代码如下：
-
-```
-query.destroyAll({
-   success: function(){
-      //删除成功
-   },
-   error: function(err){
-      // 删除失败
-   }
-   });
-```
 
 ### 删除字段
 
