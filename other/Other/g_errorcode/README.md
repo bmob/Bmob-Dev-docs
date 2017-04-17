@@ -157,15 +157,7 @@ code为下表中的错误码，error为下表中的内容
 |1007|CloudCodes of the app has reached to limit|该应用能创建云端逻辑数已达到限制|
 |1500|The file is larger than file size you can upload|你上传的文件大小已超出限制|
 
-## 支付功能相关错误码
 
-|错误码|内容|含义|
-|:--|:--|:--|
-|150|order_no is null.|订单号是空的.|
-|10001|%s required|有些项是必填的|
-|10002|order_no not exists.|你要查询的订单号不存在.|
-|10003|%s.|详细错误信息，如微信或支付宝返回的详细错误.|
-|10004|%s.|详细错误信息，如微信或支付宝返回的详细错误.|
 
 ## 短信功能相关错误码
 
