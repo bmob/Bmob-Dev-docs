@@ -21,7 +21,10 @@
 |9017|与第三方登录有关的错误，具体请看对应的错误描述|与第三方登录有关的错误，具体请看对应的错误描述|
 |9018|参数不能为空|参数不能为空|
 |9019|格式不正确：手机号码、邮箱地址、验证码|格式不正确：手机号码、邮箱地址、验证码|
-
+|9020|保存CDN信息失败|
+|9021|permission not defined.You must write android.permission.WAKE_LOCK in AndroidManifest.xml "<uses-permission android:name="android.permission.WAKE_LOCK". |文件上传缺少wakelock权限|
+|9022|upload failure,please retry.|文件上传失败，请重新上传|
+|9023|please call Bmob.initialize to init sdk.|请调用Bmob类的initialize方法去初始化SDK|
 
 ## RESTAPI错误码列表
 |HttpResponseCode|错误码|含义|
