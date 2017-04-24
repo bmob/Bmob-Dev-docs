@@ -234,9 +234,9 @@ A:不是的，API请求数一天统计一次，每天凌晨3点进行统计。
 
 Q:APP官网的一些案例
 A:
-[http://easytouch.bmob.cn/](http://easytouch.bmob.cn/)
-[http://xiaocai.bmob.cn/](http://xiaocai.bmob.cn/)
-[http://multimomo.bmob.cn/](http://multimomo.bmob.cn/)
+[http://bikenavi.bmob.site/](http://bikenavi.bmob.site/)
+[http://drive.bmob.site/](http://drive.bmob.site/)
+[http://qlslylq.bmob.site/](http://qlslylq.bmob.site/)
 
 ---
 
