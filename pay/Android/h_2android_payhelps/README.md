@@ -79,3 +79,9 @@ try {
 }
 这段代码加在BP.pay方法调用之前
 ```
+---
+
+Q:unity怎么使用Bmob的支付呢？
+A:参考[这里](http://blog.csdn.net/qq_33747722/article/details/53408000)
+
+---
