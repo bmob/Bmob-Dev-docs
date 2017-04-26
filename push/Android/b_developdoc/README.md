@@ -156,7 +156,8 @@ public class MyPushMessageReceiver extends BroadcastReceiver{
 
 八、源码下载
 
-为了更好的让开发者朋友正确的集成和使用Bmob推送功能，我们还提供了一个关于Bmob推送功能的简单Demo以供大家参考，有需要的朋友可以到如下地址进行源码的下载。[https://github.com/bmob/bmob-android-demo-push](https://github.com/bmob/bmob-android-demo-push)
+为了更好的让开发者朋友正确的集成和使用Bmob推送功能，我们还提供了一个关于Bmob推送功能的简单Demo以供大家参考，有需要的朋友可以到如下地址进行源码的下载。[https://github.com/bmob/bmob-android-demo-push](https://github.com/bmob/bmob-android-demo-push),
+[0.9版本或以上的Demo](https://github.com/bmob/NewPushDemo)
 
 ## 消息推送的视频教程和Demo
 
