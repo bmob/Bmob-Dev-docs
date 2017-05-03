@@ -6,6 +6,7 @@ Cocos2d-x SDK是Bmob提供给Cocos2d-x开发者的工具，旨在帮助游戏开
 ## SDK配置
 使用 Cocos2dx 的 SDK ,需要将 SDK 源码以及对应的库文件复制到项目中或设置编源码路径．
 
+
 ### 源码结构
 
 ```
@@ -39,39 +40,60 @@ Cocos2d-x SDK是Bmob提供给Cocos2d-x开发者的工具，旨在帮助游戏开
    ---  bmobsdk.cpp
    ---  bmobsdk.h　              //sdk的使用必须包含的头文件
 ```
+
 如图： 
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/src0.png)
 
+
 ### linux平台下源码编译
+
 linux下编译方法多种，这里根据Cocos2d-x 3.x提供的方法使用cmake进行编译．同时需要将libbmobsafe.so拷到项目中，编译项目进行链接．
+
 - 将sdk源码（包含了开发的源码以及对应的库）拷贝到项目对应的目录下；
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/QQ%E6%88%AA%E5%9B%BE20160321173939.png)
+
 - 在CMakeLists.txt中设置编译源码；如图：
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/QQ%E6%88%AA%E5%9B%BE20160321173730.png)
+
 - 添加．so文件路径到CMakeLists.txt文件中 
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/linux-link2.png)
+
 - 将对应的库在CMakeLists.txt进行连接；如图： 
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/linux-link1.png)
+
 ＳＤＫ使用：
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/use0.png)
+
 在需要使用的文件中加入上图中的代码．
 编译成功运行输出结果如： 
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/init0.png)
 
+
 ### android平台下源码编译
+
 将sdk源码拖到项目中．编写Android.mk. 在使用SDK时，需要添加两个库：［libbmobsafe.a libstlport_static.a］，在Android.mk中通过LOCAL_LDLIBS变量链接这两个库，如将库放在$(LOCAL_PATH)/../obj/目录下，链接方式就是：
 ```makefile
 LOCAL_LDLIBS += $(LOCAL_PATH)/../obj/libbmobsafe.a \
                 $(LOCAL_PATH)/../obj/libstlport_static.a
 ```
+
 在Application.mk中添加APP_STL,设置为stlport_static
 库在sdk源码libs目录下 编译源码中连接库的mk片段：
+
 Application.mk
 ```makefile
 APP_ABI := armeabi armeabi-v7a
 APP_STL := stlport_static
 APP_CPPFLAGS += -fexceptions
 ```
+
 Android.mk
 ```makefile
 LOCAL_PATH := $(call my-dir)
@@ -88,28 +110,46 @@ LOCAL_SRC_FILES :=     \    #源码文件
 
 ...
 ```
+
 按照上面的编译完成以后，就可以在android中使用sdk了．
 **注：使用ＳＤＫ，必须包含上面的库，否则会提示无法找到XXX符号．**
 
+
 ### windows平台下源码编译
+
 windows平台以visual studio2015为环境配置。
-1. 将需要的库文件（bmobsafelib.dll）添加到项目依赖库的目录中。 如cocos2dx-3.x提供的源码中，将需要的库复制到\cocos2d-x-3.9\build\Debug.win32\cpp-empty-test目录下。 
+1. 将需要的库文件（bmobsafelib.dll）添加到项目依赖库的目录中。 如cocos2dx-3.x提供的源码中，将需要的库复制到\cocos2d-x-3.9\build\Debug.win32\cpp-empty-test目录下。
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/sdklib1.png)
+
 2. 在程序开始的地方使用#pragma comment( lib,"bmobsafelib.lib")将库链接到项目中。 
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/sdklib2.png)
+
 3. 将源码添加到项目中,即可完成sdk的导入。 在项目中使用SDK的文件中包含文件bmobsdk\bmobsdk.h，如：#include "bmobsdk\bmobsdk.h"，同时导入命名空间bmobsdk，如：using namespace bmobsdk;完成上的工作就可以使用sdk服务。 
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/sdklib3.png)
+
 导入cocos2dx-3.x的cpp-empty-test项目后的结构： 
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/init-windows.png)
+
 至此SDK 配置完成。
 **注：如上面的添加以后，可能还会出现如图：**
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/link0.png)
+
 这样的错误，解决方法是添加现有项，如：
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/link1.png)
+
 ![](https://shockerjue.gitbooks.io/document-cocos2dx-sdk/content/link2.png)
+
 这样就完成windows SDK的配置。
 
+
 ## SDK初始化
+
 使用 BmobSDK 之前,需要先初始化 SDK 环境,初始化使用BmobSDKInit的initialize方法，方法原型是：
 ```cpp
 /**
@@ -1289,7 +1329,8 @@ void execCloudCode(string cloudName,
 
 ### 执行云端代码
 
-执行云端代码
+
+#### 执行云端代码
 
 执行云端代码主要是执行在云服务器中编写的执行代码,调用BmobCloud的execCloudCode方法执行.其中需要传递的参数是:云端代码的方法名/对应的参数(采用键值的方式)/回调接口/云端代码的操作类型
 
