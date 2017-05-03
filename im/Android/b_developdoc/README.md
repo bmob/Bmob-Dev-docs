@@ -45,7 +45,7 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | bmob-im:2.0.5| bmob-sdk:3.4.7-aar|
 | bmob-im:2.0.6| bmob-sdk:3.5.5| 
            
-## 3、BmobNewIM SDK 集成手册
+## 3、BmobNewIM SDK 集成
 
 ### 3.1、手动集成
 
@@ -290,7 +290,7 @@ public class BmobIMApplication extends Application{
 1. 初始化方法包含了BmobSDK的初始化步骤，故无需再初始化BmobSDK。
 2. 在初始化的时候，最好做下判断：只有主进程运行的时候才开始初始化，避免资源浪费。
 
-## 4、代码使用
+## 4、BmobNewIM SDK 使用
 ### 4.1、服务器连接
 
 #### 4.1.1、连接
