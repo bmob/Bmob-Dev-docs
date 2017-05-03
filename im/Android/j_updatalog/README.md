@@ -1,3 +1,6 @@
+v2.0.5_Beta	  2016年04月28日
+1、BmobNewIM_v2.0.6将所依赖的数据SDK提升为BmobSDK_v3.5.5。
+
 v2.0.5_Beta	  2016年6月01日
 1、BmobImService更名为BmobIMService,请务必修改；
 2、自2.0.5版本开始，提供aar格式的NewIMSDK,包含BmobNewIM_xxxx.jar、androidasync_2.1.6.jar、bmob_im_notification_strings.xml，开发者不再需要导入以上文件；
