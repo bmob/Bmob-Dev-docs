@@ -1,4 +1,4 @@
-## 1、Android BmobOldIM SDK 回顾
+## 1、BmobOldIM SDK 回顾
 
 Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.com/bmob/bmob-android-im-sdk) ，BmobOldIM SDK已经开源但不再进行维护，请开发者集成Android BmobNewIM SDK进行开发。
 
@@ -9,7 +9,7 @@ Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.
 | API设计不够合理规范且不易扩展	    | 
 | 聊天消息出现接收延迟或丢失         | 
 
-## 2、Android BmobNewIM SDK 介绍
+## 2、BmobNewIM SDK 介绍
 
 Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.com/chaozhouzhang/bmob-newim-demo)，BmobNewIM SDK采用全新架构，设计更加合理规范，API更加简单易用，扩展性强，但不兼容 Android BmobOldIM SDK。
 
@@ -45,7 +45,7 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | bmob-im:2.0.5| bmob-sdk:3.4.7-aar|
 | bmob-im:2.0.6| bmob-sdk:3.5.5| 
            
-## 3、Android BmobNewIM SDK 集成手册
+## 3、BmobNewIM SDK 集成手册
 
 ### 3.1、手动集成
 
