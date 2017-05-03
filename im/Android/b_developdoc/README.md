@@ -63,7 +63,6 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | 文件     | 使用          |
 |------------------------------|--------------------------------|
 | libs| 外部依赖库，拷贝于工程的libs文件夹；自Data SDK v3.4.7开始，加入libbmob.so文件；自Data SDK v3.5.2开始，加入libBmobStat.so文件。|
-| values |资源文件，拷贝于工程的values文件夹，用于通知栏提示等| 
 | NewIM_V2.x.x_Demo|开发示例，开发环境是Android Studio，功能是陌生人以及好友聊天|
 
 #### 3.1.3、在app下的build.gradle文件中设置jni依赖库的目录，设置后点击Sync Now同步配置
