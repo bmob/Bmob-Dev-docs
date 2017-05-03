@@ -76,8 +76,8 @@
 	
 		//以下SDK开发者请根据需要自行选择
 		//bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
-	    //3.5.0：请务必查看下面注释[1]
-		compile 'cn.bmob.android:bmob-sdk:3.5.0'
+	    //3.5.5：请务必查看下面注释[1]
+		compile 'cn.bmob.android:bmob-sdk:3.5.5'
 	
 	    //bmob-push：Bmob的推送包
 	    compile 'cn.bmob.android:bmob-push:0.8'
@@ -111,6 +111,7 @@
 - `bmob-im:2.0.3--->bmob-sdk:3.4.6`
 - `bmob-im:2.0.4--->bmob-sdk:3.4.6` 
 - `bmob-im:2.0.5--->bmob-sdk:3.4.7-aar`
+- `bmob-im:2.0.6--->bmob-sdk:3.5.0`
 
 其中
 
