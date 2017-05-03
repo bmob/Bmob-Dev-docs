@@ -1,4 +1,3 @@
-# bmob-newim-demo
 ## 1、Android BmobOldIM SDK 回顾
 
 Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.com/bmob/bmob-android-im-sdk) ，BmobOldIM SDK已经开源但不再进行维护，请开发者集成Android BmobNewIM SDK进行开发。
