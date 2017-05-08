@@ -45,7 +45,7 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | bmob-im:2.0.5| bmob-sdk:3.4.7-aar|
 | bmob-im:2.0.6| bmob-sdk:3.5.5| 
            
-## 3、BmobNewIM SDK 集成手册
+## 3、BmobNewIM SDK 集成
 
 ### 3.1、手动集成
 
@@ -63,7 +63,6 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | 文件     | 使用          |
 |------------------------------|--------------------------------|
 | libs| 外部依赖库，拷贝于工程的libs文件夹；自Data SDK v3.4.7开始，加入libbmob.so文件；自Data SDK v3.5.2开始，加入libBmobStat.so文件。|
-| values |资源文件，拷贝于工程的values文件夹，用于通知栏提示等| 
 | NewIM_V2.x.x_Demo|开发示例，开发环境是Android Studio，功能是陌生人以及好友聊天|
 
 #### 3.1.3、在app下的build.gradle文件中设置jni依赖库的目录，设置后点击Sync Now同步配置
@@ -290,7 +289,7 @@ public class BmobIMApplication extends Application{
 1. 初始化方法包含了BmobSDK的初始化步骤，故无需再初始化BmobSDK。
 2. 在初始化的时候，最好做下判断：只有主进程运行的时候才开始初始化，避免资源浪费。
 
-## 4、代码使用
+## 4、BmobNewIM SDK 使用
 ### 4.1、服务器连接
 
 #### 4.1.1、连接
