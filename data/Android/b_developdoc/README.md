@@ -3437,6 +3437,10 @@ BmobFile.deleteBatch(urls, new DeleteBatchListener() {
 ```
 为方便大家理解文件服务的使用，Bmob提供了一个文件上传的案例和源码，大家可以到[示例和教程中查看和下载](http://docs.bmob.cn/data/Android/c_example/doc/index.html#上传文件案例教程)。
 
+### 缩略图
+
+自 `BmobSDKv3.4.6` 版本，新版文件服务由第三方厂商又拍云提供，只需要在图片上传成功返回的url后面拼接特定参数即可实现缩放，加水印等效果，[如图](http://bmob-cdn-9200.b0.upaiyun.com/2017/04/25/f24b9ef540f1aeb680ebe01ba8543d9f.png!/scale/80/watermark/text/5rC05Y2wCg==)，具体可参考[这里](http://docs.upyun.com/cloud/image/) 。
+
 **注：**
 
 **1、文件的批量上传是BmobSDK_v3.2.7版本才提供的功能，如需使用，请更新版本;**
