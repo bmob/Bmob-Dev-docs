@@ -53,6 +53,12 @@ iOS9默认不允许进行http请求，所以在使用SDK的过程中需要往Inf
 
 请大家在使用Bmob开发应用程序之前，认真阅读我们给大家提供的“数据与安全”的文档，确保你的应用在发布时安全。文档 [请点击](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html);
 
+## 数据迁移
+从v2.1.8开始，数据SDK新增了能重新设置请求域名的Api，类似数据迁移，调用方式如下：
+```
+[Bmob resetDomain:@"http://demo.bmob.cn/"];
+```  
+其中，参数为开发者的域名，调用后的所有请求都指向新的域名。
 ## 对象
 
 ### 数据对象
@@ -2260,7 +2266,8 @@ BmobFile *file = (BmobFile*)[gameScore objectForKey:@"filetype"];
         NSLog(@"issuccessful %i",isSuccessful);
     }];
 ```
-
+### 缩略图
+只需要在图片上传成功返回的url后面拼接特定参数即可实现缩放，加水印等效果，[如图](http://bmob-cdn-9200.b0.upaiyun.com/2017/04/25/f24b9ef540f1aeb680ebe01ba8543d9f.png!/scale/80/watermark/text/5rC05Y2wCg==)，[具体可参考这里 。](http://docs.upyun.com/cloud/image/)
 
 ## 数据实时功能
 Bmob提供了数据实时功能，当开发者监听某个变化事件，例如监听表更新时，表的内容一旦变化，服务器就会通知SDK，SDK提供了相应回调函数来给开发者使用。当然开发者也可以取消相对应的监听，这样就不会收到数据变化的消息了。
