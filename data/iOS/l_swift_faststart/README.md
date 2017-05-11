@@ -26,9 +26,11 @@ Language选择Swift
 - SystemConfiguration.framework
 - AVFoundation.framework
 - MediaPlayer.framework
-- libz.1.2.5.dylib
-- libicucore.dylib
-- libsqlite3.dylib
+- libz.1.2.5.tbd
+- libicucore.tbd
+- libsqlite3.tbd
+- libc++.tbd
+- libWeChatSDK.a(如果需要使用支付功能，必须导入，可从微信开放平台下载最新的)
 
 添加完成后，应该像这个样子
 
