@@ -37,61 +37,61 @@
 
 1. 在 `Project` 的 `build.gradle` 文件中添加 `Bmob的maven仓库地址`，示例如下：（**注意文字说明部分**）：
 
-	buildscript {
-	    repositories {
-	        jcenter()
-	    }
-	    dependencies {
-	        classpath 'com.android.tools.build:gradle:1.2.3'
-	    }
-	}
+		buildscript {
+	    	repositories {
+	    	    jcenter()
+	    	}
+	    	dependencies {
+	    	    classpath 	'com.android.tools.build:gradle:1.2.3'
+	    	}
+		}
 	
-	allprojects {
-	    repositories {
-	        jcenter()
-			//Bmob的maven仓库地址--必填
-	        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
-	    }
-	}
+		allprojects {
+	    	repositories {
+	    	    jcenter()
+				//Bmob的maven仓库地址--必填
+	    	    maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+	    	}
+		}
 
 
 
 2.  在`app`的`build.gradle`文件中添加`compile依赖文件`,示例如下：（**注意文字说明部分**）：
 
-	apply plugin: 'com.android.application'
+		apply plugin: 'com.android.application'
 	
-	android {
-	    compileSdkVersion 22
-	    buildToolsVersion '22.0.1'
+		android {
+	    	compileSdkVersion 22
+	    	buildToolsVersion '22.0.1'
 	
-		**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用compile 'cn.bmob.android:http-legacy:1.0'**
-	    useLibrary 'org.apache.http.legacy'
+			**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用compile 'cn.bmob.android:http-legacy:1.0'**
+	    	useLibrary 'org.apache.http.legacy'
 	
-	    ...
-	}
+	    	...
+		}
 	
 	
-	dependencies {
-	    compile fileTree(dir: 'libs', include: ['*.jar'])
+		dependencies {
+	    	compile fileTree(dir: 'libs', include: ['*.jar'])
 	
-		//以下SDK开发者请根据需要自行选择
-		//bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
-	    //3.5.5：请务必查看下面注释[1]
-		compile 'cn.bmob.android:bmob-sdk:3.5.5'
+			//以下SDK开发者请根据需要自行选择
+			//bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
+	    	//3.5.5：请务必查看下面注释[1]
+			compile 'cn.bmob.android:bmob-sdk:3.5.5'
 	
-	    //bmob-push：Bmob的推送包
-	    compile 'cn.bmob.android:bmob-push:0.8'
+	    	//bmob-push：Bmob的推送包
+	    	compile 'cn.bmob.android:bmob-push:0.8'
 	
-		//bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[2]
-		compile 'cn.bmob.android:bmob-im:2.0.5@aar'
-		compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+			//bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[2]
+			compile 'cn.bmob.android:bmob-im:2.0.5@aar'
+			compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
 	
-		//bmob-sms ：Bmob单独为短信服务提供的包
-	    compile 'cn.bmob.android:bmob-sms:1.0.1'
+			//bmob-sms ：Bmob单独为短信服务提供的包
+	    	compile 'cn.bmob.android:bmob-sms:1.0.1'
 	
-		//如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
-		compile 'cn.bmob.android:http-legacy:1.0'
-	}
+			//如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+			compile 'cn.bmob.android:http-legacy:1.0'
+		}
 
 
 **注：**
