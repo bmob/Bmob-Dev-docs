@@ -279,7 +279,7 @@ verify_state是验证码是否验证状态， 有值: true-已验证 false-未�
 curl -X GET \
   -H "X-Bmob-Application-Id: Your Application ID"          \
   -H "X-Bmob-REST-API-Key: Your REST API Key"        \
-  https://api.bmob.cn/1/querySms/:123678
+  https://api.bmob.cn/1/querySms/123678
 ```
 
 成功返回以下JSON：
