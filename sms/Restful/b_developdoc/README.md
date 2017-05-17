@@ -243,7 +243,7 @@ curl -X POST \
 
 **请求**
 
-- url ：https://api.bmob.cn/1/querySms/:smsId （注意smsId前有冒号(:)）
+- url ：https://api.bmob.cn/1/querySms/smsId
 
 - method ：GET
 
