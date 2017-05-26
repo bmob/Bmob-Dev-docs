@@ -148,7 +148,7 @@ response.send(string result)
 ```
 ### modules模块
 
-modules是Bmob云端逻辑提供给大家的各种对象处理的模块，包括数据库对象（oData）、文件对象（oFile）、地理位置对象（oLocation）、关联关系对象（oRelation）、原子操作对象（oAtom）、数据批量操作对象（oBatch）、数组对象（oArray）、消息推送对象（oPush）、云端逻辑对象（oFunctions）、邮件发送对象（oMail）、HTTP对象（oHttp）、字符编码转换对象（oEncodeing）、事件对象（oEvent）、bql对象（oBql）、html元素解析对象（oHtmlparser）、加密对象（oCrypto）。云端逻辑想要调用这些对象时，只需要用如下的方法即可获取：
+modules是Bmob云端逻辑提供给大家的各种对象处理的模块，包括数据库对象（oData）、文件对象（oFile）、地理位置对象（oLocation）、关联关系对象（oRelation）、原子操作对象（oAtom）、数据批量操作对象（oBatch）、数组对象（oArray）、消息推送对象（oPush）、云端逻辑对象（oFunctions）、HTTP对象（oHttp）、字符编码转换对象（oEncodeing）、事件对象（oEvent）、bql对象（oBql）、html元素解析对象（oHtmlparser）、加密对象（oCrypto）。云端逻辑想要调用这些对象时，只需要用如下的方法即可获取：
 
 ```java
   //获取数据库对象
@@ -1422,45 +1422,6 @@ iOS设备通常使用deviceToken来惟一标识一台设备。
   },function(err,data){
 	 //回调函数
   });
-```
-
-## 邮件发送对象
-Bmob的邮件发送对象采用Nodejs提供的nodemailer模块，这里提供简单的一个发送邮件的操作实例。更多的功能详细参考：[https://npmjs.org/package/nodemailer](https://npmjs.org/package/nodemailer "参考")
-```
-function onRequest(request, response, modules) {
-//获得发送邮件的对象 
-var mailer = modules.oMail; 
-//设置发送服务器信息 
-var  transport = mailer.createTransport( "SMTP" , {
-    host: "smtp.126.com" ,
-    secureConnection: true , // use SSL
-    port: 465, // port for secure SMTP
-    auth: {
-user: "bmobtest111@126.com", //设置发送邮箱帐号 
-pass: "xxx" //设置发送邮箱密码 
-    }
-});
- 
-transport.sendMail({
-    from : "bmobtest111@126.com" ,
-    to : "test@126.com" ,
-    subject: "主题" ,
-    generateTextFromHTML : true ,
-    html : "啊哈哈哈"
-}, function (error, responseback){
-   
-    transport.close();
-     if(error){
-        //发送失败
-    }else{
-        //发送成功
-        response.send("发送成功");
-    }
-});
-
-
-
-}                                                                                                                                                                                                                                   
 ```
 
 
