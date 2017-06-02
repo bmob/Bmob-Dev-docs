@@ -1,11 +1,14 @@
-## 消息推送简介
-推送通知是让用户及时被通知、和你的应用保持联系的一种非常棒的方式，你可以快速而有效地通知到所有的用户，下面这个教程将会教你如何使用Bmob来推送消息。
+## 1、BmobPush SDK 简介
+推送是让用户及时被通知、和你的应用保持联系的一种非常棒的方式，你可以快速而有效地通知到所有的用户，下面这个教程将会教你如何使用BmobPush SDK来推送消息。
 
-## 消息推送快速入门
+## 2、BmobPush SDK 集成
 
-一、在Bmob官方网站的下载界面中，选择下载[Android推送SDK](http://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中。
+### 2.1、下载BmobPush SDK
+在Bmob官方网站的下载界面中，选择下载[Android推送SDK](http://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中。
 
-二、在您的应用程序AndroidManifest.xml文件中添加相应的权限：
+### 2.2、配置AndroidManifest.xml
+#### 2.2.1、在您的应用程序AndroidManifest.xml文件中添加相应的权限
+请注意在Android 6.0版本开始某些权限需要动态获取，详情请看Android Developwers官方文档，[android-6.0-changes](http://developer.android.com/intl/zh-cn/about/versions/marshmallow/android-6.0-changes.html)和[android-7.0-changes](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html)。
 
 ```xml
 	<!--BmobSDK所需的权限 -->
@@ -19,7 +22,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 ```
 
-三、在您的应用程序AndroidManifest.xml文件中注册BmobPush SDK运行所需的推送服务和消息接收器：
+#### 2.2.2、在您的应用程序AndroidManifest.xml文件中注册BmobPush SDK运行所需的推送服务和消息接收器
 
 ```xml
 	<service
@@ -68,8 +71,8 @@
          </intent-filter>
     </receiver>
 ```
-
-四、在你的应用程序中创建一个消息接收器。
+### 2.3、配置代码
+#### 2.3.1、在你的应用程序中创建一个消息接收器
 
 Push消息通过`action=cn.bmob.push.action.MESSAGE`的Intent把数据发送给客户端`your.package.MyPushMessageReceiver`,消息格式由应用自己决定，PushService只负责把服务器下发的消息以字符串格式透传给客户端。
 
@@ -89,27 +92,27 @@ public class MyPushMessageReceiver extends BroadcastReceiver{
 }
 ```
 
-五、启动推送服务
+#### 2.3.2、启动推送服务
 
 在你的应用程序主Activity中调用如下方法：
 
 ```java
-    // 初始化BmobSDK
-    Bmob.initialize(this, "你的AppKey");
-	// 使用推送服务时的初始化操作
-	BmobInstallation.getCurrentInstallation().save();
-	// 启动推送服务
-	BmobPush.startWork(this);
+// 初始化BmobSDK
+Bmob.initialize(this, "你的AppKey");
+// 使用推送服务时的初始化操作
+BmobInstallation.getCurrentInstallation().save();
+// 启动推送服务
+BmobPush.startWork(this);
 ```
 代码中的"你的Application Id"就是你在Bmob后台中创建的应用程序的Application Id，如果你不知道这是什么，可以参考[快速入门文档](http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "Android快速入门")中的注册Bmob账号部分。
 
-
-六、在web端进行推送设置
+## 3、web端推送
+### 3.1、在web端进行推送设置
 
 在应用面板-->消息推送-->推送设置界面中填写包名进行保存。
 ![](image/setting.png)
 
-七、在web端推送消息
+### 3.2、在web端推送消息
 
 完成以上步骤后，你可以运行应用程序，从web推送一条消息给客户端。
 ![](image/pushmsg.png)
