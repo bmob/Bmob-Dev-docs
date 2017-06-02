@@ -319,10 +319,10 @@ function onRequest(request, response, modules) {
 function onRequest(request, response, modules) {
     var token = "weixin";         //这里的值必须与在微信公众号后台填入的token值一致
     var crypto = modules.oCrypto; //使用加解密模块
-    var httptype = modules.oHttptype;　//获取调用云端逻辑的是post或者get方式
+    var httptype = request.method;　//获取调用云端逻辑的是post或者get方式
     var xml2js = modules.oXml2js;　//实现xml和js格式之间的相互转换
     var db = modules.oData;         //数据库对象
-    if ("get" == httptype) {
+    if ("GET" == httptype) {
         　//是get方法,则是微信验证回调的url是否有效
           var oriStr = [token, request.query.timestamp, request.query.nonce].sort().join('')
           var code = crypto.createHash('sha1').update(oriStr).digest('hex');
@@ -455,12 +455,11 @@ function onRequest(request, response, modules) {
 
 在这个校验流程的云端逻辑中，使用oCrypto这个云端逻辑的加密对象模块，提供md5和sha1两种加密算法。通过这个模块，按照微信校验的流程完成校验。oCrypto更多的功能详细参考：https://www.npmjs.org/package/crypto
 
-另外，云端逻辑使用了oHttptype模块获取当前的http调用方式。因为微信公众平台调用云端逻辑有两种方式：
+另外，云端逻辑获取当前的http调用方式。因为微信公众平台调用云端逻辑有两种方式：
 
-- get方式，用于检验。
 - post方式，用于转发订阅者往公众平台发送的消息。
 
-通过oHttptype模块得知是用采用get方式调用云端逻辑，运行校验的代码并返回echostr参数。
+得知是用采用get方式调用云端逻辑，运行校验的代码并返回echostr参数。
 
 #### 云端逻辑收发微信公众号后台传递过来的消息的原理
 在上一节的演示中，订阅者往该公众号发送消息后，返回已收到反馈内容的消息。
