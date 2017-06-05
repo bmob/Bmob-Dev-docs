@@ -846,7 +846,7 @@ function showPic(urlArr, t) {
 
 ## 图片处理
 
-提供一些工具接口，方便开发者处理图片。
+新版文件服务由第三方厂商又拍云提供，只需要在图片上传成功返回的url后面拼接特定参数即可实现缩放，缩略图，加水印等效果，[如图](http://bmob-cdn-9200.b0.upaiyun.com/2017/04/25/f24b9ef540f1aeb680ebe01ba8543d9f.png!/scale/80/watermark/text/5rC05Y2wCg==)，具体可参考[这里](http://docs.upyun.com/cloud/image/) 。
 
 ### 缩微图
 
