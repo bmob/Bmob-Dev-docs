@@ -220,7 +220,7 @@ function onRequest(request, response, modules) {
 
 
 ## 小程序模板消息
-小程序模板消息首先是通过获取`access_token`，来发送。access_token有效期2小时。
+小程序模板消息首先是通过获取`access_token`来发送。access_token有效期2小时。
 
 * ##### 模板消息支持2种方式调用。
 * 1.Restful 
@@ -255,10 +255,10 @@ curl -X POST \
 }'
 ```
 
-Restful主要用在一些特殊情况，例如审核后给用户发送一个通知，定时发通知等。
+Restful主要用在一些特殊情况，例如审核后给用户发送一个通知，定时发通知等这种要配合云逻辑或自己服务端来使用。
 
 
-小程序内部调用
+小程序内部调用比较常用，使用门槛低
 ```
 var currentUser = Bmob.User.current();
 var temp = {
@@ -286,7 +286,6 @@ var temp = {
     },
     "emphasis_keyword": "keyword1.DATA"
 }
-console.log(temp);
 Bmob.sendMessage(temp).then(function(obj) {
     console.log('发送成功')
 },
@@ -458,6 +457,9 @@ obj.id
 obj.createdAt
 obj.updatedAt
 
+
+
+
 ### 查询单条数据
 
 当我们知道某条数据的`objectId`时，就可以根据`objectId`值直接获取单条数据对象，示例代码如下：
@@ -490,6 +492,9 @@ query.equalTo("title", "bmob");
 ```
 query.notEqualTo("title", "bmob sdk");
 ```
+
+查询大于某个日期的数据，示例代码如下
+query.equalTo("dateTime", "{"$gte":{"__type":"Date","iso":"2011-08-21 18:02:52"}}");
 
 对查询的属性值进行大小比较的示例代码如下：
 
@@ -843,6 +848,55 @@ query.get("bc5da708dc",{
 }); 
 ```
 
+##批量操作
+### 批量更新示例
+
+```
+
+把Todo表title所有为Bmob的更新为Bmob后端云
+var query = new bmob.Query('Todo');
+query.equalTo("title", "bmob");
+query.find().then(function(todos) {
+    todos.forEach(function(todo) {
+        todo.set('title', "Bmob后端云");
+    });
+    return bmob.Object.sbmobeAll(todos);
+}).then(function(todos) {
+    // 更新成功
+},
+function(error) {
+    // 异常处理
+});
+
+```
+### 批量增删改
+
+```
+var objects = []; // 构建一个本地的 bmob.Object 对象数组
+// 批量创建（更新）
+bmob.Object.sbmobeAll(objects).then(function(objects) {
+    // 成功
+},
+function(error) {
+    // 异常处理
+});
+// 批量删除
+bmob.Object.destroyAll(objects).then(function() {
+    // 成功
+},
+function(error) {
+    // 异常处理
+});
+// 批量获取
+bmob.Object.fetchAll(objects).then(function(objects) {
+    // 成功
+},
+function(error) {
+    // 异常处理
+});
+```
+
+
 ## 数据关联
 
 ### 添加及修改关联关系
@@ -925,9 +979,9 @@ Diary.save();
 你可以同样传入第二个参数到`increment`方法来指定增加多少，`1`是默认值。
 
 
-## 图片上传
+## 文件上传
 
-### 图片上传
+### 文件上传
 
 文件上传，例如，我们从本地上传一张图片到服务器，名称为"1.jpg"，可用以下代码：
 
@@ -1033,11 +1087,24 @@ function showPic(urlArr, t) {
 
 ```
 
+### 文件删除
+```
+var path;
+path = "http://bmob-cdn-9200.b0.upaiyun.com/2017/04/25/f24b9ef540f1aeb680ebe01ba8543d9f.png";
+var s = new Bmob.Files.del(path).then(function(res) {
+    if (res.msg == "ok") {
+        console.log('删除成功');
+    }
+},
+function(error) {
+    console.log(error)
+});
+```
 
 
 ## 图片处理
 
-新版文件服务由第三方厂商又拍云提供，只需要在图片上传成功返回的url后面拼接特定参数即可实现缩放，缩略图，加水印等效果，[如图](http://bmob-cdn-9200.b0.upaiyun.com/2017/04/25/f24b9ef540f1aeb680ebe01ba8543d9f.png!/scale/80/watermark/text/5rC05Y2wCg==)，具体可参考[这里](http://docs.upyun.com/cloud/image/) 。
+新版文件服务由第三方厂商又拍云提供，只需要在文件上传成功返回的url后面拼接特定参数即可实现缩放，缩略图，加水印等效果，[如图](http://bmob-cdn-9200.b0.upaiyun.com/2017/04/25/f24b9ef540f1aeb680ebe01ba8543d9f.png!/scale/80/watermark/text/5rC05Y2wCg==)，具体可参考[这里](http://docs.upyun.com/cloud/image/) 。
 
 
 ## Promise
@@ -1802,5 +1869,27 @@ query.find({
 });
 ```
 
+## 小程序使用云逻辑
+端逻辑调用使用Bmob.Cloud.run方法，如调用云端逻辑中的"test"方法，并传递name参数到服务器中的示例代码如下：
 
+```
+Bmob.Cloud.run('test', {"name":"tom"}, {
+  success: function(result) {
+    alert(result);
+  },
+  error: function(error) {
+  }
+})
+```
+
+如果不需要传递参数，示例代码如下：
+```
+Bmob.Cloud.run('test', {}, {
+  success: function(result) {
+    alert(result);
+  },
+  error: function(error) {
+  }
+})
+```
 
