@@ -860,7 +860,7 @@ query.find().then(function(todos) {
     todos.forEach(function(todo) {
         todo.set('title', "Bmob后端云");
     });
-    return bmob.Object.sbmobeAll(todos);
+    return bmob.Object.saveAll(todos);
 }).then(function(todos) {
     // 更新成功
 },
@@ -874,7 +874,7 @@ function(error) {
 ```
 var objects = []; // 构建一个本地的 bmob.Object 对象数组
 // 批量创建（更新）
-bmob.Object.sbmobeAll(objects).then(function(objects) {
+bmob.Object.saveAll(objects).then(function(objects) {
     // 成功
 },
 function(error) {
