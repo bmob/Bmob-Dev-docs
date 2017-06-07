@@ -17,7 +17,7 @@
 - 1.生日工具                    -------工具类
 - 2.足迹地图
 - 3.接力喵视频                -------视频类
-- 4.像素涂鸦
+- 4.像素涂鸦					 -------小游戏
 - 5.地道美食地图           -------LBS
 - 6.胖熊圈
 - 7.有货Hk
@@ -27,6 +27,13 @@
 - 11.活动报名表                -------工具类
 - 12.味蕾点餐               -------点餐
 - 13.烟台微拼               -------本地生活
+- 14.顺德便利贴
+- 15.同城生活广告
+- 16.点点英语学堂
+- 17.朝露时刻			-------音频
+- 18.青岛一起秀科学俱乐部
+- 19.纸塘               -------壁纸
+- 20.雷湖古琴艺术
 >官方交流QQ群：118541934 。欢迎提交给我们
 
 ## 应用程序
@@ -107,6 +114,190 @@ formSubmit: function (event) {
     }
 
 ```
+
+## 小程序分享群Id
+
+有些时候，我们小程序需要把内容分享到微信群，统计每个微信群有多少用户来查看了此信息。可以使用此接口，下面是微信官方的2个说法
+
+* #####当用户成功地将小程序页面分享到微信群的时候，小程序的回调中可以获取分享目标的微信群 ID。
+* #####当用户从微信群进入小程序页面的时候，小程序启动时可以获取用户进入小程序的渠道群聊 ID。
+
+
+```
+
+Page({
+  onLoad () {
+    wx.showShareMenu({
+      withShareTicket: true //要求小程序返回分享目标信息
+    })
+  },
+  // 其他的页面函数、生命周期函数等
+  onShareAppMessage() {
+    return {
+      title: '页面分享标题',
+      path: '/pages/path/to/target',
+      success(res){
+        console.log(res.shareTickets);
+                wx.getShareInfo({
+          shareTicket: res.shareTickets,
+          complete(res) {
+            
+            //内部调用云端代码
+            var currentUser = Bmob.User.current();
+            var data = { "objectId": currentUser.id, "encryptedData": res.encryptedData, "iv": res.iv};
+            console.log(data);
+           
+            // console.log(data);
+            Bmob.Cloud.run('getOpenGId', data).then(function (obj) {
+              // var res = JSON.parse(obj)
+              console.log(obj)
+            }, function (err) {
+              console.log(err)
+            });
+
+          }
+        })
+        
+        
+      }
+    }
+  }
+}
+
+```
+* ##### 页面只要加上这2个函数，即可实现转发到群功能，这里主要讲下解密群ID。
+
+
+解密群ID主要是通过云逻辑来实现，这里添加一个`getOpenGId` 逻辑。你也可以复制腾讯官方提供的nodejs里面的代码
+
+```
+
+function onRequest(request, response, modules) {
+    var objectId = request.body.objectId;
+    var db = modules.oData;
+    var crypto = modules.crypto;
+    db.findOne({
+        "table": "_User",
+        //表名
+        "objectId": objectId //记录的objectId
+    },
+    function(err, data) {
+        //回调函数
+        var data = JSON.parse(data);
+        var sessionkey = data.authData.weapp.session_key;
+        var encryptedData = request.body.encryptedData;
+        var iv = request.body.iv
+        var groupid = groupIdParse(modules, sessionkey, encryptedData, iv) response.end(groupid);
+
+    });
+
+    function groupIdParse(modules, sessionKey, encryptedData, iv) {
+        var crypto = modules.oCrypto;
+        var sessionKey = new Buffer(sessionKey, 'base64'); //new Base64().decode(sessionKey);
+        encryptedData = new Buffer(encryptedData, 'base64'); //new Base64().decode(encryptedData);
+        iv = new Buffer(iv, 'base64'); //new Base64().decode(iv)
+        var result = '';
+        try {
+            // 解密
+            var decipher = crypto.createDecipheriv('aes-128-cbc', sessionKey, iv)
+            // 设置自动 padding 为 true，删除填充补位
+            decipher.setAutoPadding(true) var decoded = decipher.update(encryptedData, 'binary', 'utf8') decoded += decipher.final('utf8') result = decoded;
+            // decoded = JSON.parse(decoded)
+        } catch(err) {
+            throw new Error('Illegal Buffer123' + err)
+        }
+        //  if (decoded.watermark.appid !== this.appId) {
+        //     //  throw new Error('Illegal Buffer')
+        // }
+        return result;
+    }
+
+}
+```
+
+解密返回数据：`{"openGId":"GLfcX0ber2CAPtXng-ac4g8zyNmk","watermark":{"timestamp":1496720764,"appid":"wx77d6b7031c1e4763"}}
+`
+
+
+## 小程序模板消息
+小程序模板消息首先是通过获取`access_token`，来发送。access_token有效期2小时。
+
+* ##### 模板消息支持2种方式调用。
+* 1.Restful 
+* 2.小程序
+
+Restful
+```
+curl -X POST \
+  http://api.bmob.cn/1/wechatApp/SendWeAppMessage \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'x-bmob-application-id: XXX' \
+  -H 'x-bmob-rest-api-key: XXX' \
+  -d '{
+     "touser": "osr4I0WBS4kZuD_5P-_-bxbSobTg",
+        "template_id": "omTTRD3pAMiAGKmyKo15Ifc2U_wLr6oWRZOifnTngvQ",
+        "page": "index",
+        "form_id":"3a8c5659469c9a582c8fd65054ea5307",
+        "data": {
+          "keyword1": {
+            "value": "SDK测试内容",
+            "color": "#173177"
+          },
+      "keyword2": {
+          "value": "2015年01月05日 12:30"
+      }, 
+      "keyword3": {
+          "value": "Bmob科技"
+      }
+    }
+    ,"emphasis_keyword": "" 
+}'
+```
+
+Restful主要用在一些特殊情况，例如审核后给用户发送一个通知，定时发通知等。
+
+
+小程序内部调用
+```
+var currentUser = Bmob.User.current();
+var temp = {
+    "touser": currentUser.get("openid"),
+    "template_id": "B-2GcobfYnptevxY8G3SdA72YLYGZpOoJO_FEHlouWg",
+    "page": "",
+    "form_id": formId,
+    "data": {
+        "keyword1": {
+            "value": "SDK测试内容",
+            "color": "#173177"
+        },
+        "keyword2": {
+            "value": "199.00"
+        },
+        "keyword3": {
+            "value": "123456789"
+        },
+        "keyword4": {
+            "value": "2015年01月05日 12:30"
+        },
+        "keyword5": {
+            "value": "恭喜您支付成功，如有疑问请反馈与我"
+        }
+    },
+    "emphasis_keyword": "keyword1.DATA"
+}
+console.log(temp);
+Bmob.sendMessage(temp).then(function(obj) {
+    console.log('发送成功')
+},
+function(err) {
+    common.showTip('失败' + err)
+});
+
+```
+
+
+
 
 
 ## 小程序支付
