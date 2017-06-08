@@ -13,6 +13,8 @@ Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.
 
 Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.com/chaozhouzhang/bmob-newim-demo)，BmobNewIM SDK采用全新架构，设计更加合理规范，API更加简单易用，扩展性强，但不兼容 Android BmobOldIM SDK。
 
+- 请确保您在使用BmobNewIM SDK之前已经了解文档，如有疑问请加IM使用交流群咨询：[182897507]()。
+
 ### 2.1、Android BmobNewIM SDK 特点及其描述
 
 | Android BmobNewIM SDK 特点     | 描述          |
