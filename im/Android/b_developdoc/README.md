@@ -1414,7 +1414,7 @@ private void addFriend(String uid){
 }
 ```
 
-## 5、混淆
+## 5、BmobNewIM SDK 混淆
 ```
 
 # 不混淆im sdk
