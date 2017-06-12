@@ -223,8 +223,9 @@ BmobObject提供以下几种方法对BmobOjbect进行初始化：
             NSLog(@"%@",gameScore);
             
             //此处是更新操作
-            [gameScore setObject:[NSNumber numberWithInt:110] forKey:@"score"];
-            [gameScore updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            BmobObject  *gameScoreChange = [BmobObject objectWithoutDataWithClassName:@"GameScore" objectId:gameScore.objectId];
+            [gameScoreChange setObject:[NSNumber numberWithInt:110] forKey:@"score"];
+            [gameScoreChange updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                 if (isSuccessful) {
                     NSLog(@"更新成功，以下为对象值，可以看到score值已经改变");
                     NSLog(@"%@",gameScore);
