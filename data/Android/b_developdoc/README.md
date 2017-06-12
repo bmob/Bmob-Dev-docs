@@ -166,6 +166,8 @@ public class GameScore extends BmobObject{
 	private Integer score;
 	private Boolean isPay;
     private BmobFile pic;
+	// 仅在客户端使用，不希望被gson序列化提交到后端云，记得用transient修饰
+	private transient Integer count;
 		
 	public String getPlayerName() {
 		return playerName;
