@@ -2230,10 +2230,20 @@ NSString *fileString2 = [[NSBundle mainBundle] pathForResource:@"text" ofType:@"
 
 ### 下载文件
 
-获取文件对象只需通过-(id)objectForKey:(id)key;来得到，例如，
+获取文件对象需先根据objectid查询得到Bmobobject,然后通过-(id)objectForKey:(id)key;来得到，例如，
 
 ```
-BmobFile *file = (BmobFile*)[gameScore objectForKey:@"filetype"];
+BmobQuery *query = [BmobQuery queryWithClassName:@"test"];
+[query getObjectInBackgroundWithId:@"1783521c59" block:^(BmobObject *object, NSError *error) {
+if (error) {
+NSLog(@"%@",error);
+} else {
+NSLog(@"%@",object);
+BmobFile *file = (BmobFile *)[object objectForKey:@"filetype"];
+NSLog(@"%@",file.url);
+}
+}];
+
 ```
 可用通过file的url属性(file.url)，来得到文件的地址进行下载。
 
