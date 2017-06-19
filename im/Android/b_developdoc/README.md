@@ -13,6 +13,8 @@ Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.
 
 Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.com/chaozhouzhang/bmob-newim-demo)，BmobNewIM SDK采用全新架构，设计更加合理规范，API更加简单易用，扩展性强，但不兼容 Android BmobOldIM SDK。
 
+- 请确保您在使用BmobNewIM SDK之前已经了解文档，如有疑问请加IM使用交流群咨询：[182897507]()。
+
 ### 2.1、Android BmobNewIM SDK 特点及其描述
 
 | Android BmobNewIM SDK 特点     | 描述          |
@@ -54,9 +56,10 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 
 | 下载平台     | 下载地址          |
 |------------------------------|--------------------------------|
+| Github基于BmobNewIM SDK v2.0.6 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
 | Bmob基于BmobNewIM SDK v2.0.6 的Demo| [bmob-newim-demo](http://www.bmob.cn/site/sdk#android_im_sdk_tab)|
 | Github基于BmobNewIM SDK v2.0.5 的Demo |[bmob-newim-demo ](https://github.com/bodismile/bmob-newim-demo)| 
-| Github基于BmobNewIM SDK v2.0.6 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
+
 
 #### 3.1.2、解压Android BmobNewIM SDK开发包
 
@@ -1412,7 +1415,7 @@ private void addFriend(String uid){
 }
 ```
 
-## 5、混淆
+## 5、BmobNewIM SDK 混淆
 ```
 
 # 不混淆im sdk
