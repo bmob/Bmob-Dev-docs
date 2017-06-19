@@ -1,6 +1,7 @@
 ## AndroidSDK错误码列表
 |错误码      |    内容 | 含义  |
 |:-------- |:--------| :-- |
+|234|pay type not allowed!!! | 此应用的该支付方式被暂停使用
 |9001|AppKey is Null, Please initialize BmobSDK. |Application Id为空，请初始化.|
 |9002|Parse data error|解析返回数据出错|
 |9003|upload file error|上传文件出错|
@@ -26,6 +27,7 @@
 |错误码|内容|含义|
 |:--|:--|:--|
 |100|It is busy...Try it later!|一般是请求服务器的内容有误，如果是查询的话，请检查一下查询条件是否有误.|
+|234|pay type not allowed!!! | 此应用的该支付方式被暂停使用
 |20000|nil password!|登录或者注册时输入的密码为空.|
 |20001|nil username!|登录或者注册时输入的用户名为空.|
 |20002|connect failed!|请求失败.|
