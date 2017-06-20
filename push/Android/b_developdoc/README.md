@@ -207,9 +207,6 @@ public class MyBmobInstallation extends BmobInstallation {
 	 */  
 	private String uid;
 	
-	public MyBmobInstallation(Context context) {
-		super(context);
-	}
 
 	public String getUid() {
 		return uid;
