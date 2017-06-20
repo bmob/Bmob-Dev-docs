@@ -5,7 +5,7 @@
 
 ## 典型案例
 
-日记本等接口（学习示例）：[http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip](http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip) （采用实时数据同步SDK开发，右击可直接查看源码）
+日记本等接口（学习示例）：[https://github.com/magic007/wechatAppDemo](https://github.com/magic007/wechatAppDemo) （采用实时数据同步SDK开发，里面几乎包含了小程序开发常见功能示例代码，右击可直接查看源码）
 ![](image/ui2.1.gif)
 ![](image/ui2.2.gif)
 
@@ -754,8 +754,17 @@ myObject.destroy({
 批量删除对象的示例代码如下：
 
 ```
-//objects为要删除的对象列表
-Bmob.Object.destroyAll(objects);
+//单个请求每次最多删除50条。
+ var query = new Bmob.Query('diary');
+ query.equalTo("title", "后端云");
+          query.find().then(function (todos) {
+            return Bmob.Object.destroyAll(todos);
+          }).then(function (todos) {
+            console.log(todos);
+            // 删除成功
+          }, function (error) {
+            // 异常处理
+          });
 ```
 
 如果你想将查询出来的对象都删除，或者删除符合查询条件的所有对象，可以调用`destroyAll`方法，示例代码如下：

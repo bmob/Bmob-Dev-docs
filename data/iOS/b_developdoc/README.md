@@ -2127,8 +2127,7 @@ BmobFile可以让你的应用程序将文件存储到服务器中，比如常见
 可以在block里面把文件添加到gameScore里面，建议使用异步上传的方法，再在block进行操作。如下面的例子：
 
 ```
-NSBundle    *bundle = [NSBundle mainBundle];
-NSString *fileString = [NSString stringWithFormat:@"%@/cs.txt" ,[bundle bundlePath] ];
+NSString *fileString = [[NSBundle mainBundle] pathForResource:@"IMG_1471" ofType:@"JPG"];
 BmobObject *obj = [[BmobObject alloc] initWithClassName:@"GameScore"];
 BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
 [file1 saveInBackground:^(BOOL isSuccessful, NSError *error) {
@@ -2157,8 +2156,7 @@ BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
 如在下面的例子中，打印上传的进度
 
 ```
-NSBundle    *bundle = [NSBundle mainBundle];
-NSString *fileString = [NSString stringWithFormat:@"%@/cs.txt" ,[bundle bundlePath] ];
+NSString *fileString = [[NSBundle mainBundle] pathForResource:@"Android_SDK" ofType:@"mp4"];
 BmobObject *obj = [[BmobObject alloc] initWithClassName:@"gameScoreFile"];
 BmobFile *file1 = [[BmobFile alloc] initWithClassName:@"Asc" withFilePath:fileString];
 [file1 saveInBackground:^(BOOL isSuccessful, NSError *error) {
@@ -2188,9 +2186,8 @@ BmobFile *file1 = [[BmobFile alloc] initWithClassName:@"Asc" withFilePath:fileSt
 示例如下：
 
 ```
-NSBundle    *bundle = [NSBundle mainBundle];
-//上传cs.txt文件
-NSString *fileString = [NSString stringWithFormat:@"%@/cs.txt" ,[bundle bundlePath] ];
+//上传Android_SDK.mp4文件
+NSString *fileString = [[NSBundle mainBundle] pathForResource:@"Android_SDK" ofType:@"mp4"];
 BmobObject *obj = [[BmobObject alloc] initWithClassName:@"gameScoreFile"];
 //创建BmobFile对象
 BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
@@ -2210,11 +2207,10 @@ BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
 有时，开发者需要一次性上传多个文件，这是可以使用SDK提供的多个上传文件的方法来使用
 
 ```
-NSBundle    *bundle = [NSBundle mainBundle];
-//文件cncc.jpg的路径
-NSString *fileString = [NSString stringWithFormat:@"%@/cncc.jpg" ,[bundle bundlePath] ];
-//文件cs.txt的路径
-NSString *fileString2 = [NSString stringWithFormat:@"%@/cs.txt" ,[bundle bundlePath] ];
+//文件IMG_1471.jpg的路径
+NSString *fileString = [[NSBundle mainBundle] pathForResource:@"IMG_1471" ofType:@"JPG"];
+//文件text.txt的路径
+NSString *fileString2 = [[NSBundle mainBundle] pathForResource:@"text" ofType:@"txt"];
 [BmobFile filesUploadBatchWithPaths:@[fileString,fileString2]
                       progressBlock:^(int index, float progress) {
                       	   //index 上传数组的下标，progress当前文件的进度
@@ -2234,10 +2230,20 @@ NSString *fileString2 = [NSString stringWithFormat:@"%@/cs.txt" ,[bundle bundleP
 
 ### 下载文件
 
-获取文件对象只需通过-(id)objectForKey:(id)key;来得到，例如，
+获取文件对象需先根据objectid查询得到Bmobobject,然后通过-(id)objectForKey:(id)key;来得到，例如，
 
 ```
-BmobFile *file = (BmobFile*)[gameScore objectForKey:@"filetype"];
+BmobQuery *query = [BmobQuery queryWithClassName:@"test"];
+[query getObjectInBackgroundWithId:@"1783521c59" block:^(BmobObject *object, NSError *error) {
+if (error) {
+NSLog(@"%@",error);
+} else {
+NSLog(@"%@",object);
+BmobFile *file = (BmobFile *)[object objectForKey:@"filetype"];
+NSLog(@"%@",file.url);
+}
+}];
+
 ```
 可用通过file的url属性(file.url)，来得到文件的地址进行下载。
 
