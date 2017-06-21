@@ -131,7 +131,7 @@ Bmob.initialize("你的Application ID", "你的REST API Key");
         });
       },
       error: function(object, error) {
-        alert("query object fail");
+        console.log("query object fail");
       }
     });
 ```
