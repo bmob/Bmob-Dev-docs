@@ -190,6 +190,7 @@ find({
   "table":"XXX",          //表名
   "keys":"a,b,c",         //返回字段列表，多个字段用,分隔
   "where":{"a":"XXXX","b":"XXXX"},       //查询条件是一个JSON object
+  //"where":{"c":{"$ne":1}},       //条件查询 查询c字段值不为1的记录
   "order":"-a,b",         //排序列表，[-]字段名称,-表示降序，默认为升序
   "limit":10,            //limit大小，一页返回多少条记录，默认为0
   "skip":2,             //skip,分页offset，(page-1)*limit
