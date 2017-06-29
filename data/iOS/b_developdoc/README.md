@@ -2118,7 +2118,7 @@ BmobFile可以让你的应用程序将文件存储到服务器中，比如常见
 
 #### 上传文件方法
 
-如下图的例子，是将cs.txt的文本文件保存到服务器端：
+可以通过文件路径和NSData上传。如下图的例子，是将58f0222bd82ac.png的文本文件保存到服务器端：
 
 ```
 -(void)saveInBackground:(BmobBooleanResultBlock)block;
@@ -2127,9 +2127,9 @@ BmobFile可以让你的应用程序将文件存储到服务器中，比如常见
 可以在block里面把文件添加到gameScore里面，建议使用异步上传的方法，再在block进行操作。如下面的例子：
 
 ```
-NSString *fileString = [[NSBundle mainBundle] pathForResource:@"IMG_1471" ofType:@"JPG"];
+NSData *data = UIImagePNGRepresentation([UIImage imageNamed:@"58f0222bd82ac"]);
+BmobFile *file1 = [[BmobFile alloc]initWithFileName:@"58f0222bd82ac.png" withFileData:data];
 BmobObject *obj = [[BmobObject alloc] initWithClassName:@"GameScore"];
-BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
 [file1 saveInBackground:^(BOOL isSuccessful, NSError *error) {
 	 //如果文件保存成功，则把文件添加到filetype列
 	 if (isSuccessful) {
