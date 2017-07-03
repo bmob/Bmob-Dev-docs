@@ -56,7 +56,7 @@ iOS9默认不允许进行http请求，所以在使用SDK的过程中需要往Inf
 ## 数据迁移
 从v2.1.8开始，数据SDK新增了能重新设置请求域名的Api，类似数据迁移，调用方式如下：
 ```
-[Bmob resetDomain:@"http://demo.bmob.cn/"];
+[Bmob resetDomain:@"https://open-vip.bmob.cn"];
 ```  
 其中，参数为开发者的域名，调用后的所有请求都指向新的域名。
 ## 对象
