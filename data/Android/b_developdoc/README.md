@@ -13,7 +13,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 ## 数据迁移
 从v3.5.5开始，数据SDK新增了能重新设置请求域名的Api，类似数据迁移，调用方式如下：
 
-		Bmob.resetDomain("http://demo.bmob.cn/");
+		Bmob.resetDomain("http://open-vip.bmob.cn/8/");
 
 其中，参数为开发者的域名，调用后的所有请求都指向新的域名。
 
