@@ -55,8 +55,6 @@ name=jeff: 传入一个参数，名称是name，值是jeff
 
 ## 转为套餐后调用云端逻辑的方式
 
-**注意：升级云端代码套餐后就没法在微信公众号中调用云端代码**
-
 bmob允许以http的方式直接调用云端逻辑。
 
 ### 获取应用的id值
@@ -428,28 +426,28 @@ function onRequest(request, response, modules) {
 ```
 ## 文件对象
 
-云端逻辑只支持文件的删除操作。删除文件，必须要知道文件的组名和url，示例代码如下：
+云端逻辑只支持文件的删除操作。删除文件，必须要知道文件的url，示例代码如下：
 
 ```
 function onRequest(request, response, modules) {
 
   var file = modules.oFile;
-
+  
+  //文件的路径为 http://bmob-cdn-10.b0.upaiyun.com/2017/06/03/8989824440d8c3a680865e4086fcab62.jpg
   file.del({
-	"group":"group1",
-	"url":"M00/00/01/wKgBP1N3FAWRJXsSAAAB_rYZATs52.html"
+	"url":"2017/06/03/8989824440d8c3a680865e4086fcab62.jpg"  //截取有效路径
   },function(err,data){
 	 //回调函数
   });
 }
 ```
 
-在上面的例子中，group1是组名，M00/00/01/wKgBP1N3FAWRJXsSAAAB_rYZATs52.html是url。
+其中，2017/06/03/8989824440d8c3a680865e4086fcab62.jpg 为文件完整路径的"http://bmob-cdn-10.b0.upaiyun.com/2017/06/03/8989824440d8c3a680865e4086fcab62.jpg"的有效url。
 
 返回结果是个json对象：
 ```
 {
-  "msg": "delete file success"
+  "msg": "ok"
 }
 ```
 

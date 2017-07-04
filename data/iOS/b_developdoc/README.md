@@ -1,6 +1,7 @@
 ## 简介
 
 Bmob平台为您的移动应用提供了一个完整的后端解决方案，我们提供轻量级的SDK开发包，让开发者以最小的配置和最简单的方式使用Bmob平台提供的服务，进而完全消除开发者编写服务器代码以及维护服务器的操作。
+**欢迎加入iOS开发者1群186864953进行讨论，有问题麻烦在Bmob应用后台提交工单**
 
 ## 安装
 
@@ -56,7 +57,7 @@ iOS9默认不允许进行http请求，所以在使用SDK的过程中需要往Inf
 ## 数据迁移
 从v2.1.8开始，数据SDK新增了能重新设置请求域名的Api，类似数据迁移，调用方式如下：
 ```
-[Bmob resetDomain:@"http://demo.bmob.cn/"];
+[Bmob resetDomain:@"https://open-vip.bmob.cn"];
 ```  
 其中，参数为开发者的域名，调用后的所有请求都指向新的域名。
 ## 对象
@@ -2118,7 +2119,7 @@ BmobFile可以让你的应用程序将文件存储到服务器中，比如常见
 
 #### 上传文件方法
 
-如下图的例子，是将cs.txt的文本文件保存到服务器端：
+可以通过文件路径和NSData上传。如下图的例子，是将58f0222bd82ac.png的文本文件保存到服务器端：
 
 ```
 -(void)saveInBackground:(BmobBooleanResultBlock)block;
@@ -2127,9 +2128,9 @@ BmobFile可以让你的应用程序将文件存储到服务器中，比如常见
 可以在block里面把文件添加到gameScore里面，建议使用异步上传的方法，再在block进行操作。如下面的例子：
 
 ```
-NSString *fileString = [[NSBundle mainBundle] pathForResource:@"IMG_1471" ofType:@"JPG"];
+NSData *data = UIImagePNGRepresentation([UIImage imageNamed:@"58f0222bd82ac"]);
+BmobFile *file1 = [[BmobFile alloc]initWithFileName:@"58f0222bd82ac.png" withFileData:data];
 BmobObject *obj = [[BmobObject alloc] initWithClassName:@"GameScore"];
-BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
 [file1 saveInBackground:^(BOOL isSuccessful, NSError *error) {
 	 //如果文件保存成功，则把文件添加到filetype列
 	 if (isSuccessful) {
