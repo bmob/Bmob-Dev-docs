@@ -193,7 +193,7 @@ BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设�
 BmobInstallation.getCurrentInstallation().save();
 ```
 
-#### 自定义Installation表
+### 自定义Installation表
 
 开发者如果想要为设备信息表增加其他属性，则可以通过继承BmobInstallation类的方式来完成，用来定制更通用的推送。
 
