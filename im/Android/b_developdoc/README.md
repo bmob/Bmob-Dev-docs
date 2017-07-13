@@ -46,6 +46,7 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | bmob-im:2.0.4| bmob-sdk:3.4.6| 
 | bmob-im:2.0.5| bmob-sdk:3.4.7-aar|
 | bmob-im:2.0.6| bmob-sdk:3.5.5| 
+| bmob-im:2.0.7| bmob-sdk:3.5.5| 
            
 ## 3、BmobNewIM SDK 集成
 
@@ -56,7 +57,7 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 
 | 下载平台     | 下载地址          |
 |------------------------------|--------------------------------|
-| Github基于BmobNewIM SDK v2.0.6 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
+| Github基于BmobNewIM SDK v2.0.6及以后 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
 | Bmob基于BmobNewIM SDK v2.0.6 的Demo| [bmob-newim-demo](http://www.bmob.cn/site/sdk#android_im_sdk_tab)|
 | Github基于BmobNewIM SDK v2.0.5 的Demo |[bmob-newim-demo ](https://github.com/bodismile/bmob-newim-demo)| 
 
