@@ -65,7 +65,7 @@ v3.4.7  2016年5月27日
 
 v3.4.6   2016年4月20日
 附加：
-1. [关于旧版本自动更新组件出现解析包出错问题的解决方法](http://docs.bmob.cn/data/Android/e_autoupdate/doc/index.html#常见问题)；
+1. [关于旧版本自动更新组件出现解析包出错问题的解决方法](https://docs.bmob.cn/data/Android/e_autoupdate/doc/index.html#常见问题)；
 2. 修复v3.4.6_0413版本中自动更新组件出现的AndroidRuntimeException问题；
 3. 增加文件服务的AppKey和Wake_Lock权限检测。
 新增：

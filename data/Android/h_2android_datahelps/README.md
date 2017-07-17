@@ -160,7 +160,7 @@ query.order("-score,createdAt");
 ## 数据关联
 
 Q:我有个Relation字段，想用它来记录喜欢这篇文章的用户，我该怎么添加里面的数据呢？
-A:这个问题请看 [数据关联](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html#数据关联性) 相关文档。
+A:这个问题请看 [数据关联](https://docs.bmob.cn/data/Android/b_developdoc/doc/index.html#数据关联性) 相关文档。
 
 ---
 
@@ -242,7 +242,7 @@ bmobQuery.include("userAuthor");
 
 aaaaEntity.getUserAuthor.getName() 就能正常返回值
 
-A:include的用法在文档里面已经说明了的(http://docs.bmob.cn/android/de ... clude用法),想include多个就这样用：query.include("x1,x2");
+A:include的用法在文档里面已经说明了的(https://docs.bmob.cn/android/de ... clude用法),想include多个就这样用：query.include("x1,x2");
 
 ---
 
@@ -533,7 +533,7 @@ Error:Execution failed for task ':app:transformClassesWithDexForDebug'.
 ---
 
 Q:我使用BmobUser.login接口,返回onFailure的参数code分别对应什么情况?有说明文档么?
-A:[android 错误码列表](http://docs.bmob.cn/data/Android/g_errorcode/doc/index.html)
+A:[android 错误码列表](https://docs.bmob.cn/data/Android/g_errorcode/doc/index.html)
 
 ---
 

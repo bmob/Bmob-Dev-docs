@@ -4,7 +4,7 @@
 
 下载SDK提供的res文件夹拷入工程目录下，和工程本身res目录合并。
 
-res文件夹下载地址：[http://www.bmob.cn/static/res.zip](http://www.bmob.cn/static/res.zip)
+res文件夹下载地址：[https://www.bmob.cn/static/res.zip](https://www.bmob.cn/static/res.zip)
 
 这里需要注意的是：
 
@@ -149,7 +149,7 @@ SDK中为自动更新方式提供了`忽略版本更新`功能，当用户勾选
 
 **请不要上传apk文件到`path`字段，改为`填写apk文件的url地址`到`android_url`字段。**
 
-具体原因请查看 [常见问题](http://docs.bmob.cn/data/Android/h_helps/doc/index.html)。
+具体原因请查看 [常见问题](https://docs.bmob.cn/data/Android/h_helps/doc/index.html)。
 
 ### 6、集成检测
 

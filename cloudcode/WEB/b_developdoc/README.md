@@ -14,7 +14,7 @@ Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可�
 - 获取前N名数据排行信息：[https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js](https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js)
 
 
-在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
+在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
 
 ## 调用云端逻辑的方式
 
@@ -154,7 +154,7 @@ modules是Bmob云端逻辑提供给大家的各种对象处理的模块，包括
   //下面进行其他操作
 ```
 
-** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#简介)。 **
+** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#简介)。 **
 
 ## 数据库对象
 
@@ -270,7 +270,7 @@ function onRequest(request, response, modules) {
 }                                                    
 ```
 
-其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数)。
+其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数)。
 
 ### 修改数据
 ```
@@ -1434,7 +1434,7 @@ oHttp对象可以模拟实现get、post、put、delete等各种HTTP请求信息�
 //获取Http模块
 var http = modules.oHttp;
 //发起Get请求
-http('http://www.bmob.cn', function (error, res, body) {
+http('https://www.bmob.cn', function (error, res, body) {
 	if (!error && res.statusCode == 200) {
 	  response.send(body);
 	}

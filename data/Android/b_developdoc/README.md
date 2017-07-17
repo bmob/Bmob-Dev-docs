@@ -4,7 +4,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 ## 快速入门
 
-建议您在阅读本开发文档之前，先阅读我们提供的 [Android快速入门文档](http://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，便于您后续的开发。<br>
+建议您在阅读本开发文档之前，先阅读我们提供的 [Android快速入门文档](https://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，便于您后续的开发。<br>
 如果开发者想使用不同历史版本的SDK，可以移步[历史版本的github仓库](https://github.com/bmob/bmob-android-sdk-release/releases)，选择使用各个历史版本。
 ## 模板代码
 在使用SDK过程中，如果一些Api如查询是高频代码，可以把一些重复的样板代码抽出来，并在AndroidStudio中设置模板，即可实现快速输入，能提高编码效率，效果如下：
@@ -214,11 +214,11 @@ public class GameScore extends BmobObject{
 
 为了提供更好的服务，BmobSDK中提供了`BmobUser、BmobInstallation、BmobRole`三个特殊的BmobObject对象来完成不同的功能，在这里我们统一称为特殊对象。
 
- - `BmobUser`对象主要是针对应用中的用户功能而提供的，它对应着web端的User表，使用BmobUser对象可以很方便的在应用中实现用户的注册、登录、邮箱验证等功能，具体的使用方法可查看文档的[`用户管理`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#用户管理)部分。
+ - `BmobUser`对象主要是针对应用中的用户功能而提供的，它对应着web端的User表，使用BmobUser对象可以很方便的在应用中实现用户的注册、登录、邮箱验证等功能，具体的使用方法可查看文档的[`用户管理`](https://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#用户管理)部分。
 
- - `BmobInstallation`对象主要用于应用的安装设备管理中，它对应着web端的Installation表，任何安装了你应用的设备都会在此表中产生一条数据标示该设备。结合Bmob提供的推送功能，还可以实现将自定义的消息推送给不同的设备终端，具体的使用方法可查看文档的[`消息推送`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#消息推送)部分。
+ - `BmobInstallation`对象主要用于应用的安装设备管理中，它对应着web端的Installation表，任何安装了你应用的设备都会在此表中产生一条数据标示该设备。结合Bmob提供的推送功能，还可以实现将自定义的消息推送给不同的设备终端，具体的使用方法可查看文档的[`消息推送`](https://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#消息推送)部分。
 
- - `BmobRole`对象主要用于角色管理，对应用于Web端的Role表，具体的使用方法可查看文档的[`ACL和角色`](http://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#ACL和角色)部分。
+ - `BmobRole`对象主要用于角色管理，对应用于Web端的Role表，具体的使用方法可查看文档的[`ACL和角色`](https://docs.bmob.cn/android/developdoc/index.html?menukey=develop_doc&key=develop_android#ACL和角色)部分。
 
 ## 数据类型
 
@@ -1382,7 +1382,7 @@ query.findObjects(new FindListener<Person>() {
 
 `Bmob Query Language`（简称 BQL） 是 Bmob 自 `BmobSDKV3.3.7` 版本开始，为查询 API 定制的一套类似 SQL 查询语法的子集和变种，主要目的是降低大家学习 Bmob 查询API 的成本，可以使用传统的 SQL 语法来查询 Bmob 应用内的数据。 
 
-具体的 BQL 语法，请参考 [Bmob Query Language 详细指南](http://docs.bmob.cn/other/Other/m_bql/doc/index.html)。
+具体的 BQL 语法，请参考 [Bmob Query Language 详细指南](https://docs.bmob.cn/other/Other/m_bql/doc/index.html)。
 
 #### 基本BQL查询
 
@@ -1549,7 +1549,7 @@ query.doSQLQuery(new SQLQueryListener<GameScore>(){
 
 ##### 内置函数
 
-对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](http://docs.bmob.cn/other/Other/m_bql/doc/index.html#内置函数介绍)列出的形式进行查询操作：
+对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](https://docs.bmob.cn/other/Other/m_bql/doc/index.html#内置函数介绍)列出的形式进行查询操作：
 
 举例：我想查询当前用户在2015年5月12日之后，在特定地理位置附近的游戏记录，可以这样：
 
@@ -2950,7 +2950,7 @@ BmobSMS.requestSMSCode("11位手机号码", "模板名称",new QueryListener<Int
 
 **2）、如果你提交的短信模板无法发送，则有可能包含一些敏感监控词，具体可去Github下载  [短信关键字监控参考文档](https://github.com/bmob/bmob-public-docs/blob/master/%E7%9F%AD%E4%BF%A1%E5%85%B3%E9%94%AE%E5%AD%97%E7%9B%91%E6%8E%A7%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3.doc)  来查看提交内容是否合法。**
 
-**3）、一天一个应用给同一手机号发送的短信不能超过10条，否则会报`10010`错误，其他错误码可查看  [短信功能相关错误码](http://docs.bmob.cn/other/Other/g_errorcode/doc/index.html#短信功能相关错误码) 。**
+**3）、一天一个应用给同一手机号发送的短信不能超过10条，否则会报`10010`错误，其他错误码可查看  [短信功能相关错误码](https://docs.bmob.cn/other/Other/g_errorcode/doc/index.html#短信功能相关错误码) 。**
 
 
 ##### 验证验证码
@@ -3181,7 +3181,7 @@ Bmob提供了非常简单的方法来实现第三方账号登陆的功能，目�
 
 **注：**
 
-1、以下均为SDK对文件进行操作的方法，如果你想在Web端对文件进行操作，请查看我们的帮助文档：[如何在Web后台上传文件](http://docs.bmob.cn/other/Other/h_helps/doc/index.html#Web开发者后台相关问题)
+1、以下均为SDK对文件进行操作的方法，如果你想在Web端对文件进行操作，请查看我们的帮助文档：[如何在Web后台上传文件](https://docs.bmob.cn/other/Other/h_helps/doc/index.html#Web开发者后台相关问题)
 
 2、自 `BmobSDKv3.4.6` 开始，文件服务需要注意以下几个方面：
 
@@ -3471,7 +3471,7 @@ BmobFile.deleteBatch(urls, new DeleteBatchListener() {
 });
 
 ```
-为方便大家理解文件服务的使用，Bmob提供了一个文件上传的案例和源码，大家可以到[示例和教程中查看和下载](http://docs.bmob.cn/data/Android/c_example/doc/index.html#上传文件案例教程)。
+为方便大家理解文件服务的使用，Bmob提供了一个文件上传的案例和源码，大家可以到[示例和教程中查看和下载](https://docs.bmob.cn/data/Android/c_example/doc/index.html#上传文件案例教程)。
 
 ### 缩略图
 
@@ -3555,7 +3555,7 @@ rtd.unsubRowDelete(testTableName, objectId);
 
 ## ACL和角色
 
-数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)，了解Bmob如何保护数据安全）。
+数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](https://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)，了解Bmob如何保护数据安全）。
 
 其中，最灵活的方法是通过ACL和角色，它的思路是每一条数据有一个用户和角色的列表，以及这些用户和角色拥有什么样的许可权限。
 
@@ -3827,7 +3827,7 @@ query.findObjects(new FindListener<Person>() {
 
 ## 应用安全
 
-请大家在使用Bmob开发应用程序之前，仔细阅读“数据与安全”的文档：[http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)
+请大家在使用Bmob开发应用程序之前，仔细阅读“数据与安全”的文档：[https://docs.bmob.cn/other/Other/n_datasafety/doc/index.html](https://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)
 
 
 ## 开源案例
@@ -3871,7 +3871,7 @@ Bmob.getServerTime(new QueryListener<Long>() {
 ### 自动更新组件
 
 Bmob为大家提供了应用的自动更新组件，使用这个组件可以快速方便实现应用的自动升级功能。
-详细的使用操作可以参考文档：[自动更新组件文档](http://docs.bmob.cn/data/Android/e_autoupdate/doc/index.html)
+详细的使用操作可以参考文档：[自动更新组件文档](https://docs.bmob.cn/data/Android/e_autoupdate/doc/index.html)
 
 ### 表结构
 
@@ -3962,7 +3962,7 @@ Bmob.getAllTableSchema(context, new QueryListListener<BmobTableSchema>() {
 
 ## 错误码列表
 
-**Android SDK的错误码都是以`9`开头的，其他错误码请点击查看：[RestAPI错误码列表](http://docs.bmob.cn/data/Android/g_errorcode/doc/index.html#RESTAPI错误码列表)。**
+**Android SDK的错误码都是以`9`开头的，其他错误码请点击查看：[RestAPI错误码列表](https://docs.bmob.cn/data/Android/g_errorcode/doc/index.html#RESTAPI错误码列表)。**
 
 **9001**
 

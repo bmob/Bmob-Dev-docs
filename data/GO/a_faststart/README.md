@@ -74,7 +74,7 @@ func main() {
 
 ## Bmob官方信息
 
-官方网址：[http://www.bmob.cn](http://www.bmob.cn)
+官方网址：[https://www.bmob.cn](https://www.bmob.cn)
 
 问答社区：[http://wenda.bmob.cn](http://wenda.bmob.cn)
 

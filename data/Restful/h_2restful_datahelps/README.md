@@ -151,7 +151,7 @@ A:可以查询
 Q: 如何在线测试RestApi
 A:使用Chrome浏览器的Postman插件就可以进行调试了。[点击链接Postman下载地址](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?utm_source=chrome-ntp-icon)。
 
-界面效果[点击这里查看](http://docs.bmob.cn/restful/faststart/index.html?menukey=fast_start&key=start_restful#RestAPI调试工具)。
+界面效果[点击这里查看](https://docs.bmob.cn/restful/faststart/index.html?menukey=fast_start&key=start_restful#RestAPI调试工具)。
 
 ---
 Q:Postman发起数据请求没有反应
@@ -197,6 +197,6 @@ A:restapi可以发送推送信息，也可以通过get的方式获取聊天内�
 ---
 
 Q:哪里可以看到错误码
-A:[点击这里](http://docs.bmob.cn/data/Restful/g_errorcode/doc/index.html)可以查看RestApi的错误码列表。
+A:[点击这里](https://docs.bmob.cn/data/Restful/g_errorcode/doc/index.html)可以查看RestApi的错误码列表。
 
 

@@ -1,14 +1,14 @@
 # RESTAPI开发指南
 
 ## 简介
-只要您的设备，您使用的语言能够发送HTTP请求，那么就可以用来和[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")进行数据交互，您可以使用REST API做很多事情,比如:
+只要您的设备，您使用的语言能够发送HTTP请求，那么就可以用来和[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")进行数据交互，您可以使用REST API做很多事情,比如:
 
-- 一个移动网站可以通过C、Java、Python、PHP、C#等甚至任何语言来获取[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")上的数据。
-- 一个网站可以展示来自[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")的数据。
+- 一个移动网站可以通过C、Java、Python、PHP、C#等甚至任何语言来获取[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")上的数据。
+- 一个网站可以展示来自[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")的数据。
 - 您可以上传大量的数据，随后可以被一个移动App读取。
 - 您可以下载最近的数据来进行您自定义的分析统计。
-- 使用任何语言写的程序都可以操作[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")上的数据。
-- 如果您不再需要使用[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")，您可以导出您所有的数据。
+- 使用任何语言写的程序都可以操作[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")上的数据。
+- 如果您不再需要使用[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")，您可以导出您所有的数据。
 
 ## 请求格式
 对于POST和PUT请求，请求的主体必须是JSON格式,而且HTTP请求头的 `Content-Type` 需要设置为 `application/json` 。
@@ -42,7 +42,7 @@ Key必须是字母和数字组成的字符串,Value可以是任何可以JSON编�
 
 每个对象都有一个类名，您可以通过类名来区分不同的数据，例如，我们可以把游戏得分对象称之为GameScore.我们推荐您使用  `NameYourClassesLikeThis` 和 `nameYourKeysLikeThis` 这样的格式为您的类名和Key命名，这可以使您的代码看起来很漂亮.
 
-当您从[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")中获取对象时，一些字段会被自动加上: createdAt, updatedAt 和 objectId， 这些字段的名字是保留的，您不能自行设置它们，我们上面设置的对象在获取时应该是下面的样子.
+当您从[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")中获取对象时，一些字段会被自动加上: createdAt, updatedAt 和 objectId， 这些字段的名字是保留的，您不能自行设置它们，我们上面设置的对象在获取时应该是下面的样子.
 ```
 {
     "score": 1337,
@@ -70,7 +70,7 @@ https://api.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ## 数据类型
-到现在为止我们只使用了可以被标准JSON编码的值，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")移动客户端SDK库同样支持日期,地理位置数据和指针数据、关系型数据。在REST API中，这些值都被编码了，同时有一个"__type"字段来标识出它们所属的类型，所以如果您采用正确的编码的话就可以读或者写这些字段了。
+到现在为止我们只使用了可以被标准JSON编码的值，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")移动客户端SDK库同样支持日期,地理位置数据和指针数据、关系型数据。在REST API中，这些值都被编码了，同时有一个"__type"字段来标识出它们所属的类型，所以如果您采用正确的编码的话就可以读或者写这些字段了。
 
 Date类型包含了一个"iso"字段存储了一个UTC时间戳,以ISO 8601格式和毫秒级的精度来存储时间: YYYY-MM-DDTHH:MM:SS.MMMZ，或者 YYYY-MM-DDTHH:MM:SS
 ```
@@ -110,7 +110,7 @@ Pointer 类型是当前对象要指向另一个对象时使用，它包含了 cl
 当更多的数据类型被加入的时候, 它们都会采用 hashmap `加上一个 type` 字段的形式, 所以您不应该使用type作为您自己的JSON对象的Key。
 
 ## 添加数据
-为了在[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")上创建一个新的对象，应该向class的URL发送一个POST请求，其中内容体应该是包含对象本身的JSON格式，例如，要创建如上例子中说的对象:
+为了在[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")上创建一个新的对象，应该向class的URL发送一个POST请求，其中内容体应该是包含对象本身的JSON格式，例如，要创建如上例子中说的对象:
 ```
 curl -X POST \
     -H "X-Bmob-Application-Id: Your Application ID" \
@@ -406,7 +406,7 @@ curl -X PUT \
 ```
 
 ## 删除数据
-为了在[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")上删除一个对象，可以发送一个DELETE请求到指定的对象的URL，比如:
+为了在[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")上删除一个对象，可以发送一个DELETE请求到指定的对象的URL，比如:
 ```
 curl -X DELETE \
     -H "X-Bmob-Application-Id: Your Application ID" \
@@ -426,7 +426,7 @@ curl -X PUT \
 ```
 
 ## 数组
-为了存储数组型数据，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供3种操作来原子性地更改一个数组字段:
+为了存储数组型数据，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供3种操作来原子性地更改一个数组字段:
 
 `Add` 在一个数组字段的后面添加一些指定的对象(包装在一个数组内)
 
@@ -504,7 +504,7 @@ curl -X PUT \
 对象可以与其他对象相联系。就像数据库中的主外键关系一样，数据表 A 的某一个字段是数据表 B 的外键，只有表 B 中存在的数据才可插入进表 A 中的字段。 
 
 ### 添加关联关系
-为了更新 `Pointer` 的Key类型，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一行记录时并添加一个指针:
+为了更新 `Pointer` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一行记录时并添加一个指针:
 ```
 curl -X POST \
   -H "X-Bmob-Application-Id: Your Application ID" \
@@ -514,7 +514,7 @@ curl -X POST \
   https://api.bmob.cn/1/classes/GameScore
 ```
 
-为了更新 `Relation` 的Key类型，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加一行记录时并添加多个关系:
+为了更新 `Relation` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加一行记录时并添加多个关系:
 ```
 curl -X POST \
   -H "X-Bmob-Application-Id: Your Application ID" \
@@ -525,7 +525,7 @@ curl -X POST \
 ```
 
 ### 修改关联对象
-为了更新 `Pointer` 的Key类型，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一个指针:
+为了更新 `Pointer` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一个指针:
 ```
 curl -X PUT \
   -H "X-Bmob-Application-Id: Your Application ID" \
@@ -535,7 +535,7 @@ curl -X PUT \
   https://api.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
-为了更新 `Relation` 的Key类型，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加多个关系:
+为了更新 `Relation` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加多个关系:
 ```
 curl -X PUT \
   -H "X-Bmob-Application-Id: Your Application ID" \
@@ -851,12 +851,12 @@ curl -X DELETE \
 
 
 ## 用户
-很多跨平台和跨系统的应用都有一个统一的登陆流程，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")通过REST API访问用户的账户让你实现该功能。
+很多跨平台和跨系统的应用都有一个统一的登陆流程，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")通过REST API访问用户的账户让你实现该功能。
 
-通常来说，用户这个类的功能与其他的对象是相同的，比如都没有限制模式(Schema Less)，User对象和其他对象不同的是一个用户必须有用户名(username)和密码(password)，密码会被自动地加密和存储。[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")强制您username和email这两个Key的值必须是没有重复的。
+通常来说，用户这个类的功能与其他的对象是相同的，比如都没有限制模式(Schema Less)，User对象和其他对象不同的是一个用户必须有用户名(username)和密码(password)，密码会被自动地加密和存储。[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")强制您username和email这两个Key的值必须是没有重复的。
 
 ### 属性
-[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")默认会有几个特定的属性：
+[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")默认会有几个特定的属性：
 
 username: 用户的用户名`（必需）`。
 
@@ -867,7 +867,7 @@ email: 用户的电子邮件地址`（可选）`。
 ### 注册用户
 注册一个新用户与创建一个新的普通对象之间的不同点在于username和password字段都是必要的，password字段会以和其他的字段不一样的方式处理，它在保存时会被加密而且永远不会被返回给任何来自客户端的请求。
 
-在您的应用设置页面中，您可以向[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")来请求认证邮件地址，这项设置启用了的话，所有用户注册时填写了email这个Key的值，并且邮箱有效的情况下，就会向这个邮箱地址发出一封邮件，邮件中会包含一个来自[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")的邮箱验证的链接，当您的用户查收邮件并点击这个链接后，则这个用户emailVerified这个Key的值会置为True，您可以在emailVerified字段上查看用户的email是否已经通过验证了。
+在您的应用设置页面中，您可以向[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")来请求认证邮件地址，这项设置启用了的话，所有用户注册时填写了email这个Key的值，并且邮箱有效的情况下，就会向这个邮箱地址发出一封邮件，邮件中会包含一个来自[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")的邮箱验证的链接，当您的用户查收邮件并点击这个链接后，则这个用户emailVerified这个Key的值会置为True，您可以在emailVerified字段上查看用户的email是否已经通过验证了。
 
 为了注册一个新的用户，需要向user路径发送一个POST请求，您可以加入一个甚至多个新的字段，例如，创建一个有家庭电话字段的新用户:
 ```
@@ -963,7 +963,7 @@ curl -X PUT \
 `在更新用户信息时，如果用户邮箱有变更并且在管理后台打开了邮箱验证选项的话，Bmob云后端同样会自动发动一封邮件验证信息给用户。`
 
 ### 删除用户
-为了在[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")上删除一个用户，可以向用户的URL上发送一个DELETE请求，前提是您必须提供一个X-Bmob-Session-Token在Http请求头上以便认证授权，例子：
+为了在[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")上删除一个用户，可以向用户的URL上发送一个DELETE请求，前提是您必须提供一个X-Bmob-Session-Token在Http请求头上以便认证授权，例子：
 ```
 curl -X DELETE \
     -H "X-Bmob-Application-Id: Your Application ID" \
@@ -1025,11 +1025,11 @@ curl -X POST \
 4. 用户的密码已被重置为新输入的密码。
 
 ### 邮箱验证
-设置邮件验证是可选的一个应用设置, 这样可以对已经确认过邮件的用户提供一部分保留的体验，邮件验证功能会在用户(User)对象中加入emailVerified字段, 当一个用户的邮件被新添加或者修改过的话，emailVerified会默认被设为false，如果应用设置中开启了邮箱认证功能，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")会对用户填写的邮箱发送一个链接, 这个链接可以把emailVerified设置为 true.
+设置邮件验证是可选的一个应用设置, 这样可以对已经确认过邮件的用户提供一部分保留的体验，邮件验证功能会在用户(User)对象中加入emailVerified字段, 当一个用户的邮件被新添加或者修改过的话，emailVerified会默认被设为false，如果应用设置中开启了邮箱认证功能，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")会对用户填写的邮箱发送一个链接, 这个链接可以把emailVerified设置为 true.
 
 emailVerified 字段有 3 种状态可以考虑：
 
-`true` : 用户可以点击邮件中的链接通过[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")来验证地址，一个用户永远不会在新创建这个值的时候emailVerified为true。
+`true` : 用户可以点击邮件中的链接通过[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")来验证地址，一个用户永远不会在新创建这个值的时候emailVerified为true。
 
 `false` : 用户(User)对象最后一次被刷新的时候, 用户并没有确认过他的邮箱地址, 如果您看到emailVerified为false的话，您可以考虑刷新 用户(User)对象。
 
@@ -1199,7 +1199,7 @@ curl -X POST \
 ```
 #### 保存Android设备的 installationId
 
-对于Android设备，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")SDK会自动生成uuid作为installationId保存到 Bmob。 您可以使用以下REST API保存Android设备的installation ID。
+对于Android设备，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")SDK会自动生成uuid作为installationId保存到 Bmob。 您可以使用以下REST API保存Android设备的installation ID。
 ```
 curl -X POST \
   -H "X-Bmob-Application-Id: Your Application ID"          \
