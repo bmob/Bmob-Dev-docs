@@ -57,8 +57,16 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 
 | 下载平台     | 下载地址          |
 |------------------------------|--------------------------------|
+<<<<<<< HEAD
+| Github基于BmobNewIM SDK v2.0.7 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
+| Bmob基于BmobNewIM SDK v2.0.7 的Demo| [bmob-newim-demo](http://www.bmob.cn/site/sdk#android_im_sdk_tab)|
+=======
 | Github基于BmobNewIM SDK v2.0.6及以后 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
 | Bmob基于BmobNewIM SDK v2.0.6 的Demo| [bmob-newim-demo](https://www.bmob.cn/site/sdk#android_im_sdk_tab)|
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 | Github基于BmobNewIM SDK v2.0.5 的Demo |[bmob-newim-demo ](https://github.com/bodismile/bmob-newim-demo)| 
 
 
@@ -78,6 +86,7 @@ android {
    }
 }
 ```
+
 
 ### 3.2、自动集成
 
@@ -112,7 +121,7 @@ task clean(type: Delete) {
 	dependencies {
 	    compile fileTree(dir: 'libs', include: ['*.jar'])
 		//bmob-im：特定版本的bmob-im依赖特定版本的bmob-sdk
-		compile 'cn.bmob.android:bmob-im:2.0.6@aar'
+		compile 'cn.bmob.android:bmob-im:2.0.7@aar'
 		compile 'cn.bmob.android:bmob-sdk:3.5.5'
 	}
 ```
