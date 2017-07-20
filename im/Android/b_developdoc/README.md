@@ -42,14 +42,15 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | bmob-im:2.0.5| bmob-sdk:3.4.7-aar|
 | bmob-im:2.0.6| bmob-sdk:3.5.5| 
 | bmob-im:2.0.7| bmob-sdk:3.5.5| 
+| bmob-im:2.0.8| bmob-sdk:3.5.5| 
            
 ## 3、BmobNewIM SDK 集成
 ### 3.1、手动集成
 #### 3.1.1、下载Android BmobNewIM SDK开发包及其Demo
 | 下载平台     | 下载地址          |
 |------------------------------|--------------------------------|
-| Github基于BmobNewIM SDK v2.0.7 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
-| Bmob基于BmobNewIM SDK v2.0.7 的Demo| [bmob-newim-demo](http://www.bmob.cn/site/sdk#android_im_sdk_tab)|
+| Github基于BmobNewIM SDK v2.0.8 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
+| Bmob基于BmobNewIM SDK v2.0.8 的Demo| [bmob-newim-demo](http://www.bmob.cn/site/sdk#android_im_sdk_tab)|
 | Github基于BmobNewIM SDK v2.0.5 的Demo |[bmob-newim-demo ](https://github.com/bodismile/bmob-newim-demo)| 
 
 #### 3.1.2、解压Android BmobNewIM SDK开发包
@@ -83,7 +84,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        //Bmob的maven仓库地址，必须填写
+        //TODO 1、配置Bmob的maven仓库地址
         maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
 }
@@ -97,8 +98,8 @@ task clean(type: Delete) {
 ```gradle
 	dependencies {
 	    compile fileTree(dir: 'libs', include: ['*.jar'])
-		//bmob-im：特定版本的bmob-im依赖特定版本的bmob-sdk
-		compile 'cn.bmob.android:bmob-im:2.0.7@aar'
+		//TODO 2、配置IM SDK（bmob-im）版本和Data SDK（bmob-sdk）版本：特定版本的bmob-im依赖特定版本的bmob-sdk
+		compile 'cn.bmob.android:bmob-im:2.0.8@aar'
 		compile 'cn.bmob.android:bmob-sdk:3.5.5'
 	}
 ```
@@ -107,6 +108,7 @@ task clean(type: Delete) {
 ### 3.3、配置AndroidManifest.xml
 #### 3.3.1、 添加Bmob_APP_KEY
 ```xml
+	<!--TODO 3、配置Bmob平台的应用密钥-->
    <meta-data
 	    android:name="Bmob_APP_KEY"
 	    android:value="Bmob平台的Application ID" />
@@ -116,6 +118,7 @@ task clean(type: Delete) {
 请注意在Android 6.0版本开始某些权限需要动态获取，详情请看Android Developwers官方文档，[android-6.0-changes](http://developer.android.com/intl/zh-cn/about/versions/marshmallow/android-6.0-changes.html)和[android-7.0-changes](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html)。
 
 ```xml
+ 	  <!--TODO 4、配置IM SDK需要的权限-->
     <!--网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 监听网络的变化 -->
@@ -137,6 +140,7 @@ task clean(type: Delete) {
 ```
 #### 3.3.3、 添加service、receiver标签：
 ```xml
+   <!--TODO 5、配置IM SDK需要的广播和服务-->
   <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver" >
 	    <intent-filter>
 	        <action android:name="cn.bmob.action.RECONNECT" />
@@ -168,12 +172,12 @@ public class DemoMessageHandler extends BmobIMMessageHandler{
 
     @Override
     public void onMessageReceive(final MessageEvent event) {
-        //当接收到服务器发来的消息时，此方法被调用
+        //TODO 6.1、在线消息
     }
 
     @Override
     public void onOfflineReceive(final OfflineMessageEvent event) {
-        //每次调用connect方法时会查询一次离线消息，如果有，此方法会被调用
+        //TODO 6.2、离线消息，每次connect的时候会查询离线消息，如果有，此方法会被调用
     }
 }
 
@@ -188,10 +192,8 @@ public class BmobIMApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-		//NewIM初始化
-		BmobIM.init(this);
-		//注册消息接收器
-        BmobIM.registerDefaultMessageHandler(new DemoMessageHandler(this));
+			//TODO 6.3、注册消息接收器
+        BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
     }
 }
 ```
