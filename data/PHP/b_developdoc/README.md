@@ -829,17 +829,17 @@ $bmobFile = new BmobFile();
 $res=$bmobFile->uploadFile("heelo.txt","http://file.bmob.cn/M02/17/99/oYYBAFYfXS6AKB96AAAABNsGNwg872.txt");
 ```
 
-返回的主体是一个JSON对象，包含：文件名（filename）、分组（group）、文件地址（url）。 http://file.bmob.cn/ + url 就是文件上传成功后的完整地址，返回的Http Headers中的Location会包含该完整地址:
+返回的主体是一个JSON对象，包含：文件名（filename）、cdn信息（cdnname）、文件地址（url）。 http://file.bmob.cn/ + url 就是文件上传成功后的完整地址，返回的Http Headers中的Location会包含该完整地址:
 
 ```php
-[filename] => heelo.txt [group] => group1 [url] => M02/57/6A/oYYBAFYy3amAQI7cAAAAAjP0FTs923.txt
+[filename] => heelo.txt [cdn] => upyun [url] => M02/57/6A/oYYBAFYy3amAQI7cAAAAAjP0FTs923.txt
 
 ```
 
 然后你需要把上传后的文件对象上传:
 
 ```php
-$fileArray = array("__type"=>"File", "group"=>$res->group,"filename"=>$res->filename,"url"=>$res->url);
+$fileArray = array("__type"=>"File", "cdn"=>$res->cdn,"filename"=>$res->filename,"url"=>$res->url);
 $res=$bmobObj->create(array("score"=>11,"file"=>$fileArray)); 
 ```
 
