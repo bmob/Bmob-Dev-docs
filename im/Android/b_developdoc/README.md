@@ -168,6 +168,7 @@ task clean(type: Delete) {
 1、请自定义消息接收器继承自`BmobIMMessageHandler`来处理服务器发来的消息和离线消息。
 
 ```java
+//TODO 6、自定义消息接收器处理在线消息和离线消息
 public class DemoMessageHandler extends BmobIMMessageHandler{
 
     @Override
@@ -232,18 +233,19 @@ public class MessageReceiver extends BroadcastReceiver {
 在Application的onCreate方法中调用`BmobIM.init(context)`。
 
 ```java
+//TODO 8、在AndroidManifest.xml中需要配置自定义的Application。
 public class BmobIMApplication extends Application{
 
     @Override
     public void onCreate() {
         super.onCreate();
-        //只有主进程运行的时候才需要初始化
+        //TODO 7、初始化IM SDK，只有主进程运行的时候才需要初始化
         if (getApplicationInfo().packageName.equals(getMyProcessName())){
-            //im初始化
             BmobIM.init(this);
-            //注册消息接收器
-            BmobIM.registerDefaultMessageHandler(new DemoMessageHandler(this));
+            //TODO 6.3、注册消息接收器
+            BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
         }
+        
     }
 
 	/**
@@ -272,6 +274,7 @@ public class BmobIMApplication extends Application{
 
 1. 初始化方法包含了BmobSDK的初始化步骤，故无需再初始化BmobSDK。
 2. 在初始化的时候，最好做下判断：只有主进程运行的时候才开始初始化，避免资源浪费。
+
 
 ## 4、BmobNewIM SDK 使用
 ### 4.1、服务器连接
