@@ -314,7 +314,20 @@ remove({
 },function(err,data){         //回调函数
 });
 ```
-
+### 删除某行某字段的数据
+```
+db.update({
+   'table': 'xxx',
+   'objectId': 'yyy',
+   'data': {
+     'zzz': { // zzz就是要删除的列名
+        '__op': 'Delete'
+      }
+   }
+}, function(err, data) {
+// DO ANYTHING
+});
+```
 
 ### 用户注册
 ```
