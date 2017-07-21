@@ -191,7 +191,7 @@ public class BmobIMApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-			//TODO 6.3、注册消息接收器
+			//TODO 6.4、注册消息接收器
         BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
     }
 }
@@ -200,7 +200,7 @@ public class BmobIMApplication extends Application{
 在Application的onCreate方法中调用`BmobIM.init(context)`。
 
 ```java
-
+//TODO 6.3、新建Application，并在AndroidManifest.xml中配置
 public class BmobIMApplication extends Application{
 
     @Override
@@ -209,10 +209,9 @@ public class BmobIMApplication extends Application{
         //TODO 7、初始化IM SDK，只有主进程运行的时候才需要初始化
         if (getApplicationInfo().packageName.equals(getMyProcessName())){
             BmobIM.init(this);
-            //TODO 6.3、注册消息接收器
-            BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
+            //TODO 6.4、注册消息接收器
+        		BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
         }
-        
     }
 
 	/**
