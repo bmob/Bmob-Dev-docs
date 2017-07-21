@@ -163,8 +163,6 @@ task clean(type: Delete) {
 
 ### 3.4、代码配置
 #### 3.4.1、注册消息接收器
-##### 3.4.1.1、如果你使用的是`NewIM_V2.0.2`及以后的版本
-
 1、请自定义消息接收器继承自`BmobIMMessageHandler`来处理服务器发来的消息和离线消息。
 
 ```java
@@ -187,7 +185,7 @@ public class DemoMessageHandler extends BmobIMMessageHandler{
 2、在Application的onCreate方法中注册这个`DemoMessageHandler`。
 
 ```java
-
+//TODO 6.3、新建Application，并在AndroidManifest.xml中配置
 public class BmobIMApplication extends Application{
 
     @Override
@@ -198,42 +196,11 @@ public class BmobIMApplication extends Application{
     }
 }
 ```
-
-##### 3.4.1.2、如果你使用的SDK版本是`NewIM_V2.0.1`
-1、请创建一个广播消息接收器，用于接收服务器发来的消息。
-
-```java
-
-public class MessageReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(final Context context, Intent intent) {
-        if(intent!=null){
-            final MessageEvent event =(MessageEvent)intent.getSerializableExtra("event");
-            //开发者可以在这里发应用通知
-    }
-}
-
-```
-
-2、在`AndroidManifest.xml`中注册此receiver。
-
-```xml
-<receiver
-    android:name="程序包名.MessageReceiver"
-    android:enabled="true">
-    <intent-filter>
-        <action android:name="cn.bmob.im.action.MESSAGE"/>
-    </intent-filter>
-</receiver>
-
-```
-
 #### 3.4.2、初始化BmobNewIM SDK
 在Application的onCreate方法中调用`BmobIM.init(context)`。
 
 ```java
-//TODO 8、在AndroidManifest.xml中需要配置自定义的Application。
+
 public class BmobIMApplication extends Application{
 
     @Override
