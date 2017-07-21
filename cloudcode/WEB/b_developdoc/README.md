@@ -1581,7 +1581,7 @@ function onRequest(request, response, modules) {
 ```
 
 
-更多请参考 [BQL 详细指南](/bql/index.html?menukey=otherdoc&key=bql "BQL 详细指南") 。
+更多请参考 [BQL 详细指南](http://docs.bmob.cn/other/Other/m_bql/doc/index.html "BQL 详细指南") 。
 
 ## 加密对象（oCrypto）
 提供md5和sha1两种加密算法。更多的功能详细参考：[https://www.npmjs.org/package/crypto](https://www.npmjs.org/package/crypto)
