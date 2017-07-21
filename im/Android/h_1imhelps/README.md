@@ -16,7 +16,7 @@ A:在断网开始的一分钟内发的消息是接收不到的，因为心跳包
 ---
 
 Q:Bmob可以做群聊吗？
-A:可以利用[数据实时同步](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html#index_数据实时同步)来实现群聊。
+A:可以利用[数据实时同步](https://docs.bmob.cn/data/Android/b_developdoc/doc/index.html#index_数据实时同步)来实现群聊。
 
 思路可以这样：
 

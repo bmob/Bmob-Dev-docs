@@ -9,6 +9,6 @@ A:请勿担心，在Bmob财务管理平台订单管理处，金额从小数点�
 ---
 
 Q:有哪些其它需要注意的事项
-A:支付问题：[点击查看其它注意事项](http://docs.bmob.cn/pay/Android/b_developdoc/doc/index.html#支付回调)
+A:支付问题：[点击查看其它注意事项](https://docs.bmob.cn/pay/Android/b_developdoc/doc/index.html#支付回调)
 
 

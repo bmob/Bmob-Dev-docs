@@ -89,7 +89,7 @@
 ![](image/tuisong_18.jpg)
 
 ## 推送使用
-使用Bmob的推送服务，需要添加BmobSDK及其依赖库，具体可以参考[BmobSDK iOS快速入门](http://docs.bmob.cn/data/iOS/a_faststart/doc/index.html)
+使用Bmob的推送服务，需要添加BmobSDK及其依赖库，具体可以参考[BmobSDK iOS快速入门](https://docs.bmob.cn/data/iOS/a_faststart/doc/index.html)
 
 ### 推送消息接收
 接收推送消息需要做两件事情，一是注册远程推送，一是将注册后得到的Token值保存至服务器。

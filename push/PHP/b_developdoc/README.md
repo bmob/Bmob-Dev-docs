@@ -34,7 +34,7 @@ $res = $bmobPush->addInstallations($data);
 
 ### 保存Android设备的 installationId
 
-对于Android设备，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")SDK会自动生成uuid作为installationId保存到 Bmob。 你可以使用以下REST API保存Android设备的installation ID。
+对于Android设备，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")SDK会自动生成uuid作为installationId保存到 Bmob。 你可以使用以下REST API保存Android设备的installation ID。
 ```
 
 $bmobPush = new BmobPush();
@@ -54,7 +54,7 @@ $res = $bmobPush->updateInstallations("fdcc6a94c6",array("injuryReports"=>true))
 
 ### 保存Windows Phone设备的 notificationUri
 
-对于Windows Phone设备，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")SDK会自动从Windows Push Center获取到notificationUri并保存到 Bmob。 你可以使用以下php sdk保存Windows Phone设备的notificationUri。
+对于Windows Phone设备，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")SDK会自动从Windows Push Center获取到notificationUri并保存到 Bmob。 你可以使用以下php sdk保存Windows Phone设备的notificationUri。
 ```
 $data=array(	
 	"deviceType"=>"windows phone",

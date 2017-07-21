@@ -21,7 +21,7 @@
 ![](image/rumen_miyue_2.png)
 
 
-获取Application ID后，下载SDK（下载地址：[http://www.bmob.cn/site/sdk#android_sdk](http://www.bmob.cn/site/sdk#android_sdk)）。
+获取Application ID后，下载SDK（下载地址：[https://www.bmob.cn/site/sdk#android_sdk](https://www.bmob.cn/site/sdk#android_sdk)）。
 
 ![](image/xiazai.png)
 
@@ -135,7 +135,7 @@
 
 #### 手动导入
 
-1. 开发者到[SDK下载中心](http://www.bmob.cn/downloads)下载 `数据服务` 的Android 版本的SDK，并将下载下来的`libs`文件夹里面的文件根据需要复制到工程的libs目录下(注意，自`v3.4.7`开始提供`libbmob.so`文件)； 
+1. 开发者到[SDK下载中心](https://www.bmob.cn/downloads)下载 `数据服务` 的Android 版本的SDK，并将下载下来的`libs`文件夹里面的文件根据需要复制到工程的libs目录下(注意，自`v3.4.7`开始提供`libbmob.so`文件)； 
 
 2. 在`app`的`buid.gradle`文件中添加SO库目录配置：
 
@@ -149,7 +149,7 @@
 
 ### Eclipse导入
 
-开发者到 [SDK下载中心](http://www.bmob.cn/downloads) 下载 `数据服务` 的Android 版本的SDK，在Eclipse工程的项目根目录中新建`libs`文件夹，将下载的jar包添加到此文件夹即可。
+开发者到 [SDK下载中心](https://www.bmob.cn/downloads) 下载 `数据服务` 的Android 版本的SDK，在Eclipse工程的项目根目录中新建`libs`文件夹，将下载的jar包添加到此文件夹即可。
 
 **注：**
 
@@ -268,7 +268,7 @@ public class MainActivity extends Activity {
 
 ## 添加一行数据
 
-首先创建JavaBean（对应为Bmob后台的数据表，更详细的解释请[查看Android开发文档](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html)）
+首先创建JavaBean（对应为Bmob后台的数据表，更详细的解释请[查看Android开发文档](https://docs.bmob.cn/data/Android/b_developdoc/doc/index.html)）
 
 ```java
 public class Person extends BmobObject {
@@ -369,9 +369,9 @@ p2.delete(new UpdateListener() {
 
 ## 源码下载
 
-[快速入门相关源码下载](http://www.bmob.cn/static/Bmob_android_quickstart.zip "快速入门相关源码下载")
+[快速入门相关源码下载](https://www.bmob.cn/static/Bmob_android_quickstart.zip "快速入门相关源码下载")
 
-案例教程和源码是快速入门的最简单方法，Bmob也为大家准备了相关的[案例教程和源码](http://docs.bmob.cn/data/Android/c_example/doc/index.html)，欢迎大家下载和查看。
+案例教程和源码是快速入门的最简单方法，Bmob也为大家准备了相关的[案例教程和源码](https://docs.bmob.cn/data/Android/c_example/doc/index.html)，欢迎大家下载和查看。
 
 为方便大家更好的理解Bmob SDK能够做的事情，我们还特意为大家提供了一些源码，大家可以下载之后，**嵌入Bmob的AppKey**，再打包运行。
 
@@ -389,7 +389,7 @@ p2.delete(new UpdateListener() {
 
 ## 阅读更多的文档
 
-1. 快速入门只是提供了最最基本的介绍，如果你想了解更多的功能，请查看我们的详细开发文档：[http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html](http://docs.bmob.cn/data/Android/b_developdoc/doc/index.html)
-2. 如果想看下SDK的类库文档，可以移步[这里](http://docs.bmob.cn/data/Android/i_doc/doc/index.html)
+1. 快速入门只是提供了最最基本的介绍，如果你想了解更多的功能，请查看我们的详细开发文档：[https://docs.bmob.cn/data/Android/b_developdoc/doc/index.html](https://docs.bmob.cn/data/Android/b_developdoc/doc/index.html)
+2. 如果想看下SDK的类库文档，可以移步[这里](https://docs.bmob.cn/data/Android/i_doc/doc/index.html)
 
 

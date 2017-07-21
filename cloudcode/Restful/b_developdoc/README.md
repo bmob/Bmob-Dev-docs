@@ -1,4 +1,4 @@
-相关云端逻辑的编写方式，请参考[云端逻辑开发文档](http://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html)
+相关云端逻辑的编写方式，请参考[云端逻辑开发文档](https://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html)
 
 在REST API中可以调用云端逻辑。例如，想调用云端逻辑的方法hello:
 

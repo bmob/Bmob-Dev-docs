@@ -34,7 +34,7 @@
 
 2)添加使用的系统framework:
 
-在你的XCode工程中Project ->TARGETS -> Build Phases->Link Binary With Libraries引入CoreLocation.framework、Security.framework、CoreGraphics.framework、MobileCoreServices.framework、CFNetwork.framework、CoreTelephony.framework、SystemConfiguration.framework、libz.1.2.5.tbd、libicucore.tbd、libsqlite3.tbd、libc++.tbd 、[libWeChatSDK.a](https://raw.githubusercontent.com/bmob/Bmob-iOS-SDK/master/libWeChatSDK.a) (可以直接点击下载,不使用支付功能不用添加这个)
+在你的XCode工程中Project ->TARGETS -> Build Phases->Link Binary With Libraries引入CoreLocation.framework、Security.framework、CoreGraphics.framework、MobileCoreServices.framework、CFNetwork.framework、CoreTelephony.framework、SystemConfiguration.framework、libz.1.2.5.tbd、libicucore.tbd、libsqlite3.tbd、libc++.tbd 、[libWeChatSDK.a](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419319164&token=&lang=zh_CN) (在微信开放平台可以直接点击下载具有支付功能的版本,不使用支付功能不用添加这个)
 
 ### 使用CocoaPods安装BmobSDK
 
@@ -145,5 +145,5 @@ BmobQuery *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 [快速入门相关源码下载](https://github.com/bmob/bmob-ios-demo "快速入门相关源码下载")
 
 
-案例教程和源码是快速入门的最简单方法，Bmob也为大家准备了相关的[案例教程和源码](http://docs.bmob.cn/ios/example/index.html?menukey=example_teach_doc&key=example_teach_ios)，欢迎大家下载和查看。
+案例教程和源码是快速入门的最简单方法，Bmob也为大家准备了相关的[案例教程和源码](https://docs.bmob.cn/ios/example/index.html?menukey=example_teach_doc&key=example_teach_ios)，欢迎大家下载和查看。
 

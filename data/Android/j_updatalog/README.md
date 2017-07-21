@@ -1,6 +1,14 @@
+v3.5.6 2017年07月05日
+
+1. 提供了客户端拉取后端用户信息的方法BmobUser.fetchUserInfo()，具体用法见文档；
+2. 修复了在StrictMode下，分块上传文件相关IO流未妥善关闭的bug；
+3. 源码层级集成了okhttp和gson,对okhttp的源码做了细节上的修改，解决了使用高版本okhttp上传文件的报错，亦即自v3.5.6开始，本地依赖数据sdk不需再导入okhttp和gson的jar，远程依赖数据sdk则保持不变(两行配置搞定),后续会慢慢解决依赖库的相关问题；
+4. 升级okio包到1.12.0。
+注:此次更新开发者不用修改之前的常用代码。
+
 v3.5.5 2017年04月20日
 
-1 sdk新增重新设置主域名，类似之前的数据迁移。
+1. sdk新增重新设置主域名，类似之前的数据迁移。
 注:此次更新开发者不用修改之前的常用代码。
 
 v3.5.4 2017年04月12日
@@ -57,7 +65,7 @@ v3.4.7  2016年5月27日
 
 v3.4.6   2016年4月20日
 附加：
-1. [关于旧版本自动更新组件出现解析包出错问题的解决方法](http://docs.bmob.cn/data/Android/e_autoupdate/doc/index.html#常见问题)；
+1. [关于旧版本自动更新组件出现解析包出错问题的解决方法](https://docs.bmob.cn/data/Android/e_autoupdate/doc/index.html#常见问题)；
 2. 修复v3.4.6_0413版本中自动更新组件出现的AndroidRuntimeException问题；
 3. 增加文件服务的AppKey和Wake_Lock权限检测。
 新增：

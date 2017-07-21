@@ -42,7 +42,7 @@ Bmob即时聊天demo包含了一个完整的即时通讯的App，功能包括：
 
 ### 配置相关服务
 如果需要用到推送服务，所以需要在管理后台上传对应Bundle ID的p12文件，请勿加密，
-详细详细请参照：http://docs.bmob.cn/iospush/index.html?menukey=otherdoc&key=iospush
+详细详细请参照：https://docs.bmob.cn/iospush/index.html?menukey=otherdoc&key=iospush
 
 ### 引入相关的库文件
 如果项目中已包含BmobSDK数据服务SDK的话，可以不添加新的框架，如果没有则需添加SystemConfiguration.framework、CoreFoundation.framework、Foundation.framework、CFNetwork.framwork、CoreGraphics.framework、sqlite3.tbd
