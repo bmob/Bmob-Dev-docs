@@ -139,7 +139,7 @@ Bmob.initialize("你的Application ID", "你的REST API Key");
 
 ## 源码下载
 
-[快速入门相关源码下载](http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip "快速入门相关源码下载")
+[快速入门相关源码下载](https://github.com/magic007/wechatAppDemo "快速入门相关源码下载")
 
 
 

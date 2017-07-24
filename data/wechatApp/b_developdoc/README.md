@@ -5,7 +5,9 @@
 
 ## 典型案例
 
-日记本等接口（学习示例）：[https://github.com/magic007/wechatAppDemo](https://github.com/magic007/wechatAppDemo) （采用实时数据同步SDK开发，里面几乎包含了小程序开发常见功能示例代码，右击可直接查看源码）
+Bmob示例包含常用接口（学习示例）：[https://github.com/magic007/wechatAppDemo](https://github.com/magic007/wechatAppDemo) （采用实时数据同步SDK开发，里面几乎包含了小程序开发常见功能示例代码，右击可直接查看源码）
+扫描二维码查看
+![](image/code.jpg)
 ![](image/ui2.1.gif)
 ![](image/ui2.2.gif)
 
@@ -17,7 +19,7 @@
 - 1.生日工具                    -------工具类
 - 2.足迹地图
 - 3.接力喵视频                -------视频类
-- 4.像素涂鸦					 -------小游戏
+- 4.像素涂鸦
 - 5.地道美食地图           -------LBS
 - 6.胖熊圈
 - 7.有货Hk
@@ -30,10 +32,37 @@
 - 14.顺德便利贴
 - 15.同城生活广告
 - 16.点点英语学堂
-- 17.朝露时刻			-------音频
+- 17.朝露时刻               -------音频类
 - 18.青岛一起秀科学俱乐部
-- 19.纸塘               -------壁纸
+- 19.纸塘					-------17年6月最热门的小程序
 - 20.雷湖古琴艺术
+- 21.皋城文明随手拍   -----政府
+- 22.阅后即焚图片分享
+- 23.猎位共享停车
+- 24.听写宝
+- 25.嘿车出行
+- 26.喵星人宠物社区
+- 27.标签生成器
+- 28.视频看房
+- 29.海南黎家特产
+- 30.轩宇工具
+- 31.在旅途看世界
+- 32.寻遍美食地图
+- 33.Bmob示例
+- 34.鲁山拼车
+- 33.莲馨图书室          图书馆-扫描借书
+- 34.灵动云课堂
+- 35.9cam     视频类
+- 36.恋爱迹
+- 37.融信品质生活服务
+- 38.全民摄影秀
+- 39.农电微服务    国家电网公司
+- 40.壁纸印象
+- 41.跟妆师
+- 42.高能名片
+- 43.婚纱lite
+- 44.张阿姨打扫
+- 45.吃决策
 >官方交流QQ群：118541934 。欢迎提交给我们
 
 ## 应用程序
@@ -93,9 +122,23 @@ title: "I am title", content: "I am content"
 
 
 ## 生成小程序二维码
-生成推广二维码非常简单，比如你是传统企业，你可以为你店里每件衣服生成一个二维码，用户扫描直接可以付款定位到那件衣服，如果你是餐厅老板，客户在桌子上扫描二维码可以定位那张桌子。如果你是互联网企业，你可以发布二维码到朋友圈，可以定位到是谁推荐了这个用户，这个用户上级是谁，等等，比目封装了生成二维码函数，使用非常简单，一下示例代码。
+生成推广二维码非常简单，比如你是传统企业，你可以为你店里每件衣服生成一个二维码，用户扫描直接可以付款定位到那件衣服，如果你是餐厅老板，客户在桌子上扫描二维码可以定位那张桌子。如果你是互联网企业，你可以发布二维码到朋友圈，可以定位到是谁推荐了这个用户，这个用户上级是谁，等等，Bmob封装了生成二维码函数，使用非常简单，一下示例代码。
+
+Bmob.generateCode 参数列表
+
+| 键 | 值 |参数说明 | 
+| ------------ | ------------- | ------------ |
+| path | pages/index/index | 页面路径，支持参数 |
+| width | 430  | 二维码宽度 |
+| interface | a\b\c  | 对应微信ABC方案 |
+| scene | Bmob  | 微信B方案才需要此值 |
+| type | 0/1  | 默认0，返回二维码base64数据.如果为1则服务端返回为二维码网络路径 |
+
+更多微信官方小程序码介绍 [微信官方小程序码介绍](https://mp.weixin.qq.com/debug/wxadoc/dev/api/qrcode.html "微信官方小程序码介绍")
+
 
 ```
+
 
 formSubmit: function (event) {
         var path = event.detail.value.path; //路径 
@@ -114,6 +157,8 @@ formSubmit: function (event) {
     }
 
 ```
+
+
 
 ## 小程序分享群Id
 
@@ -184,7 +229,7 @@ function onRequest(request, response, modules) {
     function(err, data) {
         //回调函数
         var data = JSON.parse(data);
-        var sessionkey = data.authData.weapp.session_key;
+        var sessionkey = data.authData.weapp.session_key;   //微信最新版本改版，此id是由前端发送过来
         var encryptedData = request.body.encryptedData;
         var iv = request.body.iv
         var groupid = groupIdParse(modules, sessionkey, encryptedData, iv) response.end(groupid);
@@ -293,14 +338,17 @@ function(err) {
     common.showTip('失败' + err)
 });
 
+
 ```
 
 
-
+## 小程序短信验证码
+方法调用与JavaScript一致，查看JavaScript 短信文档 [请求短信验证码](https://docs.bmob.cn/sms/JavaScript/b_developdoc/doc/index.html#请求短信验证码 "请求短信验证码")
 
 
 ## 小程序支付
-小程序支付只需发起请求获取微信需要的字段，这里用Bmob.Pay.wechatPay获取`nonceStr`,`packages`,`orderId`等相关信息。然后 wx.requestPayment弹窗支付页面，里面处理成功失败。 （比目的接口都是独立的，支付任何小程序都可以使用。目前小程序支付跟其他有区别比目平台不收取任何手续费，只要是比目平台付费会员都可使用。）
+小程序支付只需发起请求获取微信需要的字段，这里用Bmob.Pay.wechatPay获取`nonceStr`,`packages`,`orderId`等相关信息。然后 wx.requestPayment弹窗支付页面，里面处理成功失败。 （Bmob的接口都是独立的，支付任何小程序都可以使用。目前小程序支付跟其他有区别Bmob平台不收取任何手续费，只要是Bmob平台付费会员都可使用。）
+
 
 ```
 
@@ -419,7 +467,7 @@ var query = new Bmob.Query(Diary);
 // 查询所有数据
 query.find({
   success: function(results) {
-    alert("共查询到 " + results.length + " 条记录");
+    console.log("共查询到 " + results.length + " 条记录");
     // 循环处理查询到的数据
     for (var i = 0; i < results.length; i++) {
       var object = results[i];
@@ -427,7 +475,7 @@ query.find({
     }
   },
   error: function(error) {
-    alert("查询失败: " + error.code + " " + error.message);
+    console.log("查询失败: " + error.code + " " + error.message);
   }
 });
 ```
@@ -442,7 +490,7 @@ query.first({
     // 查询成功
   },
   error: function(error) {
-    alert("查询失败: " + error.code + " " + error.message);
+    console.log("查询失败: " + error.code + " " + error.message);
   }
 });
 ```
@@ -528,7 +576,7 @@ query.equalTo("title", "hello");
 // 查询所有数据
 query.find({
 	success: function(results) {
-		alert("共查询到 " + results.length + " 条记录");
+		console.log("共查询到 " + results.length + " 条记录");
 		// 循环处理查询到的数据
 		for (var i = 0; i < results.length; i++) {
 		var object = results[i];
@@ -536,7 +584,7 @@ query.find({
 		}
 	},
 	error: function(error) {
-		alert("查询失败: " + error.code + " " + error.message);
+		console.log("查询失败: " + error.code + " " + error.message);
 	}
 });
 ```
@@ -577,7 +625,7 @@ var query = new Bmob.Query(Diary);
 query.count({
   success: function(count) {
     // 查询成功，返回记录数量
-    alert("共有 " + count + " 条记录");
+    console.log("共有 " + count + " 条记录");
   },
   error: function(error) {
     // 查询失败
@@ -852,12 +900,13 @@ query.get("bc5da708dc",{
     result.save();
   },
   error: function(error) {
-    alert("Error: " + error.code + " " + error.message);
+    console.log("Error: " + error.code + " " + error.message);
   }
 }); 
 ```
 
 ##批量操作
+
 ### 批量更新示例
 
 ```
@@ -971,7 +1020,48 @@ query.include("post");
 
 可以这样获取include对象的属性:
 ```
-obj.get("inloudeObj").get("attribue")
+obj.get("inloudeObj").field
+```
+
+查出用户发表的日志示例
+
+```
+ 	var objectId,that=this;
+    var currentUser = Bmob.User.current();
+    objectId = currentUser.id;
+    
+    var Diary = Bmob.Object.extend("diary");
+    var query = new Bmob.Query(Diary);
+    var isme = new Bmob.User();
+    isme.id = objectId;		//当前用户的objectId
+    query.equalTo("own", isme);
+    query.descending('createdAt');	//排序
+    query.include("own");  //own 字段名称，类型 Pointer
+
+    // 查询所有数据
+    query.limit(that.data.limit);
+    query.find({
+      success: function (results) {        
+        that.setData({
+          diaryList: results
+        })
+      },
+      error: function (error) {
+        console.log("查询失败: " + error.code + " " + error.message);
+      }
+    });
+```
+
+wxml文件调用
+
+```
+<view class="weui-media-box weui-media-box_text" wx:for="{{diaryList}}" wx:key="diaryItem">
+日志标题：
+{{item.title}}
+用户表的日志作者：
+{{item.own.nickName}}
+</view>
+
 ```
 
 
@@ -1014,6 +1104,9 @@ wx.chooseImage({
       
   }
 })
+
+#### PS： 特别注意的是 `tempFilePaths` 是微信返回的数组。
+
 ```
 ### 图片批量上传
 图片批量上传，我们只需要for循环一下上面的就好，一下示例代码。
@@ -1433,7 +1526,7 @@ wx.login({
 wx.login({
 
         success: function (res) {
-          user.loginWithWeapp(res.code).then(function (user) {
+          Bmob.User.loginWithWeapp(res.code).then(function (user) {
             var openid = user.get("authData").weapp.openid;
             console.log(user, 'user', user.id, res);
             if (user.get("nickName")) {
@@ -1522,7 +1615,7 @@ Bmob.User.logIn("myname", "mypass", {
 2. `false`：在 `Bmob.User`对象最后一次刷新的时候，用户还是没有确认他们的`email`地址，如果`emailVerified`是false 的话，你应该考虑调用`Bmob.User`的`fetch`方法。
 3.  `missing`：`Bmob.User`被创建了，但是当时的`email`验证功能还没有开启, 或者说`Bmob.User`没有email地址。
 
-代码例子如下：
+代码例子如下：console.log
 
 ```
 //reset password
@@ -1532,7 +1625,7 @@ Bmob.User.logIn("myname", "mypass", {
   },
   error: function(error) {
     // Show the error message somewhere
-    alert("Error: " + error.code + " " + error.message);
+    console.log("Error: " + error.code + " " + error.message);
   }
 });
 ```
@@ -1656,7 +1749,7 @@ publicPost.save();
   },
   error: function(error) {
     // Show the error message somewhere
-    alert("Error: " + error.code + " " + error.message);
+    console.log("Error: " + error.code + " " + error.message);
   }
 });
 ```
@@ -1884,7 +1977,7 @@ query.find({
 ```
 Bmob.Cloud.run('test', {"name":"tom"}, {
   success: function(result) {
-    alert(result);
+    console.log(result);
   },
   error: function(error) {
   }
@@ -1895,7 +1988,7 @@ Bmob.Cloud.run('test', {"name":"tom"}, {
 ```
 Bmob.Cloud.run('test', {}, {
   success: function(result) {
-    alert(result);
+    console.log(result);
   },
   error: function(error) {
   }
