@@ -185,7 +185,7 @@ response.end(str);
 ---
 
 Q:如何在云端请求微信
-A:http://docs.bmob.cn/cloudcode/WEB/d_cloudcodeweixin/doc/index.html
+A:https://docs.bmob.cn/cloudcode/WEB/d_cloudcodeweixin/doc/index.html
 
 ---
 
@@ -392,7 +392,7 @@ db.updateUserByObjectId({"objectId":request.body.objectId.toString() ,data: {"ch
 ---
 
 Q:containedIn在云端代码里面是什么指令
-A:对应为 [http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询) 里面的 $in 查询，你可以参考restful文档，在where条件中使用就可以了。
+A:对应为 [https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询) 里面的 $in 查询，你可以参考restful文档，在where条件中使用就可以了。
 
 ---
 

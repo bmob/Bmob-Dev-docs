@@ -1,6 +1,7 @@
 ## 简介
 
 Bmob平台为您的移动应用提供了一个完整的后端解决方案，我们提供轻量级的SDK开发包，让开发者以最小的配置和最简单的方式使用Bmob平台提供的服务，进而完全消除开发者编写服务器代码以及维护服务器的操作。
+**欢迎加入iOS开发者1群186864953进行讨论，有问题麻烦在Bmob应用后台提交工单**
 
 ## 安装
 
@@ -51,12 +52,12 @@ iOS9默认不允许进行http请求，所以在使用SDK的过程中需要往Inf
 
 ### 应用安全
 
-请大家在使用Bmob开发应用程序之前，认真阅读我们给大家提供的“数据与安全”的文档，确保你的应用在发布时安全。文档 [请点击](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html);
+请大家在使用Bmob开发应用程序之前，认真阅读我们给大家提供的“数据与安全”的文档，确保你的应用在发布时安全。文档 [请点击](https://docs.bmob.cn/other/Other/n_datasafety/doc/index.html);
 
 ## 数据迁移
 从v2.1.8开始，数据SDK新增了能重新设置请求域名的Api，类似数据迁移，调用方式如下：
 ```
-[Bmob resetDomain:@"http://demo.bmob.cn/"];
+[Bmob resetDomain:@"https://open-vip.bmob.cn"];
 ```  
 其中，参数为开发者的域名，调用后的所有请求都指向新的域名。
 ## 对象
@@ -470,7 +471,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 
 **这里需要注意的是：**
 
-1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)一节中的分页查询。
+1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看查询](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)一节中的分页查询。
 
 2.当查询的是用户表这种系统表的时候，返回的是BmobUser的数组，设备表，角色表也是这样的。
 
@@ -577,7 +578,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 **注:模糊查询只对付费用户开放，付费后可直接使用。**
 
 #### 分页查询
-有时，在数据比较多的情况下，你希望查询出的符合要求的所有数据能按照多少条为一页来显示，这时可以使用limit方法来限制查询结果的数据条数来进行分页。默认情况下，Limit的值为100，最大有效设置值1000（设置的数值超过1000还是视为1000）。
+有时，在数据比较多的情况下，你希望查询出的符合要求的所有数据能按照多少条为一页来显示，这时可以使用limit方法来限制查询结果的数据条数来进行分页。默认情况下，Limit的值为100，最大有效设置值500（设置的数值超过500还是视为500）。
 
 ```
 bquery.limit = 3;//限制得到的结果条数为3条
@@ -955,7 +956,7 @@ bquery.maxCacheAge = 10000;
 
 `Bmob Query Language`（简称 BQL）是 Bmob 自 `BmobSDK V1.5.7` 版本开始，为查询 API 定制的一套类似 SQL 查询语法的子集和变种，主要目的是降低大家学习 Bmob 查询 API 的成本，可以使用传统的 SQL 语法来查询 Bmob 应用内的数据。
 
-具体的 BQL 语法，请参考 [Bmob Query Language 详细指南](http://docs.bmob.cn/other/Other/m_bql/doc/index.html)。
+具体的 BQL 语法，请参考 [Bmob Query Language 详细指南](https://docs.bmob.cn/other/Other/m_bql/doc/index.html)。
 
 #### 基本BQL查询
 可以通过以下方法来进行SQL查询：
@@ -1052,7 +1053,7 @@ bquery.maxCacheAge = 10000;
 
 #### 内置函数
 
-对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](http://docs.bmob.cn/other/Other/m_bql/doc/index.html#内置函数介绍)用到的内置函数列出的形式进行查询操作：
+对于包含`内置函数`的占位符查询，比较特殊，请使用`Bmob Query Language 详细指南`中的`内置函数`中[占位符查询用到的内置函数](https://docs.bmob.cn/other/Other/m_bql/doc/index.html#内置函数介绍)用到的内置函数列出的形式进行查询操作：
 
 举例：我想查询在 '2015-05-14 14:56:30' 后的创建的记录，可以这样：
 
@@ -1103,11 +1104,11 @@ bquery.maxCacheAge = 10000;
  - 使用`- (void)queryBQLCanCacheInBackgroundWithblock:(BmobBQLObjectResultBlock)block;`进行查询时，通过 `-(void)setBQL:(NSString*)bql;` 和 `-(void)setPlaceholder:(NSArray*)ary;` 来设置BQL语句和占位符。
 
 
-缓存策略只对普通查询有效，统计查询只支持从网络进行查询。具体使用可参考iOS开发文档中的[查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)缓存查询小节。
+缓存策略只对普通查询有效，统计查询只支持从网络进行查询。具体使用可参考iOS开发文档中的[查询](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)缓存查询小节。
 
 ## 数组
 
-为了存储数组型数据，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供了3种操作来原子性地更改一个数组字段:
+为了存储数组型数据，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供了3种操作来原子性地更改一个数组字段:
 
 **Add** 在一个数组字段的后面添加一些指定的对象(包装在一个数组内)
 
@@ -2118,7 +2119,7 @@ BmobFile可以让你的应用程序将文件存储到服务器中，比如常见
 
 #### 上传文件方法
 
-如下图的例子，是将cs.txt的文本文件保存到服务器端：
+可以通过文件路径和NSData上传。如下图的例子，是将58f0222bd82ac.png的文本文件保存到服务器端：
 
 ```
 -(void)saveInBackground:(BmobBooleanResultBlock)block;
@@ -2127,9 +2128,9 @@ BmobFile可以让你的应用程序将文件存储到服务器中，比如常见
 可以在block里面把文件添加到gameScore里面，建议使用异步上传的方法，再在block进行操作。如下面的例子：
 
 ```
-NSString *fileString = [[NSBundle mainBundle] pathForResource:@"IMG_1471" ofType:@"JPG"];
+NSData *data = UIImagePNGRepresentation([UIImage imageNamed:@"58f0222bd82ac"]);
+BmobFile *file1 = [[BmobFile alloc]initWithFileName:@"58f0222bd82ac.png" withFileData:data];
 BmobObject *obj = [[BmobObject alloc] initWithClassName:@"GameScore"];
-BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
 [file1 saveInBackground:^(BOOL isSuccessful, NSError *error) {
 	 //如果文件保存成功，则把文件添加到filetype列
 	 if (isSuccessful) {
@@ -2171,7 +2172,7 @@ BmobFile *file1 = [[BmobFile alloc] initWithClassName:@"Asc" withFilePath:fileSt
 ```
 
 ### 以分片的方式上传文件
-分片上传文件和上传整个文件的机制有所不同，是先把整个文件进行分片（256KB一片），然后再进行一片一片的上传（具体实现可查看[RestAPI文档](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#文件管理)）。当文件以分片的方式上传到Bmob服务器时，具有几种优势：
+分片上传文件和上传整个文件的机制有所不同，是先把整个文件进行分片（256KB一片），然后再进行一片一片的上传（具体实现可查看[RestAPI文档](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#文件管理)）。当文件以分片的方式上传到Bmob服务器时，具有几种优势：
 
 1. 适合于尺寸较大的文件传输，通过切片来避免单个HTTP数据量过大而导致连接超时；
 

@@ -460,7 +460,7 @@ function onRequest(request, response, modules) {
 
 #### 添加关联关系
 
-为了更新 `Pointer` 的Key类型，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一行记录时并添加一个指针:
+为了更新 `Pointer` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一行记录时并添加一个指针:
 
 
 ```
@@ -476,7 +476,7 @@ function onRequest(request, response, modules) {
 }
 ```
 
-为了更新 `Relation` 的Key类型，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加一行记录时并添加多个关系:
+为了更新 `Relation` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加一行记录时并添加多个关系:
 
 ```
   rel.add({
@@ -491,7 +491,7 @@ function onRequest(request, response, modules) {
 
 #### 修改关联对象
 
-为了更新 `Pointer` 的Key类型，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一个指针:
+为了更新 `Pointer` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一个指针:
 
 ```
   rel.update({
@@ -503,7 +503,7 @@ function onRequest(request, response, modules) {
   });
 ```
 
-为了更新 `Relation` 的Key类型，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加多个关系:
+为了更新 `Relation` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加多个关系:
 
 ```
   rel.update({
@@ -879,7 +879,7 @@ iOS设备通常使用deviceToken来惟一标识一台设备。
 	  
 ##### 保存Android设备的 installationId
 
-对于Android设备，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")SDK会自动生成uuid作为installationId保存到 Bmob。 您可以使用以下REST API保存Android设备的installation ID。
+对于Android设备，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")SDK会自动生成uuid作为installationId保存到 Bmob。 您可以使用以下REST API保存Android设备的installation ID。
 ```
   push.add({
 	"data":{
@@ -1278,7 +1278,7 @@ oHttp模块可以模拟实现get、post、put、delete等各种HTTP请求信息�
 //获取Http模块
 var http = modules.oHttp;
 //发起Get请求
-http('http://www.bmob.cn', function (error, res, body) {
+http('https://www.bmob.cn', function (error, res, body) {
 	if (!error && res.statusCode == 200) {
 	  response.end(body);
 	}

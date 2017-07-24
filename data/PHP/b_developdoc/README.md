@@ -5,7 +5,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 ## 快速入门
 
-建议您在阅读本开发文档之前，先阅读我们提供的 [php快速入门文档](http://docs.bmob.cn/data/PHP/a_faststart/doc/index.html)，便于您后续的开发。
+建议您在阅读本开发文档之前，先阅读我们提供的 [php快速入门文档](https://docs.bmob.cn/data/PHP/a_faststart/doc/index.html)，便于您后续的开发。
 
 
 ## 应用程序
@@ -13,7 +13,7 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 ## 应用安全
 
-请大家在使用Bmob开发应用程序之前，仔细阅读“数据与安全”的文档：[http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html](http://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)
+请大家在使用Bmob开发应用程序之前，仔细阅读“数据与安全”的文档：[https://docs.bmob.cn/other/Other/n_datasafety/doc/index.html](https://docs.bmob.cn/other/Other/n_datasafety/doc/index.html)
 
 ## 数据类型
 
@@ -72,7 +72,7 @@ Key必须是字母和数字组成的字符串,Value可以是任何可以JSON编�
 
 每个对象都有一个类名，你可以通过类名来区分不同的数据，例如，我们可以把游戏得分对象称之为GameScore.我们推荐你使用  **NameYourClassesLikeThis** 和 **nameYourKeysLikeThis** 这样的格式为你的类名和Key命名，这可以使你的代码看起来很漂亮.
 
-当你从[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")中获取对象时，一些字段会被自动加上: createdAt, updatedAt 和 objectId， 这些字段的名字是保留的，你不能自行设置它们，我们上面设置的对象在获取时应该是下面的样子.
+当你从[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")中获取对象时，一些字段会被自动加上: createdAt, updatedAt 和 objectId， 这些字段的名字是保留的，你不能自行设置它们，我们上面设置的对象在获取时应该是下面的样子.
 ```
 array(
     "score"=> 1337,
@@ -87,7 +87,7 @@ array(
 createdAt和updatedAt都是UTC时间戳,以ISO 8601标准和毫秒级精度储存:YYYY-MM-DD HH:MM:SS. objectId是一个string,在类中唯一表明了一个对象。
 
 ###  数据类型
-到现在为止我们只使用了可以被标准JSON编码的值，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")移动客户端SDK库同样支持日期,地理位置数据和指针数据、关系型数据。在php sdk中，这些值都被编码了，同时有一个"__type"字段来标识出它们所属的类型，所以如果你采用正确的编码的话就可以读或者写这些字段了。
+到现在为止我们只使用了可以被标准JSON编码的值，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")移动客户端SDK库同样支持日期,地理位置数据和指针数据、关系型数据。在php sdk中，这些值都被编码了，同时有一个"__type"字段来标识出它们所属的类型，所以如果你采用正确的编码的话就可以读或者写这些字段了。
 
 Date类型包含了一个"iso"字段存储了一个UTC时间戳,以ISO 8601格式和毫秒级的精度来存储时间: YYYY-MM-DDTHH:MM:SS.MMMZ，或者 YYYY-MM-DDTHH:MM:SS
 ```
@@ -361,7 +361,7 @@ $res=$bmobObj->get("",array('$res=$bmobObj->get("",array("keys=score,playerName"
      $res = $bmobBql->query(array('bql=select * from GameScore where name=? limit ?,? order by name'));  
 ```
 
-更多请参考 [BQL 详细指南](http://docs.bmob.cn/other/Other/m_bql/doc/index.html "BQL 详细指南") 。
+更多请参考 [BQL 详细指南](https://docs.bmob.cn/other/Other/m_bql/doc/index.html "BQL 详细指南") 。
 
 BQL 还支持占位符查询，where 和 limit 子句的条件参数可以使用问号替换，然后通过 `values` 数组传入：
 
@@ -385,7 +385,7 @@ $res=$bmobObj->update("16d846f51c", array("score"=>60));
 
 ## 删除数据
 
-为了在[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")上删除一个对象，可以发送一个DELETE请求到指定的对象的URL，比如:
+为了在[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")上删除一个对象，可以发送一个DELETE请求到指定的对象的URL，比如:
 
 ```php
 $res=$bmobObj->delete("bd89c6bce9"); //删除对象bd89c6bce9
@@ -401,7 +401,7 @@ $res=$bmobObj->delete("bd89c6bce9"); //删除对象bd89c6bce9
 
 ## 数组
 
-为了存储数组型数据，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")提供了3种操作来原子性地更改一个数组字段:
+为了存储数组型数据，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供了3种操作来原子性地更改一个数组字段:
 
 **Add** 在一个数组字段的后面添加一些指定的对象(包装在一个数组内)
 
@@ -829,17 +829,17 @@ $bmobFile = new BmobFile();
 $res=$bmobFile->uploadFile("heelo.txt","http://file.bmob.cn/M02/17/99/oYYBAFYfXS6AKB96AAAABNsGNwg872.txt");
 ```
 
-返回的主体是一个JSON对象，包含：文件名（filename）、分组（group）、文件地址（url）。 http://file.bmob.cn/ + url 就是文件上传成功后的完整地址，返回的Http Headers中的Location会包含该完整地址:
+返回的主体是一个JSON对象，包含：文件名（filename）、cdn信息（cdnname）、文件地址（url）。 http://file.bmob.cn/ + url 就是文件上传成功后的完整地址，返回的Http Headers中的Location会包含该完整地址:
 
 ```php
-[filename] => heelo.txt [group] => group1 [url] => M02/57/6A/oYYBAFYy3amAQI7cAAAAAjP0FTs923.txt
+[filename] => heelo.txt [cdn] => upyun [url] => M02/57/6A/oYYBAFYy3amAQI7cAAAAAjP0FTs923.txt
 
 ```
 
 然后你需要把上传后的文件对象上传:
 
 ```php
-$fileArray = array("__type"=>"File", "group"=>$res->group,"filename"=>$res->filename,"url"=>$res->url);
+$fileArray = array("__type"=>"File", "cdn"=>$res->cdn,"filename"=>$res->filename,"url"=>$res->url);
 $res=$bmobObj->create(array("score"=>11,"file"=>$fileArray)); 
 ```
 
@@ -862,12 +862,12 @@ $res=$bmobFile->delete("M02/54/09/oYYBAFYxx4uAbgTcAAAbpS8UHE45961.js");
 
 
 ## 用户
-很多跨平台和跨系统的应用都有一个统一的登录流程，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")通过REST API访问用户的账户让你实现该功能。
+很多跨平台和跨系统的应用都有一个统一的登录流程，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")通过REST API访问用户的账户让你实现该功能。
 
-通常来说，用户这个类的功能与其他的对象是相同的，比如都没有限制模式(Schema Less)，User对象和其他对象不同的是一个用户必须有用户名(username)和密码(password)，密码会被自动地加密和存储。[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")强制你username和email这两个Key的值必须是不重复的。
+通常来说，用户这个类的功能与其他的对象是相同的，比如都没有限制模式(Schema Less)，User对象和其他对象不同的是一个用户必须有用户名(username)和密码(password)，密码会被自动地加密和存储。[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")强制你username和email这两个Key的值必须是不重复的。
 
 ### 属性
-[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")默认会有几个特定的属性：
+[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")默认会有几个特定的属性：
 username: 用户的用户名`（必需）`。
 password: 用户的密码`（必需）`。
 email: 用户的电子邮件地址`（可选）`。
@@ -875,7 +875,7 @@ email: 用户的电子邮件地址`（可选）`。
 ### 注册用户
 注册一个新用户与创建一个新的普通对象之间的不同点在于其username和password字段都是必要的，password字段会以与其他的字段不一样的方式处理，它在保存时会被加密而且永远不会被返回给任何来自客户端的请求。
 
-在你的应用设置页面中，你可以向[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")来请求认证邮件地址，这项设置启用了的话，所有用户在注册时填写email这个Key的值，并且邮箱有效的情况下，就会向这个邮箱地址发出一封邮件，邮件中会包含一个来自[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")的邮箱验证的链接，当你的用户查收邮件并点击这个链接后，这个用户emailVerified的Key的值会置为True，你可以在emailVerified字段上查看用户的email是否已经通过验证了。
+在你的应用设置页面中，你可以向[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")来请求认证邮件地址，这项设置启用了的话，所有用户在注册时填写email这个Key的值，并且邮箱有效的情况下，就会向这个邮箱地址发出一封邮件，邮件中会包含一个来自[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")的邮箱验证的链接，当你的用户查收邮件并点击这个链接后，这个用户emailVerified的Key的值会置为True，你可以在emailVerified字段上查看用户的email是否已经通过验证了。
 
 为了注册一个新的用户，需要向user路径发送一个POST请求，你可以加入一个甚至多个新的字段，例如，创建一个有家庭电话字段的新用户:
 
@@ -904,7 +904,7 @@ Location: https://api.bmob.cn/1/users/Kc3M222J
 
 ### 使用手机号码一键注册或登陆
 
-[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 支持让用户直接输入手机号码进行注册，如果手机号码存在则自动登陆：
+[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台") 支持让用户直接输入手机号码进行注册，如果手机号码存在则自动登陆：
 ```
  $res = $bmobUser->register(array("mobilePhoneNumber"=>"131xxxxxxxx", "smsCode"=>"502845"));
 ```
@@ -935,7 +935,7 @@ $res = $bmobUser->login("test111@qq.com","111111");
 
 username 支持传入_User表的username或email或mobilePhoneNumber字段的值，作为登录的扩展功能，以实现邮箱和密码、手机号和密码登录功能。
 
-除了有用户名或邮箱或手机号码和密码登录的功能，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台") 还支持使用手机号码和验证码一键快速登录的功能，而 **smsCode** 是使用[请求短信验证码方法](BmobSms中的sendSms)发送到用户手机上的 6位验证码字符串：
+除了有用户名或邮箱或手机号码和密码登录的功能，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台") 还支持使用手机号码和验证码一键快速登录的功能，而 **smsCode** 是使用[请求短信验证码方法](BmobSms中的sendSms)发送到用户手机上的 6位验证码字符串：
 
 ```
 $res = $bmobUser->loginByMobile("131xxxxxxxx","745399");
@@ -995,7 +995,7 @@ $res = $bmobUser->update("415b8fe99a", "050391db407114d9801c8f2788c6b25a", array
 **在更新用户信息时，如果用户邮箱有变更并且在管理后台打开了邮箱验证选项的话，Bmob云后端同样会自动发动一封验证邮件给用户。**
 
 ### 删除用户
-为了在[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")上删除一个用户，可以向用户的URL上发送一个DELETE请求，前提是你必须填入sessiontoken以便认证授权，例子：
+为了在[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")上删除一个用户，可以向用户的URL上发送一个DELETE请求，前提是你必须填入sessiontoken以便认证授权，例子：
 
 ```
 $res = $bmobUser->delete("415b8fe99a", "050391db407114d9801c8f2788c6b25a"); // 删除id为415b8fe99a的用户, 第一参数是用户id, 第二个参数为sessiontoken,在用户登录或注册后获取, 必填
@@ -1096,11 +1096,11 @@ d365d5834061d9f6805047131893ae13：sessionToken
 
 
 ### 邮箱验证
-设置邮件验证是一个可选的应用设置, 这样可以对已经确认过邮件的用户提供一部分保留的体验，邮件验证功能会在用户(User)对象中加入emailVerified字段, 当一个用户的邮件被新添加或者修改过的话，emailVerified会默认被设为false，如果应用设置中开启了邮箱认证功能，[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")会对用户填写的邮箱发送一个链接, 这个链接可以把emailVerified设置为 true.
+设置邮件验证是一个可选的应用设置, 这样可以对已经确认过邮件的用户提供一部分保留的体验，邮件验证功能会在用户(User)对象中加入emailVerified字段, 当一个用户的邮件被新添加或者修改过的话，emailVerified会默认被设为false，如果应用设置中开启了邮箱认证功能，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")会对用户填写的邮箱发送一个链接, 这个链接可以把emailVerified设置为 true.
 
 emailVerified 字段有 3 种状态可以考虑：
 
-**true** : 用户可以点击邮件中的链接通过[Bmob](http://www.bmob.cn/ "Bmob移动后端云服务平台")来验证地址，一个用户永远不会在新创建这个值的时候出现emailVerified为true。
+**true** : 用户可以点击邮件中的链接通过[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")来验证地址，一个用户永远不会在新创建这个值的时候出现emailVerified为true。
 
 **false** : 用户(User)对象最后一次被刷新的时候, 用户并没有确认过他的邮箱地址, 如果你看到emailVerified为false的话，你可以考虑刷新 用户(User)对象。
 
@@ -1229,7 +1229,7 @@ $res = $bmobUser->update("415b8fe99a", "050391db407114d9801c8f2788c6b25a", $data
 
 ## ACL和角色
 
-数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety)，了解Bmob如何保护数据安全）。
+数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](https://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety)，了解Bmob如何保护数据安全）。
 
 其中，最灵活的方法是通过ACL和角色，它的思路是每一条数据有一个用户和角色的列表，以及这些用户和角色拥有什么样的许可权限。
 

@@ -154,7 +154,7 @@ query.first({
 ```
 
 **这里需要注意一点的是：**
-默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/data/JavaScript/b_developdoc/doc/index.html#分页查询)一节。
+默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](https://docs.bmob.cn/data/JavaScript/b_developdoc/doc/index.html#分页查询)一节。
 
 ### 获取对象的特殊属性
 
@@ -1341,7 +1341,7 @@ tablename为更新的表，objectId为更新行的objectId，data为服务端返
 
 ## ACL和角色
 
-数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/other/Other/m_bql/doc/index.html)，了解Bmob如何保护数据安全）。
+数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](https://docs.bmob.cn/other/Other/m_bql/doc/index.html)，了解Bmob如何保护数据安全）。
 
 其中，最灵活的方法是通过ACL和角色，它的思路是每一条数据有一个用户和角色的列表，以及这些用户和角色拥有什么样的许可权限。
 
@@ -1508,5 +1508,5 @@ query.find({
 
 ## 错误代码详细说明
 
-[错误码列表](http://docs.bmob.cn/data/Restful/g_errorcode/doc/index.html "错误码列表")
+[错误码列表](https://docs.bmob.cn/data/Restful/g_errorcode/doc/index.html "错误码列表")
 

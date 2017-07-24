@@ -36,7 +36,7 @@ BmobObject *gameScore = [BmobObject objectWithoutDatatWithClassName:@"GameSc
 ---
 
 Q:原子计数器怎么用
-A:查看[http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#对象](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#对象)原子计算器小节。
+A:查看[https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#对象](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#对象)原子计算器小节。
 
 ---
 
@@ -51,7 +51,7 @@ A:先查询该表所以数据，获得数据后遍历删除～
 --- 
 
 Q:可不可以批量创建数据
-A:可以,[批量数据操作](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#批量数据操作)
+A:可以,[批量数据操作](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#批量数据操作)
 
 ---
 
@@ -81,7 +81,7 @@ A:类似于以下形式
 ---
 
 Q:我想让模糊查询的条件key为所关联的_User表中的username 怎么弄
-A:你好，文档中有关于模糊查询的介绍[查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)
+A:你好，文档中有关于模糊查询的介绍[查询](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)
 
 ---
 
@@ -96,7 +96,7 @@ A:注意使用objectForKey来读取数据，而不是valueForKey。
 ---
 
 Q:iOS 如何判断表内存在某列存在某项值 然后作为类方法返回值返回呢？
-A:查看以下文档中的“列值是否存在”小节[http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)
+A:查看以下文档中的“列值是否存在”小节[https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)
 
 ---
 Q:支持一次可以查找多张结构类似的表吗
@@ -123,7 +123,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 ---
 
 Q:删除array数据类型的一个元素
-A:[删除数组元素](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#数组)
+A:[删除数组元素](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#数组)
 
 ---
 
@@ -211,7 +211,7 @@ BmobUser *bUser = [[BmobUser alloc] init];
 ---
 
 Q:第三方用户授权注册登录后，如何绑定手机号呢？
-A:可以使用该绑定手机号的功能[手机号相关功能](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#手机号相关功能)
+A:可以使用该绑定手机号的功能[手机号相关功能](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#手机号相关功能)
 
 ---
 
@@ -277,7 +277,7 @@ A:不会消耗多少网络流量的，是用websocket机制来通知客户端，
 ## ACL和角色
 
 Q:如果每个用户都有写入权限，安全应该怎么做？ 
-A:可以设置ACL，详情请查看文档[ACL和角色](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#index_ACL和角色)。
+A:可以设置ACL，详情请查看文档[ACL和角色](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#index_ACL和角色)。
 
 ---
 
@@ -369,7 +369,7 @@ A:有的，[Bmob点赞案例](https://github.com/limaofuyuanzhang/BmobLikeDemo) 
 ---
 
 Q:请问有对应的swift开发方法吗？
-A:Swift项目中使用BmobSDK可以看这个文档：[Swift项目中使用BmobSDK](http://docs.bmob.cn/data/iOS/l_swift/doc/index.html)
+A:Swift项目中使用BmobSDK可以看这个文档：[Swift项目中使用BmobSDK](https://docs.bmob.cn/data/iOS/l_swift/doc/index.html)
 
 ---
 
@@ -446,7 +446,7 @@ A:打开后缀xcworkspace的文件，而不是后缀xcodeproj 的文件
 ---
 
 Q:哪里可以看到错误码
-A:请查看iOS开发文档中的[错误代码列表](http://docs.bmob.cn/data/iOS/g_errorcode/doc/index.html)。
+A:请查看iOS开发文档中的[错误代码列表](https://docs.bmob.cn/data/iOS/g_errorcode/doc/index.html)。
 
 ---
 

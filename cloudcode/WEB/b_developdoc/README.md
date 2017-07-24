@@ -14,7 +14,7 @@ Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可�
 - 获取前N名数据排行信息：[https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js](https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js)
 
 
-在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
+在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
 
 ## 调用云端逻辑的方式
 
@@ -54,8 +54,6 @@ name=jeff: 传入一个参数，名称是name，值是jeff
 与restful不同，无需再传其它诸如app id等请求头。
 
 ## 转为套餐后调用云端逻辑的方式
-
-**注意：升级云端代码套餐后就没法在微信公众号中调用云端代码**
 
 bmob允许以http的方式直接调用云端逻辑。
 
@@ -156,7 +154,7 @@ modules是Bmob云端逻辑提供给大家的各种对象处理的模块，包括
   //下面进行其他操作
 ```
 
-** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#简介)。 **
+** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#简介)。 **
 
 ## 数据库对象
 
@@ -190,6 +188,7 @@ find({
   "table":"XXX",          //表名
   "keys":"a,b,c",         //返回字段列表，多个字段用,分隔
   "where":{"a":"XXXX","b":"XXXX"},       //查询条件是一个JSON object
+  //"where":{"c":{"$ne":1}},       //条件查询 查询c字段值不为1的记录
   "order":"-a,b",         //排序列表，[-]字段名称,-表示降序，默认为升序
   "limit":10,            //limit大小，一页返回多少条记录，默认为0
   "skip":2,             //skip,分页offset，(page-1)*limit
@@ -271,7 +270,7 @@ function onRequest(request, response, modules) {
 }                                                    
 ```
 
-其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数)。
+其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数)。
 
 ### 修改数据
 ```
@@ -315,7 +314,20 @@ remove({
 },function(err,data){         //回调函数
 });
 ```
-
+### 删除某行某字段的数据
+```
+db.update({
+   'table': 'xxx',
+   'objectId': 'yyy',
+   'data': {
+     'zzz': { // zzz就是要删除的列名
+        '__op': 'Delete'
+      }
+   }
+}, function(err, data) {
+// DO ANYTHING
+});
+```
 
 ### 用户注册
 ```
@@ -427,28 +439,28 @@ function onRequest(request, response, modules) {
 ```
 ## 文件对象
 
-云端逻辑只支持文件的删除操作。删除文件，必须要知道文件的组名和url，示例代码如下：
+云端逻辑只支持文件的删除操作。删除文件，必须要知道文件的url，示例代码如下：
 
 ```
 function onRequest(request, response, modules) {
 
   var file = modules.oFile;
-
+  
+  //文件的路径为 http://bmob-cdn-10.b0.upaiyun.com/2017/06/03/8989824440d8c3a680865e4086fcab62.jpg
   file.del({
-	"group":"group1",
-	"url":"M00/00/01/wKgBP1N3FAWRJXsSAAAB_rYZATs52.html"
+	"url":"2017/06/03/8989824440d8c3a680865e4086fcab62.jpg"  //截取有效路径
   },function(err,data){
 	 //回调函数
   });
 }
 ```
 
-在上面的例子中，group1是组名，M00/00/01/wKgBP1N3FAWRJXsSAAAB_rYZATs52.html是url。
+其中，2017/06/03/8989824440d8c3a680865e4086fcab62.jpg 为文件完整路径的"http://bmob-cdn-10.b0.upaiyun.com/2017/06/03/8989824440d8c3a680865e4086fcab62.jpg"的有效url。
 
 返回结果是个json对象：
 ```
 {
-  "msg": "delete file success"
+  "msg": "ok"
 }
 ```
 
@@ -1435,7 +1447,7 @@ oHttp对象可以模拟实现get、post、put、delete等各种HTTP请求信息�
 //获取Http模块
 var http = modules.oHttp;
 //发起Get请求
-http('http://www.bmob.cn', function (error, res, body) {
+http('https://www.bmob.cn', function (error, res, body) {
 	if (!error && res.statusCode == 200) {
 	  response.send(body);
 	}
@@ -1582,7 +1594,7 @@ function onRequest(request, response, modules) {
 ```
 
 
-更多请参考 [BQL 详细指南](/bql/index.html?menukey=otherdoc&key=bql "BQL 详细指南") 。
+更多请参考 [BQL 详细指南](http://docs.bmob.cn/other/Other/m_bql/doc/index.html "BQL 详细指南") 。
 
 ## 加密对象（oCrypto）
 提供md5和sha1两种加密算法。更多的功能详细参考：[https://www.npmjs.org/package/crypto](https://www.npmjs.org/package/crypto)

@@ -31,7 +31,7 @@
 
 ### 数据结构设计
 
-本案例的数据结构非常简单，只需要设计两个表，一个是失物表（Lost表），一个是招领表（Found表），对应的数据结构如下（省略对常用默认字段objectId、createAt、updateAt的描述，对于还不知道怎么创建应用和添加数据表的开发朋友请先移步[快速入门指南](http://docs.bmob.cn/data/iOS/a_faststart/doc/index.html "快速入门指南")查看相关教程）：
+本案例的数据结构非常简单，只需要设计两个表，一个是失物表（Lost表），一个是招领表（Found表），对应的数据结构如下（省略对常用默认字段objectId、createAt、updateAt的描述，对于还不知道怎么创建应用和添加数据表的开发朋友请先移步[快速入门指南](https://docs.bmob.cn/data/iOS/a_faststart/doc/index.html "快速入门指南")查看相关教程）：
 
 
 
@@ -147,7 +147,7 @@ Bmob提供了复杂和简单的查询方法，可以对查询结果进行排序�
 
 ### 后记
 
-本案例只是演示如何用Bmob进行快速的数据添加和查询，在真实的应用环境下，你还可能还需要使用到用户系统、文件服务、更复杂的数据结构和服务，这些都可以使用Bmob就可以实现。如果想要获取更多的信息，请各位查看Bmob的[开发文档](http://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html "开发文档")或者联系技术客服。欢迎砸砖，欢迎提出更多的意见和建议帮助Bmob更好的发展。谢谢～
+本案例只是演示如何用Bmob进行快速的数据添加和查询，在真实的应用环境下，你还可能还需要使用到用户系统、文件服务、更复杂的数据结构和服务，这些都可以使用Bmob就可以实现。如果想要获取更多的信息，请各位查看Bmob的[开发文档](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html "开发文档")或者联系技术客服。欢迎砸砖，欢迎提出更多的意见和建议帮助Bmob更好的发展。谢谢～
 
 ### 案例下载
 [失物招领案例下载](https://github.com/bmob/bmob-app-demo-show/blob/master/download/Bmob_Sample_lost_found_ios.zip "失物招领案例下载")

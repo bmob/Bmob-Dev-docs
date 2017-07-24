@@ -4,7 +4,7 @@
 ## 2、BmobPush SDK 集成
 
 ### 2.1、下载BmobPush SDK
-在Bmob官方网站的下载界面中，选择下载[Android推送SDK](http://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中。
+在Bmob官方网站的下载界面中，选择下载[Android推送SDK](https://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中。
 
 ### 2.2、配置AndroidManifest.xml
 #### 2.2.1、在您的应用程序AndroidManifest.xml文件中添加相应的权限
@@ -104,7 +104,7 @@ BmobInstallation.getCurrentInstallation().save();
 // 启动推送服务
 BmobPush.startWork(this);
 ```
-代码中的"你的Application Id"就是你在Bmob后台中创建的应用程序的Application Id，如果你不知道这是什么，可以参考[快速入门文档](http://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "Android快速入门")中的注册Bmob账号部分。
+代码中的"你的Application Id"就是你在Bmob后台中创建的应用程序的Application Id，如果你不知道这是什么，可以参考[快速入门文档](https://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "Android快速入门")中的注册Bmob账号部分。
 
 ## 3、web端推送
 ### 3.1、在web端进行推送设置
@@ -193,7 +193,7 @@ BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设�
 BmobInstallation.getCurrentInstallation().save();
 ```
 
-#### 自定义Installation表
+### 自定义Installation表
 
 开发者如果想要为设备信息表增加其他属性，则可以通过继承BmobInstallation类的方式来完成，用来定制更通用的推送。
 
