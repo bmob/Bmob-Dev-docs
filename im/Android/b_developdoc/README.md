@@ -162,7 +162,7 @@ task clean(type: Delete) {
 **注：自v2.0.5版本开始，将原来的`BmobImService`名称更换为`BmobIMService`，请务必修改，否则将无法正常使用IM服务。**
 
 ### 3.4、代码配置
-#### 3.4.1、注册消息接收器
+#### 3.4.1、自定义消息接收器
 1、请自定义消息接收器继承自`BmobIMMessageHandler`来处理服务器发来的消息和离线消息。
 
 ```java
@@ -182,22 +182,10 @@ public class DemoMessageHandler extends BmobIMMessageHandler{
 
 ```
 
-2、在Application的onCreate方法中注册这个`DemoMessageHandler`。
 
-```java
-//TODO 6.3、新建Application，并在AndroidManifest.xml中配置
-public class BmobIMApplication extends Application{
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-			//TODO 6.4、注册消息接收器
-        BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
-    }
-}
-```
 #### 3.4.2、初始化BmobNewIM SDK
-在Application的onCreate方法中调用`BmobIM.init(context)`。
+在Application的onCreate方法中调用`BmobIM.init(context)`，并注册自定义的`DemoMessageHandler`。
 
 ```java
 //TODO 6.3、新建Application，并在AndroidManifest.xml中配置
@@ -210,7 +198,7 @@ public class BmobIMApplication extends Application{
         if (getApplicationInfo().packageName.equals(getMyProcessName())){
             BmobIM.init(this);
             //TODO 6.4、注册消息接收器
-        		BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
+        	BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
         }
     }
 
