@@ -1,8 +1,8 @@
 # 1、BmobNewIM SDK 介绍
 Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.com/chaozhouzhang/bmob-newim-demo)，采用全新架构，设计更加合理规范，API更加简单易用，扩展性强。请确保您在使用BmobNewIM SDK之前已经了解此文档，如有疑问请加IM使用交流群[182897507]()咨询。
 
-## 1.1、Android BmobNewIM SDK 特点及其描述
-| Android BmobNewIM SDK 特点     | 描述          |
+## 1.1、特点描述
+| BmobNewIM SDK 特点     | 描述          |
 |------------------------------|--------------------------------|
 | 与用户系统解耦| 终端用户聊天的唯一标识是objectId，不再受限于Bmob的用户系统|
 | 支持多账号登录、跨平台  |  支持单个设备多个账号登录，支持与iOS互通聊天      | 
@@ -10,15 +10,8 @@ Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.
 | 允许开发者自定义消息   | 支持开发者自定义消息类型，方便开发者扩展本业务逻辑|                          
 | API设计更加合理规范   | 全新的架构设计，API更加简单易用，较BmobOldIM SDK 进一步降低开发者使用成本|  
 
-## 1.2、自IM SDK v2.0.5版本开始提供aar格式远程发布包，可以自动集成并结合Data SDK进行开发
-| IM SDK aar格式所包含文件     | Data SDK 版本          |
-|------------------------------|--------------------------------|
-| BmobNewIM_(版本号)_(发布日期).jar| BmobNewIM的核心SDK|
-| androidasync_2.1.6.jar| 用于协议通讯|
-| bmob_im_notification_strings.xml|用于消息通知|
-
-## 1.3、IM SDK和Data SDK的版本对应关系
-IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，因此必须导入特定版本的BmobSDK。
+## 1.2、Data SDK
+IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，因此必须导入特定版本的Data SDK。
 
 | IM SDK 版本     | Data SDK 版本          |
 |------------------------------|--------------------------------|
@@ -26,14 +19,15 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | bmob-im:2.0.3 至 2.0.4| bmob-sdk:3.4.6|
 | bmob-im:2.0.5| bmob-sdk:3.4.7-aar|
 | bmob-im:2.0.6 至 2.0.8| bmob-sdk:3.5.5| 
+| bmob-im:2.0.9| bmob-sdk:3.5.6| 
            
 # 2、BmobNewIM SDK 集成
 ## 2.1、手动集成
 ### 2.1.1、下载Android BmobNewIM SDK开发包及其Demo
 | 下载平台     | 下载地址          |
 |------------------------------|--------------------------------|
-| Github基于BmobNewIM SDK v2.0.8 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
-| Bmob基于BmobNewIM SDK v2.0.8 的Demo| [bmob-newim-demo](http://www.bmob.cn/site/sdk#android_im_sdk_tab)|
+| Github基于BmobNewIM SDK v2.0.9 的Demo|[bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)|
+| Bmob基于BmobNewIM SDK v2.0.9 的Demo| [bmob-newim-demo](http://www.bmob.cn/site/sdk#android_im_sdk_tab)|
 | Github基于BmobNewIM SDK v2.0.5 的Demo |[bmob-newim-demo ](https://github.com/bodismile/bmob-newim-demo)| 
 
 ### 2.1.2、解压Android BmobNewIM SDK开发包
@@ -42,6 +36,7 @@ IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，
 | libs| 外部依赖库，拷贝于工程的libs文件夹下|
 | NewIM_V2.x.x_Demo|开发示例，开发环境是Android Studio，功能是陌生人以及好友聊天|
 | bmob_im_notification_strings.xml|消息通知的资源文件，拷贝于项目的values文件夹下|
+
 ### 2.1.3、在app下的build.gradle文件中设置jni依赖库的目录，设置后点击Sync Now同步配置
 ```gradle
 android {
@@ -51,8 +46,15 @@ android {
 }
 ```
 
-
 ## 2.2、自动集成
+自IM SDK v2.0.5版本开始提供aar格式远程发布包，可以自动集成并结合Data SDK进行开发。
+
+| IM SDK aar格式所包含文件     | Data SDK 版本          |
+|------------------------------|--------------------------------|
+| BmobNewIM_(版本号)_(发布日期).jar| BmobNewIM的核心SDK|
+| androidasync_2.1.6.jar| 用于协议通讯|
+| bmob_im_notification_strings.xml|用于消息通知|
+
 ### 2.2.1、在Project下的build.gradle文件中添加Bmob的maven仓库地址
 ```gradle
 buildscript {
@@ -88,7 +90,7 @@ task clean(type: Delete) {
 ```
 
 
-## 2.3、配置AndroidManifest.xml
+## 2.3、清单配置
 ### 2.3.1、 添加Bmob_APP_KEY
 ```xml
     <!--TODO 集成：1.3、配置Bmob平台的应用密钥-->
