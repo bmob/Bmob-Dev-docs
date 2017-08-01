@@ -209,15 +209,42 @@ public class BmobIMApplication extends Application{
 ## 3.1、案例流程图
 ![案例流程图](https://github.com/bmob/Bmob-Dev-docs/blob/master/im/Android/b_developdoc/image/IM.png?raw=true)
 
-## 3.2、用户系统
+## 3.2、用户管理
+BmobNewIM SDK只是即时通讯的消息收发渠道，本身并不提供用户系统，开发者可使用BmobSDK提供的用户管理方面功能，也可使用开发者自己的用户系统。但是BmobNewIM SDK内部会自动创建本地用户表`BmobIMUserInfo`，并对外提供查询、更新、删除等方法供开发者调用来操作本地用户表。
+
+### 3.2.1、BmobIMUserInfo介绍
+| 属性名     | 属性含义          |
+|------------------------------|--------------------------------|
+| id | 本地数据库用户表的id值，开发者无需关心 |
+| userId| 用户唯一id（Demo中用的是BmobUser的objectId）|         
+| name| 用户名 （Demo中是用的是BmobUser的username）|  
+| avatar| 用户头像（Demo中是用的是BmobUser的avatar）|
 
 1、Demo使用的是Bmob的用户登录系统，一旦有用户注册就会在_User表中生成一条数据。
-2、搜索用户其实就是模糊搜索_User表上的数据，然后用列表展示结果。
-3、而用户信息`BmobIMUserInfo`页面其实就是查询_User表上某条数据的详细信息进行显示，包括objectid，username，avatar等，如果该用户不是自己，则显示成功后可以在用户信息页面进行添加好友和陌生人聊天操作。
+2、Demo中搜索用户其实就是模糊搜索_User表上的数据，然后用列表展示结果。
+3、Demo中用户信息页面其实就是查询_User表上某条数据的详细信息进行显示，包括objectid，username，avatar等，如果该用户不是自己，则显示成功后可以在用户信息页面进行添加好友和陌生人聊天操作。
 
-### 3.2.1、更新用户资料
+### 3.2.2、更新本地用户信息
+以下两种情况需要更新用户信息：
+1. 当注册或登录成功后，需要更新下当前用户的信息到本地数据库的用户表中，这样才能通过getUserInfo方法获取到本地的用户信息。
+2. 当接收到某人消息的时候，同样需要更新某人的用户信息到本地用户表中，否则在会话界面将默认显示的是用户的userId，也就是Demo中的BmobUser的objectId值。
+
+#### 3.2.2.1、更新单一本地用户信息
 ```
-//TODO 会话：2.7、更新用户资料，用于在会话页面、聊天页面以及个人信息页面显示 BmobIM.getInstance().updateUserInfo(info);
+//TODO 用户管理：2.7、更新本地用户资料，用于在会话页面、聊天页面以及个人信息页面显示
+BmobIM.getInstance().updateUserInfo(BmobIMUserInfo info)
+```
+#### 3.2.2.2、批量更新本地用户信息
+```
+//TODO 用户管理：2.8、批量更新本地用户信息
+BmobIM.getInstance().updateBatchUserInfo(List<BmobIMUserInfo> list)
+```
+
+### 3.2.3、获取本地用户信息
+BmobNewIM SDK内部会自动创建了一个本地数据库用来存储用户信息，开发者需要先调用`updateUserInfo`更新用户信息到本地数据库中，才能通过`getUserInfo(uid)`获取到本地用户信息。
+```
+//TODO 用户管理：2.9、获取本地用户信息
+BmobIM.getInstance().getUserInfo(String uid)
 ```
 
 ## 3.3、服务器连接
@@ -585,9 +612,46 @@ mConversationManager.updateLocalCache();
     }
 ```
 
-## 3.5、消息接收
-### 3.5.1、自定义消息接收器
-#### 3.5.1.1、`NewIM_V2.0.4及以后`的NewBmobIM SDK版本
+
+## 3.7、自定义消息
+### 3.7.1、设置额外信息
+有些时候，开发者需要在发送消息时携带一些额外信息，例如`发送方的设备类型、图片的拍摄地点或者音频的来源`等，那么开发者可以通过 `BmobIMExtraMessage.extraMap`属性来解决，任何继承`BmobIMExtraMessage`类的消息均支持设置额外信息。
+```
+	BmobIMAudioMessage audio =new BmobIMAudioMessage();
+	image.setRemoteUrl("远程音频地址");
+	//设置音频文件的来源
+	Map<String,Object> map =new HashMap<>();
+	map.put("from", "优酷");
+	audio.setExtraMap(map);
+	mConversationManager.sendMessage(audio, listener);
+```
+
+### 3.7.2、自定义消息类型
+如果设置额外信息无法满足开发者的需求，那么开发者也可以自定义自己的消息类型。
+1. 继承自`BmobIMExtraMessage`类；
+2. 重写`getMsgType`方法，填写自定义的消息类型；
+3. 重写`isTransient`方法，定义是否是暂态消息。
+```
+	public class AddFriendMessage extends BmobIMExtraMessage{
+	
+	    @Override
+	    public String getMsgType() {
+	        return "add";
+	    }
+	
+	    @Override
+	    public boolean isTransient() {
+	        return true;
+	    }
+	
+	    public AddFriendMessage(){}
+	
+	}
+```
+
+## 3.7、消息接收
+### 3.7.1、自定义消息接收器
+#### 3.7.1.1、`NewIM_V2.0.4及以后`的NewBmobIM SDK版本
 
 如果你使用的是`NewIM_V2.0.4以后(包含v2.0.4)`的SDK版本,那么不仅可以使用`BmobIMMessageHandler`方式来注册全局的消息接收器，还可以使用`MessageListHandler`为单个页面注册消息接收器，具体步骤如下：
 
@@ -664,20 +728,6 @@ public class DemoMessageHandler extends BmobIMMessageHandler{
 
 ```
 
-同样，别忘记在Application的onCreate方法中注册这个`DemoMessageHandler`：
-
-```java
-
-public class BmobIMApplication extends Application{
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-		//注册消息接收器
-        BmobIM.registerDefaultMessageHandler(new DemoMessageHandler(this));
-    }
-}
-```
 ### 3.5.2、应用内消息接收
 `V2.0.1`的SDK内部集成EventBus库（`V2.0.2`SDK内部不再集成EventBus，开发者可以自行使用新版EventBus）来进行应用内消息的分发，故在应用内需要接收消息的地方注册和解注册EventBus即可。
 
@@ -756,110 +806,7 @@ BmobNotificationManager.getInstance(context).showNotification(Bitmap largerIcon,
 
 3、在主Activity的`onDestroy`方法中调用`BmobNotificationManager.getInstance(context).clearObserver()`清空观察者。
 
-## 3.6、自定义消息
-### 3.6.1、设置额外信息
-有些时候，开发者需要在发送消息时携带一些额外信息，例如`发送方的设备类型、图片的拍摄地点或者音频的来源`等，那么开发者可以通过 `BmobIMExtraMessage.extraMap`属性来解决，任何继承`BmobIMExtraMessage`类的消息均支持设置额外信息。
 
-```
-	BmobIMAudioMessage audio =new BmobIMAudioMessage();
-	image.setRemoteUrl("远程音频地址");
-	//设置音频文件的来源
-	Map<String,Object> map =new HashMap<>();
-	map.put("from", "优酷");
-	audio.setExtraMap(map);
-	c.sendMessage(audio, listener);
-```
-
-### 3.6.2、创建新的消息类型
-如果设置额外信息无法满足开发者的需求，那么开发者也可以自定义自己的消息类型。
-#### 3.6.2.1、创建自定义消息
-
-1. 继承自`BmobIMExtraMessage`类；
-2. 重写`getMsgType`方法，填写自定义的消息类型；
-3. 重写`isTransient`方法。
-
-```
-	public class AddFriendMessage extends BmobIMExtraMessage{
-	
-	    @Override
-	    public String getMsgType() {
-	        return "add";
-	    }
-	
-	    @Override
-	    public boolean isTransient() {
-	        //设置为true,表明为暂态消息，那么这条消息并不会保存到对方的本地db中
-	        //设置为false,则会保存到对方指定会话的本地数据库中
-	        return true;
-	    }
-	
-	    public AddFriendMessage(){}
-	
-	}
-```
-
-#### 3.6.2.2、发送自定义消息
-```
-	//启动一个会话，如果isTransient设置为true,则不会创建在本地会话表中创建该会话，
-	//设置isTransient设置为false,则会在本地数据库的会话列表中先创建（如果没有）与该用户的会话信息，且将用户信息存储到本地的用户表中
-	BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info, true,null);
-	//这个obtain方法才是真正创建一个管理消息发送的会话
-	BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), c);
-	AddFriendMessage msg =new AddFriendMessage();
-	User currentUser = BmobUser.getCurrentUser(this,User.class);
-	msg.setContent("很高兴认识你，可以加个好友吗?");//给对方的一个留言信息
-	Map<String,Object> map =new HashMap<>();
-	map.put("name", currentUser.getUsername());//发送者姓名，这里只是举个例子，其实可以不需要传发送者的信息过去
-	map.put("avatar",currentUser.getAvatar());//发送者的头像
-	map.put("uid",currentUser.getObjectId());//发送者的uid
-	msg.setExtraMap(map);
-	conversation.sendMessage(msg, new MessageSendListener() {
-	    @Override
-	    public void done(BmobIMMessage msg, BmobException e) {
-	        if (e == null) {//发送成功
-	            toast("好友请求发送成功，等待验证");
-	        } else {//发送失败
-	            toast("发送失败:" + e.getMessage());
-	        }
-	    }
-	});
-```
-
-## 3.7、用户管理
-BmobNewIM SDK只是即时通讯的消息收发渠道，本身并不提供用户体系。开发者可使用BmobSDK提供的用户管理方面功能，也可使用开发者自己的用户体系。
-
-BmobNewIM SDK内部会自动创建本地用户表，并对外提供方法供开发者调用来操作本地用户表。开发者只需要调用`updateUserInfo`方法即可更新本地用户信息。
-
-### 3.7.1、BmobIMUserInfo介绍
-BmobNewIM SDK中用户的实体类为`BmobIMUserInfo`，其有四个属性，开发者只需要关心后三个即可。
-
-| 属性名     | 属性含义          |
-|------------------------------|--------------------------------|
-| id | 本地数据库用户表的id值，开发者无需关心 |
-| userId| 用户唯一id（Demo中用的是BmobUser的objectId）|         
-| name| 用户名 （Demo中是用的是BmobUser的username）|  
-| avatar| 用户头像|
-
-### 3.7.2、更新本地用户信息
-以下两种情况需要更新用户信息：
-1. 当注册或登录成功后，需要更新下当前用户的信息到本地数据库的用户表中，这样才能通过getUserInfo方法获取到本地的用户信息。
-2. 当接收到某人消息的时候，同样需要更新A的用户信息到本地用户表中，否则在会话界面将默认显示的是用户的userId，也就是Demo中的BmobUser的objectId值。
-
-#### 3.7.2.1、更新单一本地用户信息
-```
-BmobIM.getInstance().updateUserInfo(BmobIMUserInfo info)
-```
-#### 3.7.2.2、批量更新本地用户信息
-```
-BmobIM.getInstance().updateBatchUserInfo(List<BmobIMUserInfo> list)
-```
-
-### 3.7.3、获取本地用户信息
-BmobNewIM SDK内部会自动创建了一个本地数据库用来存储用户信息，开发者需要先调用`updateUserInfo`更新用户信息到本地数据库中，才能通过`getUserInfo(uid)`获取到本地用户信息。
-
-```
-BmobIM.getInstance().getUserInfo(String uid)
-```
 
 ## 3.8、好友管理
 BmobNewIM SDK中并没有集成好友管理相关的功能，为了方便开发者建立基于好友之间的聊天模式，在`v2.0.4`版本开始的Demo中使用Data SDK新建了`Friend`表来进行好友管理。
