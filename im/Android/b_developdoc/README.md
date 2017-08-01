@@ -10,7 +10,7 @@ Android BmobIM SDK v2.0.0开始的版本统称为[BmobNewIM SDK](https://github.
 | 允许开发者自定义消息   | 支持开发者自定义消息类型，方便开发者扩展本业务逻辑|                          
 | API设计更加合理规范   | 全新的架构设计，API更加简单易用，较BmobOldIM SDK 进一步降低开发者使用成本|  
 
-## 1.2、Data SDK
+## 1.2、版本关系
 IM SDK 使用Data SDK的BmobFile用于图片、语音等文件消息的发送，因此必须导入特定版本的Data SDK。
 
 | IM SDK 版本     | Data SDK 版本          |
@@ -206,17 +206,20 @@ public class BmobIMApplication extends Application{
 
 
 # 3、BmobNewIM SDK 使用
-## 3.0、案例流程图
+## 3.1、案例流程图
 ![案例流程图](https://github.com/bmob/Bmob-Dev-docs/blob/master/im/Android/b_developdoc/image/IM.png?raw=true)
-## 3.1、服务器连接
-### 3.1.1、连接
-调用`connect`方法，需要传入唯一用户标示`clientId`，Demo使用的是Bmob的用户登录系统`objectId`。
+
+## 3.2、用户系统
+
+Demo使用的是Bmob的用户登录系统，一旦有用户注册就会在_User表中生成一条数据。搜索用户其实就是模糊搜索_User表上的数据，然后用列表展示结果。而用户信息页面其实就是查询_User表上某条数据的详细信息进行显示，如果该用户不是自己，则显示成功后可以在用户信息页面进行添加好友和陌生人聊天操作。
+
+## 3.3、服务器连接
+### 3.3.1、连接
+登录成功、注册成功或处于登录状态重新打开应用后执行连接IM服务器的操作，调用`connect`方法，需要传入唯一用户标示`clientId`，Demo使用的是Bmob的用户登录系统`objectId`，。
 
 ```java
+        //TODO 连接：3.1、登录成功、注册成功或处于登录状态重新打开应用后执行连接IM服务器的操作
         User user = BmobUser.getCurrentUser(context,User.class);
-        /**
-         * TODO 连接：2.1、登录成功、注册成功或登录后重新打开后执行连接IM服务器的操作
-         */
         if (!TextUtils.isEmpty(user.getObjectId())) {
             BmobIM.connect(user.getObjectId(), new ConnectListener() {
                 @Override
@@ -224,6 +227,7 @@ public class BmobIMApplication extends Application{
                     if (e == null) {
                         //连接成功
                     } else {
+                    	 //连接失败
                         toast(e.getMessage());
                     }
                 }
@@ -231,17 +235,17 @@ public class BmobIMApplication extends Application{
         }
 ```
 
-### 3.1.2、断开连接：
+### 3.2.2、断开连接：
 调用`disConnect`方法，客户端会断开与服务器之间的连接，再次聊天需要重新调用`connect`方法完成与服务器之间的连接。
 ```java
-//TODO 连接：2.2、退出登录需要断开与IM服务器的连接
+//TODO 连接：3.2、退出登录需要断开与IM服务器的连接
 BmobIM.getInstance().disConnect();
 ```
-### 3.1.3、监听服务器连接状态
+### 3.2.3、监听服务器连接状态
 调用`setOnConnectStatusChangeListener`方法即可监听到当前长链接的连接状态。
 
 ```java
-//TODO 连接：2.3、监听连接状态，可通过BmobIM.getInstance().getCurrentStatus()来获取当前的长连接状态
+//TODO 连接：3.3、监听连接状态，可通过BmobIM.getInstance().getCurrentStatus()来获取当前的长连接状态
 BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeListener() {
                 @Override
                 public void onChange(ConnectionStatus status) {
@@ -250,9 +254,10 @@ BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeLis
                 }
             });
 ```
-## 3.2、会话
-### 3.2.1、创建会话
-BmobNewIM SDK 采用会话（`BmobIMConversation`）管理消息(`BmobIMMessage`)的方式，即消息的查询、发送和删除等操作均在指定会话下进行，因此需要获取指定会话信息并创建会话实例。目前创建会话有两种创建方式，分别是`暂态会话`和`常态会话`。
+
+## 3.4、会话
+### 3.2.1、创建会话入口
+BmobNewIM SDK 采用会话（`BmobIMConversation`）管理消息(`BmobIMMessage`)的方式，即消息的发送、查询、和删除等操作均在指定会话下进行，因此需要获取指定会话信息并创建会话实例。
 
 #### 3.2.1.1、暂态消息
 BmobNewIM SDK在`BmobIMMessage`类中新增`isTransient`属性来标识该条消息是否自动保存到`聊天对象`的本地DB中。
@@ -262,7 +267,7 @@ BmobNewIM SDK在`BmobIMMessage`类中新增`isTransient`属性来标识该条消
 
 
 #### 3.2.1.2、创建暂态会话
-该会话只提供消息发送功能，不可使用其他查询，删除等API，`不会自动创建会话`到本地DB中。一般用于`自定义消息的发送`，比如，添加好友的请求，在对方还没有同意的情况下，你并不希望在自己的会话列表中显示该会话。`v2.0.4`版本的NewIM开始提供此种方式创建暂态会话。
+暂态会话不会被保存到本地数据库中，只提供消息发送功能，不提供查询，删除等功能。一般用于`自定义消息的发送`，比如添加好友的请求，在对方还没有同意的情况下，你并不希望在自己的会话列表中显示该会话。
 
 ```java
 //开启私聊会话，isTransient可设置是否保存该会话到自己的本地会话表中
