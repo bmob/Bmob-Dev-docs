@@ -211,7 +211,14 @@ public class BmobIMApplication extends Application{
 
 ## 3.2、用户系统
 
-Demo使用的是Bmob的用户登录系统，一旦有用户注册就会在_User表中生成一条数据。搜索用户其实就是模糊搜索_User表上的数据，然后用列表展示结果。而用户信息页面其实就是查询_User表上某条数据的详细信息进行显示，如果该用户不是自己，则显示成功后可以在用户信息页面进行添加好友和陌生人聊天操作。
+1、Demo使用的是Bmob的用户登录系统，一旦有用户注册就会在_User表中生成一条数据。
+2、搜索用户其实就是模糊搜索_User表上的数据，然后用列表展示结果。
+3、而用户信息`BmobIMUserInfo`页面其实就是查询_User表上某条数据的详细信息进行显示，包括objectid，username，avatar等，如果该用户不是自己，则显示成功后可以在用户信息页面进行添加好友和陌生人聊天操作。
+
+### 3.2.1、更新用户资料
+```
+//TODO 会话：2.7、更新用户资料，用于在会话页面、聊天页面以及个人信息页面显示 BmobIM.getInstance().updateUserInfo(info);
+```
 
 ## 3.3、服务器连接
 ### 3.3.1、连接
@@ -235,13 +242,13 @@ Demo使用的是Bmob的用户登录系统，一旦有用户注册就会在_User�
         }
 ```
 
-### 3.2.2、断开连接：
+### 3.3.2、断开连接：
 调用`disConnect`方法，客户端会断开与服务器之间的连接，再次聊天需要重新调用`connect`方法完成与服务器之间的连接。
 ```java
 //TODO 连接：3.2、退出登录需要断开与IM服务器的连接
 BmobIM.getInstance().disConnect();
 ```
-### 3.2.3、监听服务器连接状态
+### 3.3.3、监听服务器连接状态
 调用`setOnConnectStatusChangeListener`方法即可监听到当前长链接的连接状态。
 
 ```java
@@ -256,126 +263,112 @@ BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeLis
 ```
 
 ## 3.4、会话
-### 3.2.1、创建会话入口
-BmobNewIM SDK 采用会话（`BmobIMConversation`）管理消息(`BmobIMMessage`)的方式，即消息的发送、查询、和删除等操作均在指定会话下进行，因此需要获取指定会话信息并创建会话实例。
-
-#### 3.2.1.1、暂态消息
-BmobNewIM SDK在`BmobIMMessage`类中新增`isTransient`属性来标识该条消息是否自动保存到`聊天对象`的本地DB中。
-
-- 设置为`true`，表明是暂态消息，那么这条消息`并不会保存到聊天对象的本地db中`，SDK只负责发送和接收。
-- 设置为`false`，表明不是暂态消息，SDK会`自动保存该类型的消息到指定会话的数据库`中。
+### 3.4.1、创建会话入口
+BmobNewIM SDK 采用会话（`BmobIMConversation`）管理消息(`BmobIMMessage`)的方式，即消息的发送、查询和删除等操作均在指定会话下进行，因此需要先获取指定会话信息后创建会话入口`BmobIMConversation`。创建会话入口成功后跳转到聊天页面，根据会话入口获取消息管理`BmobIMConversation`，而后在聊天页面进行消息的发送、查询和删除等操作。
 
 
-#### 3.2.1.2、创建暂态会话
+#### 3.4.1.1、创建暂态会话入口
 暂态会话不会被保存到本地数据库中，只提供消息发送功能，不提供查询，删除等功能。一般用于`自定义消息的发送`，比如添加好友的请求，在对方还没有同意的情况下，你并不希望在自己的会话列表中显示该会话。
 
 ```java
-//开启私聊会话，isTransient可设置是否保存该会话到自己的本地会话表中
-startPrivateConversation(BmobIMUserInfo info, boolean isTransient,ConversationListener listener)
+//TODO 会话：4.1、创建一个暂态会话入口，发送添加好友请求，同意好友请求
+BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, true, null);
 ```
 
-#### 3.2.1.3、创建常态会话
-该会话提供消息查询、发送、删除等功能，SDK内部自动创建该会话。
-
+#### 3.4.1.2、创建常态会话入口
+常态会话会被保存到本地数据库中，提供消息发送、查询，删除等功能。
 ```java
-//开启私聊会话，默认会保存该会话到自己的本地会话表中
-startPrivateConversation(BmobIMUserInfo info, ConversationListener listener)
+//TODO 会话：4.1、创建一个常态会话入口，好友聊天，陌生人聊天
+BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, null);
 ```
 
-#### 3.2.1.4、创建会话示例
-`BmobIMUserInfo`类，是用户信息类，有三个属性需要开发者关注下：userId(用户唯一id)，name(用户名)，avatar（用户头像）。
-
-```java
-//如果需要更新用户资料，开发者只需要传新的info进去就可以
-BmobIM.getInstance().startPrivateConversation(BmobIMUserInfo info, new ConversationListener() {
-    @Override
-    public void done(BmobIMConversation c, BmobException e) {
-        if(e==null){
-			//在此跳转到聊天页面
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("c", c);
-            startActivity(ChatActivity.class, bundle, false);
-        }else{
-            toast(e.getMessage()+"("+e.getErrorCode()+")");
-        }
-    }
-});
+### 3.4.2、查询全部会话
 ```
-
-### 3.2.2、查询全部会话
-```
+//TODO 会话：4.2、查询全部会话
 BmobIM.getInstance().loadAllConversation()
 ```
-### 3.2.3、查询会话的未读消息数量
-#### 3.2.3.1、查询指定会话下的未读消息数量
+### 3.4.3、查询会话的未读消息数量
+#### 3.4.3.1、查询指定会话下的未读消息数量
 ```
+//TODO 会话：4.3、查询指定会话下的未读消息数
 BmobIM.getInstance().getUnReadCount(String conversationId)
 ```
-#### 3.2.3.2、查询全部会话的全部未读消息数
+#### 3.4.3.2、查询全部会话的全部未读消息数
 ```
-BmobIM.getInstance().getUnReadCount.getAllUnReadCount()
+//TODO 会话：4.4、获取全部会话的未读消息数量
+BmobIM.getInstance().getAllUnReadCount();
 ```
 
-### 3.2.4、删除指定会话
+### 3.4.4、删除指定会话
 ```
-//提供两种方式删除会话
+//TODO 会话：4.5、删除会话，以下两种方式均可以删除会话
 BmobIM.getInstance().deleteConversation(BmobIMConversation c);
 BmobIM.getInstance().deleteConversation(String conversationId);
 ```
 
-### 3.2.5、清空全部会话
+### 3.4.5、清空全部会话
 ```
+//TODO 会话：4.6、清空全部会话，一般不会用到此方法
 BmobIM.getInstance().clearAllConversation();
 ```
 
-### 3.2.6、更新会话标题、会话图标及用户信息
-由于BmobNewIM SDK并不包含与用户有关的逻辑，只负责存储用户信息并对外提供更新等方法,用来操作本地的用户信息。
-
-在与人单聊时，需要更新会话标题和会话图标及用户信息，可调用如下方法在`DemoMessageHandler`的全局消息接收器中进行统一更新。
-
-```java
-/**更新用户资料和会话资料
- * @param event
- * @param listener
- */
-public void updateUserInfo(MessageEvent event,final UpdateCacheListener listener){
-    final BmobIMConversation conversation=event.getConversation();
-    final BmobIMUserInfo info =event.getFromUserInfo();
-	final BmobIMMessage msg =event.getMessage();
-    String username =info.getName();
-    String title =conversation.getConversationTitle();
-    //sdk内部，将新会话的会话标题用objectId表示，因此需要比对用户名和会话标题--单聊，后续会根据会话类型进行判断
-    if(!username.equals(title)) {
-        UserModel.getInstance().queryUserInfo(info.getUserId(), new QueryUserListener() {
-            @Override
-            public void done(User s, BmobException e) {
-                if(e==null){
-                    String name =s.getUsername();
-                    String avatar = s.getAvatar();
-                    conversation.setConversationIcon(avatar);
-                    conversation.setConversationTitle(name);
-                    info.setName(name);
-                    info.setAvatar(avatar);
-                    //更新用户资料
-                    BmobIM.getInstance().updateUserInfo(info);
-                   //更新会话资料-如果消息是暂态消息，则不更新会话资料
-                    if(!msg.isTransient()){
-                        BmobIM.getInstance().updateConversation(conversation);
-                    }
-                }else{
-                    Logger.e(e);
-                }
-                listener.done(null);
-            }
-        });
-    }else{
-        listener.internalDone(null);
-    }
-}
+### 3.4.6、更新会话
+```
+//TODO 会话：4.7、更新会话资料-如果消息是暂态消息，则不更新会话资料 BmobIM.getInstance().updateConversation(conversation);
 ```
 
-## 3.3、消息
-消息(`BmobIMMessage`)是所有消息的基类，以下BmobNewIM SDK目前支持的消息类型。
+在与人私聊时，需要更新会话标题和会话图标及用户信息，可调用如下方法在`DemoMessageHandler`的全局消息接收器中进行统一更新。
+
+```java
+    /**
+     * 更新用户资料和会话资料
+     *
+     * @param event
+     * @param listener
+     */
+    public void updateUserInfo(MessageEvent event, final UpdateCacheListener listener) {
+        final BmobIMConversation conversation = event.getConversation();
+        final BmobIMUserInfo info = event.getFromUserInfo();
+        final BmobIMMessage msg = event.getMessage();
+        String username = info.getName();
+        String title = conversation.getConversationTitle();
+        //SDK内部将新会话的会话标题用objectId表示，因此需要比对用户名和私聊会话标题，后续会根据会话类型进行判断
+        if (!username.equals(title)) {
+            UserModel.getInstance().queryUserInfo(info.getUserId(), new QueryUserListener() {
+                @Override
+                public void done(User s, BmobException e) {
+                    if (e == null) {
+                        String name = s.getUsername();
+                        String avatar = s.getAvatar();
+                        conversation.setConversationIcon(avatar);
+                        conversation.setConversationTitle(name);
+                        info.setName(name);
+                        info.setAvatar(avatar);
+                        //TODO 会话：2.7、更新用户资料，用于在会话页面、聊天页面以及个人信息页面显示
+                        BmobIM.getInstance().updateUserInfo(info);
+                        //TODO 会话：4.7、更新会话资料-如果消息是暂态消息，则不更新会话资料
+                        if (!msg.isTransient()) {
+                            BmobIM.getInstance().updateConversation(conversation);
+                        }
+                    } else {
+                        Logger.e(e);
+                    }
+                    listener.done(null);
+                }
+            });
+        } else {
+            listener.done(null);
+        }
+    }
+```
+
+## 3.5、消息
+消息(`BmobIMMessage`)是所有消息的基类，其中`isTransient`属性来标识该条消息是否`自动保存到指定会话的本地数据库中`。
+
+- 设置为`true`，表明是暂态消息，那么这条消息`并不会自动保存到指定会话的本地消息数据库中`，SDK只负责发送和接收。
+- 设置为`false`，表明不是暂态消息，那么这条消息`会自动保存到指定会话的本地消息数据库中`，并提供查询和删除操作。
+
+以下BmobNewIM SDK目前支持的消息类型。
 
 | 消息类型     | 消息类名          |
 |------------------------------|--------------------------------|
@@ -386,50 +379,20 @@ public void updateUserInfo(MessageEvent event,final UpdateCacheListener listener
 | 视频| BmobIMVideoMessage|
 | 地理位置| BmobIMLocationMessage| 
 
-### 3.3.1、获取指定会话信息并创建会话实例
-BmobNewIM SDK采用会话（`BmobIMConversation`）管理消息(`BmobIMMessage`)的方式，即消息的查询、发送和删除等操作均在指定会话下进行，因此需要通过以下两个步骤来获取指定会话信息并创建会话实例。
+### 3.5.1、获取消息管理
+BmobNewIM SDK 采用会话（`BmobIMConversation`）管理消息(`BmobIMMessage`)的方式，即消息的发送、查询和删除等操作均在指定会话下进行，因此需要先获取指定会话信息后创建会话入口`BmobIMConversation`。创建会话入口成功后跳转到聊天页面，根据会话入口获取消息管理`BmobIMConversation`，而后在聊天页面进行消息的发送、查询和删除等操作。
 
-1、 开启私聊
 
+```
+//TODO 消息：5.1、根据会话入口获取消息管理，在聊天页面以及发送添加好友和同意添加好友请求时使用 
+BmobIMConversation messageManager = BmobIMConversation.obtain(BmobIMClient.getInstance(), conversationEntrance);
+```
+
+### 3.5.2、查询指定会话的聊天记录
 ```java
-//如果需要更新用户资料，开发者只需要传新的info进去就可以
-BmobIM.getInstance().startPrivateConversation(BmobImUserInfo info, new ConversationListener() {
-    @Override
-    public void done(BmobIMConversation c, BmobException e) {
-        if(e==null){
-			//在此跳转到聊天页面
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("c", c);
-            startActivity(ChatActivity.class, bundle, false);
-        }else{
-            toast(e.getMessage()+"("+e.getErrorCode()+")");
-        }
-    }
-});
-
-```
-2、 创建会话实例
-
-使用`BmobIMConversation.obtain(BmobIMClient client,BmobIMConversation conversation)`方法传入`BmobIMClient和BmobIMConversation的各自实例`就可以创建一个用于控制消息查询、发送和删除的会话实例。
-
-```
-BmobIMConversation c;
-//在聊天页面的onCreate方法中，通过如下方法创建新的会话实例,这个obtain方法才是真正创建一个管理消息发送的会话
-c=BmobIMConversation.obtain(BmobIMClient.getInstance(),(BmobIMConversation)getBundle().getSerializable("c"));
-
-```
-
-创建完成后，就可以使用这个会话实例`c`对消息进行各种操作啦，以下操作中的`c`都指的是该会话实例。
-
-注：
-如果不调用BmobIMConversation的`obtain`方法是无法控制消息发送等操作的，会报`client disconnect`的错误。
-
-
-### 3.3.2、查询指定会话的聊天记录
-```java
-//首次加载，可设置msg为null，
-//下拉刷新的时候，可用消息表的第一个msg作为刷新的起始时间点，默认按照消息时间的降序排列，limit由开发者控制
-c.queryMessages(msg, limit, new MessagesQueryListener() {
+//首次加载，可设置msg为null，下拉刷新的时候，可用消息表的第一个msg作为刷新的起始时间点，默认按照消息时间的降序排列
+//TODO 消息：5.2、查询指定会话的消息记录
+mConversationManager.queryMessages(msg, limit, new MessagesQueryListener() {
             @Override
             public void done(List<BmobIMMessage> list, BmobException e) {
                 sw_refresh.setRefreshing(false);
@@ -444,234 +407,182 @@ c.queryMessages(msg, limit, new MessagesQueryListener() {
                 }
             }
         });
-
 ```
 
-### 3.3.3、删除指定会话的聊天记录
-删除消息不同于删除会话，会直接清空本地的消息记录数据。
-
+### 3.5.3、删除指定会话的聊天记录
 ```java
-//删除指定聊天消息
-c.deleteMessage(BmobIMMessage msg)
+//TODO 消息：5.3、删除指定聊天消息
+mConversationManager.deleteMessage(BmobIMMessage msg)
 
 //删除一条或多条聊天消息
-c.deleteBatchMessage(List<BmobIMMessage> msgs)
+mConversationManager.deleteBatchMessage(List<BmobIMMessage> msgs)
 
-//清空该会话下的聊天消息，允许保留会话（可选）
-c.clearMessage(boolean isKeepConversion,MessageListener listener)
-
-注：isKeepConversion 表示是否保留该会话消息。
-
+//清空该会话下的聊天消息，允许保留会话
+mConversationManager.clearMessage(boolean isKeepConversion,MessageListener listener)
 ```
 
-### 3.3.4、更新指定会话的所有消息为已读状态
-可以在`ChatActivity`的聊天页面的`onDestory`方法中调用如下方法`更新该会话的的所有消息为已读状态`：
-
+### 3.5.4、更新指定会话的所有消息为已读状态
+可以在聊天页面的`onDestory`方法中调用该方法`更新该会话的的所有消息为已读状态`：
 ```
-//更新此会话的所有消息为已读状态
-c.updateLocalCache();
-
+//TODO 消息：5.4、更新此会话的所有消息为已读状态
+mConversationManager.updateLocalCache();
 ```
 
-## 3.4、消息发送
-### 3.4.1、文本消息
-文本消息可以是纯文本，也可以是包含表情的文本消息，通过`BmobIMTextMessage`的`setContent`方法设置内容来构建`BmobIMTextMessage`实例，再调用`BmobIMConversation`的`sendMessage`方法发送。
+## 3.6、消息发送
+### 3.6.1、文本消息
+文本消息可以是纯文本，也可以是包含表情的文本消息，通过`BmobIMTextMessage`的`setContent`方法设置内容来构建`BmobIMTextMessage`实例，再调用消息管理`BmobIMConversation`的`sendMessage`方法发送。
 
 ```java
-BmobIMTextMessage msg =new BmobIMTextMessage();
-msg.setContent(text);
-//可随意设置额外信息
-Map<String,Object> map =new HashMap<>();
-map.put("level", "1");
-msg.setExtraMap(map);
-c.sendMessage(msg, new MessageSendListener() {
-    @Override
-    public void onStart(BmobIMMessage msg) {
-        super.onStart(msg);
-		scrollToBottom();
-        adapter.addMessage(msg);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void done(BmobIMMessage msg, BmobException e) {
-        scrollToBottom();
-        adapter.notifyDataSetChanged();
-        edit_msg.setText("");
-        if (e != null) {
-            toast(e.getMessage());
+    /**
+     * 发送文本消息
+     */
+    private void sendMessage() {
+        String text = edit_msg.getText().toString();
+        if (TextUtils.isEmpty(text.trim())) {
+            toast("请输入内容");
+            return;
         }
+        //TODO 发送消息：6.1、发送文本消息
+        BmobIMTextMessage msg = new BmobIMTextMessage();
+        msg.setContent(text);
+        //可随意设置额外信息
+        Map<String, Object> map = new HashMap<>();
+        map.put("level", "1");
+        msg.setExtraMap(map);
+        mConversationManager.sendMessage(msg, listener);
     }
-});
-
 ```
 
-### 3.4.2、图片消息
-图片可以是通过系统拍照或本地相册中获取的本地图片地址，也可以使用网络上某个有效的图片地址。然后构造一个`BmobIMImageMessage`对象，再调用`BmobIMConversation`的`sendMessage`方法发送。
-
-#### 3.4.2.1、发送本地图片
+### 3.6.2、图片消息
+图片可以是通过系统拍照或本地相册中获取的本地图片地址，也可以使用网络上某个有效的图片地址。
+#### 3.6.2.1、发送本地图片
 使用系统拍照功能或从本地相册中获取到本地图片地址(`localPath`)，然后调用构造方法`BmobIMImageMessage（String localPath）`来创建`BmobIMImageMessage`实例。
 
 ```java
-BmobIMImageMessage image =new BmobIMImageMessage(localPath);
-c.sendMessage(image, new MessageSendListener() {
-
-	@Override
-    public void onProgress(int value) {
-        super.onProgress(value);
-        //文件类型的消息才有进度值:do something
-        Logger.i("onProgress："+value);
+    /**
+     * 发送本地图片文件
+     */
+    public void sendLocalImageMessage() {
+        //TODO 发送消息：6.2、发送本地图片消息
+        //正常情况下，需要调用系统的图库或拍照功能获取到图片的本地地址，开发者只需要将本地的文件地址传过去就可以发送文件类型的消息
+        BmobIMImageMessage image = new BmobIMImageMessage("/storage/emulated/0/netease/cloudmusic/网易云音乐相册/小梦大半_1371091013186741.jpg");
+        mConversationManager.sendMessage(image, listener);
     }
-
-    @Override
-    public void onStart(BmobIMMessage msg) {
-        scrollToBottom();
-        adapter.addMessage(msg);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void done(BmobIMMessage msg, BmobException e) {
-        scrollToBottom();
-        adapter.notifyDataSetChanged();
-        edit_msg.setText("");
-        if (e != null) {
-            toast(e.getMessage());
-        }
-    }
-});
-
 ```
 
-#### 3.4.2.2、发送远程图片URL
-例如，从微博或QQ中获取到某个图片地址，然后调用BmobIMImageMessage的`setRemoteUrl`方法设置远程图片URL来创建`BmobIMImageMessage`实例。
+#### 3.6.2.2、发送远程图片URL
+调用BmobIMImageMessage的`setRemoteUrl`方法设置远程图片URL来创建`BmobIMImageMessage`实例。
 
 ```java
-BmobIMImageMessage image =new BmobIMImageMessage();
-image.setRemoteUrl("http://img.lakalaec.com/ad/57ab6dc2-43f2-4087-81e2-b5ab5681642d.jpg");
-c.sendMessage(image, new MessageSendListener() {
-
-	@Override
-    public void onProgress(int value) {
-        super.onProgress(value);
-        //文件类型的消息才有进度值
-        Logger.i("onProgress："+value);
+    /**
+     * 直接发送远程图片地址
+     */
+    public void sendRemoteImageMessage() {
+        //TODO 发送消息：6.3、发送远程图片消息
+        BmobIMImageMessage image = new BmobIMImageMessage();
+        image.setRemoteUrl("https://avatars3.githubusercontent.com/u/11643472?v=4&u=df609c8370b3ef7a567457eafd113b3ba6ba3bb6&s=400");
+        mConversationManager.sendMessage(image, listener);
     }
-
-    @Override
-    public void onStart(BmobIMMessage msg) {
-        scrollToBottom();
-        adapter.addMessage(msg);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void done(BmobIMMessage msg, BmobException e) {
-        scrollToBottom();
-        adapter.notifyDataSetChanged();
-        edit_msg.setText("");
-        if (e != null) {
-            toast(e.getMessage());
-        }
-    }
-});
-
 ```
-### 3.4.3、语音消息
-语音可以是通过录制音频得到的本地音频地址，也可以使用网络上某个有效的音频地址。然后构造一个`BmobIMAudioMessage`对象，再调用`BmobIMConversation`的`sendMessage`方法发送。
+### 3.6.3、语音消息
+语音可以是通过录制音频得到的本地音频地址，也可以使用网络上某个有效的音频地址。
 
-#### 3.4.3.1、发送本地音频文件：
+#### 3.6.3.1、发送本地音频文件：
 ```java
-BmobIMAudioMessage image =new BmobIMAudioMessage(localPath);
-c.sendMessage(image, new MessageSendListener() {
-
-	@Override
-    public void onProgress(int value) {
-        super.onProgress(value);
-        //文件类型的消息才有进度值:do something
-        Logger.i("onProgress："+value);
+    /**
+     * 发送本地音频文件
+     */
+    private void sendLocalAudioMessage() {
+        BmobIMAudioMessage audio = new BmobIMAudioMessage("此处替换为你本地的音频文件地址");
+        //TODO 发送消息：6.4、发送本地音频文件消息
+        mConversationManager.sendMessage(audio, listener);
     }
-
-    @Override
-    public void onStart(BmobIMMessage msg) {
-        scrollToBottom();
-        adapter.addMessage(msg);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void done(BmobIMMessage msg, BmobException e) {
-        scrollToBottom();
-        adapter.notifyDataSetChanged();
-        edit_msg.setText("");
-        if (e != null) {
-            toast(e.getMessage());
-        }
-    }
-});
-
 ```
 
-#### 3.4.3.2、发送远程语音URL地址
-同样的，语音消息也支持发送远程语音URL地址：
-
+#### 3.6.3.2、发送远程音频URL地址
 ```java
-BmobIMAudioMessage image =new BmobIMAudioMessage();
-image.setRemoteUrl("远程语音地址");
-c.sendMessage(image, new MessageSendListener() {
-
-	@Override
-    public void onProgress(int value) {
-        super.onProgress(value);
-        //文件类型的消息才有进度值
-        Logger.i("onProgress："+value);
+    /**
+     * 发送远程音频文件
+     */
+    private void sendRemoteAudioMessage(){
+        //TODO 发送消息：6.5、发送本地音频文件消息
+        BmobIMAudioMessage audio = new BmobIMAudioMessage();
+        audio.setRemoteUrl("此处替换为你远程的音频文件地址");
+        mConversationManager.sendMessage(audio, listener);
     }
-
-    @Override
-    public void onStart(BmobIMMessage msg) {
-        scrollToBottom();
-        adapter.addMessage(msg);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void done(BmobIMMessage msg, BmobException e) {
-        scrollToBottom();
-        adapter.notifyDataSetChanged();
-        edit_msg.setText("");
-        if (e != null) {
-            toast(e.getMessage());
-        }
-    }
-});
-
 ```
 
-### 3.4.4、地理位置消息
+### 3.6.4、视频消息
+视频可以是通过录制视频得到的本地视频地址，也可以使用网络上某个有效的视频地址。
+
+#### 3.6.4.1、发送本地视频文件：
+```java
+    /**
+     * 发送本地视频文件
+     */
+    private void sendLocalVideoMessage() {
+        BmobIMVideoMessage video = new BmobIMVideoMessage("此处替换为你本地的视频文件地址");
+        //TODO 发送消息：6.6、发送本地视频文件消息
+        mConversationManager.sendMessage(video, listener);
+    }
+```
+
+#### 3.6.4.2、发送远程视频URL地址
+```java
+    /**
+     * 发送远程视频文件
+     */
+    private void sendRemoteVideoMessage(){
+        //TODO 发送消息：6.7、发送本地音频文件消息
+        BmobIMAudioMessage audio = new BmobIMAudioMessage();
+        audio.setRemoteUrl("此处替换为你远程的音频文件地址");
+        mConversationManager.sendMessage(audio, listener);
+    }
+```
+
+### 3.6.4、文件消息
+文件可以是本地地址，也可以使用网络上某个有效的文件地址。
+
+#### 3.6.4.1、发送本地文件：
+```java
+   /**
+     * 发送本地文件
+     */
+    public void sendLocalFileMessage() {
+        //TODO 发送消息：6.8、发送本地文件消息
+        BmobIMFileMessage file = new BmobIMFileMessage("此处替换为你本地的文件地址");
+        mConversationManager.sendMessage(file, listener);
+    }
+```
+
+#### 3.6.4.2、发送远程文件URL地址
+```java
+    /**
+     * 发送远程文件
+     */
+    public void sendRemoteFileMessage() {
+        //TODO 发送消息：6.9、发送远程文件消息
+        BmobIMFileMessage file = new BmobIMFileMessage();
+        file.setRemoteUrl("此处替换为你远程的文件地址");
+        mConversationManager.sendMessage(file, listener);
+    }
+```
+### 3.6.5、地理位置消息
 地理位置可以通过任意地图SDK获取到经纬度，详细地址等信息，然后调用`BmobIMLocationMessage(String address,double latitude,double longitude)`构造方法构建`BmobIMLocationMessage`实例，再调用`BmobIMConversation`的`sendMessage`方法发送。：
 
 ```java
-BmobIMLocationMessage location =new BmobIMLocationMessage("广州番禺区",23.5,112.0);
-c.sendMessage(location,  new MessageSendListener() {
-
-    @Override
-    public void onStart(BmobIMMessage msg) {
-        scrollToBottom();
-        adapter.addMessage(msg);
-        adapter.notifyDataSetChanged();
+    /**
+     * 发送地理位置消息
+     */
+    public void sendLocationMessage() {
+        //TODO 发送消息：6.10、发送位置消息
+        //测试数据，真实数据需要从地图SDK中获取
+        BmobIMLocationMessage location = new BmobIMLocationMessage("广州番禺区", 23.5, 112.0);
+        Map<String, Object> map = new HashMap<>();
+        map.put("from", "百度地图");
+        location.setExtraMap(map);
+        mConversationManager.sendMessage(location, listener);
     }
-
-    @Override
-    public void done(BmobIMMessage msg, BmobException e) {
-        scrollToBottom();
-        adapter.notifyDataSetChanged();
-        edit_msg.setText("");
-        if (e != null) {
-            toast(e.getMessage());
-        }
-    }
-});
-
 ```
 
 ## 3.5、消息接收
