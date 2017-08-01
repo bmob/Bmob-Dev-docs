@@ -207,7 +207,7 @@ public class BmobIMApplication extends Application{
 
 # 3、BmobNewIM SDK 使用
 ## 3.0、案例流程图
-![]()
+![案例流程图](https://github.com/bmob/Bmob-Dev-docs/blob/master/im/Android/b_developdoc/image/IM.png?raw=true)
 ## 3.1、服务器连接
 ### 3.1.1、连接
 调用`connect`方法，需要传入唯一用户标示`clientId`，Demo使用的是Bmob的用户登录系统`objectId`。
