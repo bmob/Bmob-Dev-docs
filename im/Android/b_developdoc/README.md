@@ -623,6 +623,7 @@ mConversationManager.updateLocalCache();
 	//设置音频文件的来源
 	Map<String,Object> map =new HashMap<>();
 	map.put("from", "优酷");
+	//TODO 自定义消息：7.1、给消息设置额外信息
 	audio.setExtraMap(map);
 	mConversationManager.sendMessage(audio, listener);
 ```
@@ -633,6 +634,7 @@ mConversationManager.updateLocalCache();
 2. 重写`getMsgType`方法，填写自定义的消息类型；
 3. 重写`isTransient`方法，定义是否是暂态消息。
 ```
+  //TODO 自定义消息：7.2、自定义消息类型，用于发送添加好友请求
 	public class AddFriendMessage extends BmobIMExtraMessage{
 	
 	    @Override
@@ -655,7 +657,7 @@ mConversationManager.updateLocalCache();
 #### 3.8.1.1、自定义消息接收器继承自`BmobIMMessageHandler`来处理服务器发来的消息和离线消息。
 
 ```java
-
+//TODO 消息接收：8.1、自定义全局消息接收器
 public class DemoMessageHandler extends BmobIMMessageHandler{
 
     private Context context;
@@ -676,7 +678,6 @@ public class DemoMessageHandler extends BmobIMMessageHandler{
 
 ```
 #### 3.8.1.2、单个页面的自定义接收器
-
 使用IM SDK不仅可以使用`BmobIMMessageHandler`方式来注册全局的消息接收器，还可以使用`MessageListHandler`为单个页面注册消息接收器，具体步骤如下：
 
 1. 在`Activity/Fragment`中实现`MessageListHandler`接口；
@@ -687,6 +688,7 @@ public class DemoMessageHandler extends BmobIMMessageHandler{
 具体示例可查看NewIMDemo中的`ChatActivity`类：
 
 ```java
+//TODO 消息接收：8.2、单个页面的自定义接收器
 @Override
 public void onMessageReceive(List<MessageEvent> list) {
     //接收处理在线、离线消息
@@ -717,6 +719,8 @@ EventBus.getDefault().unregister(this);
 /**聊天消息接收事件
  * @param event
  */
+//TODO 消息接收：8.3、通知有在线消息接收
+@Subscribe
 public void onEventMainThread(MessageEvent event){
     //处理聊天消息
 }
@@ -730,6 +734,8 @@ public void onEventMainThread(MessageEvent event){
 /**离线消息接收事件
  * @param event
  */
+//TODO 消息接收：8.4、通知有离线消息接收
+@Subscribe
 public void onEventMainThread(OfflineMessageEvent event){
     //处理离线消息
 }
@@ -746,6 +752,7 @@ public void onEventMainThread(OfflineMessageEvent event){
  * @param event 某个消息事件：包含消息、会话及发送用户的信息
  * @param intent 跳转intent
  */
+ //TODO 消息接收：8.5、多个用户的多条消息合并成一条通知：有XX个联系人发来了XX条消息
  BmobNotificationManager.getInstance(context).showNotification(MessageEvent event,Intent pendingIntent);
 ```
 2、自定义通知消息：始终只有一条通知，新消息覆盖旧消息。
@@ -758,6 +765,7 @@ public void onEventMainThread(OfflineMessageEvent event){
  * @param ticker 状态栏上显示的内容
  * @param intent 跳转的intent
  */
+ //TODO 消息接收：8.6、自定义通知消息：始终只有一条通知，新消息覆盖旧消息
 BmobNotificationManager.getInstance(context).showNotification(Bitmap largerIcon,String title, String content, String ticker,Intent intent);
 ```
 
@@ -770,6 +778,7 @@ BmobNewIM SDK中并没有集成好友管理相关的功能，为了方便开发�
  * @project Friend
  * @date 2016-04-26
  */
+//TODO 好友管理：9.1、创建好友表
 public class Friend extends BmobObject{
 	 //用户
     private User user;
@@ -779,9 +788,9 @@ public class Friend extends BmobObject{
 }
 ```
 
-在控制台建表的时候请设置唯一键为user和friendUser唯一，以防出现多次发送请求消息重复添加相同用户为好友。
+在控制台建表的时候请设置唯一键为user和friendUser唯一，以防出现多次发送请求消息重复添加相同用户为好友的情况。
 
-
+![设置Friend表唯一键](https://github.com/bmob/Bmob-Dev-docs/blob/master/im/Android/b_developdoc/image/Friend.png?raw=true)
 
 ### 3.9.1、获取好友列表
 ```java
@@ -789,6 +798,7 @@ public class Friend extends BmobObject{
  * 查询好友
  * @param listener
  */
+//TODO 好友管理：9.2、查询好友
 public void queryFriends(final FindListener<Friend> listener){
     BmobQuery<Friend> query = new BmobQuery<>();
     User user =BmobUser.getCurrentUser(getContext(), User.class);
@@ -821,6 +831,7 @@ public void queryFriends(final FindListener<Friend> listener){
  * @param f
  * @param listener
  */
+//TODO 好友管理：9.3、删除好友
 public void deleteFriend(Friend f,DeleteListener listener){
     Friend friend =new Friend();
     friend.delete(getContext(),f.getObjectId(),listener);
@@ -837,6 +848,7 @@ Demo中创建了一个`NewFriend`的本地数据库类用来存储所有的添�
  * @project:NewFriend
  * @date :2016-04-26-17:28
  */
+//TODO 好友管理：9.4、本地数据库存储添加好友的请求
 public class NewFriend implements java.io.Serializable {
 
     private Long id;
@@ -866,6 +878,7 @@ Demo中创建了一个`AddFriendMessage`类来展示如何发送自定义的添�
  * @project:AddFriendMessage
  * @date :2016-01-30-17:28
  */
+//TODO 好友管理：9.5、自定义添加好友的消息类型
 public class AddFriendMessage extends BmobIMExtraMessage{
 
     public AddFriendMessage(){}
@@ -896,6 +909,7 @@ Demo中创建了一个`AgreeAddFriendMessage`类来展示如何发送自定义�
  * @project AgreeAddFriendMessage
  * @date 2016-03-04-10:41
  */
+//TODO 好友管理：9.6、自定义同意添加好友的消息类型
 public class AgreeAddFriendMessage extends BmobIMExtraMessage{
 
     //以下均是从extra里面抽离出来的字段，方便获取
@@ -927,6 +941,7 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage{
     /**
      * 发送添加好友的请求
      */
+    //TODO 好友管理：9.7、发送添加好友请求
     private void sendAddFriendMessage() {
         //TODO 会话：4.1、创建一个暂态会话入口，发送好友请求
         BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, true, null);
@@ -960,6 +975,7 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage{
     /**
      * 发送同意添加好友的消息
      */
+    //TODO 好友管理：9.8、发送同意添加好友
     private void sendAgreeAddFriendMessage(final NewFriend add, final SaveListener<Object> listener) {
         BmobIMUserInfo info = new BmobIMUserInfo(add.getUid(), add.getName(), add.getAvatar());
         //TODO 会话：4.1、创建一个暂态会话入口，发送同意好友请求
@@ -999,6 +1015,7 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage{
      *
      * @param msg
      */
+    //TODO 好友管理：9.9、接收并处理好友相关的请求
     private void processCustomMessage(BmobIMMessage msg, BmobIMUserInfo info) {
         //消息类型
         String type = msg.getMsgType();
@@ -1025,12 +1042,41 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage{
 
 ### 3.8.7、添加到Friend表中
 在同意对方和收到对方同意的时候，需要添加好友关系到Friend表中。
+#### 3.8.7.1、同意对方的添加好友请求，添加对方为好友发送同意
+```
+    /**
+     * 添加到好友表中再发送同意添加好友的消息
+     *
+     * @param add
+     * @param listener
+     */
+    //TODO 好友管理：9.10、同意添加好友后添加好友
+    private void agreeAdd(final NewFriend add, final SaveListener<Object> listener) {
+        User user = new User();
+        user.setObjectId(add.getUid());
+        UserModel.getInstance()
+                .agreeAddFriend(user, new SaveListener<String>() {
+                    @Override
+                    public void done(String s, BmobException e) {
+                        if (e == null) {
+                            //TODO 2、发送同意添加好友的消息
+                            sendAgreeAddFriendMessage(add, listener);
+                        } else {
+                            Logger.e(e.getMessage());
+                            listener.done(null, e);
+                        }
+                    }
+                });
+    }
+```
+#### 3.8.7.2、收到对方的同意添加好友请求后，添加对方为好友
 ```java
    /**
      * 添加对方为自己的好友
      *
      * @param uid
      */
+    //TODO 好友管理：9.11、收到同意添加好友后添加好友
     private void addFriend(String uid) {
         User user = new User();
         user.setObjectId(uid);
