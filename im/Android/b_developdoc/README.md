@@ -1114,7 +1114,7 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage{
 ```
 
 # 5、BmobOldIM SDK 回顾
-## 5.1 OldIM SDK 回顾
+## 5.1、OldIM SDK 回顾
 Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.com/bmob/bmob-android-im-sdk) ，BmobOldIM SDK已经开源但不再进行维护，请开发者集成Android BmobNewIM SDK进行开发。
 
 | BmobOldIM SDK 问题     | 
