@@ -568,7 +568,8 @@ mConversationManager.updateLocalCache();
 ```
 
 ### 3.6.4、文件消息
-文件可以是本地地址，也可以使用网络上某个有效的文件地址。
+文件可以是本地文件地址，也可以使用网络上某个有效的文件地址。
+图片、音频、视频文件消息其实都是文件消息，本地文件的发送其实是SDK先把文件上传到服务器，再把文件服务器地址发送给接收方，接收方收到文件地址的消息后再进行下载和显示。而远程文件仅仅只是省去了文件上传这一步骤而已。
 
 #### 3.6.4.1、发送本地文件：
 ```java
@@ -649,31 +650,9 @@ mConversationManager.updateLocalCache();
 	}
 ```
 
-## 3.7、消息接收
-### 3.7.1、自定义消息接收器
-#### 3.7.1.1、`NewIM_V2.0.4及以后`的NewBmobIM SDK版本
-
-如果你使用的是`NewIM_V2.0.4以后(包含v2.0.4)`的SDK版本,那么不仅可以使用`BmobIMMessageHandler`方式来注册全局的消息接收器，还可以使用`MessageListHandler`为单个页面注册消息接收器，具体步骤如下：
-
-1. 在`Activity/Fragment`中实现`MessageListHandler`接口；
-2. 在`onResume`方法中添加页面消息监听器：`BmobIM.getInstance().addMessageListHandler(this)`；
-3. 在`onPause`方法中移除页面消息监听器：`BmobIM.getInstance().removeMessageListHandler(this)`；
-4. 在`MessageListHandler`接口的`onMessageReceive`方法中做相关的操作。
-
-具体示例可查看NewIMDemo中的`ChatActivity`类：
-
-```java
-@Override
-public void onMessageReceive(List<MessageEvent> list) {
-    //当注册页面消息监听时候，有消息（包含离线消息）到来时会回调该方法
-    for (int i=0;i<list.size();i++){
-		//do something...
-    }
-}
-
-```
-#### 3.5.1.2、`NewIM_V2.0.2及以后`的NewBmobIM SDK版本
-如果你使用的是`NewIM_V2.0.2以后(包含v2.0.2)`的SDK版本,那么只需要自定义消息接收器继承自`BmobIMMessageHandler`来处理服务器发来的消息和离线消息。
+## 3.8、消息接收
+### 3.8.1、自定义消息接收器
+#### 3.8.1.1、自定义消息接收器继承自`BmobIMMessageHandler`来处理服务器发来的消息和离线消息。
 
 ```java
 
@@ -686,52 +665,38 @@ public class DemoMessageHandler extends BmobIMMessageHandler{
 
     @Override
     public void onMessageReceive(final MessageEvent event) {
-        //当接收到服务器发来的消息时，此方法被调用
-		//可以统一在此检测更新会话及用户信息
-        UserModel.getInstance().updateUserInfo(event, new UpdateCacheListener() {
-            @Override
-            public void done(BmobException e) {
-                BmobIMMessage msg = event.getMessage();
-				//用户自定义的消息类型，其类型值均为0
-                if(BmobIMMessageType.getMessageTypeValue(msg.getMsgType())==0){
-                    //自行处理自定义消息类型
-                    Logger.i(msg.getMsgType() + "," + msg.getContent() + "," + msg.getExtra());
-                }else{//SDK内部内部支持的消息类型
-                    if (BmobNotificationManager.getInstance(context).isShowNotification()){
-						//如果需要显示通知栏，可以使用BmobNotificationManager类提供的方法，也可以自己写通知栏显示方法
-                   }else{//直接发送消息事件
-                        Logger.i("当前处于应用内，发送event");
-                        EventBus.getDefault().post(event);
-                    }
-                }
-            }
-        });
+        //接收处理在线消息
     }
 
     @Override
     public void onOfflineReceive(final OfflineMessageEvent event) {
-        //每次调用connect方法时会查询一次离线消息，如果有，此方法会被调用
-		Map<String,List<MessageEvent>> map =event.getEventMap();
-        Logger.i("离线消息属于"+map.size()+"个用户");
-        for (Map.Entry<String, List<MessageEvent>> entry : map.entrySet()) {
-            List<MessageEvent> list =entry.getValue();
-            //挨个检测离线用户信息是否需要更新
-            UserModel.getInstance().updateUserInfo(list.get(0), new UpdateCacheListener() {
-                @Override
-                public void done(BmobException e) {
-                    EventBus.getDefault().post(event);
-                }
-            });
-        }
+        //接收处理离线消息，每次调用connect方法时会查询一次离线消息，如果有，此方法会被调用
     }
 }
 
 ```
+#### 3.8.1.2、单个页面的自定义接收器
 
-### 3.5.2、应用内消息接收
-`V2.0.1`的SDK内部集成EventBus库（`V2.0.2`SDK内部不再集成EventBus，开发者可以自行使用新版EventBus）来进行应用内消息的分发，故在应用内需要接收消息的地方注册和解注册EventBus即可。
+使用IM SDK不仅可以使用`BmobIMMessageHandler`方式来注册全局的消息接收器，还可以使用`MessageListHandler`为单个页面注册消息接收器，具体步骤如下：
 
-SDK内部有两种事件：`MessageEvent（聊天消息）`、`OfflineMessageEvent(离线消息)`。
+1. 在`Activity/Fragment`中实现`MessageListHandler`接口；
+2. 在`onResume`方法中添加页面消息监听器：`BmobIM.getInstance().addMessageListHandler(this)`；
+3. 在`onPause`方法中移除页面消息监听器：`BmobIM.getInstance().removeMessageListHandler(this)`；
+4. 在`MessageListHandler`接口的`onMessageReceive`方法中做相关的操作。
+
+具体示例可查看NewIMDemo中的`ChatActivity`类：
+
+```java
+@Override
+public void onMessageReceive(List<MessageEvent> list) {
+    //接收处理在线、离线消息
+}
+
+```
+### 3.8.2、应用内消息接收
+SDK内部使用EventBus来进行应用内消息的分发，故在应用内需要接收消息的地方注册和解注册EventBus即可，不过SDK并没有集成EventBus，开发者需要在自己的项目中另外集成EventBus。
+
+SDK内部有两种EventBus事件：`MessageEvent（在线消息）`、`OfflineMessageEvent(离线消息)`。
 
 1、注册EventBus
 
@@ -739,14 +704,14 @@ SDK内部有两种事件：`MessageEvent（聊天消息）`、`OfflineMessageEve
 EventBus.getDefault().register(this);
 
 ```
-2、解注册EventBus
+2、注销EventBus
 
 ```java
 EventBus.getDefault().unregister(this);
 
 ```
 
-3、处理聊天消息
+3、处理在线消息
 
 ```java
 /**聊天消息接收事件
@@ -771,10 +736,10 @@ public void onEventMainThread(OfflineMessageEvent event){
 
 ```
 
-### 3.5.3、应用外通知栏提醒
-SDK新增`BmobNotificationManager`类，并提供如下两个方法供开发者展示通知栏:
+### 3.8.3、应用外通知栏提醒
+`BmobNotificationManager`类提供展示通知栏的方法，你也可以使用自己的展示通知栏方法。
 
-1. **多个用户的多条消息合并成一条通知：有XX个联系人发来了XX条消息**
+1、多个用户的多条消息合并成一条通知：有XX个联系人发来了XX条消息。
                            
 ```java
 /**显示通知：多个用户的多条消息合并显示一条通知
@@ -782,9 +747,8 @@ SDK新增`BmobNotificationManager`类，并提供如下两个方法供开发者�
  * @param intent 跳转intent
  */
  BmobNotificationManager.getInstance(context).showNotification(MessageEvent event,Intent pendingIntent);
-
 ```
-2. **自定义通知消息：始终只有一条通知，新消息覆盖旧消息**
+2、自定义通知消息：始终只有一条通知，新消息覆盖旧消息。
 
 ```java
  /**显示通知
@@ -797,19 +761,8 @@ SDK新增`BmobNotificationManager`类，并提供如下两个方法供开发者�
 BmobNotificationManager.getInstance(context).showNotification(Bitmap largerIcon,String title, String content, String ticker,Intent intent);
 ```
 
-**注：为了使SDK能够区分当前应用是否退出，开发者需进行以下几个步骤：**
-
-1、在会话和聊天的Activity类实现'ObseverListener'监听器；
-
-2、在`onResume`方法中调用`BmobNotificationManager.getInstance(context).addObserver(this)`方法添加观察者；
-   在`onPause`方法中调用`BmobNotificationManager.getInstance(context).removeObserver(this)`方法移除观察者
-
-3、在主Activity的`onDestroy`方法中调用`BmobNotificationManager.getInstance(context).clearObserver()`清空观察者。
-
-
-
-## 3.8、好友管理
-BmobNewIM SDK中并没有集成好友管理相关的功能，为了方便开发者建立基于好友之间的聊天模式，在`v2.0.4`版本开始的Demo中使用Data SDK新建了`Friend`表来进行好友管理。
+## 3.9、好友管理
+BmobNewIM SDK中并没有集成好友管理相关的功能，为了方便开发者建立基于好友之间的聊天模式，在Demo中使用Data SDK新建了`Friend`表来进行好友管理。
 
 ```java
 /**好友表
@@ -818,19 +771,19 @@ BmobNewIM SDK中并没有集成好友管理相关的功能，为了方便开发�
  * @date 2016-04-26
  */
 public class Friend extends BmobObject{
-
-	//用户
+	 //用户
     private User user;
-	//好友
+	 //好友
     private User friendUser;
-
     //getter setter...
 }
 ```
 
-### 3.8.1、获取好友列表
-以下摘自`UserModel(cn.bmob.imdemo.model)`类：
+在控制台建表的时候请设置唯一键为user和friendUser唯一，以防出现多次发送请求消息重复添加相同用户为好友。
 
+
+
+### 3.9.1、获取好友列表
 ```java
 /**
  * 查询好友
@@ -858,13 +811,10 @@ public void queryFriends(final FindListener<Friend> listener){
         }
     });
 }
-
 ```
 
 
-### 3.8.2、删除好友
-以下摘自`UserModel(cn.bmob.imdemo.model)`类：
-
+### 3.9.2、删除好友
 ```java
 /**
  * 删除好友
@@ -875,12 +825,12 @@ public void deleteFriend(Friend f,DeleteListener listener){
     Friend friend =new Friend();
     friend.delete(getContext(),f.getObjectId(),listener);
 }
-
 ```
 
-### 3.8.3、添加好友
-Demo中创建了一个`NewFriend`的本地数据库类用来存储所有的添加好友请求。
+### 3.9.3、添加好友
 
+#### 3.9.3.1、本地数据库存储添加好友请求
+Demo中创建了一个`NewFriend`的本地数据库类用来存储所有的添加好友请求。
 ```java
 /**本地的好友请求表
  * @author :smile
@@ -902,12 +852,12 @@ public class NewFriend implements java.io.Serializable {
     private Integer status;
 	//请求时间
     private Long time;
-
+    
     //getter setter...
-
 }
 
 ```
+#### 3.9.3.2、自定义添加好友的消息类型
 Demo中创建了一个`AddFriendMessage`类来展示如何发送自定义的添加好友请求的消息。
 
 ```java
@@ -922,14 +872,13 @@ public class AddFriendMessage extends BmobIMExtraMessage{
 
     @Override
     public String getMsgType() {
-		//自定义一个`add`的消息类型
+		  //自定义一个`add`的消息类型
         return "add";
     }
 
     @Override
     public boolean isTransient() {
         //设置为true,表明为暂态消息，那么这条消息并不会保存到本地db中，SDK只负责发送出去
-        //设置为false,则会保存到指定会话的数据库中
         return true;
     }
 	
@@ -938,7 +887,7 @@ public class AddFriendMessage extends BmobIMExtraMessage{
 }
 
 ```
-
+#### 3.9.3.3、自定义同意添加好友的消息类型
 Demo中创建了一个`AgreeAddFriendMessage`类来展示如何发送自定义的同意添加好友请求的消息，并在对方的本地会话表中新增消息类型。
 
 ```java
@@ -956,12 +905,12 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage{
 
     @Override
     public String getMsgType() {
+        //自定义一个`agree`的消息类型
         return "agree";
     }
 
     @Override
     public boolean isTransient() {
-        //如果需要在对方的会话表中新增一条该类型的消息，则设置为false，表明是非暂态会话
         //此处将同意添加好友的请求设置为false，为了演示怎样向会话表和消息表中新增一个类型，在对方的会话列表中增加`我通过了你的好友验证请求，我们可以开始聊天了!`这样的类型
         return false;
     }
@@ -974,137 +923,133 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage{
 ```
 
 ### 3.8.4、发送添加好友的请求
-以下摘自`UserInfoActivity(cn.bmob.imdemo.ui)`类：
-
 ```java
-/**
- * 发送添加好友的请求
- */
-private void sendAddFriendMessage(){
-    //启动一个暂态会话，也就是isTransient为true,表明该会话仅执行发送消息的操作，不会保存会话和消息到本地数据库中，
-    BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info, true,null);
-    //这个obtain方法才是真正创建一个管理消息发送的会话
-    BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), c);
-	//新建一个添加好友的自定义消息实体
-    AddFriendMessage msg =new AddFriendMessage();
-    User currentUser = BmobUser.getCurrentUser(this,User.class);
-    msg.setContent("很高兴认识你，可以加个好友吗?");//给对方的一个留言信息
-    Map<String,Object> map =new HashMap<>();
-    map.put("name", currentUser.getUsername());//发送者姓名，这里只是举个例子，其实可以不需要传发送者的信息过去
-    map.put("avatar",currentUser.getAvatar());//发送者的头像
-    map.put("uid",currentUser.getObjectId());//发送者的uid
-    msg.setExtraMap(map);
-    conversation.sendMessage(msg, new MessageSendListener() {
-        @Override
-        public void done(BmobIMMessage msg, BmobException e) {
-            if (e == null) {//发送成功
-                toast("好友请求发送成功，等待验证");
-            } else {//发送失败
-                toast("发送失败:" + e.getMessage());
+    /**
+     * 发送添加好友的请求
+     */
+    private void sendAddFriendMessage() {
+        //TODO 会话：4.1、创建一个暂态会话入口，发送好友请求
+        BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, true, null);
+        //TODO 消息：5.1、根据会话入口获取消息管理，发送好友请求
+        BmobIMConversation messageManager = BmobIMConversation.obtain(BmobIMClient.getInstance(), conversationEntrance);
+        AddFriendMessage msg = new AddFriendMessage();
+        User currentUser = BmobUser.getCurrentUser(User.class);
+        msg.setContent("很高兴认识你，可以加个好友吗?");//给对方的一个留言信息
+        //TODO 这里只是举个例子，其实可以不需要传发送者的信息过去
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", currentUser.getUsername());//发送者姓名
+        map.put("avatar", currentUser.getAvatar());//发送者的头像
+        map.put("uid", currentUser.getObjectId());//发送者的uid
+        msg.setExtraMap(map);
+        messageManager.sendMessage(msg, new MessageSendListener() {
+            @Override
+            public void done(BmobIMMessage msg, BmobException e) {
+                if (e == null) {//发送成功
+                    toast("好友请求发送成功，等待验证");
+                } else {//发送失败
+                    toast("发送失败:" + e.getMessage());
+                }
             }
-        }
-    });
-}
-
+        });
+    }
 ```
 ### 3.8.5、发送同意添加好友的请求
 以下摘自`NewFriendHolder(cn.bmob.imdemo.adapter)`类：
 
 ```java
-/**
- * 发送同意添加好友的请求
- */
-private void sendAgreeAddFriendMessage(final NewFriend add,final SaveListener listener){
-	//发给谁，就填谁的用户信息
-    BmobIMUserInfo info = new BmobIMUserInfo(add.getUid(), add.getName(), add.getAvatar());
-    //启动一个暂态会话，也就是isTransient为true,表明该会话仅执行发送消息的操作，不会保存会话和消息到本地数据库中，
-    BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info,true,null);
-    //这个obtain方法才是真正创建一个管理消息发送的会话
-    BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(),c);
-    //而AgreeAddFriendMessage的isTransient设置为false，表明我希望在对方的会话数据库中保存该类型的消息
-    AgreeAddFriendMessage msg =new AgreeAddFriendMessage();
-    User currentUser = BmobUser.getCurrentUser(getContext(), User.class);
-    msg.setContent("我通过了你的好友验证请求，我们可以开始聊天了!");//---这句话是直接存储到对方的消息表中的
-    Map<String,Object> map =new HashMap<>();
-    map.put("msg",currentUser.getUsername()+"同意添加你为好友");//显示在通知栏上面的内容
-    map.put("uid",add.getUid());//发送者的uid-方便请求添加的发送方找到该条添加好友的请求
-    map.put("time", add.getTime());//添加好友的请求时间
-    msg.setExtraMap(map);
-    conversation.sendMessage(msg, new MessageSendListener() {
-        @Override
-        public void done(BmobIMMessage msg, BmobException e){
-            if (e == null) {//发送成功
-                //修改本地的好友请求记录
-                NewFriendManager.getInstance(getContext()).updateNewFriend(add.getUid(),add.getTime(),Config.STATUS_VERIFIED);
-                listener.onSuccess();
-            } else {//发送失败
-                listener.onFailure(e.getErrorCode(),e.getMessage());
+    /**
+     * 发送同意添加好友的消息
+     */
+    private void sendAgreeAddFriendMessage(final NewFriend add, final SaveListener<Object> listener) {
+        BmobIMUserInfo info = new BmobIMUserInfo(add.getUid(), add.getName(), add.getAvatar());
+        //TODO 会话：4.1、创建一个暂态会话入口，发送同意好友请求
+        BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(info, true, null);
+        //TODO 消息：5.1、根据会话入口获取消息管理，发送同意好友请求
+        BmobIMConversation messageManager = BmobIMConversation.obtain(BmobIMClient.getInstance(), conversationEntrance);
+        //而AgreeAddFriendMessage的isTransient设置为false，表明我希望在对方的会话数据库中保存该类型的消息
+        AgreeAddFriendMessage msg = new AgreeAddFriendMessage();
+        final User currentUser = BmobUser.getCurrentUser(User.class);
+        msg.setContent("我通过了你的好友验证请求，我们可以开始 聊天了!");//这句话是直接存储到对方的消息表中的
+        Map<String, Object> map = new HashMap<>();
+        map.put("msg", currentUser.getUsername() + "同意添加你为好友");//显示在通知栏上面的内容
+        map.put("uid", add.getUid());//发送者的uid-方便请求添加的发送方找到该条添加好友的请求
+        map.put("time", add.getTime());//添加好友的请求时间
+        msg.setExtraMap(map);
+        messageManager.sendMessage(msg, new MessageSendListener() {
+            @Override
+            public void done(BmobIMMessage msg, BmobException e) {
+                if (e == null) {//发送成功
+                    //TODO 3、修改本地的好友请求记录
+                    NewFriendManager.getInstance(context).updateNewFriend(add, Config.STATUS_VERIFIED);
+                    listener.done(msg, e);
+                } else {//发送失败
+                    Logger.e(e.getMessage());
+                    listener.done(msg, e);
+                }
             }
-        }
-    });
-}
-
+        });
+    }
 ```
 
 ### 3.8.6、接收并处理好友相关的请求
-以下摘自`DemoMessageHandler(cn.bmob.imdemo)`类：
 
 ```java
-/**
- * 处理自定义消息类型:用户自定义的消息类型，其类型值均为0
- * @param msg
- */
-private void processCustomMessage(BmobIMMessage msg,BmobIMUserInfo info){
-    String type =msg.getMsgType();
-    //发送页面刷新的广播
-    EventBus.getDefault().post(new RefreshEvent());
-    //处理消息
-    if(type.equals("add")){//接收到的添加好友的请求
-        NewFriend friend = AddFriendMessage.convert(msg);
-        //本地好友请求表做下校验，本地没有的才允许显示通知栏--有可能离线消息会有些重复
-        long id = NewFriendManager.getInstance(context).insertOrUpdateNewFriend(friend);
-        if(id>0){
-            showAddNotify(friend);
+    /**
+     * 处理自定义消息类型
+     *
+     * @param msg
+     */
+    private void processCustomMessage(BmobIMMessage msg, BmobIMUserInfo info) {
+        //消息类型
+        String type = msg.getMsgType();
+        //发送页面刷新的广播
+        EventBus.getDefault().post(new RefreshEvent());
+        //处理消息
+        if (type.equals(AddFriendMessage.ADD)) {//接收到的添加好友的请求
+            NewFriend friend = AddFriendMessage.convert(msg);
+            //本地好友请求表做下校验，本地没有的才允许显示通知栏--有可能离线消息会有些重复
+            long id = NewFriendManager.getInstance(context).insertOrUpdateNewFriend(friend);
+            if (id > 0) {
+                showAddNotify(friend);
+            }
+        } else if (type.equals(AgreeAddFriendMessage.AGREE)) {//接收到的对方同意添加自己为好友,此时需要做的事情：1、添加对方为好友，2、显示通知
+            AgreeAddFriendMessage agree = AgreeAddFriendMessage.convert(msg);
+            addFriend(agree.getFromId());//添加消息的发送方为好友
+            //这里应该也需要做下校验--来检测下是否已经同意过该好友请求，我这里省略了
+            showAgreeNotify(info, agree);
+        } else {
+            Toast.makeText(context, "接收到的自定义消息：" + msg.getMsgType() + "," + msg.getContent() + "," + msg.getExtra(), Toast.LENGTH_SHORT).show();
         }
-    }else if(type.equals("agree")){//接收到的对方同意添加自己为好友,此时需要做的事情：1、添加对方为好友，2、显示通知
-        AgreeAddFriendMessage agree = AgreeAddFriendMessage.convert(msg);
-        addFriend(agree.getFromId());//添加消息的发送方为好友
-        //这里应该也需要做下校验--来检测下是否已经同意过该好友请求，我这里省略了
-        showAgreeNotify(info,agree);
-    }else{
-        Toast.makeText(context,"接收到的自定义消息："+msg.getMsgType() + "," + msg.getContent() + "," + msg.getExtra(),Toast.LENGTH_SHORT).show();
     }
-}
-
 ```
 
 ### 3.8.7、添加到Friend表中
-以下摘自`DemoMessageHandler(cn.bmob.imdemo)`类：
-
+在同意对方和收到对方同意的时候，需要添加好友关系到Friend表中。
 ```java
-/**
- * 添加对方为自己的好友
- * @param uid
- */
-private void addFriend(String uid){
-    User user =new User();
-    user.setObjectId(uid);
-	//添加到Friend表中
-    UserModel.getInstance().agreeAddFriend(user, new SaveListener() {
-        @Override
-        public void onSuccess() {
-            Log.i("bmob", "onSuccess");
-        }
-
-        @Override
-        public void onFailure(int i, String s) {
-            Log.i("bmob", "onFailure:"+s+"-"+i);
-        }
-    });
-}
+   /**
+     * 添加对方为自己的好友
+     *
+     * @param uid
+     */
+    private void addFriend(String uid) {
+        User user = new User();
+        user.setObjectId(uid);
+        UserModel.getInstance()
+                .agreeAddFriend(user, new SaveListener<String>() {
+                    @Override
+                    public void done(String s, BmobException e) {
+                        if (e == null) {
+                            Logger.e("success");
+                        } else {
+                            Logger.e(e.getMessage());
+                        }
+                    }
+                });
+    }
 ```
 
 # 4、BmobNewIM SDK 混淆
+## 4.1、NewIM SDK 混淆
 ```
 
 # 不混淆im sdk
@@ -1123,6 +1068,7 @@ private void addFriend(String uid){
 ```
 
 # 5、BmobOldIM SDK 回顾
+## 5.1 OldIM SDK 回顾
 Android BmobIM SDK v2.0.0之前的版本统称为[BmobOldIM SDK](https://github.com/bmob/bmob-android-im-sdk) ，BmobOldIM SDK已经开源但不再进行维护，请开发者集成Android BmobNewIM SDK进行开发。
 
 | BmobOldIM SDK 问题     | 
