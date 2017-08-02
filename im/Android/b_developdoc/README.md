@@ -1043,14 +1043,13 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage{
 ### 3.8.7、添加到Friend表中
 在同意对方和收到对方同意的时候，需要添加好友关系到Friend表中。
 #### 3.8.7.1、同意对方的添加好友请求，添加对方为好友发送同意
-```
+```java
     /**
-     * 添加到好友表中再发送同意添加好友的消息
+     * TODO 好友管理：9.10、添加到好友表中再发送同意添加好友的消息
      *
      * @param add
      * @param listener
      */
-    //TODO 好友管理：9.10、同意添加好友后添加好友
     private void agreeAdd(final NewFriend add, final SaveListener<Object> listener) {
         User user = new User();
         user.setObjectId(add.getUid());
@@ -1072,11 +1071,10 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage{
 #### 3.8.7.2、收到对方的同意添加好友请求后，添加对方为好友
 ```java
    /**
-     * 添加对方为自己的好友
+     * TODO 好友管理：9.11、收到同意添加好友后添加好友
      *
      * @param uid
      */
-    //TODO 好友管理：9.11、收到同意添加好友后添加好友
     private void addFriend(String uid) {
         User user = new User();
         user.setObjectId(uid);
