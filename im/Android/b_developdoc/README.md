@@ -299,7 +299,7 @@ BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeLis
 
 ## 3.4、会话
 ### 3.4.1、创建会话入口
-BmobNewIM SDK 采用会话（`BmobIMConversation`）管理消息(`BmobIMMessage`)的方式，即消息的发送、查询和删除等操作均在指定会话下进行，因此需要先获取指定会话信息后创建会话入口`BmobIMConversation`。创建会话入口成功后跳转到聊天页面，根据会话入口获取消息管理`BmobIMConversation`，而后在聊天页面进行消息的发送、查询和删除等操作。
+BmobNewIM SDK 采用会话（`BmobIMConversation`）管理消息(`BmobIMMessage`)的方式，即消息的发送、查询和删除等操作均在指定会话下进行，因此需要先获取指定会话信息`BmobIMUserInfo`后创建会话入口`(BmobIMConversation)conversationEntrance`。创建会话入口成功后跳转到聊天页面，根据会话入口获取消息管理`(BmobIMConversation)messageManager`，而后使用消息管理在聊天页面进行消息的发送、查询和删除等操作。
 
 
 #### 3.4.1.1、创建暂态会话入口
