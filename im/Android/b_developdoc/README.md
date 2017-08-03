@@ -349,7 +349,9 @@ BmobIM.getInstance().clearAllConversation();
 
 ### 3.4.6、更新会话
 ```
-//TODO 会话：4.7、更新会话资料-如果消息是暂态消息，则不更新会话资料 BmobIM.getInstance().updateConversation(conversation);
+//TODO 会话：4.7、更新会话资料-如果消息是暂态消息，则不更新会话资料
+
+BmobIM.getInstance().updateConversation(conversation);
 ```
 
 在与人私聊时，需要更新会话标题和会话图标及用户信息，可调用如下方法在`DemoMessageHandler`的全局消息接收器中进行统一更新。
