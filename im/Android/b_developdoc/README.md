@@ -210,9 +210,19 @@ public class BmobIMApplication extends Application{
 ![案例流程图](https://github.com/bmob/Bmob-Dev-docs/blob/master/im/Android/b_developdoc/image/IM.png?raw=true)
 
 ## 3.2、用户管理
-BmobNewIM SDK只是即时通讯的消息收发渠道，本身并不提供用户系统，开发者可使用BmobSDK提供的用户管理方面功能，也可使用开发者自己的用户系统。但是BmobNewIM SDK内部会自动创建本地用户表`BmobIMUserInfo`，并对外提供查询、更新、删除等方法供开发者调用来操作本地用户表。
+BmobNewIM SDK只是即时通讯的消息收发渠道，本身并不提供用户系统，开发者可使用BmobSDK提供的用户管理方面功能，也可使用开发者自己的用户系统。
 
-### 3.2.1、BmobIMUserInfo介绍
+### 3.2.1、Bmob用户系统
+1、Demo使用的是Bmob的用户登录系统，一旦有用户注册就会在_User表中生成一条数据。对应流程图中的注册/登录和退出登录。
+
+2、Demo中搜索用户其实就是模糊搜索_User表上的数据，然后用列表展示结果。对应流程图中的搜索用户。
+
+3、Demo中用户信息页面其实就是查询_User表上某条数据的详细信息进行显示，包括objectid，username，avatar等，如果该用户不是自己，则显示成功后可以在用户信息页面进行添加好友和陌生人聊天操作。对应流程图中的个人信息、用户信息。
+
+
+### 3.2.2、BmobIMUserInfo介绍
+BmobNewIM SDK内部会自动创建本地用户表`BmobIMUserInfo`，并对外提供查询、更新、删除等方法供开发者调用来操作本地用户表。
+
 | 属性名     | 属性含义          |
 |------------------------------|--------------------------------|
 | id | 本地数据库用户表的id值，开发者无需关心 |
@@ -220,29 +230,25 @@ BmobNewIM SDK只是即时通讯的消息收发渠道，本身并不提供用户�
 | name| 用户名 （Demo中是用的是BmobUser的username）|  
 | avatar| 用户头像（Demo中是用的是BmobUser的avatar）|
 
-1、Demo使用的是Bmob的用户登录系统，一旦有用户注册就会在_User表中生成一条数据。
 
-2、Demo中搜索用户其实就是模糊搜索_User表上的数据，然后用列表展示结果。
 
-3、Demo中用户信息页面其实就是查询_User表上某条数据的详细信息进行显示，包括objectid，username，avatar等，如果该用户不是自己，则显示成功后可以在用户信息页面进行添加好友和陌生人聊天操作。
-
-### 3.2.2、更新本地用户信息
+### 3.2.3、更新本地用户信息
 以下两种情况需要更新用户信息：
 1. 当注册或登录成功后，需要更新下当前用户的信息到本地数据库的用户表中，这样才能通过getUserInfo方法获取到本地的用户信息。
 2. 当接收到某人消息的时候，同样需要更新某人的用户信息到本地用户表中，否则在会话界面将默认显示的是用户的userId，也就是Demo中的BmobUser的objectId值。
 
-#### 3.2.2.1、更新单一本地用户信息
+#### 3.2.3.1、更新单一本地用户信息
 ```
 //TODO 用户管理：2.7、更新本地用户资料，用于在会话页面、聊天页面以及个人信息页面显示
 BmobIM.getInstance().updateUserInfo(BmobIMUserInfo info)
 ```
-#### 3.2.2.2、批量更新本地用户信息
+#### 3.2.3.2、批量更新本地用户信息
 ```
 //TODO 用户管理：2.8、批量更新本地用户信息
 BmobIM.getInstance().updateBatchUserInfo(List<BmobIMUserInfo> list)
 ```
 
-### 3.2.3、获取本地用户信息
+### 3.2.4、获取本地用户信息
 BmobNewIM SDK内部会自动创建了一个本地数据库用来存储用户信息，开发者需要先调用`updateUserInfo`更新用户信息到本地数据库中，才能通过`getUserInfo(uid)`获取到本地用户信息。
 ```
 //TODO 用户管理：2.9、获取本地用户信息
