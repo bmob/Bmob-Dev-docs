@@ -541,6 +541,11 @@ query.equalTo("title", "bmob");
 query.notEqualTo("title", "bmob sdk");
 ```
 
+如果要模糊查询某个值，示例代码如下（模糊查询目前只提供给付费套餐会员使用）：
+```
+query.equalTo("title", { "$regex": "" + k + ".*" });
+```
+
 查询大于某个日期的数据，示例代码如下
 query.equalTo("dateTime", "{"$gte":{"__type":"Date","iso":"2011-08-21 18:02:52"}}");
 
@@ -1165,11 +1170,6 @@ upImg: function () {
 
 
 
-
-
-
-          //如果你突然发现这个文件传了又想立即删了，可以直接执行
-          // file.destroy();
         }
 
       }
