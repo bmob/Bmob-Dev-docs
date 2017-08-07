@@ -1,5 +1,13 @@
+v2.0.9  2017年07月31日
+1、修改部分API的bug。
+2、修改Data SDK 为v3.5.6。
+
+v2.0.8  2017年07月20日
+1、修改部分API的bug。
+2、添加丢失的bmob_im_notification_strings.xml。
+
 v2.0.7  2017年07月13日
-1、1、修改了部分API的bug。
+1、修改了部分API的bug。
 
 v2.0.6  2017年04月28日
 1、BmobNewIM_v2.0.6将所依赖的数据SDK提升为BmobSDK_v3.5.5。
