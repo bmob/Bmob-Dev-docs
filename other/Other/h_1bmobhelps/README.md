@@ -78,8 +78,8 @@ A:你可以用js sdk来开发对应的html5页面，开发好之后联系我们�
 
 Q:如何联系Bmob技术和商务
 A:
-技术客服QQ：[2093289624](http://wpa.qq.com/msgrdv=3&uin=2093289624&site=qq&menu=yes)
-商务QQ：[2499654572](http://wpa.qq.com/msgrdv=3&uin=2499654572&site=qq&menu=yes)
+技术客服QQ：[2093289624](http://wpa.qq.com/msgrd?v=3&uin=2093289624&site=qq&menu=yes)
+商务QQ：[2499654572](http://wpa.qq.com/msgrd?v=3&uin=2499654572&site=qq&menu=yes)
 商务合作邮件：partner@bmob.cn
 技术沙龙邮件：event@bmob.cn
 

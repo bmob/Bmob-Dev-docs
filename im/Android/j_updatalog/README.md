@@ -1,3 +1,7 @@
+v2.0.9  2017年07月31日
+1、修改部分API的bug。
+2、修改Data SDK 为v3.5.6。
+
 v2.0.8  2017年07月20日
 1、修改部分API的bug。
 2、添加丢失的bmob_im_notification_strings.xml。

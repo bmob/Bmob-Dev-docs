@@ -149,10 +149,6 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 	查询失败,有可能是网络问题,也有可能是订单号错误
 
 
-
-## 支付服务
-关于如何使用支付功能，请查看 [Android支付SDK](/androidpay/index.html?menukey=fast_start&key=start_android_pay "Android支付SDK") 或 [iOS支付SDK](/iospay/index.html?menukey=fast_start&key=start_ios_pay "iOS支付SDK")。RestAPI目前只提供了查询订单的功能。
-
 ## 查询订单
 
     curl -X GET \
