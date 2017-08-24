@@ -4,7 +4,7 @@
 ## 2、BmobPush SDK 集成
 
 ### 2.1、下载BmobPush SDK
-在Bmob官方网站的下载界面中，选择下载[Android推送SDK](https://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中。
+在Bmob官方网站的下载界面中，选择下载[Android推送SDK](https://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中，[可参考案例](https://github.com/chaozhouzhang/bmob-push-demo)。
 
 ### 2.2、配置AndroidManifest.xml
 #### 2.2.1、在您的应用程序AndroidManifest.xml文件中添加相应的权限
@@ -369,10 +369,4 @@ query.addWhereEqualTo("deviceToken", deviceToken);
 bmobPush.setQuery(query);
 bmobPush.pushMessage("消息内容");
 ```
-
-
-#5、BmobPush SDK 案例
-
-为了更好的让开发者朋友正确的集成和使用Bmob推送功能，我们还提供了一个关于Bmob推送功能的简单Demo以供大家参考，有需要的朋友可以到如下地址进行源码的下载。[https://github.com/bmob/bmob-android-demo-push](https://github.com/bmob/bmob-android-demo-push),
-[0.9版本或以上的Demo](https://github.com/bmob/NewPushDemo)
 
