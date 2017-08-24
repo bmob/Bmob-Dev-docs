@@ -280,14 +280,14 @@ installation.unsubscribe("Giants");
 installation.save();
 ```
 
-### 4.4、广播推送消息
+## 4.4、广播推送消息
 在客户端实现推送消息的功能，通过 **BmobPushManager** 对象来完成，比如给所有设备推送一条消息，如下：
 ```java
 BmobPushManager bmobPush = new BmobPushManager();
 bmobPush.pushMessageAll("Hello Bmob.");
 ```
 
-### 4.5、组播推送消息
+## 4.5、组播推送消息
 推送消息给订阅了Giants频道的用户
 ```java
 BmobPushManager bmobPush = new BmobPushManager();
@@ -301,9 +301,9 @@ bmobPush.pushMessage("消息内容");
 ```
 同时发送消息给多个频道时，可以将其他频道添加在channels中。
 
-### 4.6、多播推送消息
+## 4.6、多播推送消息
 
-#### 4.6.1、推送消息给不活跃的用户
+### 4.6.1、推送消息给不活跃的用户
 ```java
 BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
@@ -312,7 +312,7 @@ bmobPush.setQuery(query);
 bmobPush.pushMessage("消息内容");
 ```
 
-#### 4.6.2、根据查询条件做推送
+### 4.6.2、根据查询条件做推送
 ```java
 BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
@@ -322,7 +322,7 @@ bmobPush.pushMessage("消息内容");
 ```
 请注意，where 条件查询的都是 installations 表。这里是假设 installations 表存储了 score 的Number属性，你可以像查询普通对象一样构造where查询
 
-#### 4.6.3、根据平台做推送
+### 4.6.3、根据平台做推送
 给Android平台的终端推送
 ```java
 BmobPushManager bmobPush = new BmobPushManager();
@@ -340,7 +340,7 @@ bmobPush.setQuery(query);
 bmobPush.pushMessage("消息内容");
 ```
 
-#### 4.6.4、根据地理位置信息做推送
+### 4.6.4、根据地理位置信息做推送
 ```java
 BmobPushManager bmobPush = new BmobPushManager();
 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
@@ -350,7 +350,7 @@ bmobPush.pushMessage("消息内容");
 ```
 上面的例子假设 installation 表中有个 location 属性是 GeoPoint 类型，我们就可以根据地理信息位置做推送。
 
-### 4.7、点播推送消息
+## 4.7、点播推送消息
 发送给Android单个客户端
 ```java
 String installationId = "客户端installationId";
