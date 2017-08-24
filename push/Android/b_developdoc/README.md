@@ -104,7 +104,7 @@ BmobInstallation.getCurrentInstallation().save();
 // 启动推送服务
 BmobPush.startWork(this);
 ```
-代码中的"你的Application Id"就是你在Bmob后台中创建的应用程序的Application Id，如果你不知道这是什么，可以参考[快速入门文档](https://docs.bmob.cn/android/faststart/index.html?menukey=fast_start&key=start_android "Android快速入门")中的注册Bmob账号部分。
+代码中的"你的Application Id"就是你在Bmob后台中创建的应用程序的Application Id，如果你不知道这是什么，可以参考[快速入门文档](https://docs.bmob.cn/data/Android/a_faststart/doc/index.html)中的注册Bmob账号部分。
 
 ## 3、控制台推送消息给客户端
 ### 3.1、推送设置
