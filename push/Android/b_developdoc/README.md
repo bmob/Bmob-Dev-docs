@@ -201,22 +201,27 @@ BmobInstallation.getCurrentInstallation().save();
 举例：
 
 ```java
-public class MyBmobInstallation extends BmobInstallation {
+public class Installation extends BmobInstallation {
 
-	/**  
-	 * 用户id-这样可以将设备与用户之间进行绑定
-	 */  
-	private String uid;
-	
+    private User user;
+    private BmobGeoPoint location;
 
-	public String getUid() {
-		return uid;
-	}
 
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
-	
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public BmobGeoPoint getLocation() {
+        return location;
+    }
+
+    public void setLocation(BmobGeoPoint location) {
+        this.location = location;
+    }
 }
 ```
 
@@ -227,40 +232,47 @@ public class MyBmobInstallation extends BmobInstallation {
 示例如下：
 
 ```java
-BmobQuery<MyBmobInstallation> query = new BmobQuery<MyBmobInstallation>();
-query.addWhereEqualTo("installationId", BmobInstallation.getInstallationId(this));
-query.findObjects(this, new FindListener<MyBmobInstallation>() {
-	
-	@Override
-	public void onSuccess(List<MyBmobInstallation> object) {
-		// TODO Auto-generated method stub
-		if(object.size() > 0){
-			MyBmobInstallation mbi = object.get(0);
-			mbi.setUid("用户id");
-			mbi.update(context,new UpdateListener() {
-				
-				@Override
-				public void onSuccess() {
-					// TODO Auto-generated method stub
-					Log.i("bmob","设备信息更新成功");
-				}
-				
-				@Override
-				public void onFailure(int code, String msg) {
-					// TODO Auto-generated method stub
-					Log.i("bmob","设备信息更新失败:"+msg);
-				}
-			});
-		}else{
-		}
-	}
-	
-	@Override
-	public void onError(int code, String msg) {
-		// TODO Auto-generated method stub
-	}
-});
+    /**
+     * 修改设备表的用户信息：先查询设备表中的数据，再修改数据中用户信息
+     * @param user
+     */
+    private void modifyInstallationUser(final User user) {
+        BmobQuery<Installation> bmobQuery = new BmobQuery<>();
+        final String id = BmobInstallation.getInstallationId(mContext);
+        bmobQuery.addWhereEqualTo("installationId", id);
+        bmobQuery.findObjectsObservable(Installation.class)
+                .subscribe(new Action1<List<Installation>>() {
+                    @Override
+                    public void call(List<Installation> installations) {
 
+                        if (installations.size() > 0) {
+                            Installation installation = installations.get(0);
+                            installation.setUser(user);
+                            installation.updateObservable()
+                                    .subscribe(new Action1<Void>() {
+                                        @Override
+                                        public void call(Void aVoid) {
+                                            toastI("更新设备用户信息成功！");
+                                        }
+                                    }, new Action1<Throwable>() {
+                                        @Override
+                                        public void call(Throwable throwable) {
+                                            toastE("更新设备用户信息失败：" + throwable.getMessage());
+                                        }
+                                    });
+
+                        } else {
+                            toastE("后台不存在此设备Id的数据，请确认此设备Id是否正确！\n" + id);
+                        }
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        toastE("查询设备数据失败：" + throwable.getMessage());
+                    }
+                });
+    }
 ```
 
 注：
