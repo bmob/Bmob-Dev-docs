@@ -4,19 +4,29 @@
 ## 2、BmobPush SDK 集成
 
 ### 2.1、下载BmobPush SDK
-在Bmob官方网站的下载界面中，选择下载[Android推送SDK](https://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中，[可参考案例](https://github.com/chaozhouzhang/bmob-push-demo)。
+在Bmob官方网站的下载界面中，选择下载[Android推送SDK](https://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中，并集成[数据SDK](https://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，[可参考案例](https://github.com/chaozhouzhang/bmob-push-demo)。
 
 ### 2.2、配置AndroidManifest.xml
 #### 2.2.1、在您的应用程序AndroidManifest.xml文件中添加相应的权限
 请注意在Android 6.0版本开始某些权限需要动态获取，详情请看Android Developwers官方文档，[android-6.0-changes](http://developer.android.com/intl/zh-cn/about/versions/marshmallow/android-6.0-changes.html)和[android-7.0-changes](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html)。
 
 ```xml
-	<!--BmobSDK所需的权限 -->
+    <!--TODO 集成：1.1、添加数据SDK和推送SDK需要的权限-->
+    <!--比目数据SDK所需的权限-->
+    <!--允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--获取GSM（2g）、WCDMA（联通3g）等网络状态的信息  -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--获取wifi网络状态的信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--获取sd卡写的权限，用于文件上传和下载-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--允许读取手机状态 用于创建BmobInstallation-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+
     <!--推送所需的权限-->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -25,6 +35,7 @@
 #### 2.2.2、在您的应用程序AndroidManifest.xml文件中注册BmobPush SDK运行所需的推送服务和消息接收器
 
 ```xml
+  <!--TODO 集成：1.2、添加推送所需要的服务和广播-->
 	<service
 	    android:label="PushService"
 		android:name="cn.bmob.push.lib.service.PushService"
@@ -52,7 +63,7 @@
 	    </intent-filter>
 	</receiver>
 
-	<!-- 第四部中创建的消息接收器，在这里进行注册 -->
+	<!-- 第3步中创建的消息接收器，在这里进行注册 -->
 	<receiver android:name="your.package.MyPushMessageReceiver">
 	     <intent-filter >
 	          <action android:name="cn.bmob.push.action.MESSAGE"/>
@@ -79,6 +90,7 @@ Push消息通过`action=cn.bmob.push.action.MESSAGE`的Intent把数据发送给�
 `your.package.MyPushMessageReceiver`的代码示例如下：
 
 ```java
+//TODO 集成：1.3、创建自定义的推送消息接收器，并在清单文件中注册
 public class MyPushMessageReceiver extends BroadcastReceiver{
 
 	@Override
@@ -97,8 +109,9 @@ public class MyPushMessageReceiver extends BroadcastReceiver{
 在你的应用程序主Application中调用如下方法：
 
 ```java
+//TODO 集成：1.4、初始化数据服务SDK、保存设备信息并启动推送服务
 // 初始化BmobSDK
-Bmob.initialize(this, "你的AppKey");
+Bmob.initialize(this, "你的Application Id");
 // 使用推送服务时的初始化操作
 BmobInstallation.getCurrentInstallation().save();
 // 启动推送服务
@@ -283,8 +296,17 @@ installation.save();
 ## 4.4、广播推送消息
 在客户端实现推送消息的功能，通过 **BmobPushManager** 对象来完成，比如给所有设备推送一条消息，如下：
 ```java
-BmobPushManager bmobPush = new BmobPushManager();
-bmobPush.pushMessageAll("Hello Bmob.");
+    BmobPushManager bmobPushManager = new BmobPushManager();
+    bmobPushManager.pushMessageAll("消息内容", new PushListener() {
+        @Override
+        public void done(BmobException e) {
+            if (e==null){
+                Logger.e("推送成功！");
+            }else {
+                Logger.e("异常：" + e.getMessage());
+            }
+        }
+    });
 ```
 
 ## 4.5、组播推送消息
