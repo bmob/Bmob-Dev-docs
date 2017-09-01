@@ -1448,10 +1448,8 @@ oHttp对象可以模拟实现get、post、put、delete等各种HTTP请求信息�
 var http = modules.oHttp;
 //发起Get请求
 http('https://www.bmob.cn', function (error, res, body) {
-	if (!error && res.statusCode == 200) {
-	  response.send(body);
-	}
-})
+	response.send(body);
+});
 
 -
 
@@ -1460,8 +1458,21 @@ http('https://www.bmob.cn', function (error, res, body) {
 */
 //获取Http模块
 var http = modules.oHttp;
-//往http://bmob.cn/save发起POST请求
-http.post('http://bmob.cn/save', {form:{key:'value'}})
+
+var options = {
+  "url": 'https://api.bmob.cn/1/classes/GameScore',
+  "headers": {
+    'X-Bmob-Application-Id': 'Your Application ID',
+	'X-Bmob-REST-API-Key': 'Your REST API Key',
+	'Content-Type': 'application/json'
+  },
+  "body":JSON.stringify({"score":1337,"playerName":"Sean Plott"})
+};
+http.post(options, function(error, res, body) {
+    response.send(body);
+});
+
+
 ```
 
 ## 事件对象
