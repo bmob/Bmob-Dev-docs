@@ -221,7 +221,16 @@ function onRequest(request, response, modules) {
 });
 }
 ```
-    
+### 复合查询
+或查询 ，比如查询“age大于22或者score小于16”
+```
+ "where":{"$or":[{"age":{"$gt":22}},{"score":{"$lt":16}}]} 
+```
+
+并查询，比如查询“age大于15并且score大于28”
+```
+"where":{"$and":[{"age":{"$gt":15}},{"score":{"$gt":28}}]}
+```
 
 ### 查询单条数据
 

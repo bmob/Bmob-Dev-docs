@@ -1421,7 +1421,7 @@ Post表
 如果查询多个关联关系，可以使用以下方法，使用逗号(,)操作来使查询中包含多个属性
 
 ```
-[bquery includeKey:@"column1,column2,..."];
+[bquery includeKey:@"column1,column2,column3"];
 ```
 
 如果关联关系存在嵌套，可以使用以下英文字符点号(.)来操作，如下：
