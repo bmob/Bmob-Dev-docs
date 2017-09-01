@@ -63,6 +63,19 @@ Bmob示例包含常用接口（学习示例）：[https://github.com/magic007/we
 - 43.婚纱lite
 - 44.张阿姨打扫
 - 45.吃决策
+- 46.比心比价
+- 47.蜂鸟作业               教育
+- 48.美味面包lite
+- 51.幸福的5班
+- 52.大武汉公交               交通
+- 53.Buy优选
+- 54.码赚
+- 55.附近的圈子
+- 56.吴忠意大利冰淇淋          实体店点餐
+- 57.摩西讲单词     教育
+- 58.贝莱福居
+- 59.花间集鲜花
+- 60.柏亚阅读书吧
 >官方交流QQ群：118541934 。欢迎提交给我们
 
 ## 应用程序
@@ -119,7 +132,104 @@ title: "I am title", content: "I am content"
 	console.log(diary.gleaterThanOneHundred()); 
 ```
 
+## 小程序使用图文素材
+图文素材，类似微信的图文素材，经常被用在活动、广告、详细说明等情况。
+使用图文素材系统会生成一个`_Article` 的数据表。如需取出图文素材的数据，只需跟普通表一样操作即可。
 
+
+
+
+###增加一篇图文
+```
+
+   var Diary = Bmob.Object.extend("_Article");
+      var diary = new Diary();
+      diary.set("title","hello");
+      diary.set("content","hello world");
+      //添加数据，第一个入口参数是null
+      diary.save(null, {
+        success: function(result) {
+          // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
+            console.log("创建成功, objectId:"+result.id);
+        },
+        error: function(result, error) {
+          // 添加失败
+          console.log('创建失败');
+
+        }
+      });
+
+```
+
+### 静态文件
+为了满足应用各类需求，保存的内容会生成一个HTML文件，存在您的文件中，如应用支持显示HTML，可直接显示，或者url内容转发到朋友圈。
+
+
+##微信主人通知接口
+微信主动推送通知，业务场景：比如你有APP，有人下单了，或者有人留言了。你可以收到微信推送通知。
+
+支持2种调用方法
+1.小程序
+2.restful
+
+1.等下一个版本更新
+
+
+2.restful调用方式
+
+```
+
+curl --request POST \
+  --url http://api.bmob.cn/1/wechatApp/notifyMsg \
+  --header 'content-type: application/json' \
+  --header 'x-bmob-application-id: ' \
+  --header 'x-bmob-rest-api-key: ' \
+  --data '{\n    "touser": "oUxY3w_jURG89H5wCIvJDPjJ5s2o",\n    "template_id":"-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y",\n    "url": "http://www.bmob.cn/",\n    "data": {\n        "first": {\n            "value": "您好，Restful 失效，请登录控制台查看。",\n            "color": "#c00"\n        },\n        "keyword1": {\n            "value": "Restful 失效"\n        },\n        "keyword2": {\n            "value": "2017-07-03 16:13:01"\n        },\n        "keyword3": {\n            "value": "高"\n        },\n        "remark": {\n            "value": "如果您十分钟内再次收到此信息，请及时处理。"\n        }\n    }\n}'
+```
+
+PS:`openid` 关注Bmob后端云公众平台回复`openid` 
+
+开放3个模板：
+1.新订单通知（template_id：K9-6_Ayj4MLC2yvwY60-cq18tngJHAlqDfsOvv3D7a8
+）
+```
+{{first.DATA}}
+
+提交时间：{{tradeDateTime.DATA}}
+订单类型：{{orderType.DATA}}
+客户信息：{{customerInfo.DATA}}
+{{orderItemName.DATA}}：{{orderItemData.DATA}}
+{{remark.DATA}}
+```
+
+2.系统报警通知（template_id：-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y
+）
+```
+{{first.DATA}}
+系统名称：{{keyword1.DATA}}
+报警时间：{{keyword2.DATA}}
+报警级别：{{keyword3.DATA}}
+{{remark.DATA}}
+```
+
+3.购买成功通知（template_id：Mbk3kYqRGkL98ch6Lie4XSXtOsxXj2SC0SRQXd89G1Y
+）
+```
+您好，您已购买成功。
+
+商品信息：{{name.DATA}}
+{{remark.DATA}}
+```
+
+4.审核结果通知（template_id：aNNNmi7WK4kohleWhCkDRKJiHOZnIpkrhXx5XPx4dx0
+）
+```
+{{first.DATA}}
+账号名称：{{keyword1.DATA}}
+审核状态：{{keyword2.DATA}}
+审核时间：{{keyword3.DATA}}
+{{remark.DATA}}
+```
 
 ## 生成小程序二维码
 生成推广二维码非常简单，比如你是传统企业，你可以为你店里每件衣服生成一个二维码，用户扫描直接可以付款定位到那件衣服，如果你是餐厅老板，客户在桌子上扫描二维码可以定位那张桌子。如果你是互联网企业，你可以发布二维码到朋友圈，可以定位到是谁推荐了这个用户，这个用户上级是谁，等等。Bmob封装了生成二维码函数，以下示例代码。
@@ -547,7 +657,7 @@ query.equalTo("title", { "$regex": "" + k + ".*" });
 ```
 
 查询大于某个日期的数据，示例代码如下
-query.equalTo("dateTime", "{"$gte":{"__type":"Date","iso":"2011-08-21 18:02:52"}}");
+query.equalTo("dateTime", {"$gte":{"__type":"Date","iso":"2011-08-21 18:02:52"}});
 
 对查询的属性值进行大小比较的示例代码如下：
 
@@ -932,7 +1042,8 @@ function(error) {
 });
 
 ```
-### 批量增删改
+
+## 批量增删改
 
 ```
 var objects = []; // 构建一个本地的 bmob.Object 对象数组
