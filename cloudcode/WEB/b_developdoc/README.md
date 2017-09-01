@@ -1460,8 +1460,11 @@ http('https://www.bmob.cn', function (error, res, body) {
 */
 //获取Http模块
 var http = modules.oHttp;
-//往http://bmob.cn/save发起POST请求
-http.post('http://bmob.cn/save', {form:{key:'value'}})
+
+//往http://service.com/upload发起POST请求
+request.post({url:'http://service.com/upload', form: {key:'value'}}, function(err,httpResponse,body){
+ /* ... */ 
+})
 ```
 
 ## 事件对象
