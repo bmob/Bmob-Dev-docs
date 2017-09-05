@@ -2523,7 +2523,7 @@ Boolean sex = (Boolean) BmobUser.getObjectByKey("sex");
 
 场景：用户已经登录的情况下，如果后端的用户信息有修改(如在控制台修改)，此时如果能同步下最新的用户信息并写到本地缓存中就会很方便，不用重新去登录。
 
-**自`V3.5.6`版本开始，SDK新增了`BmobUser.fetchUserInfo(FetchUserInfoListener)`方法解决了用户信息的同步需求。**
+**自`V3.5.7`版本开始，SDK新增了`BmobUser.fetchUserJsonInfo(FetchUserInfoListener)`方法解决了用户信息的同步需求。**
 
 具体用法如下
 
@@ -2531,19 +2531,18 @@ Boolean sex = (Boolean) BmobUser.getObjectByKey("sex");
 
     /**
      * 更新本地用户信息
-     * 适用场景:登录后若web端的用户信息有更新 可以通过该方法拉取最新的用户信息并写到本地缓存(SharedPreferences)中<p>
      * 注意：需要先登录，否则会报9024错误
      *
      * @see cn.bmob.v3.helper.ErrorCode#E9024S
      */
     private void fetchUserInfo() {
-        BmobUser.fetchUserInfo(new FetchUserInfoListener<MyUser>() {
+        BmobUser.fetchUserJsonInfo(new FetchUserInfoListener<String>() {
             @Override
-            public void done(MyUser user, BmobException e) {
+            public void done(String s, BmobException e) {
                 if (e == null) {
-                    log(user.toString());
+                    log("Newest UserInfo is " + s);
                 } else {
-                    loge(e);
+                    log(e);
                 }
             }
         });
