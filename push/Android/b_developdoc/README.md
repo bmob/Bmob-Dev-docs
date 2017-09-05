@@ -205,8 +205,16 @@ BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设�
 使用消息推送前，首先需要初始化设备信息。
 
 ```java
-BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {     @Override     public void done(BmobInstallation bmobInstallation, BmobException e) {         if (e == null) {             Logger.i(bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());         } else {             Logger.e(e.getMessage());         }     } });
-
+BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {
+            @Override
+            public void done(BmobInstallation bmobInstallation, BmobException e) {
+                if (e == null) {
+                    Logger.i(bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
+                } else {
+                    Logger.e(e.getMessage());
+                }
+            }
+        });
 ```
 
 ## 4.2、自定义Installation表
