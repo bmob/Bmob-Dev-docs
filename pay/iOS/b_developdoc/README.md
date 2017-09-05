@@ -6,7 +6,7 @@ iOS支付SDK接口是Bmob为广大开发人员提供的统一、正规的收费�
 
 ## 使用需知
 
-使用Bmob支付组件前，请认真阅读[Bmob服务协议](http://www.bmob.cn/service)。
+使用Bmob支付组件前，请认真阅读[Bmob服务协议](https://www.bmob.cn/service)。
 
 对于以下两种情况，开发者需要特别注意：
 
@@ -101,24 +101,30 @@ E. [libWeChatSDK.a](https://raw.githubusercontent.com/bmob/Bmob-iOS-SDK/master/l
 
 > 注意事项：查询操作自动从内存中获取订单号，应该等待支付操作回调执行时或执行后才进行查询接口调用。
 
-接口如下：
+### 获取订单号
+```
++ (void)orderInfoCallback:(void(^)(NSDictionary *orderInfo))orderInfoCallback;
+```
+### 根据订单号订单查询
 
 ```
-+ (void)queryWithResult:(BmobPayResultBlock)result;
++ (void)queryWithOrderNumber:(NSString *)orderNumber
+result:(void(^)(NSDictionary *resultDic, NSError *error))result;
+
 ```
 
 成功查询会返回以下类似数据：
 
 ```
 {
-"name": "商品",    //商品名称 
-"body": "商品详情",
-"create_time": "2015-03-24 11:14:58",   //调起支付的时间
-"out_trade_no": "9f392618f449a71c6fcfdee38d2b29e4",  //Bmob系统的订单号
-"transaction_id": "2015061100001000330057820379"  //微信或支付宝的系统订单号
-"pay_type": "WECHATPAY",  //WECHATPAY（微信支付）或ALIPAY（支付宝支付）
-"total_fee": 0.01,  //订单总金额
-"trade_state": "NOTPAY"  //NOTPAY（未支付）或 SUCCESS（支付成功） 
+"transaction_id" : "C20170727115355672433",
+"pay_type" : "ALIPAY", WECHATPAY（微信支付）或ALIPAY（支付宝支付）
+"total_fee" : 0.01,      //订单总金额
+"create_time" : "2017-07-27 11:53:56",   //调起支付的时间
+"trade_state" : "SUCCESS",     //NOTPAY（未支付）或 SUCCESS（支付成功） 
+"body" : "商品详情",
+"name" : "小吃",      //商品名称 
+"out_trade_no" : "e3aa75aaf1e1a92a6f466c102ff1dae1"     //Bmob系统的订单号
 }
 ``` 
 

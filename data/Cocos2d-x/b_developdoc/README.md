@@ -197,7 +197,7 @@ windows平台以visual studio2015为环境配置。
 在 Bmob 平台注册后,每个账户可创建多个应用程序,创建的每个应用程序有各自的Application ID ,应用程序将凭 Application ID 使用 BmobSDK 。
 
 ## 应用安全
-请大家在使用 Bmob 开发应用程序之前,仔细阅读“数据与安全”的文档:[http://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety](http://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety)
+请大家在使用 Bmob 开发应用程序之前,仔细阅读“数据与安全”的文档:[https://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety](https://docs.bmob.cn/datasafety/index.html?menukey=otherdoc&key=datasafety)
 
 ## 数据类型
 目前为止,我们支持的数据类型CCString 、 CCInteger 、 CCBool 、 CCArray 、 CCDictionary 、 map 、string 以及 BmobObject 对象类型。

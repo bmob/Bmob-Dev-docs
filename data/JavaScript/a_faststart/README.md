@@ -121,7 +121,7 @@ Bmob.initialize("你的Application ID", "你的REST API Key");
 
 ## 源码下载
 
-[快速入门相关源码下载](http://www.bmob.cn/static/bmob_jssdk_quickstart.zip "快速入门相关源码下载")
+[快速入门相关源码下载](https://www.bmob.cn/static/bmob_jssdk_quickstart.zip "快速入门相关源码下载")
 
 
 

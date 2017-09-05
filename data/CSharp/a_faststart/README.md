@@ -110,7 +110,7 @@ class GameObject : BmobTable
         {
             bmob = new BmobWindows();
 
-            //初始化，这个ApplicationId/RestKey需要更改为你自己的ApplicationId/RestKey（ http://www.bmob.cn 上注册登录之后，创建应用可获取到ApplicationId/RestKey）
+            //初始化，这个ApplicationId/RestKey需要更改为你自己的ApplicationId/RestKey（ https://www.bmob.cn 上注册登录之后，创建应用可获取到ApplicationId/RestKey）
             Bmob.initialize("4414150cb439afdf684d37dc184e0f9f", "e1deb317442129c125b228ddf78e5f22");
             
             //注册调试工具

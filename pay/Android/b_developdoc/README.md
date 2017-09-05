@@ -6,7 +6,7 @@ Android支付SDK接口是Bmob为广大开发人员提供的统一、正规的收
 
 ## 使用需知
 
-使用Bmob支付组件前，请认真阅读[Bmob服务协议](http://www.bmob.cn/service)。
+使用Bmob支付组件前，请认真阅读[Bmob服务协议](https://www.bmob.cn/service)。
 
 对于以下两种情况，开发者需要特别注意：
 
@@ -149,10 +149,6 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 	查询失败,有可能是网络问题,也有可能是订单号错误
 
 
-
-## 支付服务
-关于如何使用支付功能，请查看 [Android支付SDK](/androidpay/index.html?menukey=fast_start&key=start_android_pay "Android支付SDK") 或 [iOS支付SDK](/iospay/index.html?menukey=fast_start&key=start_ios_pay "iOS支付SDK")。RestAPI目前只提供了查询订单的功能。
-
 ## 查询订单
 
     curl -X GET \
@@ -222,7 +218,7 @@ trade_no：支付宝或微信返回的订单号
 		-keep interface c.b.PListener{ *; }
 		-keep interface c.b.QListener{ *; }
 
-- 在[Bmob财务管理平台](http://www.bmob.cn/finance/info "Bmob财务管理平台")订单管理处，金额从小数点后第三位开始不显示，比如支付了0.01元实收0.00，其实是0.0095
+- 在[Bmob财务管理平台](https://www.bmob.cn/finance/info "Bmob财务管理平台")订单管理处，金额从小数点后第三位开始不显示，比如支付了0.01元实收0.00，其实是0.0095
 - 如果用户的手机有“应用锁”功能（即点击应用后跳出系统设定的解锁界面，如小米、360、腾讯管家都可能有该功能），则可能会导致支付中断（支付宝返回6001，微信返回-2），这是微信和支付宝SDK出于安全考虑设置的，请建议用户出现该问题时先关掉支付宝钱包或微信的应用锁
 - 由于微信SDK的限制，无法判断微信是否已登陆用户，**如果未登陆用户，监听器的fail方法可能不被调用**，请开发者们提醒自己的用户确保微信已登陆
 - 如果支付宝已经选定了支付用的账户（或银行卡），但是支付失败，用户的支付宝账号会保留该订单，有可能从支付宝官网、支付宝钱包APP再次发起支付，在开发过程中请注意这种事情的处理情况

@@ -14,7 +14,7 @@ Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可�
 - 获取前N名数据排行信息：[https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js](https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js)
 
 
-在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](http://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
+在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
 
 ## 调用云端逻辑的方式
 
@@ -154,7 +154,7 @@ modules是Bmob云端逻辑提供给大家的各种对象处理的模块，包括
   //下面进行其他操作
 ```
 
-** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#简介)。 **
+** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#简介)。 **
 
 ## 数据库对象
 
@@ -270,7 +270,7 @@ function onRequest(request, response, modules) {
 }                                                    
 ```
 
-其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数](http://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数)。
+其中，`count`为标识位，具体原因大家可以参考Restapi说明文档：[https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#查询结果计数)。
 
 ### 修改数据
 ```
@@ -314,7 +314,20 @@ remove({
 },function(err,data){         //回调函数
 });
 ```
-
+### 删除某行某字段的数据
+```
+db.update({
+   'table': 'xxx',
+   'objectId': 'yyy',
+   'data': {
+     'zzz': { // zzz就是要删除的列名
+        '__op': 'Delete'
+      }
+   }
+}, function(err, data) {
+// DO ANYTHING
+});
+```
 
 ### 用户注册
 ```
@@ -1434,11 +1447,9 @@ oHttp对象可以模拟实现get、post、put、delete等各种HTTP请求信息�
 //获取Http模块
 var http = modules.oHttp;
 //发起Get请求
-http('http://www.bmob.cn', function (error, res, body) {
-	if (!error && res.statusCode == 200) {
-	  response.send(body);
-	}
-})
+http('https://www.bmob.cn', function (error, res, body) {
+	response.send(body);
+});
 
 -
 
@@ -1447,8 +1458,21 @@ http('http://www.bmob.cn', function (error, res, body) {
 */
 //获取Http模块
 var http = modules.oHttp;
-//往http://bmob.cn/save发起POST请求
-http.post('http://bmob.cn/save', {form:{key:'value'}})
+
+var options = {
+  "url": 'https://api.bmob.cn/1/classes/GameScore',
+  "headers": {
+    'X-Bmob-Application-Id': 'Your Application ID',
+	'X-Bmob-REST-API-Key': 'Your REST API Key',
+	'Content-Type': 'application/json'
+  },
+  "body":JSON.stringify({"score":1337,"playerName":"Sean Plott"})
+};
+http.post(options, function(error, res, body) {
+    response.send(body);
+});
+
+
 ```
 
 ## 事件对象
@@ -1581,7 +1605,7 @@ function onRequest(request, response, modules) {
 ```
 
 
-更多请参考 [BQL 详细指南](/bql/index.html?menukey=otherdoc&key=bql "BQL 详细指南") 。
+更多请参考 [BQL 详细指南](http://docs.bmob.cn/other/Other/m_bql/doc/index.html "BQL 详细指南") 。
 
 ## 加密对象（oCrypto）
 提供md5和sha1两种加密算法。更多的功能详细参考：[https://www.npmjs.org/package/crypto](https://www.npmjs.org/package/crypto)

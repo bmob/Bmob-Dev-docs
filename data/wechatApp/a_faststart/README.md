@@ -136,10 +136,56 @@ Bmob.initialize("你的Application ID", "你的REST API Key");
     });
 ```
 
+## WebSocket 通讯（聊天）
+一、把"bmobSocketIo.js"放到相应的文件，例如放到utils中，接着是在app.js中加入下面两行代码进行全局初始化
+```
+var BmobSocketIo = require('utils/bmobSocketIo.js').BmobSocketIo;
+BmobSocketIo.initialize("你的Application ID");
+
+```
+
+
+
+二、对应页面开始引入`BmobSocketIo`
+```
+var BmobSocketIo = require('../../../utils/bmobSocketIo.js').BmobSocketIo;
+```
+
+三、在页面进入第一次时初始化`BmobSocketIo`
+
+```
+BmobSocketIo.init();
+
+```
+
+
+四、监听表
+```
+
+    //初始连接socket.io服务器后，需要监听的事件都写在这个函数内
+    BmobSocketIo.onInitListen = function () {
+      //订阅Chat表的数据更新事件
+      BmobSocketIo.updateTable("Chat"); //聊天记录表
+    };
+    
+    //监听服务器返回的更新表的数据
+    BmobSocketIo.onUpdateTable = function (tablename, data) {
+
+      if (tablename == "Chat") {
+        console.log(data);
+      }
+    };  
+    
+```
+
+PS:更多请参考Demo里面的群聊功能。
+![小程序聊天室](image/chat.png "Title")
+
 
 ## 源码下载
 
-[快速入门相关源码下载](http://www.bmob.cn/sdk/bmob-wechatApp-v0.3.zip "快速入门相关源码下载")
+
+[快速入门相关源码下载](https://github.com/magic007/wechatAppDemo "快速入门相关源码下载")
 
 
 

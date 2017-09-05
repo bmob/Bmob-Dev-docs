@@ -5,7 +5,9 @@
 
 ## 典型案例
 
-日记本等接口（学习示例）：[https://github.com/magic007/wechatAppDemo](https://github.com/magic007/wechatAppDemo) （采用实时数据同步SDK开发，里面几乎包含了小程序开发常见功能示例代码，右击可直接查看源码）
+Bmob示例包含常用接口（学习示例）：[https://github.com/magic007/wechatAppDemo](https://github.com/magic007/wechatAppDemo) （采用实时数据同步SDK开发，里面几乎包含了小程序开发常见功能示例代码，右击可直接查看源码）
+扫描二维码查看
+![](image/code.jpg)
 ![](image/ui2.1.gif)
 ![](image/ui2.2.gif)
 
@@ -17,7 +19,7 @@
 - 1.生日工具                    -------工具类
 - 2.足迹地图
 - 3.接力喵视频                -------视频类
-- 4.像素涂鸦					 -------小游戏
+- 4.像素涂鸦
 - 5.地道美食地图           -------LBS
 - 6.胖熊圈
 - 7.有货Hk
@@ -30,10 +32,50 @@
 - 14.顺德便利贴
 - 15.同城生活广告
 - 16.点点英语学堂
-- 17.朝露时刻			-------音频
+- 17.朝露时刻               -------音频类
 - 18.青岛一起秀科学俱乐部
-- 19.纸塘               -------壁纸
+- 19.纸塘					-------17年6月最热门的小程序
 - 20.雷湖古琴艺术
+- 21.皋城文明随手拍   -----政府
+- 22.阅后即焚图片分享
+- 23.猎位共享停车
+- 24.听写宝
+- 25.嘿车出行
+- 26.喵星人宠物社区
+- 27.标签生成器
+- 28.视频看房
+- 29.海南黎家特产
+- 30.轩宇工具
+- 31.在旅途看世界
+- 32.寻遍美食地图
+- 33.Bmob示例
+- 34.鲁山拼车
+- 33.莲馨图书室          图书馆-扫描借书
+- 34.灵动云课堂
+- 35.9cam     视频类
+- 36.恋爱迹
+- 37.融信品质生活服务
+- 38.全民摄影秀
+- 39.农电微服务    国家电网公司
+- 40.壁纸印象
+- 41.跟妆师
+- 42.高能名片
+- 43.婚纱lite
+- 44.张阿姨打扫
+- 45.吃决策
+- 46.比心比价
+- 47.蜂鸟作业               教育
+- 48.美味面包lite
+- 51.幸福的5班
+- 52.大武汉公交               交通
+- 53.Buy优选
+- 54.码赚
+- 55.附近的圈子
+- 56.吴忠意大利冰淇淋          实体店点餐
+- 57.摩西讲单词     教育
+- 58.贝莱福居
+- 59.花间集鲜花
+- 60.柏亚阅读书吧
 >官方交流QQ群：118541934 。欢迎提交给我们
 
 ## 应用程序
@@ -90,12 +132,123 @@ title: "I am title", content: "I am content"
 	console.log(diary.gleaterThanOneHundred()); 
 ```
 
+## 小程序使用图文素材
+图文素材，类似微信的图文素材，经常被用在活动、广告、详细说明等情况。
+使用图文素材系统会生成一个`_Article` 的数据表。如需取出图文素材的数据，只需跟普通表一样操作即可。
 
 
-## 生成小程序二维码
-生成推广二维码非常简单，比如你是传统企业，你可以为你店里每件衣服生成一个二维码，用户扫描直接可以付款定位到那件衣服，如果你是餐厅老板，客户在桌子上扫描二维码可以定位那张桌子。如果你是互联网企业，你可以发布二维码到朋友圈，可以定位到是谁推荐了这个用户，这个用户上级是谁，等等，比目封装了生成二维码函数，使用非常简单，一下示例代码。
+
+
+###增加一篇图文
+```
+
+   var Diary = Bmob.Object.extend("_Article");
+      var diary = new Diary();
+      diary.set("title","hello");
+      diary.set("content","hello world");
+      //添加数据，第一个入口参数是null
+      diary.save(null, {
+        success: function(result) {
+          // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
+            console.log("创建成功, objectId:"+result.id);
+        },
+        error: function(result, error) {
+          // 添加失败
+          console.log('创建失败');
+
+        }
+      });
 
 ```
+
+### 静态文件
+为了满足应用各类需求，保存的内容会生成一个HTML文件，存在您的文件中，如应用支持显示HTML，可直接显示，或者url内容转发到朋友圈。
+
+
+##微信主人通知接口
+微信主动推送通知，业务场景：比如你有APP，有人下单了，或者有人留言了。你可以收到微信推送通知。
+
+支持2种调用方法
+1.小程序
+2.restful
+
+1.等下一个版本更新
+
+
+2.restful调用方式
+
+```
+
+curl --request POST \
+  --url http://api.bmob.cn/1/wechatApp/notifyMsg \
+  --header 'content-type: application/json' \
+  --header 'x-bmob-application-id: ' \
+  --header 'x-bmob-rest-api-key: ' \
+  --data '{\n    "touser": "oUxY3w_jURG89H5wCIvJDPjJ5s2o",\n    "template_id":"-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y",\n    "url": "http://www.bmob.cn/",\n    "data": {\n        "first": {\n            "value": "您好，Restful 失效，请登录控制台查看。",\n            "color": "#c00"\n        },\n        "keyword1": {\n            "value": "Restful 失效"\n        },\n        "keyword2": {\n            "value": "2017-07-03 16:13:01"\n        },\n        "keyword3": {\n            "value": "高"\n        },\n        "remark": {\n            "value": "如果您十分钟内再次收到此信息，请及时处理。"\n        }\n    }\n}'
+```
+
+PS:`openid` 关注Bmob后端云公众平台回复`openid` 
+
+开放3个模板：
+1.新订单通知（template_id：K9-6_Ayj4MLC2yvwY60-cq18tngJHAlqDfsOvv3D7a8
+）
+```
+{{first.DATA}}
+
+提交时间：{{tradeDateTime.DATA}}
+订单类型：{{orderType.DATA}}
+客户信息：{{customerInfo.DATA}}
+{{orderItemName.DATA}}：{{orderItemData.DATA}}
+{{remark.DATA}}
+```
+
+2.系统报警通知（template_id：-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y
+）
+```
+{{first.DATA}}
+系统名称：{{keyword1.DATA}}
+报警时间：{{keyword2.DATA}}
+报警级别：{{keyword3.DATA}}
+{{remark.DATA}}
+```
+
+3.购买成功通知（template_id：Mbk3kYqRGkL98ch6Lie4XSXtOsxXj2SC0SRQXd89G1Y
+）
+```
+您好，您已购买成功。
+
+商品信息：{{name.DATA}}
+{{remark.DATA}}
+```
+
+4.审核结果通知（template_id：aNNNmi7WK4kohleWhCkDRKJiHOZnIpkrhXx5XPx4dx0
+）
+```
+{{first.DATA}}
+账号名称：{{keyword1.DATA}}
+审核状态：{{keyword2.DATA}}
+审核时间：{{keyword3.DATA}}
+{{remark.DATA}}
+```
+
+## 生成小程序二维码
+生成推广二维码非常简单，比如你是传统企业，你可以为你店里每件衣服生成一个二维码，用户扫描直接可以付款定位到那件衣服，如果你是餐厅老板，客户在桌子上扫描二维码可以定位那张桌子。如果你是互联网企业，你可以发布二维码到朋友圈，可以定位到是谁推荐了这个用户，这个用户上级是谁，等等。Bmob封装了生成二维码函数，以下示例代码。
+
+Bmob.generateCode 参数列表
+
+| 键 | 值 |参数说明 | 
+| ------------ | ------------- | ------------ |
+| path | pages/index/index | 页面路径，支持参数 |
+| width | 430  | 二维码宽度 |
+| interface | a\b\c  | 对应微信二维码abc方案 |
+| scene | Bmob  | 微信B方案才需要此值 |
+| type | 0/1  | 默认0，返回二维码base64数据.如果为1则服务端返回为二维码网络路径 |
+
+更多微信官方小程序码介绍 [微信官方小程序码介绍](https://mp.weixin.qq.com/debug/wxadoc/dev/api/qrcode.html "微信官方小程序码介绍")
+
+
+```
+
 
 formSubmit: function (event) {
         var path = event.detail.value.path; //路径 
@@ -114,6 +267,8 @@ formSubmit: function (event) {
     }
 
 ```
+
+
 
 ## 小程序分享群Id
 
@@ -184,7 +339,7 @@ function onRequest(request, response, modules) {
     function(err, data) {
         //回调函数
         var data = JSON.parse(data);
-        var sessionkey = data.authData.weapp.session_key;
+        var sessionkey = data.authData.weapp.session_key;   //微信最新版本改版，此id是由前端发送过来
         var encryptedData = request.body.encryptedData;
         var iv = request.body.iv
         var groupid = groupIdParse(modules, sessionkey, encryptedData, iv) response.end(groupid);
@@ -293,14 +448,17 @@ function(err) {
     common.showTip('失败' + err)
 });
 
+
 ```
 
 
-
+## 小程序短信验证码
+方法调用与JavaScript一致，查看JavaScript 短信文档 [请求短信验证码](https://docs.bmob.cn/sms/JavaScript/b_developdoc/doc/index.html#请求短信验证码 "请求短信验证码")
 
 
 ## 小程序支付
-小程序支付只需发起请求获取微信需要的字段，这里用Bmob.Pay.wechatPay获取`nonceStr`,`packages`,`orderId`等相关信息。然后 wx.requestPayment弹窗支付页面，里面处理成功失败。 （比目的接口都是独立的，支付任何小程序都可以使用。目前小程序支付跟其他有区别比目平台不收取任何手续费，只要是比目平台付费会员都可使用。）
+小程序支付只需发起请求获取微信需要的字段，这里用Bmob.Pay.wechatPay获取`nonceStr`,`packages`,`orderId`等相关信息。然后 wx.requestPayment弹窗支付页面，里面处理成功失败。 （Bmob的接口都是独立的，支付任何小程序都可以使用。目前小程序支付跟其他有区别Bmob平台不收取任何手续费，只要是Bmob平台付费会员都可使用。）
+
 
 ```
 
@@ -419,7 +577,7 @@ var query = new Bmob.Query(Diary);
 // 查询所有数据
 query.find({
   success: function(results) {
-    alert("共查询到 " + results.length + " 条记录");
+    console.log("共查询到 " + results.length + " 条记录");
     // 循环处理查询到的数据
     for (var i = 0; i < results.length; i++) {
       var object = results[i];
@@ -427,7 +585,7 @@ query.find({
     }
   },
   error: function(error) {
-    alert("查询失败: " + error.code + " " + error.message);
+    console.log("查询失败: " + error.code + " " + error.message);
   }
 });
 ```
@@ -442,13 +600,13 @@ query.first({
     // 查询成功
   },
   error: function(error) {
-    alert("查询失败: " + error.code + " " + error.message);
+    console.log("查询失败: " + error.code + " " + error.message);
   }
 });
 ```
 
 **这里需要注意一点的是：**
-默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](http://docs.bmob.cn/data/wechatApp/b_developdoc/doc/index.html#分页查询)一节。
+默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看分页查询](https://docs.bmob.cn/data/wechatApp/b_developdoc/doc/index.html#分页查询)一节。
 
 ### 获取对象的特殊属性
 
@@ -493,8 +651,13 @@ query.equalTo("title", "bmob");
 query.notEqualTo("title", "bmob sdk");
 ```
 
+如果要模糊查询某个值，示例代码如下（模糊查询目前只提供给付费套餐会员使用）：
+```
+query.equalTo("title", { "$regex": "" + k + ".*" });
+```
+
 查询大于某个日期的数据，示例代码如下
-query.equalTo("dateTime", "{"$gte":{"__type":"Date","iso":"2011-08-21 18:02:52"}}");
+query.equalTo("dateTime", {"$gte":{"__type":"Date","iso":"2011-08-21 18:02:52"}});
 
 对查询的属性值进行大小比较的示例代码如下：
 
@@ -528,7 +691,7 @@ query.equalTo("title", "hello");
 // 查询所有数据
 query.find({
 	success: function(results) {
-		alert("共查询到 " + results.length + " 条记录");
+		console.log("共查询到 " + results.length + " 条记录");
 		// 循环处理查询到的数据
 		for (var i = 0; i < results.length; i++) {
 		var object = results[i];
@@ -536,7 +699,7 @@ query.find({
 		}
 	},
 	error: function(error) {
-		alert("查询失败: " + error.code + " " + error.message);
+		console.log("查询失败: " + error.code + " " + error.message);
 	}
 });
 ```
@@ -577,7 +740,7 @@ var query = new Bmob.Query(Diary);
 query.count({
   success: function(count) {
     // 查询成功，返回记录数量
-    alert("共有 " + count + " 条记录");
+    console.log("共有 " + count + " 条记录");
   },
   error: function(error) {
     // 查询失败
@@ -852,12 +1015,13 @@ query.get("bc5da708dc",{
     result.save();
   },
   error: function(error) {
-    alert("Error: " + error.code + " " + error.message);
+    console.log("Error: " + error.code + " " + error.message);
   }
 }); 
 ```
 
 ##批量操作
+
 ### 批量更新示例
 
 ```
@@ -878,7 +1042,8 @@ function(error) {
 });
 
 ```
-### 批量增删改
+
+## 批量增删改
 
 ```
 var objects = []; // 构建一个本地的 bmob.Object 对象数组
@@ -971,7 +1136,48 @@ query.include("post");
 
 可以这样获取include对象的属性:
 ```
-obj.get("inloudeObj").get("attribue")
+obj.get("inloudeObj").field
+```
+
+查出用户发表的日志示例
+
+```
+ 	var objectId,that=this;
+    var currentUser = Bmob.User.current();
+    objectId = currentUser.id;
+    
+    var Diary = Bmob.Object.extend("diary");
+    var query = new Bmob.Query(Diary);
+    var isme = new Bmob.User();
+    isme.id = objectId;		//当前用户的objectId
+    query.equalTo("own", isme);
+    query.descending('createdAt');	//排序
+    query.include("own");  //own 字段名称，类型 Pointer
+
+    // 查询所有数据
+    query.limit(that.data.limit);
+    query.find({
+      success: function (results) {        
+        that.setData({
+          diaryList: results
+        })
+      },
+      error: function (error) {
+        console.log("查询失败: " + error.code + " " + error.message);
+      }
+    });
+```
+
+wxml文件调用
+
+```
+<view class="weui-media-box weui-media-box_text" wx:for="{{diaryList}}" wx:key="diaryItem">
+日志标题：
+{{item.title}}
+用户表的日志作者：
+{{item.own.nickName}}
+</view>
+
 ```
 
 
@@ -1014,6 +1220,9 @@ wx.chooseImage({
       
   }
 })
+
+#### PS： 特别注意的是 `tempFilePaths` 是微信返回的数组。
+
 ```
 ### 图片批量上传
 图片批量上传，我们只需要for循环一下上面的就好，一下示例代码。
@@ -1072,11 +1281,6 @@ upImg: function () {
 
 
 
-
-
-
-          //如果你突然发现这个文件传了又想立即删了，可以直接执行
-          // file.destroy();
         }
 
       }
@@ -1433,7 +1637,7 @@ wx.login({
 wx.login({
 
         success: function (res) {
-          user.loginWithWeapp(res.code).then(function (user) {
+          Bmob.User.loginWithWeapp(res.code).then(function (user) {
             var openid = user.get("authData").weapp.openid;
             console.log(user, 'user', user.id, res);
             if (user.get("nickName")) {
@@ -1522,7 +1726,7 @@ Bmob.User.logIn("myname", "mypass", {
 2. `false`：在 `Bmob.User`对象最后一次刷新的时候，用户还是没有确认他们的`email`地址，如果`emailVerified`是false 的话，你应该考虑调用`Bmob.User`的`fetch`方法。
 3.  `missing`：`Bmob.User`被创建了，但是当时的`email`验证功能还没有开启, 或者说`Bmob.User`没有email地址。
 
-代码例子如下：
+代码例子如下：console.log
 
 ```
 //reset password
@@ -1532,7 +1736,7 @@ Bmob.User.logIn("myname", "mypass", {
   },
   error: function(error) {
     // Show the error message somewhere
-    alert("Error: " + error.code + " " + error.message);
+    console.log("Error: " + error.code + " " + error.message);
   }
 });
 ```
@@ -1656,7 +1860,7 @@ publicPost.save();
   },
   error: function(error) {
     // Show the error message somewhere
-    alert("Error: " + error.code + " " + error.message);
+    console.log("Error: " + error.code + " " + error.message);
   }
 });
 ```
@@ -1713,7 +1917,7 @@ post.save(null, {
 
 ## ACL和角色
 
-数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](http://docs.bmob.cn/other/Other/m_bql/doc/index.html)，了解Bmob如何保护数据安全）。
+数据安全是软件系统中最重要的组成部分，为了更好的保护应用数据的安全，Bmob在软件架构层面提供了应用层次、表层次、ACL（Access Control List：访问控制列表）、角色管理（Role）四种不同粒度的权限控制的方式，确保用户数据的安全（详细请查看[Bmob数据与安全页面](https://docs.bmob.cn/other/Other/m_bql/doc/index.html)，了解Bmob如何保护数据安全）。
 
 其中，最灵活的方法是通过ACL和角色，它的思路是每一条数据有一个用户和角色的列表，以及这些用户和角色拥有什么样的许可权限。
 
@@ -1884,7 +2088,7 @@ query.find({
 ```
 Bmob.Cloud.run('test', {"name":"tom"}, {
   success: function(result) {
-    alert(result);
+    console.log(result);
   },
   error: function(error) {
   }
@@ -1895,7 +2099,7 @@ Bmob.Cloud.run('test', {"name":"tom"}, {
 ```
 Bmob.Cloud.run('test', {}, {
   success: function(result) {
-    alert(result);
+    console.log(result);
   },
   error: function(error) {
   }

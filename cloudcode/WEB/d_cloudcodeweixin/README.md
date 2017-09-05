@@ -263,7 +263,7 @@ function onRequest(request, response, modules) {
 
 ![](image/18.png)
 
-需要了解更多云端逻辑的操作，可阅读[http://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html](http://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html "云端逻辑开发文档")
+需要了解更多云端逻辑的操作，可阅读[https://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html](https://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html "云端逻辑开发文档")
 
 在编写云端逻辑时有个注意事项：云端逻辑是使用异步编程。也就是说，当遇到文件读写请求，网络请求等IO操作时，代码不等待IO操作返回结果就执行后面的语句,当接收到IO操作的返回结果后才调用回调函数。
 
@@ -528,7 +528,7 @@ XML格式讲解：
 - 了解bmob应用和云端逻辑的功能。
 - 在不需要搭建服务器，不需要懂得基本的运维知识下，使用bmob云端逻辑在30分钟内实现微信公众平台的开发，完了消息存储和消息自动回复这两个功能。
 
-阅读本教程后，想了解云后端服务bmob可以实现哪些更酷的功能吗？点击[http://www.bmob.cn](http://www.bmob.cn "这里")，立刻进入bmob了解更多。
+阅读本教程后，想了解云后端服务bmob可以实现哪些更酷的功能吗？点击[https://www.bmob.cn](https://www.bmob.cn "这里")，立刻进入bmob了解更多。
 
 
 
