@@ -3,8 +3,13 @@
 
 ## 2、BmobPush SDK 集成
 
-### 2.1、下载BmobPush SDK
-在Bmob官方网站的下载界面中，选择下载[Android推送SDK](https://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中，并集成[数据SDK](https://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，[可参考案例](https://github.com/chaozhouzhang/bmob-push-demo)。
+### 2.1、集成SDK
+
+| SDK或Demo     | 下载地址          |
+|------------------------------|--------------------------------|
+| 消息推送 SDK| [https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)，下载后解压，将`Bmob_Push_v(版本号)_日期.jar`放置于项目的"libs"文件夹中。|  
+| 数据服务 SDK| [https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)，集成方式见[数据服务SDK的集成](https://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，推荐使用自动集成的方式。|
+| 消息推送 Demo| [https://github.com/chaozhouzhang/bmob-push-demo](https://github.com/chaozhouzhang/bmob-push-demo)|
 
 ### 2.2、配置AndroidManifest.xml
 #### 2.2.1、在您的应用程序AndroidManifest.xml文件中添加相应的权限
@@ -109,11 +114,20 @@ public class MyPushMessageReceiver extends BroadcastReceiver{
 在你的应用程序主Application中调用如下方法：
 
 ```java
-//TODO 集成：1.4、初始化数据服务SDK、保存设备信息并启动推送服务
+//TODO 集成：1.4、初始化数据服务SDK、初始化设备信息并启动推送服务
 // 初始化BmobSDK
 Bmob.initialize(this, "你的Application Id");
 // 使用推送服务时的初始化操作
-BmobInstallation.getCurrentInstallation().save();
+BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {
+            @Override
+            public void done(BmobInstallation bmobInstallation, BmobException e) {
+                if (e == null) {
+                    Logger.i(bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
+                } else {
+                    Logger.e(e.getMessage());
+                }
+            }
+        });
 // 启动推送服务
 BmobPush.startWork(this);
 ```
@@ -172,11 +186,11 @@ BmobPush.startWork(this);
 
 
 
-## 4.1、保存设备信息
+## 4.1、初始化设备信息
 每一个Bmob的App被安装在用户的设备上后，如果要使用消息推送功能，Bmob Data SDK会自动生成一个Installation对象，它包含了推送所需要的所有信息。
 
 举例：一个棒球的App，你可以让用户订阅感兴趣的棒球队，然后及时将这个球队的消息推送给用户。
-您可以使用 BmobSDK，通过 **BmobInstallation** 对象进行一系列操作，就像你存储和获取其他的普通对象一样。
+您可以使用 BmobSDK，通过 **BmobInstallationManager** 对**BmobInstallation**进行一系列操作，就像你存储和获取其他的普通对象一样。
 
 BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设备定位的管理：
 
@@ -188,10 +202,11 @@ BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设�
 | installationId| Bmob使用的设备唯一号 (只读)| 
 
 
-使用消息推送前，首先需要保存设备信息。
+使用消息推送前，首先需要初始化设备信息。
 
 ```java
-BmobInstallation.getCurrentInstallation().save();
+BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {     @Override     public void done(BmobInstallation bmobInstallation, BmobException e) {         if (e == null) {             Logger.i(bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());         } else {             Logger.e(e.getMessage());         }     } });
+
 ```
 
 ## 4.2、自定义Installation表
@@ -275,9 +290,6 @@ public class Installation extends BmobInstallation {
     }
 ```
 
-注：
-
-**不能调用`save`方法保存，因为之前调用BmobInstallation.getCurrentInstallation(this).save()方法已经将该设备信息保存到设备表中。**
 
 ## 4.3、频道的订阅和退订
 
@@ -286,13 +298,19 @@ public class Installation extends BmobInstallation {
 订阅频道可使用 **subscribe** 方法
 
 ```java
-BmobInstallation installation = BmobInstallation.getCurrentInstallation();
-installation.subscribe("Giants");
-installation.subscribe("Mets");
-installation.save();
+BmobInstallationManager.getInstance().subscribe(Arrays.asList("NBA", "CBA", "IJK", "NBA", "CBA", "USA"), new InstallationListener<BmobInstallation>() {
+                    @Override
+                    public void done(BmobInstallation bmobInstallation, BmobException e) {
+                        if (e == null) {
+                            toastI("批量订阅成功");
+                        } else {
+                            toastE(e.getMessage());
+                        }
+                    }
+                });
 ```
 
-注：`V3.4.3`版本的Bmob SDK对频道订阅增加去重操作，也就是说：即使你调用subscribe方法订阅了多个相同的频道，Bmob只会记录一个频道。
+Bmob SDK对频道订阅增加去重操作，也就是说：即使你调用subscribe方法订阅了多个相同的频道，Bmob只会记录一个频道。
 
 
 ### 4.3.2、退订频道
@@ -300,9 +318,30 @@ installation.save();
 退订频道可使用 **unsubscribe** 方法
 
 ```java
-BmobInstallation installation = BmobInstallation.getCurrentInstallation();
-installation.unsubscribe("Giants");
-installation.save();
+BmobInstallationManager.getInstance().unsubscribe(Arrays.asList("CBA", "USA"), new InstallationListener<BmobInstallation>() {
+                    @Override
+                    public void done(BmobInstallation bmobInstallation, BmobException e) {
+                        if (e == null) {
+                            toastI("批量取消订阅成功");
+                        } else {
+                            toastE(e.getMessage());
+                        }
+                    }
+                });
+```
+
+### 4.3.3、获取已经订阅的频道
+获取已经订阅的频道可以使用**getCurrentInstallation()**方法
+```java
+BmobInstallation bmobInstallation = BmobInstallationManager.getInstance().getCurrentInstallation();
+                List<String> channels = bmobInstallation.getChannels();
+                if (channels.size() < 1) {
+                    toastI("您没有订阅任何频道！");
+                } else {
+                    for (String channel : channels) {
+                        mTvChannel.append(channel + "\n");
+                    }
+                }
 ```
 
 ## 4.4、客户端广播推送消息
@@ -328,8 +367,8 @@ installation.save();
                 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
                 List<String> channels = new ArrayList<>();
                 //TODO 替换成你需要推送的所有频道，推送前请确认已有设备订阅了该频道，也就是channels属性存在该值
-                channels.add("Giants");
-                query.addWhereEqualTo("channels", channels);
+                channels.add("NBA");
+                query.addWhereContainedIn("channels", channels);
                 bmobPushManager.setQuery(query);
                 bmobPushManager.pushMessage("消息内容", new PushListener() {
                     @Override
