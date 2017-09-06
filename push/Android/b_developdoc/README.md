@@ -8,9 +8,26 @@
 | SDK或Demo     | 下载地址          |
 |------------------------------|--------------------------------|
 | 消息推送 SDK| [https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)，下载后解压，将`Bmob_Push_v(版本号)_日期.jar`放置于项目的"libs"文件夹中。|  
-| 数据服务 SDK| [https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)，集成方式见[数据服务SDK的集成](https://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，推荐使用自动集成的方式。|
+| 数据服务 SDK| 使用最新版本v3.5.7，集成方式请见下方的自动集成方式。|
 | 消息推送 Demo| [https://github.com/chaozhouzhang/bmob-push-demo](https://github.com/chaozhouzhang/bmob-push-demo)|
 
+1、配置project下的build.gradle文件：
+```gradle
+allprojects {
+    repositories {
+        jcenter()
+        //Bmob的maven仓库地址
+        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+    }
+}
+```
+2、配置app下的build.gradle文件：
+```gradle
+dependencies {
+    //Bmob的数据服务SDK
+    compile 'cn.bmob.android:bmob-sdk:3.5.7'
+}
+```
 ### 2.2、配置AndroidManifest.xml
 #### 2.2.1、在您的应用程序AndroidManifest.xml文件中添加相应的权限
 请注意在Android 6.0版本开始某些权限需要动态获取，详情请看Android Developwers官方文档，[android-6.0-changes](http://developer.android.com/intl/zh-cn/about/versions/marshmallow/android-6.0-changes.html)和[android-7.0-changes](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html)。
