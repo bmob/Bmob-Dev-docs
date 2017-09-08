@@ -374,6 +374,9 @@ BmobInstallation bmobInstallation = BmobInstallationManager.getInstance().getCur
 ```
 
 ## 4.4、客户端广播推送消息
+
+和控制台推送消息给客户端一样，在客户端推送消息也需要进行推送的包名设置，请在应用面板-->消息推送-->推送设置界面中填写包名进行保存。
+
 在客户端实现推送消息的功能，通过 **BmobPushManager** 对象来完成，比如给所有设备推送消息：
 ```java
     BmobPushManager bmobPushManager = new BmobPushManager();
