@@ -204,25 +204,8 @@ BmobPush.startWork(this);
 
 
 # 4、BmobPush SDK 的使用
-
-
-
 ## 4.1、初始化设备信息
-每一个Bmob的App被安装在用户的设备上后，如果要使用消息推送功能，Bmob Data SDK会自动生成一个Installation对象，它包含了推送所需要的所有信息。
-
-举例：一个棒球的App，你可以让用户订阅感兴趣的棒球队，然后及时将这个球队的消息推送给用户。
-您可以使用 BmobSDK，通过 **BmobInstallationManager** 对**BmobInstallation**进行一系列操作，就像你存储和获取其他的普通对象一样。
-
-BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设备定位的管理：
-
-| 字段名称     | 解释         |
-|------------------------------|--------------------------------|
-| channels| 当前这个设备订阅的渠道名称数组|  
-| timeZone| 设备所在位置的时区， 如Asia/Shanghai，这个会在每个BmobInstallation对象更新时同步（只读）|
-| deviceType| 设备的的类型, 值为："ios" 或 "android" (只读)|
-| installationId| Bmob使用的设备唯一号 (只读)| 
-
-
+### 4.1.1、设备信息表：BmobInstallation
 使用消息推送前，首先需要初始化设备信息。
 
 ```java
@@ -236,6 +219,24 @@ BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobIn
                 }
             }
         });
+```
+初始化成功后，数据服务SDK会自动生成一个BmobInstallation表，它包含了推送所需要的所有信息。例如，如果你有一个棒球的App，你可以让用户订阅感兴趣的棒球队，把订阅的棒球队名称放置到BmobInstallation表的channels数组中，然后及时地将这个球队的消息推送给订阅的用户。
+
+| 字段名称     | 解释         |
+|------------------------------|--------------------------------|
+| channels| 当前这个设备订阅的渠道名称数组|  
+| timeZone| 设备所在位置的时区， 如Asia/Shanghai，这个会在每个BmobInstallation对象更新时同步（只读）|
+| deviceType| 设备的的类型, 值为："ios" 或 "android" (只读)|
+| installationId| Bmob使用的设备唯一号 (只读)| 
+
+### 4.1.2、设备信息表管理：BmobInstallationManager
+获取设备唯一标志：
+```java
+BmobInstallationManager.getInstallationId();
+```
+获取当前设备信息：
+```java
+BmobInstallationManager.getInstance().getCurrentInstallation();
 ```
 
 ## 4.2、自定义Installation表
@@ -269,9 +270,7 @@ public class Installation extends BmobInstallation {
 }
 ```
 
-那么如何更新增加的`uid`字段的值呢？
-
-**具体思路：先将当前设备查询出来，之后调用`update`方法更新该值**
+那么如何更新增加的`user`字段的值呢？
 
 示例如下：
 
