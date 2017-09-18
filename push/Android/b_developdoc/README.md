@@ -1,5 +1,5 @@
 ## 1、BmobPush SDK 简介
-推送是让用户及时被通知、和你的应用保持联系的一种非常棒的方式，你可以快速而有效地通知到所有的用户，下面这个教程将会教你如何使用BmobPush SDK来推送消息。请确保您在使用BmobPush SDK之前已经了解此文档，如有疑问请加Push使用交流群[182897507]()咨询。
+推送能够让你和你的应用保持联系，你可以快速而有效地通知到所有的用户，下面这个教程将会教你如何使用BmobPush SDK来推送消息。请确保您在使用BmobPush SDK之前已经了解此文档，如有疑问请加Push使用交流群[182897507]()咨询。
 
 ## 2、BmobPush SDK 集成
 
@@ -7,10 +7,31 @@
 
 | SDK或Demo     | 下载地址          |
 |------------------------------|--------------------------------|
-| 消息推送 SDK| [https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)，下载后解压，将`Bmob_Push_v(版本号)_日期.jar`放置于项目的"libs"文件夹中。|  
-| 数据服务 SDK| [https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)，集成方式见[数据服务SDK的集成](https://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，推荐使用自动集成的方式。|
+| 数据服务 SDK| 使用最新版本v3.5.7，集成方式请见下方的自动集成方式。手动集成下载地址：[https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)|
+| 消息推送 SDK| 使用最新版本v1.0.1，集成方式请见下方的自动集成方式。手动集成下载地址：[https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)|  
 | 消息推送 Demo| [https://github.com/chaozhouzhang/bmob-push-demo](https://github.com/chaozhouzhang/bmob-push-demo)|
 
+自动集成方式：
+
+1、配置project下的build.gradle文件：
+```gradle
+allprojects {
+    repositories {
+        jcenter()
+        //Bmob的maven仓库地址
+        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+    }
+}
+```
+2、配置app下的build.gradle文件：
+```gradle
+dependencies {
+    //Bmob的数据服务SDK
+    compile 'cn.bmob.android:bmob-sdk:3.5.7'
+    //Bmob的消息推送SDK
+    compile 'cn.bmob.android:bmob-push:1.0.1'
+}
+```
 ### 2.2、配置AndroidManifest.xml
 #### 2.2.1、在您的应用程序AndroidManifest.xml文件中添加相应的权限
 请注意在Android 6.0版本开始某些权限需要动态获取，详情请看Android Developwers官方文档，[android-6.0-changes](http://developer.android.com/intl/zh-cn/about/versions/marshmallow/android-6.0-changes.html)和[android-7.0-changes](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html)。
@@ -183,25 +204,8 @@ BmobPush.startWork(this);
 
 
 # 4、BmobPush SDK 的使用
-
-
-
 ## 4.1、初始化设备信息
-每一个Bmob的App被安装在用户的设备上后，如果要使用消息推送功能，Bmob Data SDK会自动生成一个Installation对象，它包含了推送所需要的所有信息。
-
-举例：一个棒球的App，你可以让用户订阅感兴趣的棒球队，然后及时将这个球队的消息推送给用户。
-您可以使用 BmobSDK，通过 **BmobInstallationManager** 对**BmobInstallation**进行一系列操作，就像你存储和获取其他的普通对象一样。
-
-BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设备定位的管理：
-
-| 字段名称     | 解释         |
-|------------------------------|--------------------------------|
-| channels| 当前这个设备订阅的渠道名称数组|  
-| timeZone| 设备所在位置的时区， 如Asia/Shanghai，这个会在每个BmobInstallation对象更新时同步（只读）|
-| deviceType| 设备的的类型, 值为："ios" 或 "android" (只读)|
-| installationId| Bmob使用的设备唯一号 (只读)| 
-
-
+### 4.1.1、设备信息表：BmobInstallation
 使用消息推送前，首先需要初始化设备信息。
 
 ```java
@@ -215,6 +219,24 @@ BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobIn
                 }
             }
         });
+```
+初始化成功后，数据服务SDK会自动生成一个BmobInstallation表，它包含了推送所需要的所有信息。例如，如果你有一个棒球的App，你可以让用户订阅感兴趣的棒球队，把订阅的棒球队名称放置到BmobInstallation表的channels数组中，然后及时地将这个球队的消息推送给订阅的用户。
+
+| 字段名称     | 解释         |
+|------------------------------|--------------------------------|
+| channels| 当前这个设备订阅的渠道名称数组|  
+| timeZone| 设备所在位置的时区， 如Asia/Shanghai，这个会在每个BmobInstallation对象更新时同步（只读）|
+| deviceType| 设备的的类型, 值为："ios" 或 "android" (只读)|
+| installationId| Bmob使用的设备唯一号 (只读)| 
+
+### 4.1.2、设备信息表管理：BmobInstallationManager
+获取设备唯一标志：
+```java
+BmobInstallationManager.getInstallationId();
+```
+获取当前设备信息：
+```java
+BmobInstallationManager.getInstance().getCurrentInstallation();
 ```
 
 ## 4.2、自定义Installation表
@@ -248,9 +270,7 @@ public class Installation extends BmobInstallation {
 }
 ```
 
-那么如何更新增加的`uid`字段的值呢？
-
-**具体思路：先将当前设备查询出来，之后调用`update`方法更新该值**
+那么如何更新增加的`user`字段的值呢？
 
 示例如下：
 
@@ -353,6 +373,9 @@ BmobInstallation bmobInstallation = BmobInstallationManager.getInstance().getCur
 ```
 
 ## 4.4、客户端广播推送消息
+
+和控制台推送消息给客户端一样，在客户端推送消息也需要进行推送的包名设置，请在应用面板-->消息推送-->推送设置界面中填写包名进行保存。
+
 在客户端实现推送消息的功能，通过 **BmobPushManager** 对象来完成，比如给所有设备推送消息：
 ```java
     BmobPushManager bmobPushManager = new BmobPushManager();
