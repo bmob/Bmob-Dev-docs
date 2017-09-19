@@ -710,7 +710,7 @@ query.getObject("a203eba875", new QueryListener<GameScore>() {
 
 ### 查询多条数据
 
-查询某个数据表中的所有数据是非常简单的查询操作，例如：查询GameScore表中playerName为“比目”的50条数据记录。
+查询某个数据表中的所有数据是非常简单的查询操作，查询的数据条数最多500.例如：查询GameScore表中playerName为“比目”的50条数据记录。
 
 ```java
 BmobQuery<GameScore> query = new BmobQuery<GameScore>();

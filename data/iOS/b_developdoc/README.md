@@ -452,7 +452,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 
 ### 查询多条数据
 
-在某些情况下，当需要查询表中多条元素的时候，可以直接使用findObjectsInBackgroundWithBlock函数获取查询结果，默认100条。
+在某些情况下，当需要查询表中多条元素的时候，可以直接使用findObjectsInBackgroundWithBlock函数获取查询结果，默认100条，最多500条。
 
 ```
 BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
@@ -471,7 +471,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 
 **这里需要注意的是：**
 
-1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看查询](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)一节中的分页查询。
+1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回100条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看查询](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)一节中的分页查询。
 
 2.当查询的是用户表这种系统表的时候，返回的是BmobUser的数组，设备表，角色表也是这样的。
 
