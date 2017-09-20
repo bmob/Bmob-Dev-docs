@@ -165,6 +165,8 @@ title: "I am title", content: "I am content"
 为了满足应用各类需求，保存的内容会生成一个HTML文件，存在您的文件中，如应用支持显示HTML，可直接显示，或者url内容转发到朋友圈。
 
 
+
+
 ##微信主人通知接口
 微信主动推送通知，业务场景：比如你有APP，有人下单了，或者有人留言了。你可以收到微信推送通知。
 
@@ -172,7 +174,46 @@ title: "I am title", content: "I am content"
 1.小程序
 2.restful
 
-1.等下一个版本更新
+1.小程序`Bmob.sendMasterMessage`调用主人通知接口
+```
+
+成功后发送主人模板消息，这个只需把openid改正确即可接收到， Bmob后端云公众号回复openid 
+          var temp = {
+            "touser": "oUxY3w_jURG89H5wCIvJDPjJ5s2o",
+            "template_id": "-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y",
+            "url": "https://www.bmob.cn/",
+            "data": {
+              "first": {
+                "value": "您好，Restful 失效，请登录控制台查看。",
+                "color": "#c00"
+              },
+              "keyword1": {
+                "value": "Restful 失效"
+              },
+              "keyword2": {
+                "value": "2017-07-03 16:13:01"
+              },
+              "keyword3": {
+                "value": "高"
+              },
+              "remark": {
+                "value": "如果您十分钟内再次收到此信息，请及时处理。"
+              }
+            }
+          }
+          console.log(temp);
+          Bmob.sendMasterMessage(temp).then(function (obj) {
+            console.log('发送成功');
+
+
+          }, function (err) {
+
+            common.showTip('失败' + err);
+          });
+
+```
+
+
 
 
 2.restful调用方式
