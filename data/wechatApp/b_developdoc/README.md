@@ -411,8 +411,23 @@ function onRequest(request, response, modules) {
 }
 ```
 
+
 解密返回数据：`{"openGId":"GLfcX0ber2CAPtXng-ac4g8zyNmk","watermark":{"timestamp":1496720764,"appid":"wx77d6b7031c1e4763"}}
 `
+
+
+如果你的应用功能出现解密报错，你可以写死传过来的三个变量，示例：
+```
+var sessionKey="xTlW5jfSUP3Kx0vC5PJbmw==";
+    var encryptedData="SLvbzyuyck7384tlGjXwI5Meb2LydIhUGvwerwsvJhws1EJb7LnFPX1MfRcTyF8Bfj0ZRP8wu8XR+7hmTqgdQx11nOlJA0RawSoTJNYmy9kfYQsdqTq5EX0rRH8VozPURnTrjM9EGbfqaN6EetI/aQ==";
+    var iv="7/TqHciNjSi3cdFFxr97ww==";
+   
+    var groupid=groupIdParse(modules,sessionKey,encryptedData,iv)
+    var jsongid=JSON.parse(groupid);
+    response.end(groupid);
+    return;
+```
+
 
 
 ## 小程序模板消息
