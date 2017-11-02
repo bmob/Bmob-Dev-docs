@@ -15,11 +15,7 @@
 
 这里提供一些开发者写的其他语言调用RestApi的源码或者核心代码。
 
-JAVA访问RestApi：[http://wenda.bmob.cn//?/question/51](http://wenda.bmob.cn//?/question/51)
-
 PHP访问RestApi：[https://docs.bmob.cn/data/PHP/a_faststart/doc/index.html](https://docs.bmob.cn/data/PHP/a_faststart/doc/index.html)
-
-AS3.0访问RestApi：[http://wenda.bmob.cn//?/question/193](http://wenda.bmob.cn//?/question/193)
 
 
 ## 请求格式

@@ -406,6 +406,7 @@ date = {
 ```
 
 ### 批量数据操作
+自2017年04月起，为了提供更稳定的服务，后端启用了QPS限制，所以推荐采用批量数据操作来解决如果需要在循环里多次提交请求但是后端返回QPS达到限制的报错。
 Bmob提供了批量操作的类BmobObjectsBatch,使用该类，可以批量增加，修改，删除数据，但一次请求不能超过50条数据。下面是例子程序：
 
 ```
@@ -2135,6 +2136,7 @@ BmobObject *obj = [[BmobObject alloc] initWithClassName:@"GameScore"];
 	 //如果文件保存成功，则把文件添加到filetype列
 	 if (isSuccessful) {
 	     [obj setObject:file1  forKey:@"filetype"];
+         [obj setObject:file1.url  forKey:@"filetypeurl"];
 	     //此处相当于新建一条记录,	     //关联至已有的记录请使用 [obj updateInBackground];
 	     [obj saveInBackground];
 	     //打印file文件的url地址
@@ -2163,6 +2165,7 @@ BmobFile *file1 = [[BmobFile alloc] initWithClassName:@"Asc" withFilePath:fileSt
 [file1 saveInBackground:^(BOOL isSuccessful, NSError *error) {
     if (isSuccessful) {
         [obj setObject:file1  forKey:@"userFile"];
+        [obj setObject:file1.url  forKey:@"userFileUrl"];
         [obj saveInBackground];
         NSLog(@"file1 url %@",file1.url);
     }
@@ -2187,8 +2190,8 @@ BmobFile *file1 = [[BmobFile alloc] initWithClassName:@"Asc" withFilePath:fileSt
 示例如下：
 
 ```
-//上传Android_SDK.mp4文件
-NSString *fileString = [[NSBundle mainBundle] pathForResource:@"Android_SDK" ofType:@"mp4"];
+//上传game.mp4文件
+NSString *fileString = [[NSBundle mainBundle] pathForResource:@"game" ofType:@"mp4"];
 BmobObject *obj = [[BmobObject alloc] initWithClassName:@"gameScoreFile"];
 //创建BmobFile对象
 BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
