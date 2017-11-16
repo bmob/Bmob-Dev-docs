@@ -1697,10 +1697,12 @@ wx.login({
 
 ```
 
+var user = new Bmob.User();//实例化
+
 wx.login({
 
         success: function (res) {
-          Bmob.User.loginWithWeapp(res.code).then(function (user) {
+          user.loginWithWeapp(res.code).then(function (user) {
             var openid = user.get("authData").weapp.openid;
             console.log(user, 'user', user.id, res);
             if (user.get("nickName")) {
