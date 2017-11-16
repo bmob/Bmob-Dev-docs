@@ -88,14 +88,14 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 
 **c.b.BP**
 
-- BP.pay(String title, String descript, double money, boolean aliOrWetchat, Plistener listener)
+- BP.pay(String title, String descript, double money, int payType, Plistener listener)
 
 |类型|名称|说明|
 |---|---|---|
 |String|title|商品的名称,请注意不要有违禁字眼,可以为空<p>只允许中文、数字、英文和下划线、英文破折号，否则过滤|
 |String|descript|商品的详情描述,请注意不要有违禁字眼,可以为空<p>只允许中文、数字、英文和下划线、英文破折号，否则过滤|
 |double|price|商品的价格,建议测试用0.02|
-|boolean|aliOrWetchat|支付方式：true为支付宝支付，false为微信支付|
+|Int|payType|支付方式：BP.PayType_Alipay(支付宝)、BP.PayType_Wechat(微信)、BP.PayType_QQ(QQ)|
 |Plistener|listener|支付结果监听类c.b.PListener<p>有成功、失败、未知结果、返回订单号等方法|
 
 **注意**

@@ -281,7 +281,7 @@ public class Installation extends BmobInstallation {
      */
     private void modifyInstallationUser(final User user) {
         BmobQuery<Installation> bmobQuery = new BmobQuery<>();
-        final String id = BmobInstallation.getInstallationId(mContext);
+        final String id = BmobInstallationManager.getInstallationId();
         bmobQuery.addWhereEqualTo("installationId", id);
         bmobQuery.findObjectsObservable(Installation.class)
                 .subscribe(new Action1<List<Installation>>() {
