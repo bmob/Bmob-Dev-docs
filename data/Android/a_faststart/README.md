@@ -1,3 +1,7 @@
+## 视频教程
+
+为了更好的让大家使用Bmob提供的服务，Bmob的工程师们给大家制作了一些如何正确使用各服务SDK的视频教程供大家学习和参考，[移步这里学习](http://liaobaikun.oschina.io/bmobdocs/video/index.html)，祝大家学习愉快！
+
 ## 注册Bmob帐号
 
 在网址栏输入www.bmob.cn或者在百度输入Bmob进行搜索，打开Bmob官网后，点击右上角的“注册”，在跳转页面填入你的姓名、邮箱、设置密码，确认后到你的邮箱激活Bmob账户，你就可以用Bmob轻松开发应用了。

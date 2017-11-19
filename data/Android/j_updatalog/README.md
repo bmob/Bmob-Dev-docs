@@ -1,3 +1,15 @@
+v3.5.8 2017年10月13日
+
+1. 修复部分Bug
+
+v3.5.7 2017年09月05日
+
+1. 进一步优化了推送相关类BmobInstallation的功能(升级sdk时需要修改少量代码);
+2. 解决了BmobRole角色创建的bug;
+3. 解决了BmobUser.fetchUserJsonInfo方法没回调的bug;
+4. 自动更新中对Android7.0 FileProvider的适配(在此之前查表AppVersion并下载apk文件也是不难的);
+5. SDK的三方库依赖策略调整为除了okhttp3是源码依赖其他都依赖jar包，出现冲突或需要用自己本地的同名jar,则在aar中删除即可。
+
 v3.5.6 2017年07月05日
 
 1. 提供了客户端拉取后端用户信息的方法BmobUser.fetchUserInfo()，具体用法见文档；

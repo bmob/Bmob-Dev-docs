@@ -165,6 +165,31 @@ toast的含义如下：
 	
 	"Please add Activity in AndroidManifest!"：请检查上述步骤中的Activity是否正确添加。
 
+## 兼容Android7.0
+
+兼容了Android7.0中的FileProvider，具体用法如下：
+
+### 1 在AndroidManifest.xml中的Application标签下添加如下内容：
+
+```xml
+<provider
+    android:authorities="cn.bmob.update.fileprovider"           android:name="android.support.v4.content.FileProvider"
+    android:grantUriPermissions="true"
+    android:exported="false">
+    <meta-data 	
+     	android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_paths" />
+</provider>
+```
+### 2 在res的xml目录下创建file_paths.xml文件，用来指定Apk文件下载的位置，参考如下：
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path path="." name="external_storage_root" />
+</paths>
+```
+
 
 ## 其他更新方式
 

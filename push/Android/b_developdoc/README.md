@@ -1,11 +1,37 @@
 ## 1、BmobPush SDK 简介
-推送是让用户及时被通知、和你的应用保持联系的一种非常棒的方式，你可以快速而有效地通知到所有的用户，下面这个教程将会教你如何使用BmobPush SDK来推送消息。请确保您在使用BmobPush SDK之前已经了解此文档，如有疑问请加Push使用交流群[182897507]()咨询。
+推送能够让你和你的应用保持联系，你可以快速而有效地通知到所有的用户，下面这个教程将会教你如何使用BmobPush SDK来推送消息。请确保您在使用BmobPush SDK之前已经了解此文档，如有疑问请加Push使用交流群[182897507]()咨询。
 
 ## 2、BmobPush SDK 集成
 
-### 2.1、下载BmobPush SDK
-在Bmob官方网站的下载界面中，选择下载[Android推送SDK](https://www.bmob.cn/downloads)，将下载的zip压缩包进行解压，得到`Bmob_Push_v(版本号)_日期.jar`，然后将它放在你项目根目录下的"libs"目录中，并集成[数据SDK](https://docs.bmob.cn/data/Android/a_faststart/doc/index.html)，[可参考案例](https://github.com/chaozhouzhang/bmob-push-demo)。
+### 2.1、集成SDK
 
+| SDK或Demo     | 下载地址          |
+|------------------------------|--------------------------------|
+| 数据服务 SDK| 使用最新版本v3.5.7，集成方式请见下方的自动集成方式。手动集成下载地址：[https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)|
+| 消息推送 SDK| 使用最新版本v1.0.1，集成方式请见下方的自动集成方式。手动集成下载地址：[https://www.bmob.cn/downloads](https://www.bmob.cn/downloads)|  
+| 消息推送 Demo| [https://github.com/chaozhouzhang/bmob-push-demo](https://github.com/chaozhouzhang/bmob-push-demo)|
+
+自动集成方式：
+
+1、配置project下的build.gradle文件：
+```gradle
+allprojects {
+    repositories {
+        jcenter()
+        //Bmob的maven仓库地址
+        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+    }
+}
+```
+2、配置app下的build.gradle文件：
+```gradle
+dependencies {
+    //Bmob的数据服务SDK
+    compile 'cn.bmob.android:bmob-sdk:3.5.7'
+    //Bmob的消息推送SDK
+    compile 'cn.bmob.android:bmob-push:1.0.1'
+}
+```
 ### 2.2、配置AndroidManifest.xml
 #### 2.2.1、在您的应用程序AndroidManifest.xml文件中添加相应的权限
 请注意在Android 6.0版本开始某些权限需要动态获取，详情请看Android Developwers官方文档，[android-6.0-changes](http://developer.android.com/intl/zh-cn/about/versions/marshmallow/android-6.0-changes.html)和[android-7.0-changes](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html)。
@@ -109,11 +135,20 @@ public class MyPushMessageReceiver extends BroadcastReceiver{
 在你的应用程序主Application中调用如下方法：
 
 ```java
-//TODO 集成：1.4、初始化数据服务SDK、保存设备信息并启动推送服务
+//TODO 集成：1.4、初始化数据服务SDK、初始化设备信息并启动推送服务
 // 初始化BmobSDK
 Bmob.initialize(this, "你的Application Id");
 // 使用推送服务时的初始化操作
-BmobInstallation.getCurrentInstallation().save();
+BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {
+            @Override
+            public void done(BmobInstallation bmobInstallation, BmobException e) {
+                if (e == null) {
+                    Logger.i(bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
+                } else {
+                    Logger.e(e.getMessage());
+                }
+            }
+        });
 // 启动推送服务
 BmobPush.startWork(this);
 ```
@@ -169,16 +204,23 @@ BmobPush.startWork(this);
 
 
 # 4、BmobPush SDK 的使用
+## 4.1、初始化设备信息
+### 4.1.1、设备信息表：BmobInstallation
+使用消息推送前，首先需要初始化设备信息。
 
-
-
-## 4.1、保存设备信息
-每一个Bmob的App被安装在用户的设备上后，如果要使用消息推送功能，Bmob Data SDK会自动生成一个Installation对象，它包含了推送所需要的所有信息。
-
-举例：一个棒球的App，你可以让用户订阅感兴趣的棒球队，然后及时将这个球队的消息推送给用户。
-您可以使用 BmobSDK，通过 **BmobInstallation** 对象进行一系列操作，就像你存储和获取其他的普通对象一样。
-
-BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设备定位的管理：
+```java
+BmobInstallationManager.getInstance().initialize(new InstallationListener<BmobInstallation>() {
+            @Override
+            public void done(BmobInstallation bmobInstallation, BmobException e) {
+                if (e == null) {
+                    Logger.i(bmobInstallation.getObjectId() + "-" + bmobInstallation.getInstallationId());
+                } else {
+                    Logger.e(e.getMessage());
+                }
+            }
+        });
+```
+初始化成功后，数据服务SDK会自动生成一个BmobInstallation表，它包含了推送所需要的所有信息。例如，如果你有一个棒球的App，你可以让用户订阅感兴趣的棒球队，把订阅的棒球队名称放置到BmobInstallation表的channels数组中，然后及时地将这个球队的消息推送给订阅的用户。
 
 | 字段名称     | 解释         |
 |------------------------------|--------------------------------|
@@ -187,11 +229,14 @@ BmobInstallation对象有几个系统默认的特殊字段来帮助你进行设�
 | deviceType| 设备的的类型, 值为："ios" 或 "android" (只读)|
 | installationId| Bmob使用的设备唯一号 (只读)| 
 
-
-使用消息推送前，首先需要保存设备信息。
-
+### 4.1.2、设备信息表管理：BmobInstallationManager
+获取设备唯一标志：
 ```java
-BmobInstallation.getCurrentInstallation().save();
+BmobInstallationManager.getInstallationId();
+```
+获取当前设备信息：
+```java
+BmobInstallationManager.getInstance().getCurrentInstallation();
 ```
 
 ## 4.2、自定义Installation表
@@ -225,9 +270,7 @@ public class Installation extends BmobInstallation {
 }
 ```
 
-那么如何更新增加的`uid`字段的值呢？
-
-**具体思路：先将当前设备查询出来，之后调用`update`方法更新该值**
+那么如何更新增加的`user`字段的值呢？
 
 示例如下：
 
@@ -238,7 +281,7 @@ public class Installation extends BmobInstallation {
      */
     private void modifyInstallationUser(final User user) {
         BmobQuery<Installation> bmobQuery = new BmobQuery<>();
-        final String id = BmobInstallation.getInstallationId(mContext);
+        final String id = BmobInstallationManager.getInstallationId();
         bmobQuery.addWhereEqualTo("installationId", id);
         bmobQuery.findObjectsObservable(Installation.class)
                 .subscribe(new Action1<List<Installation>>() {
@@ -275,9 +318,6 @@ public class Installation extends BmobInstallation {
     }
 ```
 
-注：
-
-**不能调用`save`方法保存，因为之前调用BmobInstallation.getCurrentInstallation(this).save()方法已经将该设备信息保存到设备表中。**
 
 ## 4.3、频道的订阅和退订
 
@@ -286,13 +326,19 @@ public class Installation extends BmobInstallation {
 订阅频道可使用 **subscribe** 方法
 
 ```java
-BmobInstallation installation = BmobInstallation.getCurrentInstallation();
-installation.subscribe("Giants");
-installation.subscribe("Mets");
-installation.save();
+BmobInstallationManager.getInstance().subscribe(Arrays.asList("NBA", "CBA", "IJK", "NBA", "CBA", "USA"), new InstallationListener<BmobInstallation>() {
+                    @Override
+                    public void done(BmobInstallation bmobInstallation, BmobException e) {
+                        if (e == null) {
+                            toastI("批量订阅成功");
+                        } else {
+                            toastE(e.getMessage());
+                        }
+                    }
+                });
 ```
 
-注：`V3.4.3`版本的Bmob SDK对频道订阅增加去重操作，也就是说：即使你调用subscribe方法订阅了多个相同的频道，Bmob只会记录一个频道。
+Bmob SDK对频道订阅增加去重操作，也就是说：即使你调用subscribe方法订阅了多个相同的频道，Bmob只会记录一个频道。
 
 
 ### 4.3.2、退订频道
@@ -300,12 +346,36 @@ installation.save();
 退订频道可使用 **unsubscribe** 方法
 
 ```java
-BmobInstallation installation = BmobInstallation.getCurrentInstallation();
-installation.unsubscribe("Giants");
-installation.save();
+BmobInstallationManager.getInstance().unsubscribe(Arrays.asList("CBA", "USA"), new InstallationListener<BmobInstallation>() {
+                    @Override
+                    public void done(BmobInstallation bmobInstallation, BmobException e) {
+                        if (e == null) {
+                            toastI("批量取消订阅成功");
+                        } else {
+                            toastE(e.getMessage());
+                        }
+                    }
+                });
+```
+
+### 4.3.3、获取已经订阅的频道
+获取已经订阅的频道可以使用**getCurrentInstallation()**方法
+```java
+BmobInstallation bmobInstallation = BmobInstallationManager.getInstance().getCurrentInstallation();
+                List<String> channels = bmobInstallation.getChannels();
+                if (channels.size() < 1) {
+                    toastI("您没有订阅任何频道！");
+                } else {
+                    for (String channel : channels) {
+                        mTvChannel.append(channel + "\n");
+                    }
+                }
 ```
 
 ## 4.4、客户端广播推送消息
+
+和控制台推送消息给客户端一样，在客户端推送消息也需要进行推送的包名设置，请在应用面板-->消息推送-->推送设置界面中填写包名进行保存。
+
 在客户端实现推送消息的功能，通过 **BmobPushManager** 对象来完成，比如给所有设备推送消息：
 ```java
     BmobPushManager bmobPushManager = new BmobPushManager();
@@ -328,8 +398,8 @@ installation.save();
                 BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
                 List<String> channels = new ArrayList<>();
                 //TODO 替换成你需要推送的所有频道，推送前请确认已有设备订阅了该频道，也就是channels属性存在该值
-                channels.add("Giants");
-                query.addWhereEqualTo("channels", channels);
+                channels.add("NBA");
+                query.addWhereContainedIn("channels", channels);
                 bmobPushManager.setQuery(query);
                 bmobPushManager.pushMessage("消息内容", new PushListener() {
                     @Override

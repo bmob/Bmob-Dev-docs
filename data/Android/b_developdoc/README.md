@@ -18,6 +18,12 @@ Bmob平台为您的移动应用提供了一个完整的后端解决方案，我�
 
 其中，参数为开发者的域名，调用后的所有请求都指向新的域名。
 
+**注: 仅数据迁移功能而言 目前是不需要开发者手动调用重置请求域名的resetDomain方法，不同用户级别的应用请求到的域名空间都是由Bmob后端控制(之前的迁移用户重置了也无妨);**
+## 海外加速
+
+如果您不是使用迁移服务的用户,但仅仅想使用海外加速功能的话，就需要在初始化sdk后就调用resetDomain方法(建议在Application中做)，传的参数也是上面数据迁移例子中的openvip域名。
+
+
 ## 统计SDK
 从v3.5.2开始，把统计SDK集成到了数据服务SDK，上传应用不再需要额外集成统计SDK，低于此版本的可以去控制台的应用官网下载。
 ### 添加方法
@@ -704,7 +710,7 @@ query.getObject("a203eba875", new QueryListener<GameScore>() {
 
 ### 查询多条数据
 
-查询某个数据表中的所有数据是非常简单的查询操作，例如：查询GameScore表中playerName为“比目”的50条数据记录。
+查询某个数据表中的所有数据是非常简单的查询操作，查询的数据条数最多500.例如：查询GameScore表中playerName为“比目”的50条数据记录。
 
 ```java
 BmobQuery<GameScore> query = new BmobQuery<GameScore>();
@@ -2523,7 +2529,7 @@ Boolean sex = (Boolean) BmobUser.getObjectByKey("sex");
 
 场景：用户已经登录的情况下，如果后端的用户信息有修改(如在控制台修改)，此时如果能同步下最新的用户信息并写到本地缓存中就会很方便，不用重新去登录。
 
-**自`V3.5.6`版本开始，SDK新增了`BmobUser.fetchUserInfo(FetchUserInfoListener)`方法解决了用户信息的同步需求。**
+**自`V3.5.7`版本开始，SDK新增了`BmobUser.fetchUserJsonInfo(FetchUserInfoListener)`方法解决了用户信息的同步需求。**
 
 具体用法如下
 
@@ -2531,19 +2537,18 @@ Boolean sex = (Boolean) BmobUser.getObjectByKey("sex");
 
     /**
      * 更新本地用户信息
-     * 适用场景:登录后若web端的用户信息有更新 可以通过该方法拉取最新的用户信息并写到本地缓存(SharedPreferences)中<p>
      * 注意：需要先登录，否则会报9024错误
      *
      * @see cn.bmob.v3.helper.ErrorCode#E9024S
      */
     private void fetchUserInfo() {
-        BmobUser.fetchUserInfo(new FetchUserInfoListener<MyUser>() {
+        BmobUser.fetchUserJsonInfo(new FetchUserInfoListener<String>() {
             @Override
-            public void done(MyUser user, BmobException e) {
+            public void done(String s, BmobException e) {
                 if (e == null) {
-                    log(user.toString());
+                    log("Newest UserInfo is " + s);
                 } else {
-                    loge(e);
+                    log(e);
                 }
             }
         });

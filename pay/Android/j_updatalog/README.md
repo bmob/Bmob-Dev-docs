@@ -1,3 +1,21 @@
+
+v3.2.3_171113	2017年11月14日
+
+1.在v3.2.2_171019版本的基础上替换jar文件和payassets.db文件即可，如果是更早的版本，请将libs下的so文件悉数更新
+2.增加了QQ支付,但是订单金额要求 >= 2.2元
+3.调用支付的接口有所改变,建议通过 
+	BP.pay(String name, String body, double price, int payType, PListener listener)
+	接口进行调用，其中payType传入[BP.PayType_Alipay、BP.PayType_Wechat(暂未开通)、BP.PayType_QQ]中的一个
+4.Unity Helper、文档、Demo更新
+5.取消了PListener.unknow回调
+6.Demo更新
+
+v3.2.2_171019	2017年10月18日
+1. 替换本目录中libs文件夹下的全部内容，包括一个jar文件和多个so文件(so文件按需)
+2. 替换./assets/payassets.db到项目的assets文件夹中
+3. 支付方式较之前版本有所改变，调起支付宝的时间会延长一点，超过一定时间会弹窗询问用户是否选择通过浏览器进行支付
+4. 如果在使用中有任何疑问或bug，请反馈给客服或提交工单
+
 v3.2.0   2017年6月02日
 1 先挑重点：
 需要替换assets文件夹下的bp.db文件和payassets.db文件

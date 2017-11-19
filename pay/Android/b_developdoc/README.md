@@ -19,7 +19,7 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 
 2.应用遇到过多的用户投诉，如应用的使用者支付了相关款项，但是该应用却没有提供相应的服务。本平台有权限制或冻结该应用支付收入的所有款项，并保留追究法律责任的权利。
 
-3.**Bmob将在每笔交易中收取8%服务费。**
+3.**Bmob将在每笔交易中收取10%服务费,小程序平台则免服务费。**
 
 ##  打款需知
 
@@ -74,28 +74,31 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 **注意：新版的支付SDK不能被数据服务SDK的初始化方法取代了，无论您是否使用了Bmob数据服务SDK，都要进行支付SDK的初始化**
 
 - 发起支付调用，请使用如下方法：
-	
-	/**
-     	 * 第4个参数为true时调用支付宝支付，为false时调用微信支付
-     	 */
-		BP.pay("商品名称", "商品描述", 0.02, true, new Plistener(){...});
-		
+
+```	
+/**
+ * 第4个参数为支付方式：BP.PayType_Alipay(支付宝)、BP.PayType_Wechat(微信)、BP.PayType_QQ(QQ)
+ */
+BP.pay("商品名称", "商品描述", 0.02, BP.PayType_Alipay, new Plistener(){...});
+```		
 - 在需要调用订单查询的地方，调用如下方法(微信订单和支付宝订单通用)：
 
-		BP.query("订单id", new QListener(){...});
+```
+BP.query("订单id", new QListener(){...});
+```
 
 ## 类库说明
 
 **c.b.BP**
 
-- BP.pay(String title, String descript, double money, boolean aliOrWetchat, Plistener listener)
+- BP.pay(String title, String descript, double money, int payType, Plistener listener)
 
 |类型|名称|说明|
 |---|---|---|
 |String|title|商品的名称,请注意不要有违禁字眼,可以为空<p>只允许中文、数字、英文和下划线、英文破折号，否则过滤|
 |String|descript|商品的详情描述,请注意不要有违禁字眼,可以为空<p>只允许中文、数字、英文和下划线、英文破折号，否则过滤|
 |double|price|商品的价格,建议测试用0.02|
-|boolean|aliOrWetchat|支付方式：true为支付宝支付，false为微信支付|
+|Int|payType|支付方式：BP.PayType_Alipay(支付宝)、BP.PayType_Wechat(微信)、BP.PayType_QQ(QQ)|
 |Plistener|listener|支付结果监听类c.b.PListener<p>有成功、失败、未知结果、返回订单号等方法|
 
 **注意**
@@ -218,7 +221,7 @@ trade_no：支付宝或微信返回的订单号
 		-keep interface c.b.PListener{ *; }
 		-keep interface c.b.QListener{ *; }
 
-- 在[Bmob财务管理平台](https://www.bmob.cn/finance/info "Bmob财务管理平台")订单管理处，金额从小数点后第三位开始不显示，比如支付了0.01元实收0.00，其实是0.0095
+- 在[Bmob财务管理平台](https://www.bmob.cn/finance/info "Bmob财务管理平台")订单管理处，金额从小数点后第三位开始不显示，比如支付了0.01元实收0.00，其实是0.009
 - 如果用户的手机有“应用锁”功能（即点击应用后跳出系统设定的解锁界面，如小米、360、腾讯管家都可能有该功能），则可能会导致支付中断（支付宝返回6001，微信返回-2），这是微信和支付宝SDK出于安全考虑设置的，请建议用户出现该问题时先关掉支付宝钱包或微信的应用锁
 - 由于微信SDK的限制，无法判断微信是否已登陆用户，**如果未登陆用户，监听器的fail方法可能不被调用**，请开发者们提醒自己的用户确保微信已登陆
 - 如果支付宝已经选定了支付用的账户（或银行卡），但是支付失败，用户的支付宝账号会保留该订单，有可能从支付宝官网、支付宝钱包APP再次发起支付，在开发过程中请注意这种事情的处理情况

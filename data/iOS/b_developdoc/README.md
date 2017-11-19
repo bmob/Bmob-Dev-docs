@@ -1,7 +1,7 @@
 ## 简介
 
 Bmob平台为您的移动应用提供了一个完整的后端解决方案，我们提供轻量级的SDK开发包，让开发者以最小的配置和最简单的方式使用Bmob平台提供的服务，进而完全消除开发者编写服务器代码以及维护服务器的操作。
-**欢迎加入iOS开发者1群186864953进行讨论，有问题麻烦在Bmob应用后台提交工单**
+**欢迎加入iOS开发者2群495047653进行讨论，有问题麻烦在Bmob应用后台提交工单**
 
 ## 安装
 
@@ -406,6 +406,7 @@ date = {
 ```
 
 ### 批量数据操作
+自2017年04月起，为了提供更稳定的服务，后端启用了QPS限制，所以推荐采用批量数据操作来解决如果需要在循环里多次提交请求但是后端返回QPS达到限制的报错。
 Bmob提供了批量操作的类BmobObjectsBatch,使用该类，可以批量增加，修改，删除数据，但一次请求不能超过50条数据。下面是例子程序：
 
 ```
@@ -452,7 +453,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 
 ### 查询多条数据
 
-在某些情况下，当需要查询表中多条元素的时候，可以直接使用findObjectsInBackgroundWithBlock函数获取查询结果，默认100条。
+在某些情况下，当需要查询表中多条元素的时候，可以直接使用findObjectsInBackgroundWithBlock函数获取查询结果，默认100条，最多500条。
 
 ```
 BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
@@ -471,7 +472,7 @@ BmobQuery   *bquery = [BmobQuery queryWithClassName:@"GameScore"];
 
 **这里需要注意的是：**
 
-1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回10条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看查询](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)一节中的分页查询。
+1.默认情况下，系统实际上并不会返回所有的数据，而是默认返回100条数据记录，你可以通过setLimit方法设置返回的记录数量。更多细节可[点击查看查询](https://docs.bmob.cn/data/iOS/b_developdoc/doc/index.html#查询)一节中的分页查询。
 
 2.当查询的是用户表这种系统表的时候，返回的是BmobUser的数组，设备表，角色表也是这样的。
 
@@ -2135,6 +2136,7 @@ BmobObject *obj = [[BmobObject alloc] initWithClassName:@"GameScore"];
 	 //如果文件保存成功，则把文件添加到filetype列
 	 if (isSuccessful) {
 	     [obj setObject:file1  forKey:@"filetype"];
+         [obj setObject:file1.url  forKey:@"filetypeurl"];
 	     //此处相当于新建一条记录,	     //关联至已有的记录请使用 [obj updateInBackground];
 	     [obj saveInBackground];
 	     //打印file文件的url地址
@@ -2163,6 +2165,7 @@ BmobFile *file1 = [[BmobFile alloc] initWithClassName:@"Asc" withFilePath:fileSt
 [file1 saveInBackground:^(BOOL isSuccessful, NSError *error) {
     if (isSuccessful) {
         [obj setObject:file1  forKey:@"userFile"];
+        [obj setObject:file1.url  forKey:@"userFileUrl"];
         [obj saveInBackground];
         NSLog(@"file1 url %@",file1.url);
     }
@@ -2187,8 +2190,8 @@ BmobFile *file1 = [[BmobFile alloc] initWithClassName:@"Asc" withFilePath:fileSt
 示例如下：
 
 ```
-//上传Android_SDK.mp4文件
-NSString *fileString = [[NSBundle mainBundle] pathForResource:@"Android_SDK" ofType:@"mp4"];
+//上传game.mp4文件
+NSString *fileString = [[NSBundle mainBundle] pathForResource:@"game" ofType:@"mp4"];
 BmobObject *obj = [[BmobObject alloc] initWithClassName:@"gameScoreFile"];
 //创建BmobFile对象
 BmobFile *file1 = [[BmobFile alloc] initWithFilePath:fileString];
