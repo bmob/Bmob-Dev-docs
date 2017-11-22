@@ -38,8 +38,10 @@ task clean(type: Delete) {
 ### 1.3、在app下的build.gradle文件中设置jni依赖库的目录，设置后点击Sync Now同步配置
 ```gradle
 dependencies {
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.google.code.gson:gson:2.8.2'
+		compile (name:'BmobFeeds_v1.0.2_171121',ext:'aar')
+		compile (name:'BmobFeedsSDK_v1.0.1_171122',ext:'aar')
+    	compile 'com.github.bumptech.glide:glide:3.7.0'
+    	compile 'com.google.code.gson:gson:2.8.2'
 }
 ```
 
