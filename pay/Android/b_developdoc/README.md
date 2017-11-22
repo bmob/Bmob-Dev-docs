@@ -74,15 +74,18 @@ Bmob平台有权进行独立判断并采取技术手段予以删除、屏蔽或�
 **注意：新版的支付SDK不能被数据服务SDK的初始化方法取代了，无论您是否使用了Bmob数据服务SDK，都要进行支付SDK的初始化**
 
 - 发起支付调用，请使用如下方法：
-	
-	/**
-     	 * 第4个参数为true时调用支付宝支付，为false时调用微信支付
-     	 */
-		BP.pay("商品名称", "商品描述", 0.02, true, new Plistener(){...});
-		
+
+```	
+/**
+ * 第4个参数为支付方式：BP.PayType_Alipay(支付宝)、BP.PayType_Wechat(微信)、BP.PayType_QQ(QQ)
+ */
+BP.pay("商品名称", "商品描述", 0.02, BP.PayType_Alipay, new Plistener(){...});
+```		
 - 在需要调用订单查询的地方，调用如下方法(微信订单和支付宝订单通用)：
 
-		BP.query("订单id", new QListener(){...});
+```
+BP.query("订单id", new QListener(){...});
+```
 
 ## 类库说明
 
