@@ -1,6 +1,6 @@
 
            
-# 1、BmobNewIM SDK 集成
+# 1、BmobFeedsSDK 集成
 
 ### 1.1、将以下文件放进app下的libs文件夹
 | 文件     |
