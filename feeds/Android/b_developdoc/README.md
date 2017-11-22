@@ -64,7 +64,7 @@ public class App extends FeedsApp {     @Override     public void onCreate()
 
 # 2、BmobFeedsSDK的使用
 
-### 2.1.1、添加FeedsFragment
+### 2.1、添加FeedsFragment
 
 例如：
 
@@ -79,7 +79,7 @@ public class Example2Activity extends AppCompatActivity {     private FeedsFra
 
 ```
 
-### 2.1.1、自定义FeedsFragment属性
+### 2.2、自定义FeedsFragment属性
 | 方法     |	备注	|
 |------------------------------|----------------|
 | setTabBackgroundColor|	设置顶部导航栏的背景颜色，一般与应用的主题颜色一致|
