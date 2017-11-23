@@ -1,10 +1,10 @@
 ## 简介
 
-Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可能希望增加一些特有的业务逻辑，并能灵活掌控，Bmob云端逻辑提供了这种灵活性，可以让您的代码直接在Bmob云上运行。一旦你在云端更新了代码，所有的移动应用都会立即自动更新，新功能的发布将会变得更加简单可控。
+Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可能希望增加一些特有的业务逻辑，并能灵活掌控，Bmob云函数提供了这种灵活性，可以让您的代码直接在Bmob云上运行。一旦你在云端更新了代码，所有的移动应用都会立即自动更新，新功能的发布将会变得更加简单可控。
 
 ## 开源案例
 
-为方便大家更好的使用云端逻辑，Bmob为大家提供了一些常用模块，方便大家直接拿来使用的。
+为方便大家更好的使用云函数，Bmob为大家提供了一些常用模块，方便大家直接拿来使用的。
 
 
 - 对整个表进行排序：[https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order1.js](https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order1.js) 可结合定时任务使用
@@ -14,33 +14,33 @@ Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可�
 - 获取前N名数据排行信息：[https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js](https://github.com/bmob/bmob-cloudcode-demo-ranking/blob/master/order3.js)
 
 
-在开发云端逻辑时，希望大家能够先看看我们提供的编码规范文档：[https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
+在开发云函数时，希望大家能够先看看我们提供的编码规范文档：[https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html](https://docs.bmob.cn/cloudcode/WEB/f_codehelp/doc/index.html)
 
-## 调用云端逻辑的方式
+## 调用云函数的方式
 
-bmob允许以http的方式直接调用云端逻辑。
+bmob允许以http的方式直接调用云函数。
 
 ### 获取Secret Key
-用户需要以http的方式运行云端逻辑，需要先确定应用的Secret Key。 调用云端逻辑时，通过Secret Key标识一个应用，获取Secret Key的路径：
+用户需要以http的方式运行云函数，需要先确定应用的Secret Key。 调用云函数时，通过Secret Key标识一个应用，获取Secret Key的路径：
 管理后台->应用密钥->Secret Key, 如下图所示：
 ![](image/secretKey.png)
 
 注意：请妥善保管Secret Key，避免Secret Key的泄露！！！
 
-### 以Get的方式调用云端逻辑
+### 以Get的方式调用云函数
 
-下面展示了以Get的方式调用云端逻辑：
+下面展示了以Get的方式调用云函数：
 ```
 curl -X GET http://cloud.bmob.cn/0348d0c262bc91d9/test?name=jeff
 ```
 其中：
 0348d0c262bc91d9：应用的Secret Key。
-test：云端逻辑的名称
+test：云函数的名称
 name=jeff: 传入一个参数，名称是name，值是jeff
 与restful不同，无需再传其它诸如app id等请求头。
 
-### 以Post的方式调用云端逻辑
-下面展示了以Post的方式调用云端逻辑：
+### 以Post的方式调用云函数
+下面展示了以Post的方式调用云函数：
 ```
 curl -X POST \
     -H "Content-Type: application/x-www-form-urlencoded" \
@@ -49,34 +49,34 @@ curl -X POST \
 ```
 其中：
 0348d0c262bc91d9：应用的Secret Key。
-test：云端逻辑的名称
+test：云函数的名称
 name=jeff: 传入一个参数，名称是name，值是jeff
 与restful不同，无需再传其它诸如app id等请求头。
 
-## 转为套餐后调用云端逻辑的方式
+## 转为套餐后调用云函数的方式
 
-bmob允许以http的方式直接调用云端逻辑。
+bmob允许以http的方式直接调用云函数。
 
 ### 获取应用的id值
 
-进入应用后台->云逻辑，下图中的箭头所指的数字就是该应用的id值：
+进入应用后台->云函数，下图中的箭头所指的数字就是该应用的id值：
 ![](image/appid.png)
 
 
-### Get的方式调用云端逻辑
+### Get的方式调用云函数
 
-下面展示了以Get的方式调用云端逻辑：
+下面展示了以Get的方式调用云函数：
 ```
 curl -X GET http://cloud-xxxxx.bmobapp.com/test?name=jeff
 ```
 其中：
-cloud-xxxxx.bmobapp.com：该应用的云端代码专属域名，其中xxxxx为上节“获取应用的id值”所获取的id值。
-test：云端逻辑的名称。
+cloud-xxxxx.bmobapp.com：该应用的云函数专属域名，其中xxxxx为上节“获取应用的id值”所获取的id值。
+test：云函数的名称。
 name=jeff: 传入一个参数，名称是name，值是jeff。
 与restful不同，无需再传其它诸如app id等请求头。
 
-### Post的方式调用云端逻辑
-下面展示了以Post的方式调用云端逻辑：
+### Post的方式调用云函数
+下面展示了以Post的方式调用云函数：
 ```
 curl -X POST \
     -H "Content-Type: application/x-www-form-urlencoded" \
@@ -84,23 +84,23 @@ curl -X POST \
     http://cloud-xxxxx.bmobapp.com/test
 ```
 其中：
-cloud-xxxxx.bmobapp.com：该应用的云端代码专属域名，其中xxxxx为上节“获取应用的id值”所获取的id值。
-test：云端逻辑的名称
+cloud-xxxxx.bmobapp.com：该应用的云函数专属域名，其中xxxxx为上节“获取应用的id值”所获取的id值。
+test：云函数的名称
 name=jeff: 传入一个参数，名称是name，值是jeff
 与restful不同，无需再传其它诸如app id等请求头。
 
-## 云端逻辑模块解释
+## 云函数模块解释
 
-从云端逻辑的入口方法function onRequest(request, response, modules)可知，云端逻辑包含三个模块，分别是request模块、response模块和modules模块。
+从云函数的入口方法function onRequest(request, response, modules)可知，云函数包含三个模块，分别是request模块、response模块和modules模块。
 
 ### request模块
 
-request模块用于获取传入的参数。由于现在调用云端逻辑有两种方式（get和post），所以获取传入的参数的方式需要使用不同的方法。
+request模块用于获取传入的参数。由于现在调用云函数有两种方式（get和post），所以获取传入的参数的方式需要使用不同的方法。
 
-**注意，当通过android，ios等客户端sdk调用云端逻辑，或者通过restful api的方式调用云端逻辑，都是采用post的方式。**
+**注意，当通过android，ios等客户端sdk调用云函数，或者通过restful api的方式调用云函数，都是采用post的方式。**
 
 #### get方式
-用get方式调用云端逻辑，例如：
+用get方式调用云函数，例如：
 ```
 curl -X GET http://cloud.bmob.cn/0348d0c262bc91d9/test?name=jeff
 ```
@@ -110,7 +110,7 @@ request.query.name
 ```
 
 #### post方式
-用post方式调用云端逻辑，例如：
+用post方式调用云函数，例如：
 ```
 curl -X POST \
     -H "Content-Type: application/x-www-form-urlencoded" \
@@ -122,31 +122,31 @@ curl -X POST \
 request.body.name
 ```
 
-#### 获取调用云端逻辑的http方式
+#### 获取调用云函数的http方式
 
-当云端逻辑是用于某些平台的回调时，同一段云端逻辑可能有时是采用get的方式调用，有时是采用post的方式调用, 可用下面的方法获取当前云端逻辑是采用get还是post方式调用。
+当云函数是用于某些平台的回调时，同一段云函数可能有时是采用get的方式调用，有时是采用post的方式调用, 可用下面的方法获取当前云函数是采用get还是post方式调用。
 
 例子如下：
 ```
-	var httptype = request.method;　//获取调用云端逻辑的是post或者get方式
+	var httptype = request.method;　//获取调用云函数的是post或者get方式
     if ("GET" == httptype) {
-		//采用get方式调用云端逻辑
+		//采用get方式调用云函数
 	}else{
-		//采用post方式调用云端逻辑
+		//采用post方式调用云函数
 	}
 
 ```
 
 ### response模块
 
-response为云端逻辑的信息回传模块，该模块包含了一个send方法，实现将云端的执行结果（如查询的数据）返回给SDK或者RestApi等调用端：
+response为云函数的信息回传模块，该模块包含了一个send方法，实现将云端的执行结果（如查询的数据）返回给SDK或者RestApi等调用端：
 
 ```java
 response.send(string result)
 ```
 ### modules模块
 
-modules是Bmob云端逻辑提供给大家的各种对象处理的模块，包括数据库对象（oData）、文件对象（oFile）、地理位置对象（oLocation）、关联关系对象（oRelation）、原子操作对象（oAtom）、数据批量操作对象（oBatch）、数组对象（oArray）、消息推送对象（oPush）、云端逻辑对象（oFunctions）、HTTP对象（oHttp）、字符编码转换对象（oEncodeing）、事件对象（oEvent）、bql对象（oBql）、html元素解析对象（oHtmlparser）、加密对象（oCrypto）。云端逻辑想要调用这些对象时，只需要用如下的方法即可获取：
+modules是Bmob云函数提供给大家的各种对象处理的模块，包括数据库对象（oData）、文件对象（oFile）、地理位置对象（oLocation）、关联关系对象（oRelation）、原子操作对象（oAtom）、数据批量操作对象（oBatch）、数组对象（oArray）、消息推送对象（oPush）、云函数对象（oFunctions）、HTTP对象（oHttp）、字符编码转换对象（oEncodeing）、事件对象（oEvent）、bql对象（oBql）、html元素解析对象（oHtmlparser）、加密对象（oCrypto）。云函数想要调用这些对象时，只需要用如下的方法即可获取：
 
 ```java
   //获取数据库对象
@@ -154,7 +154,7 @@ modules是Bmob云端逻辑提供给大家的各种对象处理的模块，包括
   //下面进行其他操作
 ```
 
-** 这里需要说明一点的是：云端逻辑对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#简介)。 **
+** 这里需要说明一点的是：云函数对数据格式的封装遵循RestApi的规则，如果在查看过程中有什么疑问，请移步到[RestApi开发文档](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#简介)。 **
 
 ## 数据库对象
 
@@ -173,7 +173,7 @@ function onRequest(request, response, modules) {
 ```
 其中，Posts是查找的数据表名称，table是关键词。
 
-需要注意的是，Bmob云端逻辑底层采用Nodejs进行开发，继承了Nodejs的异步非阻塞事件驱动模式，因此也不可避免的需要大量使用回调方法，这些方法往往以非显式声明的闭包形式存在。
+需要注意的是，Bmob云函数底层采用Nodejs进行开发，继承了Nodejs的异步非阻塞事件驱动模式，因此也不可避免的需要大量使用回调方法，这些方法往往以非显式声明的闭包形式存在。
 
 **此外，通过oData数据库对象获取返回的回调接口中，所有的data数据都是string类型，如果需要在云端中作为对象类型调用的话，需要将string类型转换为object类型，即：**
 ```
@@ -439,7 +439,7 @@ function onRequest(request, response, modules) {
 ```
 ## 文件对象
 
-云端逻辑只支持文件的删除操作。删除文件，必须要知道文件的url，示例代码如下：
+云函数只支持文件的删除操作。删除文件，必须要知道文件的url，示例代码如下：
 
 ```
 function onRequest(request, response, modules) {
@@ -464,9 +464,9 @@ function onRequest(request, response, modules) {
 }
 ```
 
-## 云端逻辑对象
+## 云函数对象
 
-在云端逻辑中可以调用本app的其它云端逻辑，示例代码如下：
+在云函数中可以调用本app的其它云函数，示例代码如下：
 
 ```
 function onRequest(request, response, modules) {
@@ -482,7 +482,7 @@ function onRequest(request, response, modules) {
 }
 ```
 
-在上面的例子中，`name`是云端逻辑的函数名，`data`中是传递的参数
+在上面的例子中，`name`是云函数的函数名，`data`中是传递的参数
 
 如果不需要传递任何参数，可以用下面的实例代码：
 
@@ -1065,7 +1065,7 @@ iOS设备通常使用deviceToken来惟一标识一台设备。
 	  
 #### 保存Android设备的installationId
 
-对于Android设备，SDK会自动生成uuid作为installationId保存到Bmob。 您可以使用以下云端逻辑保存Android设备的installation ID：
+对于Android设备，SDK会自动生成uuid作为installationId保存到Bmob。 您可以使用以下云函数保存Android设备的installation ID：
 ```
   push.add({
 	"data":{
@@ -1624,9 +1624,9 @@ function onRequest(request, response, modules) {
 
 
 
-## 云端逻辑调试工具
+## 云函数调试工具
 
-为方便开发者调试云端逻辑，Bmob为开发者提供了便捷的云端调试工具，你可以直接在云端逻辑的编辑页面下对编写的代码进行调试，如实现从Bar表中查找指定objectId号（SDK中上传参数）的数据，你可以在云端逻辑中实现如下：
+为方便开发者调试云函数，Bmob为开发者提供了便捷的云端调试工具，你可以直接在云函数的编辑页面下对编写的代码进行调试，如实现从Bar表中查找指定objectId号（SDK中上传参数）的数据，你可以在云函数中实现如下：
 ```
 function onRequest(request, response, modules) {
   var db = modules.oData;
