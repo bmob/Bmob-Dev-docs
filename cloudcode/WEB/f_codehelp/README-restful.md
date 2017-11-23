@@ -1,8 +1,8 @@
 ## 简介
-Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可能希望增加一些特有的业务逻辑，并能灵活掌控，Bmob云端代码提供了这种灵活性，可以让您的代码直接在Bmob云上运行。一旦你在云端更新了代码，所有的移动应用都会立即自动更新，新功能的发布将会变得更加简单可控。
+Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可能希望增加一些特有的业务逻辑，并能灵活掌控，Bmob云函数提供了这种灵活性，可以让您的代码直接在Bmob云上运行。一旦你在云端更新了代码，所有的移动应用都会立即自动更新，新功能的发布将会变得更加简单可控。
 
-## 添加云端代码
-进入Bmob后台，选择您的一个需要添加云端代码的应用，从控制面板左侧导航选择“云端代码”，添加云端方法名，进入编辑界面：
+## 添加云函数
+进入Bmob后台，选择您的一个需要添加云函数的应用，从控制面板左侧导航选择“云函数”，添加云端方法名，进入编辑界面：
 
 ![](image/add1.png)
 
@@ -14,9 +14,9 @@ Bmob旨在让移动开发变得更简单。对于一些复杂的应用，您可�
 
 ![](image/edit.png)
 
-图3 云端代码编辑界面
+图3 云函数编辑界面
 
-在云端代码的编辑器中，系统默认生成了云端代码的入口函数function onRequest(request, response, modules)，你可以根据自己的需求实现业务逻辑代码。
+在云函数的编辑器中，系统默认生成了云函数的入口函数function onRequest(request, response, modules)，你可以根据自己的需求实现业务逻辑代码。
 
 onRequest方法的三个入口参数对象request、response和modules。request为SDK上传的对象，可通过“request.body.参数名”获取从客户端上传的参数；response为返回给SDK端的对象，该对象只包括一个方法response.end(string result)，将云端的执行结果返回给SDK，如response.end(“发送邮件成功！”)；modules为bmob提供给开发者的各种模块（如数据库操作模块、邮件模块、HTTP请求模块等）对象，关于modules对象，我们将在第三部分详细介绍。
 
@@ -24,13 +24,13 @@ onRequest方法的三个入口参数对象request、response和modules。request
 
 Android SDK的调用代码如下：
 ```
-String cloudCodeName = "你在bmob中创建的云端代码名称";
+String cloudCodeName = "你在bmob中创建的云函数名称";
 //云端接收的参数对象，request对象可以获取到
 JSONObject params = new JSONObject();
 params.put("name", "bmob");
-//创建云端代码对象
+//创建云函数对象
 AsyncCustomEndpoints cloudCode = new AsyncCustomEndpoints();
-//异步调用云端代码
+//异步调用云函数
 cloudCode.callEndpoint(MainActivity.this, cloudCodeName, params, new CloudCodeListener() {
 
 	//执行成功时调用，返回result对象
@@ -52,7 +52,7 @@ iOS SDK的调用代码如下：
 ```
     //云端接收的参数对象，request对象可以获取到
     NSDictionary  *dic = [NSDictionary  dictionaryWithObject:@"bmob" forKey:@"name"];
-    [BmobCloud callFunctionInBackground:@"你在bmob中创建的云端代码名称" withParameters:dic block:^(id object, NSError *error) {
+    [BmobCloud callFunctionInBackground:@"你在bmob中创建的云函数名称" withParameters:dic block:^(id object, NSError *error) {
     
     if (!error) {
      //执行成功时调用，返回object对象
@@ -66,7 +66,7 @@ iOS SDK的调用代码如下：
     
 ```
 
-其中，云端代码通过AsyncCustomEndpoints. callEndpoint方法调用，包括三个参数。第一个参数对应为在bmob后台创建的云端代码名称；第二个参数是传递到云端的请求参数，可通过request.body.参数名获取，如上可通过request.body.name获得值为bmob；第三个参数为云端代码执行结果的回调对象，包括请求成功时的onSuccess方法和请求失败时的onFailure方法两个。
+其中，云函数通过AsyncCustomEndpoints. callEndpoint方法调用，包括三个参数。第一个参数对应为在bmob后台创建的云函数名称；第二个参数是传递到云端的请求参数，可通过request.body.参数名获取，如上可通过request.body.name获得值为bmob；第三个参数为云函数执行结果的回调对象，包括请求成功时的onSuccess方法和请求失败时的onFailure方法两个。
 
 ## modules对象详解
 Modules对象目前包括oData、oMail 、oHttp、oEvent、oBatch、oArray、oAtom、oLocation、oFile、oPush、oRelation对象，其中oData为数据库操作对象，oMail为邮件发送对象，oHttp为HTTP请求模块,oBatch为批量操作模块，oArray为数组操作模块，oAtom为原子操作对象，oLocation为地理位置对象，oFile为文件操作对象，oPush为消息推送对象，oRelation为关联关系对象。
@@ -88,7 +88,7 @@ function onRequest(request, response, modules) {
 ```
 其中，Posts是查找的数据表名称，table是关键词。
 
-需要注意的是，Bmob云端代码底层采用Nodejs进行开发，继承了Nodejs的异步非阻塞事件驱动模式，因此也不可避免的需要大量使用回调方法，这些方法往往以非显式声明的闭包形式存在。
+需要注意的是，Bmob云函数底层采用Nodejs进行开发，继承了Nodejs的异步非阻塞事件驱动模式，因此也不可避免的需要大量使用回调方法，这些方法往往以非显式声明的闭包形式存在。
 
 **此外，通过oData数据库对象获取返回的回调接口中，所有的data数据都是string类型，如果需要在云端中作为对象类型调用的话，需要将string类型转换为object类型，即：**
 ```
@@ -304,7 +304,7 @@ function onRequest(request, response, modules) {
 
 
 ### oFile文件对象
-在云端代码中，只支持文件的删除操作。
+在云函数中，只支持文件的删除操作。
 删除文件，必须要知道文件的组名和url。
 
 ```
@@ -1295,9 +1295,9 @@ var http = modules.oHttp;
 http.post('http://bmob.cn/save', {form:{key:'value'}})
 ```
 
-## 云端代码调试工具
+## 云函数调试工具
 
-为方便开发者调试云端代码，Bmob为开发者提供了便捷的云端调试工具，你可以直接在云端代码的编辑页面下对编写的代码进行调试，如实现从Bar表中查找指定objectId号（SDK中上传参数）的数据，你可以在云端代码中实现如下：
+为方便开发者调试云函数，Bmob为开发者提供了便捷的云端调试工具，你可以直接在云函数的编辑页面下对编写的代码进行调试，如实现从Bar表中查找指定objectId号（SDK中上传参数）的数据，你可以在云函数中实现如下：
 ```
 function onRequest(request, response, modules) {
   var db = modules.oData;
@@ -1318,7 +1318,7 @@ function onRequest(request, response, modules) {
 
 
 ## 关于编码规范和常见问题
-好的编码规范是攻城师们要遵循的法则，Bmob云端代码希望大家能够养成良好的编码规范。Nodejs的编码规范与其他语言稍微有所不同，这里列举有所区别的地方。
+好的编码规范是攻城师们要遵循的法则，Bmob云函数希望大家能够养成良好的编码规范。Nodejs的编码规范与其他语言稍微有所不同，这里列举有所区别的地方。
 
 1、	关于缩进
 
