@@ -93,22 +93,7 @@ array(
 )
 ```
 
-## 查询短信状态
 
-通过以下接口，你可以查询某条短信是否发送成功，如果是使用了Bmob的模板的话还能查询到是否被验证过，其实:smsId是请求短信验证码API返回的smsId值：
-```
-$res = $bmobSms->querySms("6466181");  //查询短信状态
-
-```
-成功返回以下JSON：
-```
-array(
-  "sms_state"=> "SENDING", 
-  "verify_state"=> false
-)
-```
-其中sms_state是发送状态，有值: SENDING-发送中，FAIL-发送失败 SUCCESS-发送成功
-其中verify_state是验证码是否验证状态， 有值: true-已验证 false-未验证
 
 **注意事项**
 

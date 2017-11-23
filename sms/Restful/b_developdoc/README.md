@@ -235,41 +235,6 @@ curl -X POST \
 
 
 
-## 查询短信状态
-
-**请求描述**
-
-通过以下接口，你可以查询某条短信是否发送成功，如果是使用了验证码接口，还可以查询该验证码是否被验证过。
-
-**请求**
-
-- url ：https://api.bmob.cn/1/querySms/smsId
-
-- method ：GET
-
-- header:
-
-```
-X-Bmob-Application-Id: Your Application ID
-X-Bmob-REST-API-Key: Your REST API Key
-Content-Type: application/json
-```
-
-
-**成功时响应**
-
-- status: 200 OK
-
-- body:
-
-```
-{
-  "sms_state": state, 
-  "verify_state": isVerify
-}
-```
-sms_state是发送状态，有值: SENDING-发送中，FAIL-发送失败 SUCCESS-发送成功
-verify_state是验证码是否验证状态， 有值: true-已验证 false-未验证
 
 **例子**
 
