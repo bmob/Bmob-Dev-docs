@@ -1,6 +1,6 @@
-相关云端逻辑的编写方式，请参考[云端逻辑开发文档](https://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html)
+相关云函数的编写方式，请参考[云函数开发文档](https://docs.bmob.cn/cloudcode/WEB/a_faststart/doc/index.html)
 
-在REST API中可以调用云端逻辑。例如，想调用云端逻辑的方法hello:
+在REST API中可以调用云函数。例如，想调用云函数的方法hello:
 
 
 **请求**
@@ -31,11 +31,11 @@ Content-Type: application/json
 
 - status: 200 OK
 
-- body: 对应云端逻辑返回的格式。
+- body: 对应云函数返回的格式。
 
 **例子**
 
-如调用名为hello的云端逻辑可使用以下请求。
+如调用名为hello的云函数可使用以下请求。
 
 ```
 curl -X POST \
@@ -46,7 +46,7 @@ curl -X POST \
   https://api.bmob.cn/1/functions/hello
 ```
 
-如果运行的云端逻辑不需要传入参数，请参考下面的例子。
+如果运行的云函数不需要传入参数，请参考下面的例子。
 **注意，"{}"是不能缺的**
 
 ```
