@@ -110,10 +110,10 @@ db.find(
 "limit":0,
 },
 function(err1,data1)
-{ 
+{
 var searchNum = data1; //表的总行数，用sql语句获得
 var limitnum=1000; //默认最多返回1000条记录
-var runcount= parseInt(searchNum/1000); 
+var runcount= parseInt(searchNum/1000);
 var strOutID = '';
 
 //分多次获取记录，因为每次只能获取1000条
@@ -128,7 +128,7 @@ limitnum=searchNum-skipNum;
 limitnum=1000;
 }
 //能执行到这里，
-//response.send('data1'); 
+//response.send('data1');
 db.find(
 {
 "table":strTableName,
@@ -138,10 +138,10 @@ db.find(
 function(err2,data2)
 {
 //这里执行不到
-response.send('data2'); 
+response.send('data2');
 }
 );
-} 
+}
 }
 );
 ```
@@ -150,8 +150,8 @@ A:不能这样取，只能取一次，然后再取一次，不能在里面for循
 
 ---
 
-Q:云函数可以查询支付订单吗？返回订单结果和数额之类的，有相关函数吗
-A:可以使用云函数去调用restful接口来查询
+Q:云逻辑可以查询支付订单吗？返回订单结果和数额之类的，有相关函数吗
+A:可以使用云逻辑去调用restful接口来查询
 
 ---
 
@@ -228,7 +228,7 @@ A:调用restful的模糊查询接口
 
 ---
 
-Q:云函数能引入第三方模块吗？如underscore
+Q:云逻辑能引入第三方模块吗？如underscore
 A:不可以，如要使用第三方模块，可考虑使用窗口服务。
 
 ---
@@ -401,7 +401,7 @@ A:
 
 ```
 var lastDate;//一定要是Date哦
-var nowDate = new Date(data); 
+var nowDate = new Date(data);
 
 Date.parse(nowDate) - Date.parse(lastDate)
 
@@ -416,7 +416,7 @@ A:/1/classse/ 是系统规定的路径，其中1是系统内部的版本号，cl
 
 ---
 
-Q:云函数能不能实现函数递归调用
+Q:云代码能不能实现函数递归调用
 A:可以，但要注意不能过于复杂，5s内无回调会提示超时。
 
 ---
@@ -459,7 +459,7 @@ var db = modules.oData;
 db.setHeader({"X-Bmob-Master-Key":"这里填写Master Key信息"});
 db.updateUserByObjectId({"objectId":"这里是需要更新的用户ObjectId信息" ,data:{"username":"123"}},function(err,data){
 response.end("更新成功");
-}); 
+});
 }
 ```
 
@@ -482,7 +482,7 @@ A:云函数打印headers
 ```
 function onRequest(request, response, modules) {
 response.send(request.headers);
-} 
+}
 ```
 
 结果：
@@ -512,11 +512,11 @@ x-real-ip就是用户的真实ip的
 ---
 
 Q:请问怎么查询用户当前排名
-比如:我有个GameScore 表 
+比如:我有个GameScore 表
 字段有:username,score
 现在排行榜里面数据有5000多条，我知道某个用户objectId，如果快速找出排名位置呢？
 A:解决方案：
-根据order排名，把所有排名按次序放到一个数组中，然后根据objectId查找到某个用户名，用户名在这个数组中的位置即是他的排名。 
+根据order排名，把所有排名按次序放到一个数组中，然后根据objectId查找到某个用户名，用户名在这个数组中的位置即是他的排名。
 RestAPI查询条件如下：
 第一步：先查询到某个用户的用户名：
 

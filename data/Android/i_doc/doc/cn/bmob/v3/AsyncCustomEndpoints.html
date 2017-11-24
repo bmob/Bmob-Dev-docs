@@ -99,7 +99,7 @@
 <br>
 <pre>public class <span class="strong">AsyncCustomEndpoints</span>
 extends java.lang.Object</pre>
-<div class="block">云端代码操作类</div>
+<div class="block">云函数操作类</div>
 <dl><dt><span class="strong">作者:</span></dt>
   <dd>smile</dd></dl>
 </li>
@@ -141,7 +141,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>rx.Subscription</code></td>
 <td class="colLast"><code><strong><a href="../../../cn/bmob/v3/AsyncCustomEndpoints.html#callEndpoint(java.lang.String,%20cn.bmob.v3.listener.CloudCodeListener)">callEndpoint</a></strong>(java.lang.String&nbsp;method,
             <a href="../../../cn/bmob/v3/listener/CloudCodeListener.html" title="cn.bmob.v3.listener中的类">CloudCodeListener</a>&nbsp;listener)</code>
-<div class="block">调用无参数云端代码</div>
+<div class="block">调用无参数云函数</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -149,20 +149,20 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><strong><a href="../../../cn/bmob/v3/AsyncCustomEndpoints.html#callEndpoint(java.lang.String,%20JSONObject,%20cn.bmob.v3.listener.CloudCodeListener)">callEndpoint</a></strong>(java.lang.String&nbsp;method,
             JSONObject&nbsp;cloudCodeParams,
             <a href="../../../cn/bmob/v3/listener/CloudCodeListener.html" title="cn.bmob.v3.listener中的类">CloudCodeListener</a>&nbsp;listener)</code>
-<div class="block">有参数的云端代码</div>
+<div class="block">有参数的云函数</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>rx.Observable&lt;java.lang.Object&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../cn/bmob/v3/AsyncCustomEndpoints.html#callEndpointObservable(java.lang.String)">callEndpointObservable</a></strong>(java.lang.String&nbsp;method)</code>
-<div class="block">调用无参数的云端代码的Observable</div>
+<div class="block">调用无参数的云函数的Observable</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>rx.Observable&lt;java.lang.Object&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../cn/bmob/v3/AsyncCustomEndpoints.html#callEndpointObservable(java.lang.String,%20JSONObject)">callEndpointObservable</a></strong>(java.lang.String&nbsp;method,
                       JSONObject&nbsp;cloudCodeParams)</code>
-<div class="block">有参数的云端代码Observable</div>
+<div class="block">有参数的云函数Observable</div>
 </td>
 </tr>
 </table>
@@ -212,8 +212,8 @@ extends java.lang.Object</pre>
 <h4>callEndpoint</h4>
 <pre>public&nbsp;rx.Subscription&nbsp;callEndpoint(java.lang.String&nbsp;method,
                            <a href="../../../cn/bmob/v3/listener/CloudCodeListener.html" title="cn.bmob.v3.listener中的类">CloudCodeListener</a>&nbsp;listener)</pre>
-<div class="block">调用无参数云端代码</div>
-<dl><dt><span class="strong">参数:</span></dt><dd><code>method</code> - 云端代码方法方法名</dd><dd><code>listener</code> - 云端代码响应监听器</dd></dl>
+<div class="block">调用无参数云函数</div>
+<dl><dt><span class="strong">参数:</span></dt><dd><code>method</code> - 云函数方法方法名</dd><dd><code>listener</code> - 云函数响应监听器</dd></dl>
 </li>
 </ul>
 <a name="callEndpointObservable(java.lang.String)">
@@ -223,8 +223,8 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>callEndpointObservable</h4>
 <pre>public&nbsp;rx.Observable&lt;java.lang.Object&gt;&nbsp;callEndpointObservable(java.lang.String&nbsp;method)</pre>
-<div class="block">调用无参数的云端代码的Observable</div>
-<dl><dt><span class="strong">参数:</span></dt><dd><code>method</code> - 云端代码方法方法名</dd>
+<div class="block">调用无参数的云函数的Observable</div>
+<dl><dt><span class="strong">参数:</span></dt><dd><code>method</code> - 云函数方法方法名</dd>
 <dt><span class="strong">返回:</span></dt><dd></dd></dl>
 </li>
 </ul>
@@ -237,8 +237,8 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;rx.Subscription&nbsp;callEndpoint(java.lang.String&nbsp;method,
                            JSONObject&nbsp;cloudCodeParams,
                            <a href="../../../cn/bmob/v3/listener/CloudCodeListener.html" title="cn.bmob.v3.listener中的类">CloudCodeListener</a>&nbsp;listener)</pre>
-<div class="block">有参数的云端代码</div>
-<dl><dt><span class="strong">参数:</span></dt><dd><code>method</code> - 云端代码方法方法名</dd><dd><code>cloudCodeParams</code> - 云端代码参数</dd><dd><code>listener</code> - 云端代码响应监听器</dd></dl>
+<div class="block">有参数的云函数</div>
+<dl><dt><span class="strong">参数:</span></dt><dd><code>method</code> - 云函数方法方法名</dd><dd><code>cloudCodeParams</code> - 云函数参数</dd><dd><code>listener</code> - 云函数响应监听器</dd></dl>
 </li>
 </ul>
 <a name="callEndpointObservable(java.lang.String, JSONObject)">
@@ -249,7 +249,7 @@ extends java.lang.Object</pre>
 <h4>callEndpointObservable</h4>
 <pre>public&nbsp;rx.Observable&lt;java.lang.Object&gt;&nbsp;callEndpointObservable(java.lang.String&nbsp;method,
                                                      JSONObject&nbsp;cloudCodeParams)</pre>
-<div class="block">有参数的云端代码Observable</div>
+<div class="block">有参数的云函数Observable</div>
 <dl><dt><span class="strong">参数:</span></dt><dd><code>method</code> - 方法名</dd><dd><code>cloudCodeParams</code> - 参数</dd>
 <dt><span class="strong">返回:</span></dt><dd></dd></dl>
 </li>

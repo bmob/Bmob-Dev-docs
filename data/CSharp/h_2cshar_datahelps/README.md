@@ -4,7 +4,7 @@ A:目前暂不支持Unity支持
 ---
 
 Q:unity端 查询表，会出现失败情况
-失败原因 Failed to connect to api.bmob.cn port 443: Timed out, and response content is 
+失败原因 Failed to connect to api.bmob.cn port 443: Timed out, and response content is
 UnityEngine.MonoBehaviour:print(Object)
 A:提示连接超时，先检查一下网络状况。
 
@@ -62,7 +62,7 @@ A:升级u3d版本至5.3.2f以上。
 Q:怎么做点赞的用户唯一性
 要做点赞，可以用原子计数器，但是无法知道是哪个用户点的赞，而且每个用户只能最多加一个赞，用Array来存用户objectid可以，但是存在多用户同时点赞相互覆盖对方的objectid的情况，请问有什么办法可以解决吗？
 A:可以重新建立一张表，两个pointer字段一个指向点赞用户，一个指向被点赞的内容。
- 
+
 ---
 
 Q:怎样把github上下载的unitysdk注入到unity project里面
@@ -92,15 +92,15 @@ A:https://github.com/bmob/bmob-demo-csharp/tree/master/examples/bmob-unity-demo
 
 ---
 
-Q:unity下，我如何传递参数到云端代码，然后获取云端运行后的回调呢？
+Q:unity下，我如何传递参数到云函数，然后获取云端运行后的回调呢？
 A:
 
 ```
-云端代码：
+云函数：
 function onRequest(request, response, modules) {
 var res = {"value": "just string..."} ;
 response.end(JSON.stringify(res));
-} 
+}
 
 C#调用代码：
 

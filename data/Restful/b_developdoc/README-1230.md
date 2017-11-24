@@ -109,7 +109,7 @@ File类型是在上传后返回的JSON数据再加一个Key为"__Type":"File", �
 ```
 更新对象时可以为该对象保存上传后返回的文件信息：
 ```
-curl -X PUT 
+curl -X PUT
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
@@ -342,7 +342,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"playerName":{"$regex":"smile.*"}}' \
-    https://api.bmob.cn/1/classes/GameScore 
+    https://api.bmob.cn/1/classes/GameScore
 ```
 
 如果您的查询条件某个列值要匹配另一个查询的返回值，举例有一个队伍(Team)保存了每个城市的得分情况且用户表中有一列为用户家乡(hometown), 您可以创建一个查询来寻找用户的家乡是得分大于0.5的城市的所有运动员， 就像这样查询:
@@ -641,7 +641,7 @@ curl -X PUT \
 ## 数据关联
 
 ### 关联对象
-对象可以与其他对象相联系。就像数据库中的主外键关系一样，数据表 A 的某一个字段是数据表 B 的外键，只有表 B 中存在的数据才可插入到表 A 中的字段。 
+对象可以与其他对象相联系。就像数据库中的主外键关系一样，数据表 A 的某一个字段是数据表 B 的外键，只有表 B 中存在的数据才可插入到表 A 中的字段。
 
 ### 添加关联关系
 为了更新 **Pointer** 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一行记录并添加一个指针:
@@ -984,7 +984,7 @@ curl -X POST \
   https://api.bmob.cn/1/mkfile/c3NzLmpwZw==/1024000
 ```
 
-返回的主体是一个JSON对象，包含： 
+返回的主体是一个JSON对象，包含：
 
 ```
 crc32：文件片段的crc32校验码。
@@ -1006,7 +1006,7 @@ offset：下一个片的偏移位置。
 }
 ```
 
-第二步， 循环上传剩余片, 发送POST请求到mkfile路径返回的host, 参数是 ctx 和 offset，如下（--data-binary的值是文件二进制内容）： 
+第二步， 循环上传剩余片, 发送POST请求到mkfile路径返回的host, 参数是 ctx 和 offset，如下（--data-binary的值是文件二进制内容）：
 
 ```
 curl -X POST \
@@ -1062,7 +1062,7 @@ curl -X DELETE \
          模式 2: 指定最长边，短边自适应，等比例缩放
          模式 3: 指定最短边，长边自适应，等比例缩放
          模式 4: 指定最大宽高， 等比例缩放
-         模式 5: 固定宽高， 居中缩放	
+         模式 5: 固定宽高， 居中缩放
     image:原图片url
     width:宽度，模式 0, 4, 5必填
     height：高度，模式 1, 4, 5必填
@@ -1808,7 +1808,7 @@ curl -X PUT \
   -H "X-Bmob-Application-Id: Your Application ID" \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
-  -d '{"location":{            
+  -d '{"location":{
             "__type": "GeoPoint",
             "latitude": 50.934755,
             "longitude": 24.52065
@@ -1937,7 +1937,7 @@ Bmob的统计查询，提供以下关键字或其组合的查询操作：
 
 以上关键字可以自由组合并可以与前面查询语句中的where, order, limit, skip等组合使用。
 
-比如，GameScore表是游戏玩家的信息和得分表，有playerName(玩家名称)、score(玩家得分)等你自己创建的列，还有Bmob的默认列objectId, createdAt, updatedAt,那么我们现在举例如何使用以上的查询关键字来作这个表的统计。 
+比如，GameScore表是游戏玩家的信息和得分表，有playerName(玩家名称)、score(玩家得分)等你自己创建的列，还有Bmob的默认列objectId, createdAt, updatedAt,那么我们现在举例如何使用以上的查询关键字来作这个表的统计。
 
 ### 计算总和
 我们要计算GameScore表所有玩家的得分总和，sum后面只能拼接Number类型的列名，即要计算哪个列的值的总和，只对Number类型有效，多个Number列用,分隔，则查询如下：
@@ -1954,9 +1954,9 @@ curl -X GET \
 [
 	{
 		"_sumScore": 2398
-	}   
+	}
 ]
-                  
+
 ```
 
 ### 分组计算总和
@@ -1980,7 +1980,7 @@ curl -X GET \
 		"_sumScore": 1208,
 		"createdAt": "2014-01-01"
 	},
-]                 
+]
 ```
 
 ### 多个分组并计算多个列的总和
@@ -2014,7 +2014,7 @@ curl -X GET \
 		"playerName": "John"
 		"createdAt": "2014-02-01"
 	},
-]                 
+]
 ```
 
 ### 分组计算总和并只返回满足条件的部分值
@@ -2034,7 +2034,7 @@ curl -X GET \
 		"_sumScore": 2398,
 		"createdAt": "2014-02-05"
 	},
-]                 
+]
 ```
 
 ### 分组计算总和并返回每个分组的记录数
@@ -2060,7 +2060,7 @@ curl -X GET \
 		"_count": 2,
 		"createdAt": "2014-01-01"
 	},
-]                 
+]
 ```
 
 ### 获取不重复的列值
@@ -2082,19 +2082,19 @@ curl -X GET \
 	{
 		"score": 89
 	}
-]                 
+]
 ```
 
 ### 其他关键字
 average(计算平均值)， max(计算最大值)，min(计算最小值)和sum查询语句是类似的，只用把上面的例子中的sum替换为相应的average, max, min就可以了。
 
-## 云端代码
+## 云函数
 
-相关云端代码的编写方式，请参考[云端代码开发文档](https://docs.bmob.cn/cloudcode/developdoc/index.html?menukey=develop_doc&key=develop_cloudcode)
+相关云函数的编写方式，请参考[云函数开发文档](https://docs.bmob.cn/cloudcode/developdoc/index.html?menukey=develop_doc&key=develop_cloudcode)
 
-### 运行云端代码
+### 运行云函数
 
-在REST API中可以调用云端代码。例如，想调用云端代码的方法hello:
+在REST API中可以调用云函数。例如，想调用云函数的方法hello:
 
 ```
 curl -X POST \
@@ -2105,7 +2105,7 @@ curl -X POST \
   https://api.bmob.cn/1/functions/hello
 ```
 
-如果运行的云端代码不需要传入参数，请参考下面的例子。
+如果运行的云函数不需要传入参数，请参考下面的例子。
 **注意，"{}"是不能缺的**
 ```
 curl -X POST \
@@ -2117,19 +2117,19 @@ curl -X POST \
 ```
 
 
-### 创建/云端代码
+### 创建/云函数
 
-在REST API中可以创建/云端代码。当云端代码函数名不存在的时候，会自动添加；当云端代码函数名已存在，会自动覆盖原来的云端代码。
+在REST API中可以创建/云函数。当云函数函数名不存在的时候，会自动添加；当云函数函数名已存在，会自动覆盖原来的云函数。
 
-例如，我们云端代码：
+例如，我们云函数：
 
 ```
 function onRequest(request, response, modules) {
             response.end("111");
-}                          
+}
 ```
 
-在restful api添加以上的云端代码，先把上面的云端代码转换为base64编码（可使用在线工具：[base64在线转换](http://www1.tc711.com/tool/BASE64.htm) )，然后运行下面的代码
+在restful api添加以上的云函数，先把上面的云函数转换为base64编码（可使用在线工具：[base64在线转换](http://www1.tc711.com/tool/BASE64.htm) )，然后运行下面的代码
 
 ```
 curl -X PUT \
@@ -2140,13 +2140,13 @@ curl -X PUT \
   https://api.bmob.cn/1/functions/test
 ```
 
-上面的代码中，`test`是该云端代码的函数名，code的值是云端代码经base64编码后的结果
+上面的代码中，`test`是该云函数的函数名，code的值是云函数经base64编码后的结果
 
 
 ### 删除代码
 
 
-例如，删除函数名为"test"的云端代码，运行
+例如，删除函数名为"test"的云函数，运行
 
 ```
 curl -X DELETE \
@@ -2155,7 +2155,7 @@ curl -X DELETE \
   https://api.bmob.cn/1/functions/test
 ```
 
-上面的代码中，`test`是该云端代码的函数名
+上面的代码中，`test`是该云函数的函数名
 
 
 
@@ -2625,7 +2625,7 @@ curl -X POST \
   https://api.bmob.cn/1/push
 ```
 
-#### 设置消息过期时间 
+#### 设置消息过期时间
 
 过期时间，可以是绝对时间：
 
@@ -2715,13 +2715,13 @@ curl -X GET \
 ```
 
 返回的信息简单描述如下：
-name-订单或商品名称 
-body-商品详情  
-create_time - 调起支付的时间  
-out_trade_no-Bmob系统的订单号  
+name-订单或商品名称
+body-商品详情
+create_time - 调起支付的时间
+out_trade_no-Bmob系统的订单号
 transaction_id-微信或支付宝的系统订单号
-pay_type-WECHATPAY（微信支付）或ALIPAY（支付宝支付） 
-total_fee - 订单总金额  
+pay_type-WECHATPAY（微信支付）或ALIPAY（支付宝支付）
+total_fee - 订单总金额
 trade_state-NOTPAY（未支付）或 SUCCESS（支付成功）
 
 ### Bmob支付回调
@@ -2890,7 +2890,7 @@ curl -X GET \
 成功返回以下JSON：
 ```
 {
-  "sms_state": "SENDING", 
+  "sms_state": "SENDING",
   "verify_state": false
 }
 ```
@@ -3029,7 +3029,7 @@ curl -X POST \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-Master-Key: Your Master Key" \
 	-H "Content-Type: application/json" \
-	-d ' 
+	-d '
 		{
 		  "className": "City",
 		  "fields": {
@@ -3048,7 +3048,7 @@ curl -X POST \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-Master-Key: Your Master Key" \
 	-H "Content-Type: application/json" \
-	-d ' 
+	-d '
 		{
 		  "className": "City",
 		  "fields": {
@@ -3073,7 +3073,7 @@ curl -X PUT \
 	-H "X-Bmob-Application-Id: Your Application ID" \
 	-H "X-Bmob-Master-Key: Your Master Key" \
 	-H "Content-Type: application/json" \
-	-d ' 
+	-d '
     {
       "className": "City",
       "fields": {
@@ -3092,13 +3092,13 @@ curl -X PUT \
 	-H "X-Bmob-Application-Id: Your Application ID" \
 	-H "X-Bmob-Master-Key: Your Master Key" \
 	-H "Content-Type: application/json" \
-	-d ' 
+	-d '
     {
       "className": "City",
       "fields": {
         "name": {
           "type": "String",
-          "__op": "Delete"  
+          "__op": "Delete"
         }
       }
     }' \
@@ -3128,12 +3128,12 @@ curl -X GET \
 
 返回参数如下：
 
-```	
+```
 {"timestamp":1437531770,"datetime":"2015-07-22 10:22:50"}
 ```
- 
+
 timestamp为时间戳，datetime为格式化的日期。
-	
+
 
 ## 错误代码详细说明
 [RestAPI错误码列表](/errorcode/index.html?menukey=otherdoc&key=errorcode "RestAPI错误码列表")

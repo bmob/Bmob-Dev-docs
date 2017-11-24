@@ -6,8 +6,8 @@
 
 云函数的执行有多种方法：
 
-- 定时任务（直接在Web管理后台中设定）； 
-- RestApi调用（参考开发文档：[https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#0%06Mn](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#0%06Mn)）； 
+- 定时任务（直接在Web管理后台中设定）；
+- RestApi调用（参考开发文档：[https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#0%06Mn](https://docs.bmob.cn/data/Restful/b_developdoc/doc/index.html#0%06Mn)）；
 - SDK调用。
 
 其中，在SDK中调用云函数的方法如下：

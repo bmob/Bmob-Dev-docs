@@ -110,7 +110,7 @@ title: "I am title", content: "I am content"
 
 	// 创建Bmob.Object子类
 	var Diary = Bmob.Object.extend("diary");
-	
+
 	// 创建该类的一个实例
 	var diary = new Diary();
 
@@ -134,9 +134,9 @@ title: "I am title", content: "I am content"
 	    return diary;
 	  }
 	});
-	
+
 	var diary = Diary.spawn("hello world");
-	console.log(diary.gleaterThanOneHundred()); 
+	console.log(diary.gleaterThanOneHundred());
 ```
 
 ## 小程序使用图文素材
@@ -184,7 +184,7 @@ title: "I am title", content: "I am content"
 1.小程序`Bmob.sendMasterMessage`调用主人通知接口
 ```
 
-成功后发送主人模板消息，这个只需把openid改正确即可接收到， Bmob后端云公众号回复openid 
+成功后发送主人模板消息，这个只需把openid改正确即可接收到， Bmob后端云公众号回复openid
           var temp = {
             "touser": "oUxY3w_jURG89H5wCIvJDPjJ5s2o",
             "template_id": "-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y",
@@ -235,7 +235,7 @@ curl --request POST \
   --data '{\n    "touser": "oUxY3w_jURG89H5wCIvJDPjJ5s2o",\n    "template_id":"-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y",\n    "url": "http://www.bmob.cn/",\n    "data": {\n        "first": {\n            "value": "您好，Restful 失效，请登录控制台查看。",\n            "color": "#c00"\n        },\n        "keyword1": {\n            "value": "Restful 失效"\n        },\n        "keyword2": {\n            "value": "2017-07-03 16:13:01"\n        },\n        "keyword3": {\n            "value": "高"\n        },\n        "remark": {\n            "value": "如果您十分钟内再次收到此信息，请及时处理。"\n        }\n    }\n}'
 ```
 
-PS:`openid` 关注Bmob后端云公众平台回复`openid` 
+PS:`openid` 关注Bmob后端云公众平台回复`openid`
 
 开放3个模板：
 1.新订单通知（template_id：K9-6_Ayj4MLC2yvwY60-cq18tngJHAlqDfsOvv3D7a8
@@ -284,7 +284,7 @@ PS:`openid` 关注Bmob后端云公众平台回复`openid`
 
 Bmob.generateCode 参数列表
 
-| 键 | 值 |参数说明 | 
+| 键 | 值 |参数说明 |
 | ------------ | ------------- | ------------ |
 | path | pages/index/index | 页面路径，支持参数 |
 | width | 430  | 二维码宽度 |
@@ -299,7 +299,7 @@ Bmob.generateCode 参数列表
 
 
 formSubmit: function (event) {
-        var path = event.detail.value.path; //路径 
+        var path = event.detail.value.path; //路径
         var width = event.detail.value.width; //宽度
         var that = this;
         Bmob.generateCode({ "path": path, "width": width }).then(function (obj) {
@@ -344,12 +344,12 @@ Page({
                 wx.getShareInfo({
           shareTicket: res.shareTickets,
           complete(res) {
-            
-            //内部调用云端代码
+
+            //内部调用云函数
             var currentUser = Bmob.User.current();
             var data = { "objectId": currentUser.id, "encryptedData": res.encryptedData, "iv": res.iv};
             console.log(data);
-           
+
             // console.log(data);
             Bmob.Cloud.run('getOpenGId', data).then(function (obj) {
               // var res = JSON.parse(obj)
@@ -360,8 +360,8 @@ Page({
 
           }
         })
-        
-        
+
+
       }
     }
   }
@@ -428,7 +428,7 @@ function onRequest(request, response, modules) {
 var sessionKey="xTlW5jfSUP3Kx0vC5PJbmw==";
     var encryptedData="SLvbzyuyck7384tlGjXwI5Meb2LydIhUGvwerwsvJhws1EJb7LnFPX1MfRcTyF8Bfj0ZRP8wu8XR+7hmTqgdQx11nOlJA0RawSoTJNYmy9kfYQsdqTq5EX0rRH8VozPURnTrjM9EGbfqaN6EetI/aQ==";
     var iv="7/TqHciNjSi3cdFFxr97ww==";
-   
+
     var groupid=groupIdParse(modules,sessionKey,encryptedData,iv)
     var jsongid=JSON.parse(groupid);
     response.end(groupid);
@@ -441,7 +441,7 @@ var sessionKey="xTlW5jfSUP3Kx0vC5PJbmw==";
 小程序模板消息首先是通过获取`access_token`来发送。access_token有效期2小时。
 
 * ##### 模板消息支持2种方式调用。
-* 1.Restful 
+* 1.Restful
 * 2.小程序
 
 Restful
@@ -464,12 +464,12 @@ curl -X POST \
           },
       "keyword2": {
           "value": "2015年01月05日 12:30"
-      }, 
+      },
       "keyword3": {
           "value": "Bmob科技"
       }
     }
-    ,"emphasis_keyword": "" 
+    ,"emphasis_keyword": ""
 }'
 ```
 
@@ -594,7 +594,7 @@ function(err) {
 		error: function(result, error) {
 		  // 添加失败
 		  console.log('创建日记失败');
-		  
+
 		}
 	});
 ```
@@ -750,7 +750,7 @@ query.greaterThan(列名称, 100);
 ```
 var Diary = Bmob.Object.extend("diary");
 var query = new Bmob.Query(Diary);
-query.equalTo("title", "hello"); 
+query.equalTo("title", "hello");
 // 查询所有数据
 query.find({
 	success: function(results) {
@@ -773,7 +773,7 @@ query.find({
 有时，在数据比较多的情况下，你希望查询出的符合要求的所有数据能按照多少条为一页来显示，这时可以使用`limit`方法来限制查询结果的数据条数来进行分页。默认情况下，Limit的值为10，最大有效设置值1000（设置的数值超过1000还是视为1000）。
 ```
 // 返回最多10条数据
-query.limit(10); 
+query.limit(10);
 ```
 在数据较多的情况下，在`limit`的基础上分页显示数据是比较合理的解决办法，`skip`方法可以做到跳过查询的前多少条数据来实现分页查询的功能。默认情况下`skip`的值为10。
 
@@ -855,7 +855,7 @@ var userQuery = new Bmob.Query(Bmob.User);
 userQuery.doesNotMatchKeyInQuery("phone", "nickname", DiaryQuery);
 userQuery.find({
   success: function(results) {
-    
+
   }
 });
 ```
@@ -929,7 +929,7 @@ query.get('3453453453fdsdf', {
       // The object was retrieved successfully.
     },
     error: function(object, error) {
-     
+
     }
 });
 ```
@@ -1080,7 +1080,7 @@ query.get("bc5da708dc",{
   error: function(error) {
     console.log("Error: " + error.code + " " + error.message);
   }
-}); 
+});
 ```
 
 ##批量操作
@@ -1208,7 +1208,7 @@ obj.get("inloudeObj").field
  	var objectId,that=this;
     var currentUser = Bmob.User.current();
     objectId = currentUser.id;
-    
+
     var Diary = Bmob.Object.extend("diary");
     var query = new Bmob.Query(Diary);
     var isme = new Bmob.User();
@@ -1220,7 +1220,7 @@ obj.get("inloudeObj").field
     // 查询所有数据
     query.limit(that.data.limit);
     query.find({
-      success: function (results) {        
+      success: function (results) {
         that.setData({
           diaryList: results
         })
@@ -1280,7 +1280,7 @@ wx.chooseImage({
             console.log(error);
           })
       }
-      
+
   }
 })
 
@@ -1318,7 +1318,7 @@ upImg: function () {
             if (extension) {
               extension = extension[1].toLowerCase();
             }
-            var name = newDateStr + "." + extension;//上传的图片的别名      
+            var name = newDateStr + "." + extension;//上传的图片的别名
 
             var file = new Bmob.File(name, tempFilePath);
             file.save().then(function (res) {
@@ -1649,7 +1649,7 @@ wx.login({
   success: function(res) {
     if (res.code) {
 		Bmob.User.requestOpenId(res.code, {//获取userData(根据个人的需要，如果需要获取userData的需要在应用密钥中配置你的微信小程序AppId和AppSecret，且在你的项目中要填写你的appId)
-          success: function(userData) { 
+          success: function(userData) {
 			  wx.getUserInfo({
 				  success: function(result) {
 				    var userInfo = result.userInfo
@@ -1668,14 +1668,14 @@ wx.login({
 		                }
 		            });
 				  }
-			  })                       
+			  })
           },
           error: function(error) {
               // Show the error message somewhere
               console.log("Error: " + error.code + " " + error.message);
           }
       });
-      
+
     } else {
       console.log('获取用户登录态失败！' + res.errMsg)
     }
@@ -2148,7 +2148,7 @@ query.find({
 ```
 
 ## 小程序使用云逻辑
-端逻辑调用使用Bmob.Cloud.run方法，如调用云端逻辑中的"test"方法，并传递name参数到服务器中的示例代码如下：
+端逻辑调用使用Bmob.Cloud.run方法，如调用云函数中的"test"方法，并传递name参数到服务器中的示例代码如下：
 
 ```
 Bmob.Cloud.run('test', {"name":"tom"}, {

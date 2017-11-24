@@ -69,9 +69,9 @@ code为下表中的错误码，error为下表中的内容
 |160|image error|图片错误|
 |161|image mode error|图片模式错误|
 |162|image width error|图片宽度错误|
-|163|image height error|图片高度错误| 
-|164|image longEdge error|图片长边错误| 
-|165|image shortgEdge error|图片短边错误| 
+|163|image height error|图片高度错误|
+|164|image longEdge error|图片长边错误|
+|165|image shortgEdge error|图片短边错误|
 |201|%s missing|缺失数据|
 |202|username '%s' already taken.|用户名已经存在|
 |203|email '%s' already taken.|邮箱已经存在|
@@ -86,8 +86,8 @@ code为下表中的错误码，error为下表中的内容
 |210|old password incorrect.|旧密码不正确|
 |301|%s|验证错误详细提示，如邮箱格式不正确 |
 |302|your app setting '%s'.|Bmob后台设置了应用设置值， 如'不允许SDK创建表 '|
-|310|%s|云端逻辑运行错误的详细信息|
-|311|invalid cloudcode name: %s.|云端逻辑名称是大小写敏感的，且必须以英文字母开头，有效的字符仅限在英文字母、数字以及下划线。|
+|310|%s|云函数运行错误的详细信息|
+|311|invalid cloudcode name: %s.|云函数名称是大小写敏感的，且必须以英文字母开头，有效的字符仅限在英文字母、数字以及下划线。|
 |401|unique index cannot has duplicate value: %s|唯一键不能存在重复的值|
 |402|query where larger than %d bytes.|查询的wher语句长度大于具体多少个字节|
 |601|Invalid bql:%s|不正确的BQL查询语句|
@@ -101,7 +101,7 @@ code为下表中的错误码，error为下表中的内容
 |1004|Fields of the table can add has reached to limit|该表的列数已达到限制|
 |1005|Request api of the this month has reached to limit|每月api请求数量已达到限制|
 |1006|Crontab jobs of the app has reached to limit|该应用能创建定时任务数已达到限制|
-|1007|CloudCodes of the app has reached to limit|该应用能创建云端逻辑数已达到限制|
+|1007|CloudCodes of the app has reached to limit|该应用能创建云函数数已达到限制|
 |1500|The file is larger than file size you can upload|你上传的文件大小已超出限制|
 
 ## 短信功能相关错误码

@@ -39,7 +39,7 @@ Q:想通过GPRS模块利用tcp协议上传数据，利用restapi，怎么确认�
 A:restapi都是通过https协议来进行请求的
 
 
---- 
+---
 
 Q:在Android应用中，不使用BmobSDK，仅用RestAPI, 做到接收推送消息
 A:发布推送可以不使用sdk，但接收推送需要用到。
@@ -117,7 +117,7 @@ A:错误的含义：post请求里body内容为空
 ---
 
 Q:Master Key不能用在RestApi上吗？
-A:可以。masterkey是超级权限，不会受到表是否只读的限制，对于restapi、云端代码和SDK都一样的。
+A:可以。masterkey是超级权限，不会受到表是否只读的限制，对于restapi、云函数和SDK都一样的。
 
 ---
 

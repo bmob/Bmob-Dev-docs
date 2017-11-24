@@ -501,7 +501,7 @@ curl -X PUT \
 ## 数据关联
 
 ### 关联对象
-对象可以与其他对象相联系。就像数据库中的主外键关系一样，数据表 A 的某一个字段是数据表 B 的外键，只有表 B 中存在的数据才可插入进表 A 中的字段。 
+对象可以与其他对象相联系。就像数据库中的主外键关系一样，数据表 A 的某一个字段是数据表 B 的外键，只有表 B 中存在的数据才可插入进表 A 中的字段。
 
 ### 添加关联关系
 为了更新 `Pointer` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个指针, OK，我们可以像这样添加一行记录时并添加一个指针:
@@ -790,7 +790,7 @@ curl -X POST \
   https://api.bmob.com/1/mkfile/c3NzLmpwZw==/1024000
 ```
 
-返回的主体是一个JSON对象，包含： 
+返回的主体是一个JSON对象，包含：
 ```
 crc32：文件片段的crc32效验码。
 ctx：服务端不透明的内部参数。
@@ -808,7 +808,7 @@ offset：下一个片的偏移位置。
 }
 ```
 
-第二步， 循环上传剩余片, 发送POST请求到mkfile 接口返回的 host, 参数是 ctx/offset, 
+第二步， 循环上传剩余片, 发送POST请求到mkfile 接口返回的 host, 参数是 ctx/offset,
 ```
 curl -X POST \
   -H "X-Bmob-Application-Id: Your Application ID" \
@@ -1055,7 +1055,7 @@ curl -X PUT \
   -H "X-Bmob-Application-Id: Your Application ID" \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
-  -d '{"location":{            
+  -d '{"location":{
             "__type": "GeoPoint",
             "latitude": 112.934755,
             "longitude": 24.52065
@@ -1156,10 +1156,10 @@ curl -X GET \
 ```
 
 
-## 云端代码
-在REST API中调用云端代码的方法如下：
+## 云函数
+在REST API中调用云函数的方法如下：
 
-相关云端代码的编写方式，请参考[云端代码开发文档][2]
+相关云函数的编写方式，请参考[云函数开发文档][2]
 
 ## 消息推送
 
@@ -1451,7 +1451,7 @@ curl -X POST \
 如果你想发送更多的消息，你可以在data的字典对象中设置其他字段，下面这些保留的字段有其特殊的意义：
 - `alert` : 通知的消息内容
 - `badge` : (仅iOS)一个数字值将会高亮显示在应用图标的右上角。可以设置一个数字值，也可以对当前值进行自增加1.
-- `sound` : (仅iOS)应用绑定包中的声音文件 
+- `sound` : (仅iOS)应用绑定包中的声音文件
 - `content-available` : (仅iOS)如果你的应用是新闻类的，或者你的应用正在使用iOS7的Remote Notification Background Mode，设定这个值为1将为触发离线下载功能。
 - `action` : (仅Android)接收到推送消息时应用Intent，如果没有指定title或alert，Intent将被应用，但是没有通知呈现给用户。
 - `title` : (仅Android)这个值将显示在系统通知栏
@@ -1495,7 +1495,7 @@ curl -X POST \
       }' \
   https://api.parse.com/1/push
 ```
-#### 设置消息过期时间 
+#### 设置消息过期时间
 
 过期时间，可以是绝对时间：
 ```

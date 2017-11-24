@@ -33,7 +33,7 @@ lib/BmobSms.class.php：短信消息类
 lib/BmobApp.class.php：app操作类
 lib/BmobSchemas.class.php：数据表操作类
 lib/BmobTimestamp.class.php：获取服务器时间类
-lib/BmobCloudCode.class.php：云端代码类
+lib/BmobCloudCode.class.php：云函数类
 lib/BmobBql.class.php：bql操作类
 
 ## 对象
@@ -150,11 +150,11 @@ objectId: "0c6db13c", score: 89, playerName: "比目",createdAt:"2013-09-27 10:3
 ```
 
 **这里需要注意的是：**
-    
+
 1. 如果服务器端不存在GameScore表，那么系统将自动建表，并插入数据。
-    
+
 2. 如果服务器端已经存在GameScore表，和相应的score、playerName字段，那么你此时添加的数据和数据类型也应该和服务器端的表结构一致，否则会保存数据失败。
-    
+
 3. 每个BmobObject对象都有几个默认的键(数据列)是不需要开发者指定的，`objectId`是每个保存成功数据的唯一标识符。`createdAt`和`updatedAt`代表每个对象(每条数据)在服务器上创建和最后修改的时间。这些键(数据列)的创建和数据内容是由服务器端自主来完成的。`因此，使用create和update方法时,如果保存了objectId对象，否则会出现提示：“It is a reserved field: objectId(105)”--表明objectId为系统保留字段，不允许修改。`。
 
 ## 查询数据
@@ -178,7 +178,7 @@ $res=$bmobObj->get("",array('where={"playerName":"比目"}','limit=50'));
 
 ```php
 
-$res=$bmobObj->get("a203eba875"); 
+$res=$bmobObj->get("a203eba875");
 
 ```
 
@@ -358,7 +358,7 @@ $res=$bmobObj->get("",array('$res=$bmobObj->get("",array("keys=score,playerName"
 
 ```php
      $bmobBql = new BmobBql();
-     $res = $bmobBql->query(array('bql=select * from GameScore where name=? limit ?,? order by name'));  
+     $res = $bmobBql->query(array('bql=select * from GameScore where name=? limit ?,? order by name'));
 ```
 
 更多请参考 [BQL 详细指南](https://docs.bmob.cn/other/Other/m_bql/doc/index.html "BQL 详细指南") 。
@@ -367,7 +367,7 @@ BQL 还支持占位符查询，where 和 limit 子句的条件参数可以使用
 
 ```php
     $bmobBql = new BmobBql();
-     $res = $bmobBql->query(array('bql=select * from GameScore where name=? limit ?,? order by name','values=["dennis", 0, 100]'));  
+     $res = $bmobBql->query(array('bql=select * from GameScore where name=? limit ?,? order by name','values=["dennis", 0, 100]'));
 
 ```
 
@@ -422,7 +422,7 @@ $res=$bmobObj->delete("bd89c6bce9"); //删除对象bd89c6bce9
 每一种方法都会有一个objects，即包含了这些方法将被添加或删除的对象列表，举个例子，技能skills是一个类似于集合的数组类型，那么我们可以在skills中加入一些对象，只有在skills原来的对象中不包含这些值的情况下才会被加入:
 
 ```php
- $res=$bmobObj->updateArray("ZS5wHHHV","skills",array("flying","kungfu")); 
+ $res=$bmobObj->updateArray("ZS5wHHHV","skills",array("flying","kungfu"));
 ```
 
 ### 查询数组数据
@@ -443,7 +443,7 @@ $res=$bmobObj->get("",array('where={"arrayKey":{"$all":[2,3,4]}}'));
 同理我们可以使用Remove这个操作在把这些对象从skills中移除：
 
 ```php
-$res=$bmobObj->deleteArray("ZS5wHHHV","skills",array("flying","kungfu")); 
+$res=$bmobObj->deleteArray("ZS5wHHHV","skills",array("flying","kungfu"));
 ```
 
 ### 使用索引和对象key修改数组中的对象
@@ -462,7 +462,7 @@ $res=$bmobUser->update("16d846f51c", array("projectExperiences.0.name"=>"项目�
 那么我们要修改这个对象的某个Key的值：
 
 ```
-$res=$bmobObj->update("16d846f51c", array("userAttibute.gender"=>"女")); 
+$res=$bmobObj->update("16d846f51c", array("userAttibute.gender"=>"女"));
 ```
 
 
@@ -609,7 +609,7 @@ Bmob提供了`Pointer（一对一、一对多）`和`Relation（多对多）`两
 因为使用方法和上面的一对一关联基本相同，只是查询一对多关联的时候有些区别，故只举添加和查询两个例子：
 
 #### 添加一对多关联
- 
+
 将评论和微博进行关联，并同时和当前用户进行关联，表明是当前用户对该帖子进行评论，示例如下：
 
 ```php
@@ -657,7 +657,7 @@ Bmob提供了`Pointer（一对一、一对多）`和`Relation（多对多）`两
 示例代码：
 
 ```php
-	$res = $bmobUser->get(0,array('where={"$relatedTo":{"object":{"__type":"Pointer","className":"Post","objectId":"83ce274594"},"key":"likes"}}')); 
+	$res = $bmobUser->get(0,array('where={"$relatedTo":{"object":{"__type":"Pointer","className":"Post","objectId":"83ce274594"},"key":"likes"}}'));
 ```
 
 #### 修改多对多关联
@@ -840,7 +840,7 @@ $res=$bmobFile->uploadFile("heelo.txt","http://file.bmob.cn/M02/17/99/oYYBAFYfXS
 
 ```php
 $fileArray = array("__type"=>"File", "cdn"=>$res->cdn,"filename"=>$res->filename,"url"=>$res->url);
-$res=$bmobObj->create(array("score"=>11,"file"=>$fileArray)); 
+$res=$bmobObj->create(array("score"=>11,"file"=>$fileArray));
 ```
 
 ### 删除文件
@@ -856,7 +856,7 @@ $res=$bmobFile->delete("M02/54/09/oYYBAFYxx4uAbgTcAAAbpS8UHE45961.js");
 返回结果格式如下：
 
 ```
-{ $msg => "ok" } 
+{ $msg => "ok" }
 ```
 **删除文件不会删除文件关联的行记录中的文件列的值，需要自行通过更新行来删除关联。**
 
@@ -881,7 +881,7 @@ email: 用户的电子邮件地址`（可选）`。
 
 ```
 $bmobUser = new BmobUser();
-$res = $bmobUser->register(array("username"=>"cooldude117", "password"=>"p_n7!-e8", "phone"=>"415-392-0202", "email"=>"bmobtest111@126.com")); 
+$res = $bmobUser->register(array("username"=>"cooldude117", "password"=>"p_n7!-e8", "phone"=>"415-392-0202", "email"=>"bmobtest111@126.com"));
 ```
 
 当创建成功时,HTTP响应头的状态码返回为201 Created，Http响应头的Location值包含了该新用户的URL:
@@ -894,7 +894,7 @@ Location: https://api.bmob.cn/1/users/Kc3M222J
 返回的主体是包含objectId，表示唯一的用户, createdAt时间戳表示用户注册时间, sessionToken可以被用来认证更新或删除这名用户信息的请求。
 
 ```
-[createdAt] => 2011-11-07 20:58:34, [objectId] => Kc3M222J, [sessionToken] => pnktnjyb996sj4p156gjtp4im, 
+[createdAt] => 2011-11-07 20:58:34, [objectId] => Kc3M222J, [sessionToken] => pnktnjyb996sj4p156gjtp4im,
 ```
 
 **这里需要注意一点的是，有些时候你可能需要在用户注册时发送一封验证邮件，以确认用户邮箱的真实性。这时，你只需要登录自己的应用管理后台，在应用设置->邮件设置（下图）中把“邮箱验证”功能打开，Bmob云后端就会在注册时自动发动一封验证邮件给用户。**
@@ -978,7 +978,7 @@ $res = $bmobUser->get("415b8fe99a"); // 获取id为415b8fe99a用户的信息
 比如，如果我们想对 cooldude6 的电话做出一些改动：
 
 ```
-$res = $bmobUser->update("415b8fe99a", "050391db407114d9801c8f2788c6b25a", array("phone"=>"02011111")); 
+$res = $bmobUser->update("415b8fe99a", "050391db407114d9801c8f2788c6b25a", array("phone"=>"02011111"));
 ```
 
 上面的050391db407114d9801c8f2788c6b25a是sessionToken
@@ -1018,7 +1018,7 @@ $res = $bmobUser->delete("415b8fe99a", "050391db407114d9801c8f2788c6b25a"); // �
                     [age] => 11
                     [createdAt] => 2015-10-19 15:45:17
                     [email] => test111@qq.com
-                    [emailVerified] => 
+                    [emailVerified] =>
                     [objectId] => WXHsFFFd
                     [updatedAt] => 2015-10-27 18:03:42
                     [username] => b
@@ -1038,7 +1038,7 @@ $res = $bmobUser->delete("415b8fe99a", "050391db407114d9801c8f2788c6b25a"); // �
                 (
                     [createdAt] => 2015-10-30 14:44:18
                     [email] => bmobtest111@126.com
-                    [emailVerified] => 
+                    [emailVerified] =>
                     [objectId] => eb3e34f23b
                     [phone] => 415-392-0202
                     [updatedAt] => 2015-10-30 14:44:18
@@ -1146,7 +1146,7 @@ array(
 匿名用户 (Anonymous user) 的 authData 内容:
 ```
 array(
-	"authData"=>array("id"=>"random UUID with lowercase hexadecimal digits")	
+	"authData"=>array("id"=>"random UUID with lowercase hexadecimal digits")
 )
 
 ```
@@ -1254,7 +1254,7 @@ array(
 		)，
 	"*"=>array(
 		"read"=>true
-		)，	
+		)，
 )
 ```
 
@@ -1346,7 +1346,7 @@ $res = $bmobRole->getRole("fff849f7d4"); //获取角色
                  "objectId"=>"WXHsFFFd",
     		),
     	);
-    $res = $bmobRole->updateRole("d4642acf90", "users", "AddRelation", $data); 
+    $res = $bmobRole->updateRole("d4642acf90", "users", "AddRelation", $data);
 
 ```
 
@@ -1360,7 +1360,7 @@ $res = $bmobRole->getRole("fff849f7d4"); //获取角色
                  "objectId"=>"WXHsFFFd",
     		),
     	);
-    $res = $bmobRole->updateRole("d4642acf90", "users", "RemoveRelation", $data); 
+    $res = $bmobRole->updateRole("d4642acf90", "users", "RemoveRelation", $data);
 ```
 
 ### 角色的使用
@@ -1398,7 +1398,7 @@ $res = $bmobRole->getRole("fff849f7d4"); //获取角色
                  "objectId"=>"<AdministratorsRoleObjectId>",
     		),
     	);
-    $res = $bmobRole->updateRole("<ModeratorsRoleObjectId>", "roles", "AddRelation", $data); 
+    $res = $bmobRole->updateRole("<ModeratorsRoleObjectId>", "roles", "AddRelation", $data);
 
 ```
 
@@ -1412,7 +1412,7 @@ Bmob允许用户根据地球的经度和纬度坐标进行基于地理位置的�
 $data = array("location"=>array(
 							   "__type"=> "GeoPoint",
 							   "latitude"=> 50.934755,
-							   "longitude"=> 24.52065,					
+							   "longitude"=> 24.52065,
 						)
 			 );
 
@@ -1515,7 +1515,7 @@ Bmob的统计查询，提供以下关键字或其组合的查询操作：
 
 以上关键字可以自由组合并可以与前面查询语句中的where, order, limit, skip等组合使用。
 
-比如，GameScore表是游戏玩家的信息和得分表，有playerName(玩家名称)、score(玩家得分)等你自己创建的列，还有Bmob的默认列objectId, createdAt, updatedAt,那么我们现在举例如何使用以上的查询关键字来作这个表的统计。 
+比如，GameScore表是游戏玩家的信息和得分表，有playerName(玩家名称)、score(玩家得分)等你自己创建的列，还有Bmob的默认列objectId, createdAt, updatedAt,那么我们现在举例如何使用以上的查询关键字来作这个表的统计。
 
 ### 计算总和
 我们要计算GameScore表所有玩家的得分总和，sum后面只能拼接Number类型的列名，即要计算哪个列的值的总和，只对Number类型有效，多个Number列用,分隔，则查询如下：
@@ -1545,7 +1545,7 @@ $res=$bmobObj->get("",array('sum=score','groupby=createdAt'));
                 (
                     [_sumScore] => 0
                     [createdAt] => 2014-05-19
-                )                
+                )
 ```
 
 ### 多个分组并计算多个列的总和
@@ -1559,7 +1559,7 @@ $res=$bmobObj->get("",array('sum=score1,score2','groupby=createdAt,playerName','
 			[0] => Array
                 (
                     [_sumScore1] => 399,
-                    [_sumScore2] => 120,	
+                    [_sumScore2] => 120,
                     [playerName] => "John",
                     [createdAt] => 2015-10-29
                 )
@@ -1567,10 +1567,10 @@ $res=$bmobObj->get("",array('sum=score1,score2','groupby=createdAt,playerName','
             [1] => Array
                 (
                     [_sumScore1] => 299,
-                    [_sumScore2] => 250,	
+                    [_sumScore2] => 250,
                     [playerName] => "Bily",
                     [createdAt] => 2015-10-29
-                )  
+                )
 ```
 
 ### 分组计算总和并只返回满足条件的部分值
@@ -1587,7 +1587,7 @@ $res=$bmobObj->get("",array('sum=score','having={"_sumScore":{"$gt": 2000}}','or
                     [createdAt] => 2015-10-29
                 )
 
-           
+
 ```
 
 ### 分组计算总和并返回每个分组的记录数
@@ -1602,16 +1602,16 @@ $res=$bmobObj->get("",array('sum=score','groupby=createdAt','groupcount=true','o
 			[0] => Array
                 (
                     [_sumScore] => 2398,
-                    [_count] => 10,	
+                    [_count] => 10,
                     [createdAt] => 2015-10-29
                 )
 
             [1] => Array
                 (
                     [_sumScore] => 100,
-                    [_count] => 2,	
+                    [_count] => 2,
                     [createdAt] => 2015-10-29
-                )   
+                )
 ```
 
 ### 获取不重复的列值
@@ -1638,7 +1638,7 @@ $res=$bmobObj->get("",array('groupby=score'));
                 (
                     [score] => 79
 
-                )                 
+                )
 ```
 
 ### 其他关键字
@@ -1699,7 +1699,7 @@ $res = $bmobApp->createApp("611115@126.com", "111111", array("appName"=>"myapp11
 下面是修改app信息的例子
 
 ```
-$res = $bmobApp->updateApp("611115@126.com", "111111", "330xxxxxxxxx578d1f923126547bea5", array("appName"=>"myapp11122")); 
+$res = $bmobApp->updateApp("611115@126.com", "111111", "330xxxxxxxxx578d1f923126547bea5", array("appName"=>"myapp11122"));
 ```
 
 ## 数据表
@@ -1712,7 +1712,7 @@ $res = $bmobApp->updateApp("611115@126.com", "111111", "330xxxxxxxxx578d1f923126
 
 ```
 $bmobSchemas = new BmobSchemas();
-$res = $bmobSchemas->getSchemas("e09fb5cbb5bxxxxxxxx9504604c0dcff"); 
+$res = $bmobSchemas->getSchemas("e09fb5cbb5bxxxxxxxx9504604c0dcff");
 ```
 
 获取某个特定表的信息
@@ -1790,7 +1790,7 @@ Relation
     		  ),
     		),
     	);
-    $res = $bmobSchemas->updateSchemas("e09fb5cbb5bxxxxxxxx9504604c0dcff", "City", $data); 
+    $res = $bmobSchemas->updateSchemas("e09fb5cbb5bxxxxxxxx9504604c0dcff", "City", $data);
 ```
 
 在表“City”中删除字段“name”
@@ -1818,7 +1818,7 @@ $res = $bmobSchemas->deleteSchemas("e09fb5cbb5bxxxxxxxx9504604c0dcff", "City");
 
 ```
     $bmobTimestamp = new BmobTimestamp();
-    $res = $bmobTimestamp->getTimestamp(); 
+    $res = $bmobTimestamp->getTimestamp();
 ```
 
 返回结果如下：
