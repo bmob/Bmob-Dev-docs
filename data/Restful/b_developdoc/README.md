@@ -2593,7 +2593,7 @@ curl -X PUT \
 
 - url ：https://api.bmob.cn/1/updateUserPassword/objectId
 
-- method ：POST
+- method ：PUT
 
 - header:
 
