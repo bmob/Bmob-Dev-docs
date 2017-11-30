@@ -35,7 +35,7 @@ task clean(type: Delete) {
 
 ```
 
-### 1.3、在app下的build.gradle文件中设置jni依赖库的目录，设置后点击Sync Now同步配置
+### 1.3、在app下的build.gradle文件中设置依赖，设置后点击Sync Now同步配置
 ```gradle
 dependencies {
 		compile (name:'BmobFeeds_v1.0.2_171121',ext:'aar')
