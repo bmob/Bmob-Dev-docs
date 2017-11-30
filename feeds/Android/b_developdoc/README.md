@@ -214,7 +214,7 @@ public class SplashActivity extends BaseActivity {
 |-----------|----------------|
 | 	setTargetIntent |	设置开屏广告的展示时间过后，需要跳转的页面|
 |	setCountTime|设置开屏广告的展示时间，此时间过后，开屏广告自动消失|
-|	loadFeeds|加载广告图片|
+|	loadFeeds|加载广告|
 |	destroy|销毁资源，在声明周期onDestroy时调用|
 
 
@@ -244,7 +244,7 @@ public class InterstitialActivity extends BaseActivity {
 ```
 | 方法     |	含义	|
 |-----------|----------------|
-|loadFeeds|加载广告图片|
+|loadFeeds|加载广告|
 |destroy|销毁资源，在声明周期onDestroy时调用|
 ## 3.3、浮标位广告，也叫悬浮框广告
 ### 3.3.1、页面引用
@@ -293,7 +293,7 @@ public class DobberActivity extends BaseActivity {
 ```
 | 方法     |	含义	|
 |-----------|----------------|
-|loadFeeds|加载广告图片|
+|loadFeeds|加载广告|
 |destroy|销毁资源，在声明周期onDestroy时调用|
 
 
@@ -364,7 +364,7 @@ public class BannerSingleActivity extends AppCompatActivity {
 ```
 | 方法     |	含义	|
 |-----------|----------------|
-|loadFeeds|加载广告图片|
+|loadFeeds|加载广告|
 |destroy|销毁资源，在声明周期onDestroy时调用|
 
 
@@ -412,7 +412,17 @@ public class BannerMultiActivity extends BaseActivity {
 ```
 | 方法     |	含义	|
 |-----------|----------------|
-|loadFeeds|加载广告图片|
+|loadFeeds|加载广告|
 |destroy|销毁资源，在声明周期onDestroy时调用|
+
+## 3.5、推送广告
+### 3.5.1、代码配置
+```java
+FeedsPush feedsPush = new FeedsPush(mContext);
+feedsPush.loadFeeds();
+```
+| 方法     |	含义	|
+|-----------|----------------|
+|loadFeeds|加载广告|
 
 
