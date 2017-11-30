@@ -366,3 +366,51 @@ public class BannerSingleActivity extends AppCompatActivity {
 |destroy|销毁资源，在声明周期onDestroy时调用|
 
 
+### 3.4.2、多张Banner位轮播
+
+#### 3.4.2.1、页面引用
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <cn.bmob.feeds.act.banner.multi.FeedsBannerMultiView
+        android:layout_width="match_parent"
+        android:id="@+id/banner"
+        android:layout_height="140dp">
+
+    </cn.bmob.feeds.act.banner.multi.FeedsBannerMultiView>
+</LinearLayout>
+```
+#### 3.4.2.2、代码配置
+```java
+public class BannerMultiActivity extends BaseActivity {
+    @BindView(R.id.banner)
+    FeedsBannerMultiView mFeedsBannerMultiView;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_banner_multi);
+        ButterKnife.bind(this);
+        mFeedsBannerMultiView.loadFeeds();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mFeedsBannerMultiView!=null){
+            mFeedsBannerMultiView.destory();
+        }
+        super.onDestroy();
+    }
+}
+
+```
+| 方法     |	含义	|
+|-----------|----------------|
+|loadFeeds|加载广告图片|
+|destroy|销毁资源，在声明周期onDestroy时调用|
+
+
