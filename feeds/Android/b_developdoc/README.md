@@ -170,12 +170,12 @@ activity_example_2.xml：
               android:orientation="vertical">
 
 
-    <cn.bmob.feeds.tuia.FeedsSplashView
+    <cn.bmob.feeds.act.FeedsSplashView
         android:id="@+id/fsv"
         android:layout_width="match_parent"
         app:countTime ="5"
         android:layout_height="match_parent">
-    </cn.bmob.feeds.tuia.FeedsSplashView>
+    </cn.bmob.feeds.act.FeedsSplashView>
 </LinearLayout>
 ```
 
@@ -255,12 +255,14 @@ public class InterstitialActivity extends BaseActivity {
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <cn.bmob.feeds.tuia.FeedsDobberView
+    <cn.bmob.feeds.act.FeedsDobberView
         android:layout_width="60dp"
         android:id="@+id/fdv"
         android:layout_gravity="center|right"
         android:layout_height="60dp">
-    </cn.bmob.feeds.tuia.FeedsDobberView>
+
+    </cn.bmob.feeds.act.FeedsDobberView>
+
 
 </FrameLayout>
 ```
