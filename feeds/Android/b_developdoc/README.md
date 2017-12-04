@@ -426,3 +426,15 @@ feedsPush.loadFeeds();
 |loadFeeds|加载广告|
 
 
+### 3.6、自定义广告
+```java
+InfoActivity.loadFeeds(this,mUrl);
+```
+
+
+| 方法     |	含义	|
+|-----------|----------------|
+|loadFeeds|加载广告，其中mUrl是自定义方法获取到Url地址，请务必使用此方法加载地址，否则将视为网页加载，价格将视为网页价格。|
+
+
+
