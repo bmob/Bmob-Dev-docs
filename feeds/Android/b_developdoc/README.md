@@ -35,7 +35,7 @@ task clean(type: Delete) {
 
 ```
 
-### 1.3、在app下的build.gradle文件中设置jni依赖库的目录，设置后点击Sync Now同步配置
+### 1.3、在app下的build.gradle文件中设置依赖，设置后点击Sync Now同步配置
 ```gradle
 dependencies {
 		compile (name:'BmobFeeds_v1.0.2_171121',ext:'aar')
@@ -153,4 +153,288 @@ activity_example_2.xml：
 | setTabTextSelectedColor|	设置顶部导航栏的标题选中颜色|
 |setTabTextUnselectedColor|设置顶部导航栏的标题未选中颜色|
 |setTabTextSize|设置顶部导航栏的标题大小|
+
+
+
+
+# 3、广告呈现形式
+## 3.1、开屏引导页广告
+
+### 3.1.1、页面引用
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
+
+
+    <cn.bmob.feeds.act.FeedsSplashView
+        android:id="@+id/fsv"
+        android:layout_width="match_parent"
+        app:countTime ="5"
+        android:layout_height="match_parent">
+    </cn.bmob.feeds.act.FeedsSplashView>
+</LinearLayout>
+```
+
+| 属性名     |	含义	|
+|-----------|----------------|
+| countTime |	设置开屏广告的展示时间，此时间过后，开屏广告自动消失|
+
+
+### 3.1.2、代码配置
+```java
+public class SplashActivity extends BaseActivity {
+    @BindView(R.id.fsv)
+    FeedsSplashView mFsv;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+        ButterKnife.bind(this);
+        mFsv.setTargetIntent(this,new Intent(mContext,MainActivity.class));
+        mFsv.setCountTime(6);
+        mFsv.loadFeeds();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        if (mFsv!=null){
+            mFsv.destroy();
+        }
+        super.onDestroy();
+    }
+}
+```
+| 方法     |	含义	|
+|-----------|----------------|
+| 	setTargetIntent |	设置开屏广告的展示时间过后，需要跳转的页面|
+|	setCountTime|设置开屏广告的展示时间，此时间过后，开屏广告自动消失|
+|	loadFeeds|加载广告|
+|	destroy|销毁资源，在声明周期onDestroy时调用|
+
+
+## 3.2、插屏广告，也叫弹窗广告
+### 3.2.1、代码配置
+```java
+public class InterstitialActivity extends BaseActivity {
+
+    private FeedsInterstitialView mFeedsInterstitialView;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_interstitial);
+        mFeedsInterstitialView = new FeedsInterstitialView(this);
+        mFeedsInterstitialView.loadFeeds();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mFeedsInterstitialView != null) {
+            mFeedsInterstitialView.destroy();
+        }
+        super.onDestroy();
+    }
+}
+```
+| 方法     |	含义	|
+|-----------|----------------|
+|loadFeeds|加载广告|
+|destroy|销毁资源，在声明周期onDestroy时调用|
+## 3.3、浮标位广告，也叫悬浮框广告
+### 3.3.1、页面引用
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <cn.bmob.feeds.act.FeedsDobberView
+        android:layout_width="60dp"
+        android:id="@+id/fdv"
+        android:layout_gravity="center|right"
+        android:layout_height="60dp">
+
+    </cn.bmob.feeds.act.FeedsDobberView>
+
+
+</FrameLayout>
+```
+
+### 3.3.2、代码配置
+```java
+public class DobberActivity extends BaseActivity {
+    @BindView(R.id.fdv)
+    FeedsDobberView mFdv;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dobber);
+        ButterKnife.bind(this);
+        mFdv.loadFeeds();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        if (mFdv!=null){
+            mFdv.destroy();
+        }
+        super.onDestroy();
+    }
+}
+```
+| 方法     |	含义	|
+|-----------|----------------|
+|loadFeeds|加载广告|
+|destroy|销毁资源，在声明周期onDestroy时调用|
+
+
+## 3.4、Banner位广告，也叫横幅位广告
+### 3.4.1、单张Banner位
+#### 3.4.1.1、页面引用
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <cn.bmob.feeds.act.banner.single.FeedsBannerSingleView
+        android:id="@+id/banner_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        app:size="Large">
+
+    </cn.bmob.feeds.act.banner.single.FeedsBannerSingleView>
+
+
+    <cn.bmob.feeds.act.banner.single.FeedsBannerSingleView
+        android:id="@+id/banner_tail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:size="Small">
+
+    </cn.bmob.feeds.act.banner.single.FeedsBannerSingleView>
+</RelativeLayout>
+```
+| 属性名     |	含义	|
+|-----------|----------------|
+| size |	设置Banner高度的大小，Small较矮，Large较高，默认为Small|
+
+#### 3.4.1.2、代码配置
+```java
+public class BannerSingleActivity extends AppCompatActivity {
+
+    @BindView(R.id.banner_top)
+    FeedsBannerSingleView mBannerTop;
+    @BindView(R.id.banner_tail)
+    FeedsBannerSingleView mBannerTail;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_banner_single);
+        ButterKnife.bind(this);
+        mBannerTail.loadFeeds();
+        mBannerTop.loadFeeds();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mBannerTop!=null){
+            mBannerTop.destroy();
+        }
+        if (mBannerTail!=null){
+            mBannerTail.destroy();
+        }
+        super.onDestroy();
+    }
+}
+```
+| 方法     |	含义	|
+|-----------|----------------|
+|loadFeeds|加载广告|
+|destroy|销毁资源，在声明周期onDestroy时调用|
+
+
+### 3.4.2、多张Banner位轮播
+
+#### 3.4.2.1、页面引用
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <cn.bmob.feeds.act.banner.multi.FeedsBannerMultiView
+        android:layout_width="match_parent"
+        android:id="@+id/banner"
+        android:layout_height="140dp">
+
+    </cn.bmob.feeds.act.banner.multi.FeedsBannerMultiView>
+</LinearLayout>
+```
+#### 3.4.2.2、代码配置
+```java
+public class BannerMultiActivity extends BaseActivity {
+    @BindView(R.id.banner)
+    FeedsBannerMultiView mFeedsBannerMultiView;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_banner_multi);
+        ButterKnife.bind(this);
+        mFeedsBannerMultiView.loadFeeds();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mFeedsBannerMultiView!=null){
+            mFeedsBannerMultiView.destory();
+        }
+        super.onDestroy();
+    }
+}
+
+```
+| 方法     |	含义	|
+|-----------|----------------|
+|loadFeeds|加载广告|
+|destroy|销毁资源，在声明周期onDestroy时调用|
+
+## 3.5、推送广告
+### 3.5.1、代码配置
+```java
+FeedsPush feedsPush = new FeedsPush(mContext);
+feedsPush.loadFeeds();
+```
+| 方法     |	含义	|
+|-----------|----------------|
+|loadFeeds|加载广告|
+
+
+### 3.6、自定义广告
+```java
+InfoActivity.loadFeeds(this,mUrl);
+```
+
+
+| 方法     |	含义	|
+|-----------|----------------|
+|loadFeeds|加载广告，其中mUrl是自定义方法获取到Url地址，请务必使用此方法加载地址，否则将视为网页加载，价格将视为网页价格。|
+
+
 

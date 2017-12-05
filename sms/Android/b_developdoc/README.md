@@ -157,30 +157,7 @@ BmobSMS.verifySmsCode(context,"11位手机号码", "验证码", new VerifySMSCod
 
 ```
 
-### 查询短信发送状态
 
-通过`querySmsState`方式可查询指定`smsId`的发送状态：
-
-```java
-
-BmobSMS.querySmsState(context, smsId, new QuerySMSStateListener() {
-			
-			@Override
-			public void done(SmsState state, BmobException ex) {
-				// TODO Auto-generated method stub
-				if(ex==null){
-					Log.i("bmob","短信状态："+state.getSmsState()+",验证状态："+state.getVerifyState());
-				}
-			}
-		});
-
-```
-
-注：`SmsState`包含两种状态：
-
-1、`smsState`（短信状态）   :SUCCESS（发送成功）、FAIL（发送失败）、SENDING(发送中)。
-
-2、`verifyState`（验证状态）:true(已验证)、false(未验证)。
 
 
 **注意事项：**
