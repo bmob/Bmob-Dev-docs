@@ -3178,6 +3178,19 @@ Bmob提供了非常简单的方法来实现第三方账号登陆的功能，目�
 #### 第三方登录的案例源码
 
 具体案例可参考我们Github上的demo：[https://github.com/bmob/bmob-android-demo-thirdpartylogin](https://github.com/bmob/bmob-android-demo-thirdpartylogin) ,这个源码包含了第三方登录的源码和登录之后如何获取用户基本信息的部分。
+## 图文消息
+
+2017年下半年开始，后端云提供了素材管理模块，控制台文件浏览功能合并到了该模块下；
+
+![](https://i.imgur.com/Unl4dwy.png)
+
+### 适用场景
+1. 如果您的应用是需要展示很多图文消息或文章，可以用这里编辑来实现富文本信息的存储和编辑管理；
+2. 以往上传文件缺少了一些关联信息如文件描述之类的需要额外建表，来实现文件和描述信息的关联，这里可以一并解决；
+### 使用方法
+1. 后端控制台新建图文信息并编辑后会新增一个_Article表，表中的关键字段有url,title,content，分别代表图文信息网页的url地址如[此例](http://bmob-cdn-782.b0.upaiyun.com/2017/12/07/78d403d140b2c0af80c12b8d9de67a7f.html),标题和网页源码，也能实时编辑。
+2. 客户端的使用，可以查询_Article表，既可以拿到url用webview组件加载，也可以用Android SDK中的TextView结合Html类解析html标签并展示。
+
 
 
 ## 文件管理
