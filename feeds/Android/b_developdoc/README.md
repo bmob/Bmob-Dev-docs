@@ -427,14 +427,103 @@ feedsPush.loadFeeds();
 
 
 ### 3.6、自定义广告
+
+#### 3.6.1、请求自定义广告
+| ActRequest方法     |	含义	|
+|-----------|----------------|
+|loadFeeds(ActRequest.OnActListener onActListener)|请求自定义广告，开发者可根据返回的Act属性自行设计UI展示|
+
+参见示例：FlowDeveloperActivity.java
 ```java
-InfoActivity.loadFeeds(this,mUrl);
+		ActRequest mActRequest = new ActRequest(this);
+        //开发者自己的数据获取之后嵌入一条信息流广告：
+        mActRequest.loadFeeds(new ActRequest.OnActListener() {
+            @Override
+            public void onError(int code, String error) {
+                Logger.e("获取广告出错：" + code + "-" + error);
+                //在广告获取结果出来后再添加开发者的数据，以防两条广告连续出现
+                mItems.addAll(items);
+                //无论获取广告成功还是失败都应该刷新列表数据
+                refresh();
+            }
+
+            @Override
+            public void onSuccess(Act act) {
+                Item item = new Item();
+                item.setAct(act);
+                //在广告获取结果出来后再添加开发者的数据，以防两条广告连续出现
+                mItems.addAll(items);
+                mItems.add(item);
+                //无论获取广告成功还是失败都应该刷新列表数据
+                refresh();
+            }
+        });
 ```
 
 
-| 方法     |	含义	|
+#### 3.6.2、展示自定义广告
+| 返回Act的属性     |	含义	|
 |-----------|----------------|
-|loadFeeds|加载广告，其中mUrl是自定义方法获取到Url地址，请务必使用此方法加载地址，否则将视为网页加载，价格将视为网页价格。|
+|url|点击后需要跳转到InfoActivity页面的网址|
+|title|点击后需要跳转到InfoActivity页面的标题|
+|images|当前信息流广告需要展示的图片|
+|descript|当前信息流广告的解释，可以不展示|
 
+参见示例：FlowDeveloperAdapter.java
+```java
+        Item item = mItems.get(position);
+        if (getItemViewType(position)==TYPE_FLOW_AD){
+            final Act act = item.getAct();
+            List<String> images = act.getImages();
+
+            flowAdHolder.mTvTitle.setText(act.getTitle().trim());
+
+            if (images != null) {
+                if (images.size()==1){
+                    flowAdHolder.mIvSingle.setVisibility(View.VISIBLE);
+                    flowAdHolder.mLlImagesMulti.setVisibility(View.GONE);
+                    Glide.with(mContext).load(images.get(0)).fitCenter().thumbnail(0.1f).diskCacheStrategy(DiskCacheStrategy.ALL).into(flowAdHolder.mIvSingle);
+                }else {
+                    flowAdHolder.mLlImagesMulti.removeAllViews();
+                    flowAdHolder.mLlImagesMulti.setVisibility(View.VISIBLE);
+                    flowAdHolder.mIvSingle.setVisibility(View.GONE);
+                    for (int i = 0; i < images.size(); i++) {
+                        ImageView imageView = new ImageView(mContext);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        layoutParams.weight=1;
+                        layoutParams.setMargins(2,0,2,0);
+                        layoutParams.gravity = Gravity.CENTER_VERTICAL;
+                        Glide.with(mContext).load(images.get(i)).centerCrop().thumbnail(0.1f).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+                        flowAdHolder.mLlImagesMulti.addView(imageView, layoutParams);
+                    }
+                }
+            }
+
+            flowAdHolder.mLlFeed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InfoActivity.loadFeeds(mContext,act.getUrl(),act.getTitle());
+                }
+            });
+        }else {
+            contentHolder.mTvContent.setText(item.getContent()+" - "+position);
+        }
+```
+#### 3.6.3、跳转自定义广告
+
+| 跳转到广告页面方法     |	含义|
+|-----------|----------------|
+|InfoActivity.loadFeeds(Context context,String url);|加载广告，其中url是自定义方法获取到Url地址，请务必使用此方法加载地址，否则将视为网页加载，价格将视为网页价格。|
+|InfoActivity.loadFeeds(Context context,String url,String title);|其中title为广告返回的Act的title属性值。|
+
+参见示例：FlowDeveloperAdapter.java
+```java
+			flowAdHolder.mLlFeed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InfoActivity.loadFeeds(mContext,act.getUrl(),act.getTitle());
+                }
+            });
+```
 
 
