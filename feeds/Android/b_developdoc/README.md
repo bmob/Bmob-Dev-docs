@@ -146,6 +146,7 @@ activity_example_2.xml：
 </LinearLayout>
 ```
 
+
 ### 2.2、自定义FeedsFragment属性
 | 方法     |	备注	|
 |------------------------------|----------------|
@@ -154,7 +155,23 @@ activity_example_2.xml：
 |setTabTextUnselectedColor|设置顶部导航栏的标题未选中颜色|
 |setTabTextSize|设置顶部导航栏的标题大小|
 
-
+### 2.3、配置返回键的相关操作
+```java
+    @Override
+    public void onBackPressed() {
+        if (mCurrentFragment==mFeedsFragment){
+            //当前页面是否为信息流页面
+            if (mFeedsFragment.canGoBack()){
+                //当前页面是否有网页可以返回
+                mFeedsFragment.goBack();
+            }else {
+                finish();
+            }
+        }else {
+            finish();
+        }
+    }
+```
 
 
 # 3、广告呈现形式
