@@ -63,20 +63,33 @@ dependencies {
 </activity>
 ```
 
+```java
+<meta-data
+	android:name="Bmob_FEEDS_CHANNEL"
+	android:value="此替换为开发者应用的渠道号"/>
+```
+
 ### 1.5、继承FeedsApp并在AndroidManifest.xml中配置
 
 
-继承FeedsApp：
+在Application中初始化广告SDK：
 ```java
-public class App extends FeedsApp {
+/**
+ * Created on 17/11/20 14:26
+ *
+ * @author zhangchaozhou
+ */
+
+public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        BmobFeeds.initApp(this);
     }
 }
 ```
 
-在在AndroidManifest.xml中配置：
+在AndroidManifest.xml中配置Application：
 ```xml
 <application     
     
@@ -233,6 +246,8 @@ activity_flow_sdk.xml：
 |title|点击后需要跳转到InfoActivity页面的标题|
 |images|当前信息流广告需要展示的图片|
 |descript|当前信息流广告的解释，可以不展示|
+|labels|当前信息流的标签信息|
+|source|当前信息流的来源|
 
 参见示例：FlowDeveloperAdapter.java
 ```java
