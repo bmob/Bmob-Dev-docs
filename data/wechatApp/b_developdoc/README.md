@@ -59,7 +59,7 @@ title: "I am title", content: "I am content"
 	console.log(diary.gleaterThanOneHundred());
 ```
 
-## 小程序使用图文素材
+## 使用图文素材
 图文素材，类似微信的图文素材，经常被用在活动、广告、详细说明等情况。
 使用图文素材系统会生成一个`_Article` 的数据表。如需取出图文素材的数据，只需跟普通表一样操作即可。
 
@@ -99,9 +99,7 @@ ps:最近小程序也推出了显示H5页面，如果需要使用，可开通FTP
 由于最近微信封了~~*.upaiyun.com~~	域名，如果你没做文件下载功能，只是显示图片，可以不填写。如果你需要做下载功能，在应用设置里面，可以开启独立域名， 开启后，填写到微信平台就好了，当然有时候你想用自己的域名，也是可以的，可以工单联系我们。
 
 ## 客服消息
-对一些应用有嵌入微信客服消息，需要主动实时收到用户反馈，并希望手机可以回复消息的，可以基于云逻辑开发此功能，如果完全不想写代码实现也可以联系我们,出一定费用整套客服系统帮上线。
-
-简介地址：[http://www.jianshu.com/p/540a8db78fbf](http://www.jianshu.com/p/540a8db78fbf)
+使用nodejs云函数可以对其他平台接口进行服务端开发，具体开发请参考微信官方文档。
 
 ## WebSocket 
 一个微信小程序同时只能有一个 WebSocket 连接，如果当前已存在一个 WebSocket 连接，会创建失败。WebSocket可以做一些实时数据功能，比如聊天室，你画我猜之类的游戏。具体文档参考~~JavaScript->实时数据平台~~  
@@ -854,9 +852,9 @@ mainQuery.find({
 var Diary = Bmob.Object.extend("diary");
 var query = new Bmob.Query(Diary);
 
-// 这个 id 是要修改条目的 id，你在
+// 这个 id 是要修改条目的 objectId，你在
  这个存储并成功时可以获取到，请看前面的文档
-query.get('3453453453fdsdf', {
+query.get('3453453453', {
     success: function(result) {
       // 回调中可以取得这个 GameScore 对象的一个实例，然后就可以修改它了
       result.set('title', 'test!');
@@ -2081,6 +2079,15 @@ query.find({
     ...
   }
 });
+```
+
+
+一个完整的示例效果如下
+
+```
+//当前用户位置，40.0改为微信获取到的位置
+var point = new Bmob.GeoPoint({latitude: 40.0, longitude: -30.0});
+query.withinKilometers("locationGeo", point, 3000);  //位置周围3000米的数据
 ```
 
 ## 小程序使用云逻辑
