@@ -118,7 +118,7 @@ ps:最近小程序也推出了显示H5页面，如果需要使用，可开通FTP
 
 成功后发送主人模板消息，这个只需把openid改正确即可接收到， Bmob后端云公众号回复openid
           var temp = {
-            "touser": "oUxY3w_jURG89H5wCIvJDPjJ5s2o",
+            "touser": "公众号openid",
             "template_id": "-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y",
             "url": "https://www.bmob.cn/",
             "data": {
@@ -164,7 +164,7 @@ curl --request POST \
   --header 'content-type: application/json' \
   --header 'x-bmob-application-id: ' \
   --header 'x-bmob-rest-api-key: ' \
-  --data '{\n    "touser": "oUxY3w_jURG89H5wCIvJDPjJ5s2o",\n    "template_id":"-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y",\n    "url": "http://www.bmob.cn/",\n    "data": {\n        "first": {\n            "value": "您好，Restful 失效，请登录控制台查看。",\n            "color": "#c00"\n        },\n        "keyword1": {\n            "value": "Restful 失效"\n        },\n        "keyword2": {\n            "value": "2017-07-03 16:13:01"\n        },\n        "keyword3": {\n            "value": "高"\n        },\n        "remark": {\n            "value": "如果您十分钟内再次收到此信息，请及时处理。"\n        }\n    }\n}'
+  --data '{\n    "touser": "公众号openid",\n    "template_id":"-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y",\n    "url": "http://www.bmob.cn/",\n    "data": {\n        "first": {\n            "value": "您好，Restful 失效，请登录控制台查看。",\n            "color": "#c00"\n        },\n        "keyword1": {\n            "value": "Restful 失效"\n        },\n        "keyword2": {\n            "value": "2017-07-03 16:13:01"\n        },\n        "keyword3": {\n            "value": "高"\n        },\n        "remark": {\n            "value": "如果您十分钟内再次收到此信息，请及时处理。"\n        }\n    }\n}'
 ```
 
 PS:`openid` 关注Bmob后端云公众平台回复`openid`
