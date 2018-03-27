@@ -636,7 +636,7 @@ query.findObjects(this, new FindListener<Feedback>() {
 快速入门相关源码下载[https://www.bmob.cn/static/Bmob_android_quickstart.zip](https://www.bmob.cn/static/Bmob_android_quickstart.zip)
 
 
-即时聊天案例源码[https://github.com/bmob/BmobIMSDK4Android](https://github.com/bmob/BmobIMSDK4Android)
+即时聊天案例源码[https://github.com/chaozhouzhang/bmob-newim-demo](https://github.com/chaozhouzhang/bmob-newim-demo)
 
 图文社区案例源码：[https://git.oschina.net/v7/Wonderful](https://git.oschina.net/v7/Wonderful)  这个案例是猿圈媛圈开发团队提供的。
 
