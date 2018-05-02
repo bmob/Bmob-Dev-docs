@@ -3500,9 +3500,9 @@ BmobFile.deleteBatch(urls, new DeleteBatchListener() {
 **1、文件的批量上传是BmobSDK_v3.2.7版本才提供的功能，如需使用，请更新版本;**
 **2、文件的下载和批量删除是BmobSDK_v3.4.6才提供的功能，如需使用，请更新版本。**
 
-## 数据实时同步
+## 数据监听
 
-**数据实时同步是一个超酷的功能！**
+**数据监听是一个超酷的功能！**
 
 SDK可以实现对数据表或行的监听，当这个表或者行的数据发生变化时，Bmob会立即将变化的信息告知SDK。
 这种服务非常适合做游戏开发（如，开发斗地主游戏，三个人同时监听一行数据的变化，任何一个人出牌都会将数据写入到这行数据中，其他人也就立即知道了）、群聊（一群人监听某个表的变化，任何人发言都会将数据写入到这个表中，其他人也可以立即知道了）等实时性要求很高的场景中。
@@ -3510,7 +3510,7 @@ SDK可以实现对数据表或行的监听，当这个表或者行的数据发�
 为方便大家快速了解数据的实时同步服务，我们提供了一个简单的应用实例（ [https://github.com/bmob/bmob-android-demo-realtime-data](https://github.com/bmob/bmob-android-demo-realtime-data) ）供大家参考。
 
 ### 开始连接
-使用数据实时功能，首先需要创建`BmobRealTimeData`对象,然后调用`start`方法连接服务器。
+使用数据监听，首先需要创建`BmobRealTimeData`对象,然后调用`start`方法连接服务器。
 ```java
 BmobRealTimeData rtd = new BmobRealTimeData();
 rtd.start(new ValueEventListener() {
