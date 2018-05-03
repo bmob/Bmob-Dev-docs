@@ -1,5 +1,5 @@
 
-除了与用户相关的包括一键注册，手机号码登录等操作外，Bmob 还推出了单独的短信验证码服务。 在实际的应用中，开发者希望能够通过短信验证的方式来与用户进行某些重要操作的确认，你就可以在用户验证过手机号码的前提下，使用 Bmob 提供的短信验证码服务(`Bmob SMS SDK`)。
+除了与用户相关的包括一键注册，手机号码登录等操作外，Bmob 还推出了短信验证码服务。 在实际的应用中，开发者希望能够通过短信验证的方式来与用户进行某些重要操作的确认，你就可以在用户验证过手机号码的前提下，使用 Bmob 提供的短信验证码服务(`Bmob SMS `)。
 
 每个 Bmob 帐户有 10 条免费额度的短信数量用于测试，超过需要购买短信条数才能继续使用。
 
@@ -7,35 +7,16 @@
 
 下面是使用方法：
 
-## SMS初始化
+## 数据服务SDK初始化
 
-此短信SDK可单独使用，调用如下方法完成应用的初始化：
+此短信服务集成于数据服务SDK中，调用如下方法完成应用的初始化：
 
 1.默认的初始化
 ```java
 
-BmobSMS.initialize(context,Bmob_Application_ID);
+Bmob.initialize(context,Bmob_Application_ID);
 
 ```
-2.从v1.2.0开始，提供了对应的接口回调，收到短信验证码能读取到验证码，读取后能自动填入EditText，能提高用户体验，你需要传对应的接口参数：
-
-```java
-
-BmobSMS.initialize(context,Bmob_Application_ID，new MySMSCodeListener());
-
-class MySMSCodeListener implements SMSCodeListener{
-
-		@Override
-		public void onReceive(String content) {
-			if(et_smscode != null){
-				et_smscode.setText(content);
-			}
-		}
-		
-	}
-
-```
-注: 如果用第二种方式初始化，需要相应的广播和短信权限，详见BmobSMSDemo。
 ## 请求发送自定义的短信内容
 
 **使用场景**
@@ -62,22 +43,20 @@ class MySMSCodeListener implements SMSCodeListener{
 **调用示例**
 
 ```java
-
 SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 String sendTime = format.format(new Date());
-BmobSMS.requestSMS(context, number, "审核通过后的短信内容",sendTime,new RequestSMSCodeListener() {
-	
-	@Override
-	public void done(Integer smsId,BmobException ex) {
-		// TODO Auto-generated method stub
-		if(ex==null){//
-			Log.i("bmob","短信发送成功，短信id："+smsId);//用于查询本次短信发送详情
-		}else{
-			Log.i("bmob","errorCode = "+ex.getErrorCode()+",errorMsg = "+ex.getLocalizedMessage());
-		}
-	}
+BmobSMS.requestSMS("11位手机号码", "审核通过后的短信内容", sendTime, new QueryListener<Integer>() {
+    @Override
+    public void done(Integer integer, BmobException e) {
+        if (e==null){
+            //TODO 发送短信成功，用于查询本次短信发送详情
+            Log.i("bmob", "短信id："+integer);
+        }else {
+            //TODO 发送短信失败
+            Log.e("error",e.getErrorCode()+","+e.getMessage());
+        }
+    }
 });
-
 ```
 
 注：
@@ -95,17 +74,18 @@ BmobSMS.requestSMS(context, number, "审核通过后的短信内容",sendTime,ne
 
 ```java
 
-BmobSMS.requestSMSCode(context, "11位手机号码", "模板名称",new RequestSMSCodeListener() {
-			
-	@Override
-	public void done(Integer smsId,BmobException ex) {
-		// TODO Auto-generated method stub
-		if(ex==null){//验证码发送成功
-			Log.i("bmob", "短信id："+smsId);//用于查询本次短信发送详情
-		}
-	}
+BmobSMS.requestSMSCode("11位手机号码", "验证码", new QueryListener<Integer>() {
+    @Override
+    public void done(Integer integer, BmobException e) {
+        if (e==null){
+            //TODO 发送短信成功，用于查询本次短信发送详情
+            Log.i("bmob", "短信id："+integer);
+        }else {
+            //TODO 发送短信失败
+            Log.e("error",e.getErrorCode()+","+e.getMessage());
+        }
+    }
 });
-
 ```
 
 短信默认模板：
@@ -141,20 +121,17 @@ BmobSMS.requestSMSCode(context, "11位手机号码", "模板名称",new RequestS
 通过`verifySmsCode`方式可验证该短信验证码：
 
 ```java
-
-BmobSMS.verifySmsCode(context,"11位手机号码", "验证码", new VerifySMSCodeListener() {
-			
-	@Override
-	public void done(BmobException ex) {
-		// TODO Auto-generated method stub
-		if(ex==null){//短信验证码已验证成功
-			Log.i("bmob", "验证通过");
-		}else{
-			Log.i("bmob", "验证失败：code ="+ex.getErrorCode()+",msg = "+ex.getLocalizedMessage());
-		}
-	}
+BmobSMS.verifySmsCode("11位手机号码", "验证码", new UpdateListener() {
+    @Override
+    public void done(BmobException e) {
+        if (e==null){
+            //TODO 短信验证成功
+        }else {
+            //TODO 短信验证失败
+            Log.e("error",e.getErrorCode()+","+e.getMessage());
+        }
+    }
 });
-
 ```
 
 
@@ -200,3 +177,5 @@ BmobSMS.verifySmsCode(context,"11位手机号码", "验证码", new VerifySMSCod
 
   [1]: http://bmob-file-service-t.b0.upaiyun.com/Doc_File/jfms.png
   [2]: http://bmob-file-service-t.b0.upaiyun.com/Doc_File/14703632600603.jpg
+
+
