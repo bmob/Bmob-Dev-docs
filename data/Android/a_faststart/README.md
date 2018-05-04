@@ -76,25 +76,22 @@
 	
 	
 		dependencies {
-	    	compile fileTree(dir: 'libs', include: ['*.jar'])
+	    	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	
 			//以下SDK开发者请根据需要自行选择
 			//bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
 	    	//3.5.5：请务必查看下面注释[1]
-			compile 'cn.bmob.android:bmob-sdk:3.5.5'
+			implementation 'cn.bmob.android:bmob-sdk:3.6.1'
 	
 	    	//bmob-push：Bmob的推送包
-	    	compile 'cn.bmob.android:bmob-push:0.8'
+	    	implementation 'cn.bmob.android:bmob-push:1.0.1'
 	
 			//bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[2]
-			compile 'cn.bmob.android:bmob-im:2.0.5@aar'
-			compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+			implementation 'cn.bmob.android:bmob-im:2.1.0@aar'
 	
-			//bmob-sms ：Bmob单独为短信服务提供的包
-	    	compile 'cn.bmob.android:bmob-sms:1.0.1'
 	
 			//如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
-			compile 'cn.bmob.android:http-legacy:1.0'
+			implementation 'cn.bmob.android:http-legacy:1.0'
 		}
 
 
