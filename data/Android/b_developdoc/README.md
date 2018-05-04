@@ -3507,6 +3507,8 @@ BmobFile.deleteBatch(urls, new DeleteBatchListener() {
 SDK可以实现对数据表或行的监听，当这个表或者行的数据发生变化时，Bmob会立即将变化的信息告知SDK。
 这种服务非常适合做游戏开发（如，开发斗地主游戏，三个人同时监听一行数据的变化，任何一个人出牌都会将数据写入到这行数据中，其他人也就立即知道了）、群聊（一群人监听某个表的变化，任何人发言都会将数据写入到这个表中，其他人也可以立即知道了）等实时性要求很高的场景中。
 
+**此功能需要按需付费开启，请在应用的控制台：设置-套餐升级-数据监听-选择应用的套餐方案-数据监听-开通**
+
 为方便大家快速了解数据的实时同步服务，我们提供了一个简单的应用实例（ [https://github.com/bmob/bmob-android-demo-realtime-data](https://github.com/bmob/bmob-android-demo-realtime-data) ）供大家参考。
 
 ### 开始连接
