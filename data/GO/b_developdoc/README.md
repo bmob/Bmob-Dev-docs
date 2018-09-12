@@ -52,7 +52,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"createdAt":{"$gte":{"__type":"Date","iso":"2011-08-21 18:02:52"}}}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 
 再一次请求中，你需要指定的HTTP方法，URL，sessionToken等均可以在BaseReq中指定，

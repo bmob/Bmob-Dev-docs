@@ -4,7 +4,7 @@ A:目前暂不支持Unity支持
 ---
 
 Q:unity端 查询表，会出现失败情况
-失败原因 Failed to connect to api.bmob.cn port 443: Timed out, and response content is
+失败原因 Failed to connect to api2.bmob.cn port 443: Timed out, and response content is
 UnityEngine.MonoBehaviour:print(Object)
 A:提示连接超时，先检查一下网络状况。
 

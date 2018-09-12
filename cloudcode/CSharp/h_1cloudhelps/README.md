@@ -315,7 +315,7 @@ A:目前并没有提供该类型的接口
 ---
 
 Q:连上vpn没有数据返回
-A:可以在连上VPN时ping https://api.bmob.cn/看看能否ping通，有可能是VPN屏蔽了
+A:可以在连上VPN时ping https://api2.bmob.cn/看看能否ping通，有可能是VPN屏蔽了
 
 ---
 
@@ -526,7 +526,7 @@ curl -X GET \
 -H "X-Bmob-REST-API-Key: Your REST API Key" \
 -G \
 --data-urlencode 'keys=username' \
-https://api.bmob.cn/1/users/某个用户的objectId
+https://api2.bmob.cn/1/users/某个用户的objectId
 ```
 
 第二步：score降序获取前1000名的用户的用户名：
@@ -536,7 +536,7 @@ curl -X GET \
 -H "X-Bmob-REST-API-Key: Your REST API Key" \
 -G \
 --data-urlencode 'keys=username&order=-score&count=true&limit=1000&skip=0' \
-https://api.bmob.cn/1/classes/GameScore
+https://api2.bmob.cn/1/classes/GameScore
 ```
 返回前1000名的用户名，判断前一个查询的用户名是否在这个数组的哪个位置，如果没有找到，继续第二步, skip设为1000，直到找到为止。
 

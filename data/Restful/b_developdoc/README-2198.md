@@ -58,15 +58,15 @@ createdAt和updatedAt都是UTC时间戳,以ISO 8601标准和毫秒级精度储�
 
 在REST API中class级的在一个资源上的操作只能根据类名来进行，例如，如果类名是GameScore，那么class的URL就是
 ```
-https://api.bmob.cn/1/classes/GameScore
+https://api2.bmob.cn/1/classes/GameScore
 ```
 用户有一个特殊的类级的url:
 ```
-https://api.bmob.cn/1/users
+https://api2.bmob.cn/1/users
 ```
 针对于一个特定的对象的操作可以通过组织一个URL来做，例如，对GameScore中的一个objectId为e1kXT22L的对象的操作应使用如下URL:
 ```
-https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ## 数据类型
@@ -86,7 +86,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"createdAt":{"$gte":{"__type":"Date","iso":"2011-08-21 18:02:52"}}}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 Pointer 类型是当前对象要指向另一个对象时使用，它包含了 className 和 objectId 作为一个指针正确指向的必填值.
 ```
@@ -117,12 +117,12 @@ curl -X POST \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"score":1337,"playerName":"Sean Plott","cheatMode":false}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 当创建成功时，响应的HTTP状态码的返回值是201 Created，而响应的HTTP头部中的Location的值是表示刚创建的该对象的URL:
 ```
 Status: 201 Created
-Location: https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+Location: https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 响应的主体是一个JSON对象,包含新的对象的objectId和createdAt时间戳：
 ```
@@ -141,7 +141,7 @@ Location: https://api.bmob.cn/1/classes/GameScore/e1kXT22L
 curl -X GET \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 返回的值就是一个JSON对象包含了results字段,它的值就是对象的列表:
 ```
@@ -174,7 +174,7 @@ curl -X GET \
 curl -X GET \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 返回的主体是一个JSON对象包含所有用户提供的field，并且加上系统保留的createdAt,updatedAt和objectId三个Key的值：
 ```
@@ -198,7 +198,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'include=game' \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 返回的主体是一个JSON对象包含GameScore的所有Key，并有game这个Pointer的Key被扩展为一个Game对象:
 ```
@@ -229,7 +229,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"playerName":"Sean Plott","cheatMode":false}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 where的参数的值除了上面的准确匹配外，还支持比较运算符的方式，除了给定一个确定的值的方式，提供一个hash中包含有key用于比较也是可以的，where参数支持下面一些选项:
 
@@ -254,7 +254,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"score":{"$gte":1000,"$lte":3000}}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 为了获得score得分在10以下并且是一个奇数，我们需要这样做:
 ```
@@ -263,7 +263,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"score":{"$in":[1,3,5,7,9]}}' \
-	https://api.bmob.cn/1/classes/GameScore
+	https://api2.bmob.cn/1/classes/GameScore
 ```
 为了获取playerName不在列表中的GameScore对象们，我们可以:
 ```
@@ -272,7 +272,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"playerName":{"$nin":["Jonathan Walsh","Dario Wunsch","Shawn Simon"]}}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 为了获取有分数的对象，我们应该用:
 ```
@@ -281,7 +281,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"score":{"$exists":true}}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 为了获取没有分数的对象，用:
 ```
@@ -290,7 +290,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"score":{"$exists":false}}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 
 ### 分页查询
@@ -302,7 +302,7 @@ curl -X GET \
     -G \
     --data-urlencode 'limit=200' \
     --data-urlencode 'skip=400' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 
 ### 结果排序
@@ -313,7 +313,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'order=score' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 而以下这样返回的对象会以score降序排列:
 ```
@@ -322,7 +322,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'order=-score' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 您可以用多个字段进行排序，只要用一个逗号隔开的列表就可以，为了获取GameScore以score的升序和name的降序进行排序:
 ```
@@ -331,7 +331,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'order=score,-name' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 
 ### 统计对象数量
@@ -344,7 +344,7 @@ curl -X GET \
     --data-urlencode 'where={"playerName":"Jonathan Walsh"}' \
     --data-urlencode 'count=1' \
     --data-urlencode 'limit=0' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 因为请求了count而且把limit设为了0，返回的值里面只有计数，results为空数组集。
 ```
@@ -370,7 +370,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"$or":[{"wins":{"$gt":150}},{"wins":{"$lt":5}}]}' \
-    https://api.bmob.cn/1/classes/Player
+    https://api2.bmob.cn/1/classes/Player
 ```
 
 任何在查询上的其他的约束都会对返回的对象生效，所以您可以用$or对其他的查询添加约束。
@@ -385,7 +385,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'keys=score,playerName' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 
 ## 修改数据
@@ -396,7 +396,7 @@ curl -X PUT \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"score":73453}' \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 返回的JSON对象只会包含一个updatedAt字段，表明更新发生的时间：
 ```
@@ -411,7 +411,7 @@ curl -X PUT \
 curl -X DELETE \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ## 删除字段
@@ -422,7 +422,7 @@ curl -X PUT \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"opponents":{"__op":"Delete"}}' \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ## 数组
@@ -443,7 +443,7 @@ curl -X POST \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"list":{"__op":"Add","objects":["person1","person2"]}}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 添加一行记录时创建一个普通的类似于集合的数组类型字段，可以使用以下方法添加：
 ```
@@ -452,7 +452,7 @@ curl -X POST \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"list":{"__op":"Add","objects":["person1","person2"]}}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 
 ### 更新数组数据
@@ -463,7 +463,7 @@ curl -X PUT \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"skills":{"__op":"AddUnique","objects":["flying","kungfu"]}}' \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ### 查询数组数据
@@ -474,7 +474,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"arrayKey":2}' \
-    https://api.bmob.cn/1/classes/RandomObject
+    https://api2.bmob.cn/1/classes/RandomObject
 ```
 
 您同样可以使用"$all"操作符来找到类型为数组的Key的值中包含有2,3和4的对象:
@@ -484,7 +484,7 @@ curl -X GET \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -G \
     --data-urlencode 'where={"arrayKey":{"$all":[2,3,4]}}' \
-    https://api.bmob.cn/1/classes/RandomObject
+    https://api2.bmob.cn/1/classes/RandomObject
 ```
 
 ### 删除数组数据
@@ -495,7 +495,7 @@ curl -X PUT \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"skills":{"__op":"Remove","objects":["flying","kungfu"]}}' \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ## 数据关联
@@ -511,7 +511,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
   -d '{"game":{"__type":"Pointer","className":"Game","objectId":"DdUOIIIW"}}' \
-  https://api.bmob.cn/1/classes/GameScore
+  https://api2.bmob.cn/1/classes/GameScore
 ```
 
 为了更新 `Relation` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加一行记录时并添加多个关系:
@@ -521,7 +521,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
   -d '{"opponents":{"__op":"AddRelation","objects":[{"__type":"Pointer","className":"Player","objectId":"z0lOxp1X"},{"__type":"Pointer","className":"Player","objectId":"MTzXDDDG"}]}}' \
-  https://api.bmob.cn/1/classes/GameScore
+  https://api2.bmob.cn/1/classes/GameScore
 ```
 
 ### 修改关联对象
@@ -532,7 +532,7 @@ curl -X PUT \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
   -d '{"game":{"__type":"Pointer","className":"Game","objectId":"DdUOIIIW"}}' \
-  https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+  https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 为了更新 `Relation` 的Key类型，[Bmob](https://www.bmob.cn/ "Bmob移动后端云服务平台")提供特殊的操作来原子化地添加和删除一个或多个关系, OK，我们可以像这样添加多个关系:
@@ -542,7 +542,7 @@ curl -X PUT \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
   -d '{"opponents":{"__op":"AddRelation","objects":[{"__type":"Pointer","className":"Player","objectId":"z0lOxp1X"},{"__type":"Pointer","className":"Player","objectId":"MTzXDDDG"}]}}' \
-  https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+  https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ### 查询关联对象
@@ -553,7 +553,7 @@ curl -X GET \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -G \
   --data-urlencode 'where={"post":{"__type":"Pointer","className":"Post","objectId":"1dafb9ed9b"}}' \
-  https://api.bmob.cn/1/classes/Comment
+  https://api2.bmob.cn/1/classes/Comment
 ```
 
 如果您想要获取对象, 这些对象的一个字段指向的对象是符合另一个查询的, 您可以使用 $inQuery 操作符，注意默认的 limit 是 100 而且最大的 limit 是 1000，这个限制同样适用于内部的查询, 所以对于较大的数据集您可能需要细心地构建查询来获得期望的行为。举例说, 假设您有一个 帖子(Post)类和一个评论(Comment)类, 每个评论(Comment)都有一个指向它的帖子(Post)的关系Key名为post，并且类型为Pointer, 您可以找到所有有图片的帖子(Post)的评论(Comment):
@@ -563,7 +563,7 @@ curl -X GET \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -G \
   --data-urlencode 'where={"post":{"$inQuery":{"where":{"image":{"$exists":true}},"className":"Post"}}}' \
-  https://api.bmob.cn/1/classes/Comment
+  https://api2.bmob.cn/1/classes/Comment
 ```
 
 同理，使用下面的请求，您可以找到所有没有图片的帖子(Post)的评论(Comment):
@@ -573,7 +573,7 @@ curl -X GET \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -G \
   --data-urlencode 'where={"post":{"$notInQuery":{"where":{"image":{"$exists":true}},"className":"Post"}}}' \
-  https://api.bmob.cn/1/classes/Comment
+  https://api2.bmob.cn/1/classes/Comment
 ```
 
 如果您想获取的对象，是其父对象的关系 `Relation` 类型的Key的所有成员的话, 您可以使用 $relatedTo 操作符, 假设您有一个帖子(Post)类和一个系统默认的用户(_User)类, 而每一个帖子(Post)都可以被不同的用户(_User)所喜欢。 如果帖子(Post)类下面有一个Key名为likes，且是 `Relation` 类型, 存储了喜欢这个帖子(Post)的用户(_User)。那么您可以找到喜欢过同一个指定的帖子(Post)的所有用户：
@@ -583,7 +583,7 @@ curl -X GET \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -G \
   --data-urlencode 'where={"$relatedTo":{"object":{"__type":"Pointer","className":"Post","objectId":"1dafb9ed9b"},"key":"likes"}}' \
-  https://api.bmob.cn/1/users
+  https://api2.bmob.cn/1/users
 ```
 
 还可以使用组合查询，比如下面这样，判断用户是否喜欢(likes)过这个帖子：
@@ -595,7 +595,7 @@ curl -X GET \
   --data-urlencode 'where={"likes":{"$inQuery":{"where":{"objectId":"用户objectId"},"className":"_User"}}, "objectId":"帖子objectId"}'
   --data-urlencode 'limit=0'
   --data-urlencode 'count=true'
-  https://api.bmob.cn/1/classes/Post
+  https://api2.bmob.cn/1/classes/Post
 ```
 
 返回结果集如下：
@@ -617,7 +617,7 @@ curl -X GET \
   --data-urlencode 'order=-createdAt' \
   --data-urlencode 'limit=10' \
   --data-urlencode 'include=post' \
-  https://api.bmob.cn/1/classes/Comment
+  https://api2.bmob.cn/1/classes/Comment
 ```
 不是作为一个 `Pointer` 类型表示，post字段现在已经被展开为一个完整的帖子(Post)对象， __type 被设置为 `Object` 而 `className` 同样也被提供了。 举例说， 一个指向帖子(Post)的Pointer原本展示为：
 ```
@@ -648,7 +648,7 @@ curl -X GET \
   --data-urlencode 'order=-createdAt' \
   --data-urlencode 'limit=10' \
   --data-urlencode 'include=post.author' \
-  https://api.bmob.cn/1/classes/Comment
+  https://api2.bmob.cn/1/classes/Comment
 ```
 如果您要构建一个查询, 这个查询要include多个 `Pointer` 类型的Key, 此时用逗号分隔Key名称列表即可。
 
@@ -660,7 +660,7 @@ curl -X PUT \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
   -d '{"opponents":{"__op":"RemoveRelation","objects":[{"__type":"Pointer","className":"Player","objectId":"z0lOxp1X"}]}}' \
-  https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+  https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ## 批量数据操作
@@ -693,7 +693,7 @@ curl -X POST \
           }
         ]
       }' \
-  https://api.bmob.cn/1/batch
+  https://api2.bmob.cn/1/batch
 ```
 批量操作的响应会是一个列表, 列表的返回值个数同给定的requests请求个数是相等的。列表中每个返回项都有一个字段是 `"success"` 或者 `"error"`， `"success"` 的值是通常是和你进行其他REST操作成功时返回的值是一样的:
 ```
@@ -734,7 +734,7 @@ curl -X POST \
           }
         ]
       }' \
-  https://api.bmob.cn/1/batch
+  https://api2.bmob.cn/1/batch
 ```
 
 ## 原子计数器
@@ -745,7 +745,7 @@ curl -X PUT \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"score":{"__op":"Increment","amount":1}}' \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 同理可以让score像下面一样减少一个固定的值：
 ```
@@ -754,7 +754,7 @@ curl -X PUT \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"score":{"__op":"Increment","amount":-2}}' \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ## 文件
@@ -837,7 +837,7 @@ curl -X POST \
 curl -X DELETE \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
-   http://api.bmob.cn/1/files/group1/M00/00/01/wKgBP1N3FAWRJXsSAAAB_rYZATs52.html
+   http://api2.bmob.cn/1/files/group1/M00/00/01/wKgBP1N3FAWRJXsSAAAB_rYZATs52.html
 ```
 
 在上面的例子中，group1是组名，M00/00/01/wKgBP1N3FAWRJXsSAAAB_rYZATs52.html是url。
@@ -876,12 +876,12 @@ curl -X POST \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"username":"cooldude6","password":"b_m7!-o8","phone":"415-392-0202"}' \
-    https://api.bmob.cn/1/users
+    https://api2.bmob.cn/1/users
 ```
 当创建成功时,HTTP响应头的状态码返回为201 Created，Http响应头的Location值为包含了该新用户的URL:
 ```
 Status: 201 Created
-Location: https://api.bmob.cn/1/users/Kc3M222J
+Location: https://api2.bmob.cn/1/users/Kc3M222J
 ```
 返回的主体是一个JSON对象，包含objectId表示唯一的用户, createdAt时间戳表示用户注册时间, sessionToken可以被用来认证更新或删除这名用户信息的请求。
 ```
@@ -906,7 +906,7 @@ curl -X GET    \
     -G \
     --data-urlencode 'username=cooldude6' \
     --data-urlencode 'password=b_m7!-o8' \
-    https://api.bmob.cn/1/login
+    https://api2.bmob.cn/1/login
 ```
 返回的主体是一个JSON对象包括所有除了password以外的自定义字段，它同样包含了createdAt,updateAt,objectId和sessionToken字段：
 ```
@@ -926,7 +926,7 @@ curl -X GET    \
 curl -X GET \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
-    https://api.bmob.cn/1/users/Kc3M222J
+    https://api2.bmob.cn/1/users/Kc3M222J
 ```
 返回的body是一个JSON对象,包含所有用户提供的字段,除了密码以外.也包括了createdAt,updatedAt和objectId字段.
 ```
@@ -952,7 +952,7 @@ curl -X PUT \
     -H "X-Bmob-Session-Token: pnktnjyb996sj4p156gjtp4im" \
     -H "Content-Type: application/json" \
     -d '{"phone":"415-369-6201"}' \
-    https://api.bmob.cn/1/users/Kc3M222J
+    https://api2.bmob.cn/1/users/Kc3M222J
 ```
 返回的body是一个JSON对象，只有一个updatedAt字段表明更新发生的时间.
 ```
@@ -969,7 +969,7 @@ curl -X DELETE \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "X-Bmob-Session-Token: pnktnjyb996sj4p156gjtp4im" \
-    https://api.bmob.cn/1/users/g7y9tkhB7O
+    https://api2.bmob.cn/1/users/g7y9tkhB7O
 ```
 
 ### 查询用户
@@ -978,7 +978,7 @@ curl -X DELETE \
 curl -X GET \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
-    https://api.bmob.cn/1/users
+    https://api2.bmob.cn/1/users
 ```
 返回的值是一个JSON对象包括一个results字段, 值是包含了所有对象的一个JSON数组.
 ```
@@ -1014,7 +1014,7 @@ curl -X POST \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"email":"coolguy@iloveapps.com"}' \
-    https://api.bmob.cn/1/requestPasswordReset
+    https://api2.bmob.cn/1/requestPasswordReset
 ```
 如果成功的话,返回的值是一个JSON对象。
 密码重置流程如下：
@@ -1043,7 +1043,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
   -d '{"email":"coolguy@iloveapps.com"}' \
-  https://api.bmob.cn/1/requestEmailVerify
+  https://api2.bmob.cn/1/requestEmailVerify
 ```
 
 ## 地理位置
@@ -1060,7 +1060,7 @@ curl -X PUT \
             "latitude": 112.934755,
             "longitude": 24.52065
         }}' \
-  https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+  https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ### 查询地理位置信息
@@ -1081,7 +1081,7 @@ curl -X GET \
         }
       }
     }' \
-    https://api.bmob.cn/1/classes/PlaceObject
+    https://api2.bmob.cn/1/classes/PlaceObject
 ```
 这会按离纬度30.0，经度-20.0的距离排序返回一系列的结果，第一个就是最近的对象。(注意如果一个特定的order参数给了的话，它会覆盖按距离排序)，例如，下面是两个上面的查询返回的结果：
 ```
@@ -1126,7 +1126,7 @@ curl -X GET \
         "$maxDistanceInKilometers": 10.0
         }
     }' \
-    https://api.bmob.cn/1/classes/PlaceObject
+    https://api2.bmob.cn/1/classes/PlaceObject
 ```
 同样做查询寻找在一个特定的范围里面的对象也是可以的，为了找到在一个矩形的区域里的对象，按下面的格式加入一个约束 {"$within": {"$box": {[southwestGeoPoint, northeastGeoPoint]}}}：
 ```
@@ -1152,7 +1152,7 @@ curl -X GET \
             }
         }
     }' \
-    https://api.bmob.cn/1/classes/PizzaPlaceObject
+    https://api2.bmob.cn/1/classes/PizzaPlaceObject
 ```
 
 
@@ -1195,7 +1195,7 @@ curl -X POST \
           "Giants"
         ]
       }' \
-  https://api.bmob.cn/1/installations
+  https://api2.bmob.cn/1/installations
 ```
 #### 保存Android设备的 installationId
 
@@ -1213,7 +1213,7 @@ curl -X POST \
           "Mets"
         ]
       }' \
-  https://api.bmob.cn/1/installations
+  https://api2.bmob.cn/1/installations
 ```
 你还可以更新Installation对象的更多属性，用来查询installationId，定制更通用的推送
 ```
@@ -1226,7 +1226,7 @@ curl -X PUT \
         "gameResults": true,
         "injuryReports": true
       }' \
-  https://api.bmob.cn/1/installations/mrmBZvsErB
+  https://api2.bmob.cn/1/installations/mrmBZvsErB
 ```
 
 ### 订阅频道和退订
@@ -1244,7 +1244,7 @@ curl -X PUT \
           "Mets"
         ]
       }' \
-  https://api.bmob.cn/1/installations/mrmBZvsErB
+  https://api2.bmob.cn/1/installations/mrmBZvsErB
 ```
 订阅一个新频道，不覆盖已订阅的频道：
 ```
@@ -1253,7 +1253,7 @@ curl -X PUT \
   -H "X-Bmob-REST-API-Key: Your REST API Key"        \
   -H "Content-Type: application/json" \
   -d '{"channels":{"__op":"AddUnique","objects":["Giants"]}}' \
-  https://api.bmob.cn/1/installations/mrmBZvsErB
+  https://api2.bmob.cn/1/installations/mrmBZvsErB
 ```
 
 #### 退订频道
@@ -1263,7 +1263,7 @@ curl -X PUT \
   -H "X-Bmob-REST-API-Key: Your REST API Key"        \
   -H "Content-Type: application/json" \
   -d '{"channels":{"__op":"Remove","objects":["Giants"，"Mets"]}}' \
-  https://api.bmob.cn/1/installations/mrmBZvsErB
+  https://api2.bmob.cn/1/installations/mrmBZvsErB
 ```
 
 ### 广播推送消息
@@ -1277,7 +1277,7 @@ curl -X POST \
           "alert": "Hello From Bmob."
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
 
 ### 组播推送消息
@@ -1295,7 +1295,7 @@ curl -X POST \
           "alert": "Hello From Bmob."
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
  或者更简便的方式
 ```
@@ -1309,7 +1309,7 @@ curl -X POST \
           "alert": "Hello From Bmob."
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
 
 ### 多播推送消息
@@ -1329,7 +1329,7 @@ curl -X POST \
             "alert": "Hello From Bmob."
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
 
 #### 根据查询条件做推送
@@ -1346,7 +1346,7 @@ curl -X POST \
           "alert": "Willie Hayes injured by own pop fly."
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
 请注意，where 条件查询的都是 installations 表。这里是假设 installations 表存储了 scores 的布尔属性，你可以像查询普通对象一样构造where查询
 
@@ -1406,7 +1406,7 @@ curl -X POST \
           "alert": "Free hotdogs at the bmob concession stand!"
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
 上面的例子假设 installation 有个 user 属性指向_User 表的记录，并且用户有个 location 属性是 GeoPoint 类型，我们就可以根据地理信息位置做推送。
 
@@ -1425,7 +1425,7 @@ curl -X POST \
           "alert": "Hello From Bmob."
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
 发送给iOS单个客户端
 ```
@@ -1441,7 +1441,7 @@ curl -X POST \
           "alert": "Hello From Bmob."
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
 
 ### 发送选项设置
@@ -1509,7 +1509,7 @@ curl -X POST \
           "alert": "Season tickets on sale until December  4, 2013"
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
 也可以是相对时间（根据push_time做定期推送，从push_time时间开始算起，直到expiration_interval时间后过期），下面请求表示消息将在2012-01-28 00:51:13这个时间点开始推送，直到7天后过期:
 ```
@@ -1524,7 +1524,7 @@ curl -X POST \
           "alert": "Season tickets on sale until December  4, 2013"
         }
       }' \
-  https://api.bmob.cn/1/push
+  https://api2.bmob.cn/1/push
 ```
 
 ## 注意事项和常见问题解答

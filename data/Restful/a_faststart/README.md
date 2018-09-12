@@ -29,7 +29,7 @@ curl -X POST \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"score":1337,"playerName":"Sean Plott","cheatMode":false}' \
-    https://api.bmob.cn/1/classes/GameScore
+    https://api2.bmob.cn/1/classes/GameScore
 ```
 
 ### RestAPI调试工具
@@ -47,7 +47,7 @@ curl -X POST \
 curl -X GET \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 
 ```
 
@@ -59,7 +59,7 @@ curl -X PUT \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
     -H "Content-Type: application/json" \
     -d '{"score":73453}' \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 ## 删除一行数据
@@ -67,7 +67,7 @@ curl -X PUT \
 curl -X DELETE \
     -H "X-Bmob-Application-Id: Your Application ID" \
     -H "X-Bmob-REST-API-Key: Your REST API Key" \
-    https://api.bmob.cn/1/classes/GameScore/e1kXT22L
+    https://api2.bmob.cn/1/classes/GameScore/e1kXT22L
 ```
 
 

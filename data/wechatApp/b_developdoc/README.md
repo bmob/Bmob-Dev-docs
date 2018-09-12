@@ -101,8 +101,8 @@ ps:最近小程序也推出了显示H5页面，如果需要使用，可开通FTP
 ## 客服消息
 使用nodejs云函数可以对其他平台接口进行服务端开发，具体开发请参考微信官方文档。
 
-## WebSocket 
-一个微信小程序同时只能有一个 WebSocket 连接，如果当前已存在一个 WebSocket 连接，会创建失败。WebSocket可以做一些实时数据功能，比如聊天室，你画我猜之类的游戏。具体文档参考~~JavaScript->实时数据平台~~  
+## WebSocket
+一个微信小程序同时只能有一个 WebSocket 连接，如果当前已存在一个 WebSocket 连接，会创建失败。WebSocket可以做一些实时数据功能，比如聊天室，你画我猜之类的游戏。具体文档参考~~JavaScript->实时数据平台~~
 
 ## 微信主人通知接口
 微信主动推送通知，业务场景：比如你有APP，有人下单了，或者有人留言了。你可以收到微信推送通知。
@@ -160,7 +160,7 @@ ps:最近小程序也推出了显示H5页面，如果需要使用，可开通FTP
 ```
 
 curl --request POST \
-  --url http://api.bmob.cn/1/wechatApp/notifyMsg \
+  --url http://api2.bmob.cn/1/wechatApp/notifyMsg \
   --header 'content-type: application/json' \
   --header 'x-bmob-application-id: ' \
   --header 'x-bmob-rest-api-key: ' \
@@ -381,7 +381,7 @@ var sessionKey="xTlW5jfSUP3Kx0vC5PJbmw==";
 Restful
 ```
 curl -X POST \
-  http://api.bmob.cn/1/wechatApp/SendWeAppMessage \
+  http://api2.bmob.cn/1/wechatApp/SendWeAppMessage \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'x-bmob-application-id: XXX' \

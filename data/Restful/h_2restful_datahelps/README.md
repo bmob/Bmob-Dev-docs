@@ -52,7 +52,7 @@ A:，把文件改为 UTF-8 无BOM格式
 ---
 
 Q:restAPI 使用短信验证码进行密码重置问题
-用短信验证码进行密码重置 的接口 https://api.bmob.cn/1/resetPasswordBySmsCode ，从接口描述来看，需要上传的信息只有 验证码和新密码，用户的 session 或手机号都不需要上传。
+用短信验证码进行密码重置 的接口 https://api2.bmob.cn/1/resetPasswordBySmsCode ，从接口描述来看，需要上传的信息只有 验证码和新密码，用户的 session 或手机号都不需要上传。
 那后台如何知道这个验证码是哪个手机号发来的呢？
 A:后台是根据你的手机号来生成验证码的，服务端可以知道具体的验证码对应哪个手机号，请放心使用
 
@@ -155,7 +155,7 @@ A:使用Chrome浏览器的Postman插件就可以进行调试了。[点击链接P
 
 ---
 Q:Postman发起数据请求没有反应
-A:首先先检查本地网络，通常是因为本地网络或者Postman没有成功发出数据请求，其次可以打开[https://api.bmob.cn/](https://api.bmob.cn/)查看是否能打开进行测试。
+A:首先先检查本地网络，通常是因为本地网络或者Postman没有成功发出数据请求，其次可以打开[https://api2.bmob.cn/](https://api2.bmob.cn/)查看是否能打开进行测试。
 
 ---
 
@@ -181,7 +181,7 @@ A:点击下面的链接可以看到Java调用RestApi的示例代码：
 ---
 
 Q:关于where条件的问题
-A:有开发者提出用PostMan请求的时候没有问题，但是用Java请求构造了where查询条件的时候有错（请求的格式大致如， `https://api.bmob.cn/1/classes/Footballer?limit=20&where={"location": {"$nearSphere": {"__type": "GeoPoint","latitude": 32.31735060,"longitude": 118.32457035 }}}` ）。
+A:有开发者提出用PostMan请求的时候没有问题，但是用Java请求构造了where查询条件的时候有错（请求的格式大致如， `https://api2.bmob.cn/1/classes/Footballer?limit=20&where={"location": {"$nearSphere": {"__type": "GeoPoint","latitude": 32.31735060,"longitude": 118.32457035 }}}` ）。
 
 这个问题是因为特殊字符导致的问题，大家可以参考以下的解决方案：
 

@@ -5,7 +5,7 @@
 
 **请求**
 
-- url ：https://api.bmob.cn/1/functions/funcName
+- url ：https://api2.bmob.cn/1/functions/funcName
 
 - method ：POST
 
@@ -43,7 +43,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
   -d '{"name":1337.23,"playerName":"Sean Plott","cheatMode":false}' \
-  https://api.bmob.cn/1/functions/hello
+  https://api2.bmob.cn/1/functions/hello
 ```
 
 如果运行的云函数不需要传入参数，请参考下面的例子。
@@ -55,7 +55,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key" \
   -H "Content-Type: application/json" \
   -d '{}' \
-  https://api.bmob.cn/1/functions/test
+  https://api2.bmob.cn/1/functions/test
 ```
 
 

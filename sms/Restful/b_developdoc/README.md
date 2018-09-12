@@ -22,7 +22,7 @@
 **短信模板需要符以下要求，否则模板审核不予通过。**
 
 注意：请不要发送任何敏感内容，请不要定制广告、营销以诱导用户行为的信息。具体如下：
-1.不得包含敏感关键，[关键字列表文档下载](https://github.com/bmob/bmob-public-docs)，不得包含【】和 [] 
+1.不得包含敏感关键，[关键字列表文档下载](https://github.com/bmob/bmob-public-docs)，不得包含【】和 []
 2.带联系方式（电话、qq微信、邮箱地址）的短信。如：“目前我司推出xx产品最新优惠，联系陈生了解详情，电话123-1234-1234”;
 3.诱导用户行为，特别是带超链接。如“我司推出新作xxx游戏，下载链接http://xxx.com”等；
 当前有两种使用自定义模板
@@ -31,7 +31,7 @@
 
 **请求**
 
-- url ：https://api.bmob.cn/1/requestSms
+- url ：https://api2.bmob.cn/1/requestSms
 
 - method ：POST
 
@@ -76,7 +76,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key"        \
   -H "Content-Type: application/json" \
   -d '{"mobilePhoneNumber": "186xxxxxxxx", "content":"您的验证码是：222222, 有效期是10分钟。"}' \
-  https://api.bmob.cn/1/requestSms
+  https://api2.bmob.cn/1/requestSms
 ```
 
 你可以选择定时发送，比如未来的某一时刻给某个手机发送一条短信，sendTime的格式必须是YYYY-mm-dd HH:ii:ss， 如: 2015-05-26 12:13:14，请求如下：
@@ -87,7 +87,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key"        \
   -H "Content-Type: application/json" \
   -d '{"mobilePhoneNumber": "186xxxxxxxx", "content":"您的验证码是：222222, 有效期是10分钟。感谢您使用Bmob。", "sendTime":"2016-05-26 12:13:14"}' \
-  https://api.bmob.cn/1/requestSms
+  https://api2.bmob.cn/1/requestSms
 ```
 
 成功返回短信验证码ID：
@@ -107,7 +107,7 @@ curl -X POST \
 
 **请求**
 
-- url ：https://api.bmob.cn/1/requestSmsCode
+- url ：https://api2.bmob.cn/1/requestSmsCode
 
 - method ：POST
 
@@ -150,7 +150,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key"        \
   -H "Content-Type: application/json" \
   -d '{"mobilePhoneNumber": "186xxxxxxxx"}' \
-  https://api.bmob.cn/1/requestSmsCode
+  https://api2.bmob.cn/1/requestSmsCode
 ```
 
 成功返回，短信验证码ID，可用于后面使用查询短信状态接口来查询该短信验证码是否发送成功和是否验证过：
@@ -169,7 +169,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key"        \
   -H "Content-Type: application/json" \
   -d '{"mobilePhoneNumber": "186xxxxxxxx", "template":"注册模板"}' \
-  https://api.bmob.cn/1/requestSmsCode
+  https://api2.bmob.cn/1/requestSmsCode
 ```
 
 成功返回，短信验证码ID，可用于后面使用查询短信状态接口来查询该短信验证码是否发送成功和是否验证过：
@@ -188,7 +188,7 @@ curl -X POST \
 
 **请求**
 
-- url ：https://api.bmob.cn/1/verifySmsCode/smsCode(用户收到的6位短信验证码)
+- url ：https://api2.bmob.cn/1/verifySmsCode/smsCode(用户收到的6位短信验证码)
 
 - method ：POST
 
@@ -230,7 +230,7 @@ curl -X POST \
   -H "X-Bmob-REST-API-Key: Your REST API Key"        \
   -H "Content-Type: application/json" \
   -d '{"mobilePhoneNumber": "186xxxxxxxx"}' \
-  https://api.bmob.cn/1/verifySmsCode/876845
+  https://api2.bmob.cn/1/verifySmsCode/876845
 ```
 
 
@@ -244,13 +244,13 @@ curl -X POST \
 curl -X GET \
   -H "X-Bmob-Application-Id: Your Application ID"          \
   -H "X-Bmob-REST-API-Key: Your REST API Key"        \
-  https://api.bmob.cn/1/querySms/123678
+  https://api2.bmob.cn/1/querySms/123678
 ```
 
 成功返回以下JSON：
 ```
 {
-  "sms_state": "SENDING", 
+  "sms_state": "SENDING",
   "verify_state": false
 }
 ```
